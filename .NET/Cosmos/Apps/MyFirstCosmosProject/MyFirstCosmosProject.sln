@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{471EC4BB-E47E-4229-A789-D1F5F83B52D4}") = "MyFirstCosmosProject", "MyFirstCosmosProject\MyFirstCosmosProject.Cosmos", "{5E728B9C-A328-469A-A8BE-D4002452A7C1}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/TFS05
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MyFirstCosmosProject\\MyFirstCosmosProject.Cosmos
+		SccProjectName1 = MyFirstCosmosProject
+		SccLocalPath1 = MyFirstCosmosProject
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E728B9C-A328-469A-A8BE-D4002452A7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E728B9C-A328-469A-A8BE-D4002452A7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E728B9C-A328-469A-A8BE-D4002452A7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E728B9C-A328-469A-A8BE-D4002452A7C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

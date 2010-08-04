@@ -1,0 +1,49 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5e728b9c-a328-469a-a8be-d4002452a7c1}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Cosmos.User.Kernel</RootNamespace>
+    <AssemblyName>CosmosKernel</AssemblyName>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <Name>Project2</Name>
+    <Language>CSharp</Language>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <Framework>MicrosoftNET</Framework>
+    <UseInternalAssembler>False</UseInternalAssembler>
+    <EnableGDB>
+    </EnableGDB>
+    <DebugMode>Source</DebugMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <Framework>MicrosoftNET</Framework>
+    <UseInternalAssembler>False</UseInternalAssembler>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="Cosmos.Hardware" />
+    <Reference Include="Cosmos.Kernel" />
+    <Reference Include="Cosmos.Sys" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Program.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Cosmos\Cosmos.targets" />
+</Project>
