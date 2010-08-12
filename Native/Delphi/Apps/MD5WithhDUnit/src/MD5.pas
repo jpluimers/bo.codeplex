@@ -405,10 +405,6 @@ Begin
   Update(Value, SizeOf(Value))
 End;
 
-//{$IFNDEF UNICODE}
-//type
-//  TByteDynArray: array of Byte;
-//{$ENDIF UNICODE}
 Procedure TMD5.Add (Const Value: String);
 //Begin
 //  Update(PChar(Value)^, Length(Value));
@@ -417,7 +413,6 @@ var
 {$IFDEF UNICODE}
   utf8Str: UTF8String;
 {$ENDIF}
-//  Bytes: TByteDynArray;
   Len: Integer;
   Str: PAnsiChar;
 begin
@@ -429,14 +424,11 @@ begin
 {$ENDIF}
   if Len > 0 then
   begin
-//    SetLength(Bytes, Len);
 {$IFDEF UNICODE}
     Str := PAnsiChar(utf8Str);
 {$ELSE}
     Str := PAnsiChar(Value);
 {$ENDIF}
-//    Move(Str^, Pointer(Bytes)^, Len);
-//    Update(Bytes, Len);
     Update(Str^, Len);
   end;
 end;

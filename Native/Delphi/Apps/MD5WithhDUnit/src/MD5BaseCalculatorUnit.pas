@@ -2,12 +2,17 @@ unit MD5BaseCalculatorUnit;
 
 interface
 
+uses
+  Classes;
+
 //##jpl: note that for Unicode you should perform some kind of Normalization (http://unicode.org/reports/tr15/)
 // java SE6 includes a few of those (http://java.sun.com/developer/technicalArticles/javase/i18n_enhance/#normalization)
 // MessageDigest_5 chooses to encode through UTF8, I'm not sure that is always a good thing to do.
 
 type
   TMD5BaseCalculator = class(TObject)
+  strict protected
+    function CreateReadOnlyFileStream(const Filename: string): TFileStream; virtual;
   public
     procedure CalculateFile(const Filename:string; var MD5Hash: string); overload; virtual;
     procedure CalculateString(const Buffer:string; var MD5Hash: string); overload; virtual;
@@ -29,13 +34,24 @@ type
     procedure CalculateString(const Buffer:string; var MD5Hash: string); overload; override;
   end;
 
+  TIdHashMessageDigest5Calculator = class(TMD5BaseCalculator)
+  public
+    procedure CalculateFile(const Filename:string; var MD5Hash: string); overload; override;
+    procedure CalculateString(const Buffer:string; var MD5Hash: string); overload; override;
+  end;
+
 const
   ChunkSize = 8192; // for streaming of files
 
 implementation
 
 uses
-  SysUtils, MD5, MessageDigest_5, Classes, Variants, Types;
+  SysUtils,
+  MD5,
+  MessageDigest_5,
+  Variants,
+  Types,
+  IdHashMessageDigest;
 
 procedure TMD5BaseCalculator.CalculateFile(const Filename:string; var MD5Hash: string);
 begin
@@ -47,33 +63,41 @@ begin
   MD5Hash := NullAsStringValue;
 end;
 
+function TMD5BaseCalculator.CreateReadOnlyFileStream(const Filename: string): TFileStream;
+begin
+  Result := TFileStream.Create(Filename, fmOpenRead or fmShareDenyWrite);
+end;
+
 procedure TMD5Calculator.CalculateFile(const Filename:string; var MD5Hash: string);
 begin
-  MD5Hash := LowerCase(FileMD5Digest(Filename));
+  MD5Hash := FileMD5Digest(Filename);
 end;
 
 procedure TMD5Calculator.CalculateString(const Buffer:string; var MD5Hash: string);
 begin
-  MD5Hash := LowerCase(StringMD5Digest(Buffer));
+  MD5Hash := StringMD5Digest(Buffer);
 end;
 
 procedure TMessageDigest_5Calculator.CalculateFile(const Filename:string; var MD5Hash: string);
 var
-  hash: MessageDigest_5.IMD5;
-  fingerprint: string;
+  Hasher: MessageDigest_5.IMD5;
   FileStream: TFileStream;
   Bytes: TByteDynArray; // ##jpl: equivalent but not equal to TBytes;
   NumberOfBytesRead: Cardinal;
 begin
-  hash := MessageDigest_5.GetMD5();
+  Hasher := MessageDigest_5.GetMD5();
   try
-    FileStream := TFileStream.Create(Filename, fmOpenRead or fmShareDenyWrite);
+    FileStream := CreateReadOnlyFileStream(Filename);
     try
       SetLength(Bytes, ChunkSize);
       repeat
+        // ##jpl: to circumvent this error:
+        // System Error. Code: 998.
+        // Invalid access to memory location
+        // Reason: open array of bytes will not pass the pointer to the first element.
         NumberOfBytesRead := FileStream.Read(Pointer(Bytes)^, ChunkSize);
         if NumberOfBytesRead > 0 then
-          hash.Update(Bytes, NumberOfBytesRead);
+          Hasher.Update(Bytes, NumberOfBytesRead);
       until NumberOfBytesRead < ChunkSize;
       if FileStream.Position = 0 then
         if FileStream.Size <> 0 then
@@ -82,8 +106,7 @@ begin
     finally
       FileStream.Free;
     end;
-    fingerprint := hash.AsString();
-    MD5Hash := LowerCase(fingerprint);
+    MD5Hash := Hasher.AsString();
   except
     on E: EFOpenError do
     begin
@@ -95,13 +118,11 @@ end;
 
 procedure TMessageDigest_5Calculator.CalculateString(const Buffer:string; var MD5Hash: string);
 var
-  hash: MessageDigest_5.IMD5;
-  fingerprint: string;
+  Hasher: MessageDigest_5.IMD5;
 begin
-  hash := MessageDigest_5.GetMD5();
-  hash.Update(Buffer);
-  fingerprint := hash.AsString();
-  MD5Hash := LowerCase(fingerprint);
+  Hasher := MessageDigest_5.GetMD5();
+  Hasher.Update(Buffer);
+  MD5Hash := Hasher.AsString();
 end;
 
 procedure TMD5AndWriterCalculator.CalculateString(const Buffer:string; var MD5Hash: string);
@@ -124,6 +145,33 @@ begin
     SaveStrings(TEncoding.UTF8, 'UTF8');
   finally
     Strings.Free;
+  end;
+end;
+
+procedure TIdHashMessageDigest5Calculator.CalculateFile(const Filename:string; var MD5Hash: string);
+var
+  IdHashMessageDigest5 : TIdHashMessageDigest5;
+  FileStream : TFileStream;
+begin
+  IdHashMessageDigest5 := TIdHashMessageDigest5.Create;
+  FileStream := CreateReadOnlyFileStream(Filename);
+  try
+    MD5Hash := IdHashMessageDigest5.HashStreamAsHex(FileStream);
+  finally
+    FileStream.Free;
+    IdHashMessageDigest5.Free;
+  end;
+end;
+
+procedure TIdHashMessageDigest5Calculator.CalculateString(const Buffer:string; var MD5Hash: string);
+var
+  IdHashMessageDigest5 : TIdHashMessageDigest5;
+begin
+  IdHashMessageDigest5 := TIdHashMessageDigest5.Create;
+  try
+    MD5Hash := IdHashMessageDigest5.HashStringAsHex(Buffer);
+  finally
+    IdHashMessageDigest5.Free;
   end;
 end;
 

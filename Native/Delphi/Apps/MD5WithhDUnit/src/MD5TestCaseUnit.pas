@@ -10,7 +10,6 @@ uses
 type
   //##jpl: you need to add the "constructor" constraint, otherwise you cannot call the Create constructor.
   TMD5BaseTestCase<T: TMD5BaseCalculator, constructor> = class(TTestCase)
-  private
   strict protected
     MD5BaseCalculator: TMD5BaseCalculator;
     procedure Calculate(const Value:string; var MD5Hash: string); overload; virtual;
@@ -58,7 +57,7 @@ type
     procedure Test_The_quick_brown_fox_jumps_over_the_lazy_dog_; overload;
   end;
 
-//##jpl: [DCC Error] MD5TestCaseUnit.pas(109): E2506 Method of parameterized type declared in interface section must not use local symbol 'SExpectedHash_D41d8cd98f00b204e9800998ecf8427e_'
+//##jpl: [DCC Error] MD5TestCaseUnit.pas(109): E2506 Method of parameterized type declared in interface section must not use local symbol 'SExpectedHash_d41d8cd98f00b204e9800998ecf8427e_'
 const
   S_ = '';
   S_12345678901234567890123456789012 = '12345678901234567890123456789012345678901234567890123456789012345678901234567890';
@@ -67,16 +66,18 @@ const
   S_abcdefghijklmnopqrstuvwxyz = 'abcdefghijklmnopqrstuvwxyz';
   S_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   S_message_digest = 'message digest';
+
+  SExpectedHash_d41d8cd98f00b204e9800998ecf8427e_ = 'd41d8cd98f00b204e9800998ecf8427e';
   SExpectedHash_57edf4a22be3c955ac49da2e2107b67a_12345678901234567890123456789012345678901234567890123456789012345678901234567890 = '57edf4a22be3c955ac49da2e2107b67a';
   SExpectedHash_0cc175b9c0f1b6a831c399e269772661_a = '0cc175b9c0f1b6a831c399e269772661';
   SExpectedHash_900150983cd24fb0d6963f7d28e17f72_abc = '900150983cd24fb0d6963f7d28e17f72';
   SExpectedHash_c3fcd3d76192e4007dfb496cca67e13b_abcdefghijklmnopqrstuvwxyz = 'c3fcd3d76192e4007dfb496cca67e13b';
   SExpectedHash_d174ab98d277d9f5a5611c2c9f419d9f_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 = 'd174ab98d277d9f5a5611c2c9f419d9f';
   SExpectedHash_f96b697d7cb7938d525a2f31aaf161d0_message_digest = 'f96b697d7cb7938d525a2f31aaf161d0';
-  SExpectedHash_D41d8cd98f00b204e9800998ecf8427e_ = 'd41d8cd98f00b204e9800998ecf8427e';
 
   S_The_quick_brown_fox_jumps_over_the_lazy_dog = 'The quick brown fox jumps over the lazy dog';
   S_The_quick_brown_fox_jumps_over_the_lazy_dog_ = 'The quick brown fox jumps over the lazy dog.';
+
   SExpectedHash_e4d909c290d0fb1ca068ffaddf22cbd0_The_quick_brown_fox_jumps_over_the_lazy_dog_ = 'e4d909c290d0fb1ca068ffaddf22cbd0';
   SExpectedHash_S9e107d9d372bb6826bd81d3542a419d6_S_The_quick_brown_fox_jumps_over_the_lazy_dog = '9e107d9d372bb6826bd81d3542a419d6';
 
@@ -106,6 +107,7 @@ var
   MD5Hash: string;
 begin
   Calculate(Value, MD5Hash);
+  MD5Hash := LowerCase(MD5Hash); //##jpl: bug - putting a breakpoint here only breaks for TMD5StringTestCase<TMD5BaseCalculator>
   VerifyTestResult(ExpectedMD5Hash, MD5Hash, Value);
 end;
 
@@ -166,7 +168,7 @@ end;
 
 procedure TMD5StringTestCase<T>.Test_;
 begin
-  Test(SExpectedHash_D41d8cd98f00b204e9800998ecf8427e_, S_);
+  Test(SExpectedHash_d41d8cd98f00b204e9800998ecf8427e_, S_);
 end;
 
 procedure TMD5StringTestCase<T>.Test_12345678901234567890123456789012345678901234567890123456789012345678901234567890;
@@ -216,8 +218,9 @@ initialization
   // should succeed:
   RegisterTest('', TMD5StringTestCase<TMD5Calculator>.Suite);
   RegisterTest('', TMD5StringTestCase<TMessageDigest_5Calculator>.Suite);
+  RegisterTest('', TMD5StringTestCase<TIdHashMessageDigest5Calculator>.Suite);
 //  RegisterTest('', TMD5StringTestCase<TMD5AndWriterCalculator>.Suite);
   RegisterTest('', TMD5FileTestCase<TMD5Calculator>.Suite);
   RegisterTest('', TMD5FileTestCase<TMessageDigest_5Calculator>.Suite);
-
+  RegisterTest('', TMD5FileTestCase<TIdHashMessageDigest5Calculator>.Suite);
 end.
