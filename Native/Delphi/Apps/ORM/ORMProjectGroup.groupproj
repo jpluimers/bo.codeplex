@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{4B9B88B5-172E-4EA3-BAEE-0DA8B890EEB6}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="..\CodeGenerator\prj\CodeGeneratorProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="GenerateORM\src\GenerateORMProject.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="CodeGeneratorProject">
+			<MSBuild Projects="..\CodeGenerator\prj\CodeGeneratorProject.dproj"/>
+		</Target>
+		<Target Name="CodeGeneratorProject:Clean">
+			<MSBuild Projects="..\CodeGenerator\prj\CodeGeneratorProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="CodeGeneratorProject:Make">
+			<MSBuild Projects="..\CodeGenerator\prj\CodeGeneratorProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="GenerateORMProject">
+			<MSBuild Projects="GenerateORM\src\GenerateORMProject.dproj"/>
+		</Target>
+		<Target Name="GenerateORMProject:Clean">
+			<MSBuild Projects="GenerateORM\src\GenerateORMProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="GenerateORMProject:Make">
+			<MSBuild Projects="GenerateORM\src\GenerateORMProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="CodeGeneratorProject;GenerateORMProject"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="CodeGeneratorProject:Clean;GenerateORMProject:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="CodeGeneratorProject:Make;GenerateORMProject:Make"/>
+		</Target>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+	</Project>
