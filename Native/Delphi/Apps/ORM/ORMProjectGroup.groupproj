@@ -9,6 +9,15 @@
 			<Projects Include="GenerateORM\src\GenerateORMProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="UseORM\prj\UseORMProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +44,41 @@
 		<Target Name="GenerateORMProject:Make">
 			<MSBuild Projects="GenerateORM\src\GenerateORMProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="UseORMProject">
+			<MSBuild Projects="UseORM\prj\UseORMProject.dproj"/>
+		</Target>
+		<Target Name="UseORMProject:Clean">
+			<MSBuild Projects="UseORM\prj\UseORMProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="UseORMProject:Make">
+			<MSBuild Projects="UseORM\prj\UseORMProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="boComponentLibraryRunTimePackage">
+			<MSBuild Projects="..\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj"/>
+		</Target>
+		<Target Name="boComponentLibraryRunTimePackage:Clean">
+			<MSBuild Projects="..\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="boComponentLibraryRunTimePackage:Make">
+			<MSBuild Projects="..\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="boComponentLibraryDesignTimePackage">
+			<MSBuild Projects="..\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj"/>
+		</Target>
+		<Target Name="boComponentLibraryDesignTimePackage:Clean">
+			<MSBuild Projects="..\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="boComponentLibraryDesignTimePackage:Make">
+			<MSBuild Projects="..\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="CodeGeneratorProject;GenerateORMProject"/>
+			<CallTarget Targets="CodeGeneratorProject;GenerateORMProject;UseORMProject;boComponentLibraryRunTimePackage;boComponentLibraryDesignTimePackage"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="CodeGeneratorProject:Clean;GenerateORMProject:Clean"/>
+			<CallTarget Targets="CodeGeneratorProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;boComponentLibraryRunTimePackage:Clean;boComponentLibraryDesignTimePackage:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="CodeGeneratorProject:Make;GenerateORMProject:Make"/>
+			<CallTarget Targets="CodeGeneratorProject:Make;GenerateORMProject:Make;UseORMProject:Make;boComponentLibraryRunTimePackage:Make;boComponentLibraryDesignTimePackage:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>
