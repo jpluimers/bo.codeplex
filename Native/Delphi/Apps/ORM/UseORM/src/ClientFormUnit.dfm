@@ -25,7 +25,7 @@ object ClientForm: TClientForm
     object NewClientButton: TButton
       Left = 12
       Top = 9
-      Width = 75
+      Width = 149
       Height = 25
       Caption = 'NewClientButton'
       TabOrder = 0

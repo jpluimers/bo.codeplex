@@ -7,21 +7,34 @@ uses
 
 type
   TApplicationHelper = class helper for TApplication
+  strict protected
+    function GetInifileName: string; virtual;
   protected // strict protected werkt niet in deze application helper: compiler bug?
     function GetProcessId: DWORD; virtual;
   public
+    procedure AssertHaveIniFile; virtual;
     function Directory: string;
     function Filename: string;
     function Pathname: string;
     function FileNameRelativeTo(const Extension: string): string;
     function DesktopFoldername: string;
     procedure TerminateDuringStartup;
+    property InifileName: string read GetInifileName;
   end;
 
 implementation
 
 uses
-  Windows, PsAPI, ShlObj;
+  Windows, PsAPI, ShlObj, GenericExceptionUnit;
+
+procedure TApplicationHelper.AssertHaveIniFile;
+var
+  IniFilename: string;
+begin
+  IniFilename := Application.InifileName;
+  if not FileExists(IniFilename) then
+    raise EGenericException<TApplication>.CreateFmt('Cannot find INI file "%s"', [IniFileName]);
+end;
 
 function TApplicationHelper.DesktopFoldername: string;
 var
@@ -82,6 +95,11 @@ function TApplicationHelper.FileNameRelativeTo(const Extension: string): string;
 begin
   Result := Self.Pathname;
   Result := ChangeFileExt(Result, Extension);
+end;
+
+function TApplicationHelper.GetInifileName: string;
+begin
+  Result := Application.FileNameRelativeTo('.ini');
 end;
 
 function TApplicationHelper.GetProcessId: DWORD;

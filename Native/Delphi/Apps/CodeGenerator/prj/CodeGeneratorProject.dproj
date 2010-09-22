@@ -54,6 +54,8 @@
 			</DCCReference>
 			<DCCReference Include="..\..\..\bo.Text\StringListWrapperUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.CodeGenerator\CodeGeneratorUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.Generics\ConcreteCollectionsUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.Generics\ConcreteMethodReferencesUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

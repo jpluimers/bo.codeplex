@@ -9,7 +9,9 @@ uses
   DataSetEnumeratorUnit,
   NullablesUnit,
   db,
-  ADODB;
+  ADODB,
+  JoinedColumnPairUnit,
+  MSDMLQueryRecordUnit;
 
 type
   TBaseEntityBase = class;
@@ -110,9 +112,9 @@ type
     function FillJoinedColumnPair(): TJoinedColumnPair;
   strict protected
     procedure SetReadQueryText(const ReadQuery: TDBQuery); override;
-    procedure FillDeleteQueryRecordList(const DeleteQueryRecordList: TEntityQueryRecordList); override;
-    procedure FillInsertQueryRecordList(const InsertQueryRecordList: TEntityQueryRecordList); override;
-    procedure FillUpdateQueryRecordList(const UpdateQueryRecordList: TEntityQueryRecordList); override;
+    procedure FillDeleteQueryRecordList(const DeleteQueryRecordList: TMSDMLQueryRecordList); override;
+    procedure FillInsertQueryRecordList(const InsertQueryRecordList: TMSDMLQueryRecordList); override;
+    procedure FillUpdateQueryRecordList(const UpdateQueryRecordList: TMSDMLQueryRecordList); override;
     function GetID_BaseEntity(): TNullableInteger; virtual;
     procedure SetID_BaseEntity(const Value: TNullableInteger); virtual;
     function GetExternalID(): TNullableString; virtual;
@@ -542,9 +544,9 @@ begin
   Result := TJoinedColumnPair.Create(BaseEntity_TableName, ID_BaseEntityFieldName);
 end;
 
-procedure TBaseEntityListBase.FillDeleteQueryRecordList(const DeleteQueryRecordList: TEntityQueryRecordList);
+procedure TBaseEntityListBase.FillDeleteQueryRecordList(const DeleteQueryRecordList: TMSDMLQueryRecordList);
 var
-  DeleteQueryRecord: TEntityQueryRecord;
+  DeleteQueryRecord: TMSDMLQueryRecord;
 begin
   inherited FillDeleteQueryRecordList(DeleteQueryRecordList);
   DeleteQueryRecord.SetQueryTextMethod := Self.SetDeleteQueryText;
@@ -553,9 +555,9 @@ begin
   DeleteQueryRecordList.Add(DeleteQueryRecord);
 end;
 
-procedure TBaseEntityListBase.FillInsertQueryRecordList(const InsertQueryRecordList: TEntityQueryRecordList);
+procedure TBaseEntityListBase.FillInsertQueryRecordList(const InsertQueryRecordList: TMSDMLQueryRecordList);
 var
-  InsertQueryRecord: TEntityQueryRecord;
+  InsertQueryRecord: TMSDMLQueryRecord;
 begin
   inherited FillInsertQueryRecordList(InsertQueryRecordList);
   InsertQueryRecord.SetQueryTextMethod := Self.SetInsertQueryText;
@@ -564,9 +566,9 @@ begin
   InsertQueryRecordList.Add(InsertQueryRecord);
 end;
 
-procedure TBaseEntityListBase.FillUpdateQueryRecordList(const UpdateQueryRecordList: TEntityQueryRecordList);
+procedure TBaseEntityListBase.FillUpdateQueryRecordList(const UpdateQueryRecordList: TMSDMLQueryRecordList);
 var
-  UpdateQueryRecord: TEntityQueryRecord;
+  UpdateQueryRecord: TMSDMLQueryRecord;
 begin
   inherited FillUpdateQueryRecordList(UpdateQueryRecordList);
   UpdateQueryRecord.SetQueryTextMethod := Self.SetUpdateQueryText;

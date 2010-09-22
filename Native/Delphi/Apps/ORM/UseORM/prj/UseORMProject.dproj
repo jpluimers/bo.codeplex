@@ -24,6 +24,9 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_MapFile>3</DCC_MapFile>
+			<DCC_DebugDCUs>true</DCC_DebugDCUs>
+			<DCC_UnitSearchPath>..\inc;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_ImageBase>00400000</DCC_ImageBase>
 			<DCC_DcuOutput>.\$(Config)\$(Platform)</DCC_DcuOutput>
 			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
@@ -50,6 +53,7 @@
 			<DelphiCompile Include="UseORMProject.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
+			<DCCReference Include="..\src\FastMM4BootstrapUnit.pas"/>
 			<DCCReference Include="..\src\UseORMMainFormUnit.pas">
 				<Form>UseORMMainForm</Form>
 			</DCCReference>
@@ -64,22 +68,7 @@
 			<DCCReference Include="..\src\ClientDetailFormUnit.pas">
 				<Form>ClientDetailForm</Form>
 			</DCCReference>
-			<DCCReference Include="..\src\ORM.Actual\AddressUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Actual\BaseEntityUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Actual\ClientUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Actual\DatabaseMetaDataUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Actual\LegalPersonUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Actual\NaturalPersonUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Actual\UserPersonUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Base\AddressBaseUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Base\BaseEntityBaseUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Base\ClientBaseUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Base\DatabaseMetaDataBaseUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Base\LegalPersonBaseUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Base\NaturalPersonBaseUnit.pas"/>
-			<DCCReference Include="..\src\ORM.Base\UserPersonBaseUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.ORM\ORMEntityUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.System\NullablesUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DB\bo.DB.MS\MSConnectionLayerUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DB\DataSetEnumeratorUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DB\bo.DB.Helpers\DataSetHelperUnit.pas"/>
@@ -108,6 +97,36 @@
 			<DCCReference Include="..\..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DB\DataAwareControlHelperUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.Generics\GenericExceptionUnit.pas"/>
+			<DCCReference Include="..\..\..\..\..\..\Forks\FastMM\FastMM4.pas"/>
+			<DCCReference Include="..\..\..\..\..\..\Forks\FastMM\FastMM4Messages.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Generics\ConcreteCollectionsUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DB\JoinedColumnPairUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.System\NullablesUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DB\bo.DB.MS\MSDMLQueryRecordUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Base\AddressBaseUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Base\BaseEntityBaseUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Base\ClientBaseUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Base\DatabaseMetaDataBaseUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Base\LegalPersonBaseUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Base\NaturalPersonBaseUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Base\UserPersonBaseUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Actual\AddressUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Actual\BaseEntityUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Actual\ClientUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Actual\DatabaseMetaDataUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Actual\LegalPersonUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Actual\NaturalPersonUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Actual\UserPersonUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DB\ClientDataSetSupportingCalculatedAndLookupFieldsUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DB\SqlWhereCriterionsUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DB\ClientDataSetSupportingWhereOrderByUnit.pas"/>
+			<None Include="Debug\Win32\UseORMProject.ini"/>
+			<None Include="..\..\..\..\Include\Defines.inc"/>
+			<None Include="..\..\..\..\..\..\Forks\FastMM\FastMM4Options.inc"/>
+			<None Include="..\inc\Project.inc"/>
+			<None Include="Debug\Win32\UseORMProject_MemoryManager_EventLog.txt"/>
+			<None Include="..\doc\ThingsToShow.txt"/>
+			<None Include="CompareGeneratedToProject.bat"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -122,6 +141,9 @@
 		</ItemGroup>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
 		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj"/>
+		<PropertyGroup>
+			<PostBuildEvent><![CDATA[copy "C:\develop\codeplex\TFS05\bo\Forks\FastMM\Demos\Replacement borlndmm DLL\FastMM_FullDebugMode.dll" .\$(Config)\$(Platform)]]></PostBuildEvent>
+		</PropertyGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
 			<Borland.ProjectType/>

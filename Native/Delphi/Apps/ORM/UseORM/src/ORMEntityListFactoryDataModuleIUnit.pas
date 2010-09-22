@@ -8,6 +8,7 @@ uses
 
 type
   TORMEntityListFactoryDataModule = class(TDataModule)
+    procedure DataModuleCreate(Sender: TObject);
   strict private
     FClientList: TClientList;
     FLookupEntityListManager: TLookupEntityListManager;
@@ -24,7 +25,15 @@ var
 
 implementation
 
+uses
+  ApplicationHelperUnit, Forms;
+
 {$R *.dfm}
+
+procedure TORMEntityListFactoryDataModule.DataModuleCreate(Sender: TObject);
+begin
+  Application.AssertHaveIniFile();
+end;
 
 function TORMEntityListFactoryDataModule.GetClientList: TClientList;
 begin

@@ -28,7 +28,10 @@ uses
   StringUtilsUnit in '..\..\..\..\bo.Text\StringUtilsUnit.pas',
   CodeGeneratorUnit in '..\..\..\..\bo.CodeGenerator\CodeGeneratorUnit.pas',
   StringListWrapperUnit in '..\..\..\..\bo.Text\StringListWrapperUnit.pas',
-  SqlConstsUnit in '..\..\..\..\bo.DB\SqlConstsUnit.pas';
+  SqlConstsUnit in '..\..\..\..\bo.DB\SqlConstsUnit.pas',
+  GenericExceptionUnit in '..\..\..\..\bo.Generics\GenericExceptionUnit.pas',
+  ConcreteCollectionsUnit in '..\..\..\..\bo.Generics\ConcreteCollectionsUnit.pas',
+  ConcreteMethodReferencesUnit in '..\..\..\..\bo.Generics\ConcreteMethodReferencesUnit.pas';
 
 {$R *.res}
 

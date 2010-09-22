@@ -40,11 +40,12 @@ begin
     ORMEntityListFactoryDataModule.ClientList.Insert();
     ClientDetailForm.Client := ORMEntityListFactoryDataModule.ClientList.Current;
     if ClientDetailForm.ShowModal = mrOk then
-
+      ORMEntityListFactoryDataModule.ClientList.Post
+    else
+      ORMEntityListFactoryDataModule.ClientList.Cancel;
   finally
     ClientDetailForm.Free();
   end;
-
 end;
 
 end.

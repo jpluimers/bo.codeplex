@@ -192,8 +192,6 @@ begin
 end;
 
 function TMSSystemItems.GetItemIndexOfName(Name: string): Integer;
-var
-  Index: Integer;
 begin
   Result := FindtemIndexOfName(Name);
   if Result = -1 then

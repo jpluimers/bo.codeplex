@@ -153,27 +153,27 @@ var
     Result := IniFile.ReadString(Section, Ident, Default);
   end;
 begin
-  IniFilename := Application.FileNameRelativeTo('.ini');
-  if not FileExists(IniFilename) then
-    raise EGenericException<TMSConfig>.CreateFmt('Cannot find INI file "%s"', [IniFileName]);
+  IniFilename := Application.InifileName;
+  if FileExists(IniFilename) then
+  begin
+    IniFile := TIniFile.Create(IniFilename);
+    try
+      FIsUsingSqlServer := ReadString(DataSectionName, DataTypeIdentName) = SQLServerSectionName;
 
-  IniFile := TIniFile.Create(IniFilename);
-  try
-    FIsUsingSqlServer := ReadString(DataSectionName, DataTypeIdentName) = SQLServerSectionName;
+      FSQLServerName := ReadString(SQLServerSectionName, SQLServerServerNameIdentName);
+      FSQLServerUserName := ReadString(SQLServerSectionName, SQLServerUserNameIdentName);
+      FSQLServerPassword := ReadString(SQLServerSectionName, SQLServerPasswordIdentName);
+      FSQLServerDatabaseName := ReadString(SQLServerSectionName, SQLServerDatabaseNameIdentName);
+      FSQLIntegratedSecurity := IniFile.ReadBool(SQLServerSectionName, SQLServerIntegratedSecurityIdentName, False);
+      SQLIntegratedSecurityString := ReadString(SQLServerSectionName, SQLServerIntegratedSecurityIdentName);
+      SQLIntegratedSecurityString := UpperCase(SQLIntegratedSecurityString);
+      FSQLIntegratedSecurity := FSQLIntegratedSecurity or (SQLIntegratedSecurityString = 'SSPI') or (SQLIntegratedSecurityString = 'TRUE');
 
-    FSQLServerName := ReadString(SQLServerSectionName, SQLServerServerNameIdentName);
-    FSQLServerUserName := ReadString(SQLServerSectionName, SQLServerUserNameIdentName);
-    FSQLServerPassword := ReadString(SQLServerSectionName, SQLServerPasswordIdentName);
-    FSQLServerDatabaseName := ReadString(SQLServerSectionName, SQLServerDatabaseNameIdentName);
-    FSQLIntegratedSecurity := IniFile.ReadBool(SQLServerSectionName, SQLServerIntegratedSecurityIdentName, False);
-    SQLIntegratedSecurityString := ReadString(SQLServerSectionName, SQLServerIntegratedSecurityIdentName);
-    SQLIntegratedSecurityString := UpperCase(SQLIntegratedSecurityString);
-    FSQLIntegratedSecurity := FSQLIntegratedSecurity or (SQLIntegratedSecurityString = 'SSPI') or (SQLIntegratedSecurityString = 'TRUE');
-
-    FAccessDatabaseName := ReadString(AccessSectionName, AccessDatabaseNameIdentName);
-    FAccessUserName := ReadString(AccessSectionName, AccessUserNameIdentName);
-  finally
-    FreeAndNil(IniFile);
+      FAccessDatabaseName := ReadString(AccessSectionName, AccessDatabaseNameIdentName);
+      FAccessUserName := ReadString(AccessSectionName, AccessUserNameIdentName);
+    finally
+      FreeAndNil(IniFile);
+    end;
   end;
 end;
 
