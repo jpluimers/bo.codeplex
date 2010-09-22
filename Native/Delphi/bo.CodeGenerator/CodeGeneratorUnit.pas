@@ -45,14 +45,14 @@ type
 
   TGeneratableClass = class;
   TGeneratableConstant = class;
-  TGeneratableField = class;
+  TGeneratableFieldOrConstant = class;
   TGeneratableMethod = class;
   TGeneratableProperty = class;
 
   TListOfGeneratableClass = TList<TGeneratableClass>;
   TListOfGeneratableMethod = TList<TGeneratableMethod>;
   TListOfGeneratableConstant = TList<TGeneratableConstant>;
-  TListOfGeneratableField = TList<TGeneratableField>;
+  TListOfGeneratableField = TList<TGeneratableFieldOrConstant>;
   TListOfGeneratableProperty = TList<TGeneratableProperty>;
 
   TGeneratableUnit = class(TGeneratable)
@@ -66,12 +66,16 @@ type
     procedure AppendImplementationText(const StringBuilder: TStringBuilder); virtual;
     procedure AppendImplementationUses(const StringBuilder: TStringBuilder); virtual;
     procedure AppendInitialization(const StringBuilder: TStringBuilder); virtual;
+    procedure AppendInitializationOrFinalization(const StringBuilder:
+        TStringBuilder; const InitializationOrFinalizationKeyword: string; const
+        MemberProc: TProc<IStringListWrapper, TGeneratableInUnit>); virtual;
     procedure AppendInterfaceText(const StringBuilder: TStringBuilder); virtual;
     procedure AppendInterfaceUses(const StringBuilder: TStringBuilder); virtual;
     procedure AppendMember(const Strings: IStringListWrapper; const Member: TGeneratableInUnit;
       const GetMemberStringListWrapper: TFunc<TGeneratableInUnit, IStringListWrapper>); virtual;
-    procedure AppendMemberStringListWrapper(const StringBuilder: TStringBuilder; const GetMemberStringListWrapper: TFunc<TGeneratableInUnit,
-      IStringListWrapper>); virtual;
+    procedure AppendMemberStringListWrapper(const StringBuilder: TStringBuilder;
+        const GetMemberStringListWrapper: TFunc<TGeneratableInUnit,
+        IStringListWrapper>); virtual;
     procedure AppendMemberUses(const StringBuilder: TStringBuilder; const GetMemberStringListWrapper: TFunc<TGeneratableInUnit, IStringListWrapper>);
       virtual;
     procedure AppendUsesList(const UnitNameList: IStringListWrapper; const Member: TGeneratableInUnit;
@@ -111,6 +115,8 @@ type
   public
     procedure FillSubMembers(const SubMembers: TListOfGeneratableInUnit); virtual;
     function CreateStringListWrapperThenForSelfAndSubMembers(const Proc:
+        TStringListWrapperGeneratableInUnitProc): IStringListWrapper; virtual;
+    function CreateStringListWrapperThenForSelf(const Proc:
         TStringListWrapperGeneratableInUnitProc): IStringListWrapper; virtual;
     property FinalizationText: IStringListWrapper read GetFinalizationText;
     property HasSubMembers: Boolean read GetHasSubMembers;
@@ -243,34 +249,38 @@ type
     property WriteMember: string read FWriteMember write SetWriteMember;
   end;
 
-  //1 ##jpl: maybe derive from TGeneratableField
-  TGeneratableConstant = class(TGeneratableInUnitMaintainingUsesLists)
-  strict private
-    FTypeName: string;
-    FValue: string;
-  strict protected
-    function GetInterfaceText: IStringListWrapper; override;
-    procedure InitializeOrCreateFields; override;
-    procedure SetTypeName(const Value: string); virtual;
-    procedure SetValue(const Value: string); virtual;
-  public
-    constructor Create(const Owner: TComponent; const MemberName, Value: string; const TypeName: string = ''; const Visibility: TVisibility = vDefault);
-        overload; virtual;
-    property TypeName: string read FTypeName write SetTypeName;
-    property Value: string read FValue write SetValue;
-  end;
-
-  TGeneratableField = class(TGeneratableInUnitMaintainingUsesLists)
+  TGeneratableFieldOrConstant = class(TGeneratableInUnitMaintainingUsesLists)
   strict private
     FTypeName: string;
   strict protected
+    function GetConstantExpressionPart: string; virtual;
     function GetInterfaceText: IStringListWrapper; override;
+    function GetRequiresTypeName: Boolean; virtual;
     procedure InitializeOrCreateFields; override;
     procedure SetTypeName(const Value: string); virtual;
   public
     constructor Create(const Owner: TComponent; const MemberName, TypeName: string; const Visibility: TVisibility =
         vDefault); overload; virtual;
+    property ConstantExpressionPart: string read GetConstantExpressionPart;
+    property RequiresTypeName: Boolean read GetRequiresTypeName;
     property TypeName: string read FTypeName write SetTypeName;
+  end;
+
+  TGeneratableConstant = class(TGeneratableFieldOrConstant)
+  strict private
+    FValue: string;
+  strict protected
+    function GetConstantExpressionPart: string; override;
+    function GetRequiresTypeName: Boolean; override;
+    procedure InitializeOrCreateFields; override;
+    procedure SetValue(const Value: string); virtual;
+  public
+    constructor Create(const Owner: TComponent; const MemberName, Value: string; const TypeName: string = ''; const Visibility: TVisibility = vDefault);
+        overload; virtual;
+    property Value: string read FValue write SetValue;
+  end;
+
+  TGeneratableField = class(TGeneratableFieldOrConstant)
   end;
 
 implementation
@@ -293,19 +303,16 @@ begin
   Result := False;
 end;
 
-procedure TGeneratableInUnit.FillSubMembers(const SubMembers:
-    TListOfGeneratableInUnit);
+procedure TGeneratableInUnit.FillSubMembers(const SubMembers: TListOfGeneratableInUnit);
 begin
 end;
 
-function TGeneratableInUnit.CreateStringListWrapperThenForSelfAndSubMembers(
-    const Proc: TStringListWrapperGeneratableInUnitProc): IStringListWrapper;
+function TGeneratableInUnit.CreateStringListWrapperThenForSelfAndSubMembers(const Proc: TStringListWrapperGeneratableInUnitProc): IStringListWrapper;
 var
   SubMember: TGeneratableInUnit;
   SubMembers: TListOfGeneratableInUnit;
 begin
-  Result := TStringListWrapper.Create();
-  Proc(Result, Self);
+  Result := CreateStringListWrapperThenForSelf(Proc);
   if HasSubMembers then
   begin
     SubMembers := TListOfGeneratableInUnit.Create();
@@ -317,6 +324,12 @@ begin
       SubMembers.Free;
     end;
   end;
+end;
+
+function TGeneratableInUnit.CreateStringListWrapperThenForSelf(const Proc: TStringListWrapperGeneratableInUnitProc): IStringListWrapper;
+begin
+  Result := TStringListWrapper.Create();
+  Proc(Result, Self);
 end;
 
 function TGeneratableInUnit.GetImplementationText: IStringListWrapper;
@@ -417,32 +430,14 @@ begin
 end;
 
 procedure TGeneratableUnit.AppendFinalization(const StringBuilder: TStringBuilder);
-var //##jpl: lijkt veel op AppendInitialization
-  InitializationStringBuilder: TStringBuilder;
 begin
-  InitializationStringBuilder := TStringBuilder.Create();
-  try
-    AppendMemberStringListWrapper(StringBuilder,
-      function(Member: TGeneratableInUnit): IStringListWrapper
-      begin
-        Result := Member.CreateStringListWrapperThenForSelfAndSubMembers(
-          procedure (StringListWrapper: IStringListWrapper; InnerMember: TGeneratableInUnit)
-          begin
-            if scsFinalizationText in InnerMember.SupportedCodeSections then
-              StringListWrapper.AddStringListWrapper(InnerMember.FinalizationText);
-          end
-        );
-      end
-    );
-    if InitializationStringBuilder.Length > 0 then
+  AppendInitializationOrFinalization(StringBuilder, 'finalization',
+    procedure (StringListWrapper: IStringListWrapper; InnerMember: TGeneratableInUnit)
     begin
-      StringBuilder.AppendLine('finalization');
-      StringBuilder.Append(InitializationStringBuilder.ToString);
-      StringBuilder.AppendLine();
-    end;
-  finally
-    InitializationStringBuilder.Free;
-  end;
+      if scsFinalizationText in InnerMember.SupportedCodeSections then
+        StringListWrapper.AddStringListWrapper(InnerMember.FinalizationText);
+    end
+  );
 end;
 
 procedure TGeneratableUnit.AppendForwardedClassDeclarations(const StringBuilder: TStringBuilder);
@@ -469,8 +464,18 @@ var
   CommentLine: string;
 begin
   AppendMemberStringListWrapper(StringBuilder,
-    function(Member: TGeneratableInUnit): IStringListWrapper begin if scsImplementationText in Member.SupportedCodeSections then Result :=
-      Member.ImplementationText else Result := TStringListWrapper.Create(); end);
+    function(Member: TGeneratableInUnit): IStringListWrapper
+    begin
+      // ImplementationText: no need for SubMembers
+      Result := Member.CreateStringListWrapperThenForSelf(
+        procedure (StringListWrapper: IStringListWrapper; InnerMember: TGeneratableInUnit)
+        begin
+          if scsImplementationText in InnerMember.SupportedCodeSections then
+            StringListWrapper.AddStringListWrapper(InnerMember.ImplementationText);
+        end
+      );
+    end
+  );
 
   if FinalImplementationComments.Count > 0 then
   begin
@@ -488,27 +493,45 @@ begin
   Self.AppendMemberUses(StringBuilder,
     function(Member: TGeneratableInUnit): IStringListWrapper
     begin
-      if scsImplementationUnits in Member.SupportedCodeSections then
-        Result := Member.ImplementationUnits
-      else
-        Result := TStringListWrapper.Create();
+      Result := Member.CreateStringListWrapperThenForSelfAndSubMembers(
+        procedure (StringListWrapper: IStringListWrapper; InnerMember: TGeneratableInUnit)
+        begin
+          if scsImplementationUnits in InnerMember.SupportedCodeSections then
+            StringListWrapper.AddStringListWrapper(InnerMember.ImplementationUnits);
+        end
+      );
     end
   );
 end;
 
 procedure TGeneratableUnit.AppendInitialization(const StringBuilder: TStringBuilder);
-var //##jpl: lijkt veel op AppendFinalization
+begin
+  AppendInitializationOrFinalization(StringBuilder, 'initialization',
+    procedure (StringListWrapper: IStringListWrapper; InnerMember: TGeneratableInUnit)
+    begin
+      if scsInitializationText in InnerMember.SupportedCodeSections then
+        StringListWrapper.AddStringListWrapper(InnerMember.InitializationText);
+    end
+  );
+end;
+
+procedure TGeneratableUnit.AppendInitializationOrFinalization(const
+    StringBuilder: TStringBuilder; const InitializationOrFinalizationKeyword:
+    string; const MemberProc: TProc<IStringListWrapper, TGeneratableInUnit>);
+var
   InitializationStringBuilder: TStringBuilder;
 begin
   InitializationStringBuilder := TStringBuilder.Create();
   try
     AppendMemberStringListWrapper(InitializationStringBuilder,
-      function(Member: TGeneratableInUnit)
-        : IStringListWrapper begin if scsInitializationText in Member.SupportedCodeSections then Result :=
-        Member.InitializationText else Result := TStringListWrapper.Create(); end);
+      function(Member: TGeneratableInUnit): IStringListWrapper
+      begin
+        Result := Member.CreateStringListWrapperThenForSelfAndSubMembers(MemberProc);
+      end
+    );
     if InitializationStringBuilder.Length > 0 then
     begin
-      StringBuilder.AppendLine('initialization');
+      StringBuilder.AppendLine(InitializationOrFinalizationKeyword);
       StringBuilder.Append(InitializationStringBuilder.ToString);
       StringBuilder.AppendLine();
     end;
@@ -525,10 +548,14 @@ begin
   AppendMemberStringListWrapper(StringBuilder,
     function(Member: TGeneratableInUnit): IStringListWrapper
     begin
-      if scsInterfaceText in Member.SupportedCodeSections then
-        Result := Member.InterfaceText
-      else
-        Result := TStringListWrapper.Create();
+      // InterfaceText: no need for SubMembers
+      Result := Member.CreateStringListWrapperThenForSelf(
+        procedure (StringListWrapper: IStringListWrapper; InnerMember: TGeneratableInUnit)
+        begin
+          if scsInterfaceText in InnerMember.SupportedCodeSections then
+            StringListWrapper.AddStringListWrapper(InnerMember.InterfaceText);
+        end
+      );
     end
   );
 end;
@@ -564,8 +591,9 @@ begin
   end;
 end;
 
-procedure TGeneratableUnit.AppendMemberStringListWrapper(const StringBuilder: TStringBuilder;
-  const GetMemberStringListWrapper: TFunc<TGeneratableInUnit, IStringListWrapper>);
+procedure TGeneratableUnit.AppendMemberStringListWrapper(const StringBuilder:
+    TStringBuilder; const GetMemberStringListWrapper: TFunc<TGeneratableInUnit,
+    IStringListWrapper>);
 var
   Strings: IStringListWrapper;
 begin
@@ -769,7 +797,7 @@ begin
     try
       CollectMembersWithVisibility<TGeneratableConstant>(Members, Constants, Visibility);
       HaveGeneratableConstants := Members.Count > 0;
-      CollectMembersWithVisibility<TGeneratableField>(Members, Fields, Visibility);
+      CollectMembersWithVisibility<TGeneratableFieldOrConstant>(Members, Fields, Visibility);
       CollectMembersWithVisibility<TGeneratableMethod>(Members, Methods, Visibility);
       CollectMembersWithVisibility<TGeneratableProperty>(Members, Properties, Visibility);
       if Members.Count > 0 then
@@ -1182,14 +1210,53 @@ end;
 constructor TGeneratableConstant.Create(const Owner: TComponent; const MemberName, Value: string; const TypeName: string = ''; const Visibility:
     TVisibility = vDefault);
 begin
-  inherited Create(Owner, MemberName);
+  inherited Create(Owner, MemberName, TypeName, Visibility);
   Self.Value := Value;
+end;
+
+function TGeneratableConstant.GetConstantExpressionPart: string;
+begin
+  Result := Format(' = %s', [Value]);
+end;
+
+function TGeneratableConstant.GetRequiresTypeName: Boolean;
+begin
+  Result := False;
+end;
+
+procedure TGeneratableConstant.InitializeOrCreateFields;
+begin
+  inherited InitializeOrCreateFields();
+  if Owner is TGeneratableClass then
+  begin
+    (Owner as TGeneratableClass).Constants.Add(Self);
+    (Owner as TGeneratableClass).Fields.Remove(Self);
+  end;
+end;
+
+procedure TGeneratableConstant.SetValue(const Value: string);
+begin
+  FValue := Value;
+end;
+
+constructor TGeneratableFieldOrConstant.Create(const Owner: TComponent; const MemberName, TypeName: string; const Visibility:
+    TVisibility = vDefault);
+begin
+  if RequiresTypeName then
+    Assert(TypeName <> NullAsStringValue, Format('%s requires a non-empty TypeName parameter', [ClassName]));
+  inherited Create(Owner, MemberName);
   Self.TypeName := TypeName;
   Self.Visibility := Visibility;
 end;
 
-function TGeneratableConstant.GetInterfaceText: IStringListWrapper;
+function TGeneratableFieldOrConstant.GetConstantExpressionPart: string;
+begin
+  Result := '';
+end;
+
+function TGeneratableFieldOrConstant.GetInterfaceText: IStringListWrapper;
 var
+  ConstantValueText: string;
   StringBuilder: TStringBuilder;
 begin
   StringBuilder := TStringBuilder.Create;
@@ -1199,50 +1266,9 @@ begin
     if TypeName <> NullAsStringValue then
       StringBuilder.AppendFormat(': %s', [TypeName]);
 
-    StringBuilder.AppendFormat(' = %s;', [Value]);
-    Result := TStringListWrapper.Create();
-    Result.Add(StringBuilder.ToString);
-  finally
-    StringBuilder.Free;
-  end;
-end;
-
-procedure TGeneratableConstant.InitializeOrCreateFields;
-begin
-  inherited InitializeOrCreateFields();
-  AddSupportedCodeSections([scsInterfaceText]);
-  if Owner is TGeneratableClass then (Owner as TGeneratableClass)
-    .Constants.Add(Self);
-end;
-
-procedure TGeneratableConstant.SetTypeName(const Value: string);
-begin
-  FTypeName := Value;
-end;
-
-procedure TGeneratableConstant.SetValue(const Value: string);
-begin
-  FValue := Value;
-end;
-
-constructor TGeneratableField.Create(const Owner: TComponent; const MemberName, TypeName: string; const Visibility:
-    TVisibility = vDefault);
-begin
-  Assert(TypeName <> NullAsStringValue, Format('%s requires a non-empty TypeName parameter', [ClassName]));
-  inherited Create(Owner, MemberName);
-  Self.TypeName := TypeName;
-  Self.Visibility := Visibility;
-end;
-
-function TGeneratableField.GetInterfaceText: IStringListWrapper;
-var
-  StringBuilder: TStringBuilder;
-begin
-  StringBuilder := TStringBuilder.Create;
-  try
-    Indent(StringBuilder);
-    StringBuilder.AppendFormat('  %s', [MemberName]);
-    StringBuilder.AppendFormat(': %s;', [TypeName]);
+    ConstantValueText := ConstantExpressionPart;
+    StringBuilder.AppendFormat('%s', [ConstantValueText]);
+    StringBuilder.Append(';');
 
     Result := TStringListWrapper.Create();
     Result.Add(StringBuilder.ToString);
@@ -1251,7 +1277,12 @@ begin
   end;
 end;
 
-procedure TGeneratableField.InitializeOrCreateFields;
+function TGeneratableFieldOrConstant.GetRequiresTypeName: Boolean;
+begin
+  Result := True;
+end;
+
+procedure TGeneratableFieldOrConstant.InitializeOrCreateFields;
 begin
   inherited InitializeOrCreateFields();
   AddSupportedCodeSections([scsInterfaceText]);
@@ -1259,7 +1290,7 @@ begin
     (Owner as TGeneratableClass).Fields.Add(Self);
 end;
 
-procedure TGeneratableField.SetTypeName(const Value: string);
+procedure TGeneratableFieldOrConstant.SetTypeName(const Value: string);
 begin
   FTypeName := Value;
 end;
