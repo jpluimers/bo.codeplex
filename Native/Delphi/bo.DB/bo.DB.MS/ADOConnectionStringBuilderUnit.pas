@@ -125,6 +125,7 @@ end;
 
 destructor TADOConnectionStringBuilder.Destroy;
 begin
+  FreeAndNil(FStrings);
   inherited Destroy;
 end;
 

@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, StringListWrapperUnit;
+  Dialogs, ExtCtrls, StdCtrls, StringListWrapperUnit,
+  ConcreteMethodReferencesUnit;
 
 type
   TCodeGeneratorMainForm = class(TForm)
@@ -13,16 +14,11 @@ type
     GeneratedUnitGroupBox: TGroupBox;
     GeneratedUnitMemo: TMemo;
     procedure GenerateUnitButtonClick(Sender: TObject);
-  private
-    { Private declarations }
   strict protected
     procedure ForEach(
       const StringListWrapper: IStringListWrapper;
-      const Proc: TProc<string, string>); virtual;
-  public
-    { Public declarations }
+      const Proc: TStringStringProc); virtual;
   published
-    procedure Foo(Name, Value: string);
   end;
 
 var
@@ -35,17 +31,11 @@ uses
 
 {$R *.dfm}
 
-procedure TCodeGeneratorMainForm.Foo(Name, Value: string);
-begin
-  // TODO -cMM: TCodeGeneratorMainForm.Foo default body inserted
-end;
-
 procedure TCodeGeneratorMainForm.GenerateUnitButtonClick(Sender: TObject);
 var
   GetMethodName: string;
   PropertyNames: IStringListWrapper;
   SetMethodName: string;
-  TheUnitInterfaceComponentReference: IInterfaceComponentReference;
   TheUnit: TGeneratableUnit;
   TheBaseClass: TGeneratableClass;
   TheNotificationMethod: TGeneratableMethod;
@@ -56,8 +46,6 @@ var
 begin
   TheUnit := TGeneratableUnit.Create(nil, 'GeneratedUnit');
   try
-//    TheUnitInterfaceComponentReference := TheUnit; // keep 1 extra reference just in case TheUnit goes out of scope early
-//
     TheBaseClass := TGeneratableClass.Create(TheUnit, 'TBasePerson');
 
     TheNotificationMethod := TGeneratableMethod.Create(
@@ -128,7 +116,7 @@ end;
 
 procedure TCodeGeneratorMainForm.ForEach(
   const StringListWrapper: IStringListWrapper;
-  const Proc: TProc<string, string>);
+  const Proc: TStringStringProc);
 var
   Name: string;
   Value: string;
