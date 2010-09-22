@@ -6,7 +6,8 @@ uses
   Classes, SysUtils, TypInfo,
   Variants, Rtti,
   Generics.Collections,
-  StringListWrapperUnit;
+  StringListWrapperUnit,
+  ConcreteCollectionsUnit;
 
 type
   TSupportedCodeSection = (scsFinalizationText, scsImplementationText, scsImplementationUnits, scsInitializationText, scsInterfaceText,
@@ -22,22 +23,21 @@ const
 
 type
   TGeneratableInUnit = class;
+  TGeneratableInUnitProc = TProc<TGeneratableInUnit>;
+  TStringListWrapperGeneratableInUnitProc = TProc<IStringListWrapper, TGeneratableInUnit>;
 
   TListOfGeneratableInUnit = TList<TGeneratableInUnit>;
-  TListOfString = TList<string>;
-  TStringDictionaryOfString = TDictionary<string, string>;
 
   TGeneratable = class(TComponent)
   strict private
     FMemberName: string;
   strict protected
     procedure InitializeOrCreateFields; virtual;
-    procedure RunOnMember(const Member: TGeneratableInUnit;
-    const Proc: TProc<TGeneratableInUnit>; const WithVisibility: TVisibility); virtual;
+    procedure RunOnMember(const Member: TGeneratableInUnit; const Proc: TGeneratableInUnitProc; const WithVisibility: TVisibility); virtual;
     procedure SetMemberName(const Value: string); virtual;
   public
     constructor Create(Owner: TComponent); overload; override;
-    constructor Create(const Owner: TComponent; const MemberName: string); overload; virtual;
+    constructor Create(const Owner: TComponent; const MemberName: string); reintroduce; overload; virtual;
     destructor Destroy; override;
     //1 Mag geen Name zijn, omdat TComponent.Name al bestaat, en die Name uniek moet zijn binnen Owner
     property MemberName: string read FMemberName write SetMemberName;
@@ -77,8 +77,8 @@ type
     procedure AppendUsesList(const UnitNameList: IStringListWrapper; const Member: TGeneratableInUnit;
       const GetMemberStringListWrapper: TFunc<TGeneratableInUnit, IStringListWrapper>); virtual;
     procedure InitializeOrCreateFields; override;
-    procedure RunOnClassesAndMethods(const Proc: TProc<TGeneratableInUnit>); overload; virtual;
-    procedure RunOnClassesAndMethods(const Proc: TProc<TGeneratableInUnit>; const WithVisibility: TVisibility); overload; virtual;
+    procedure RunOnClassesAndMethods(const Proc: TGeneratableInUnitProc); overload; virtual;
+    procedure RunOnClassesAndMethods(const Proc: TGeneratableInUnitProc; const WithVisibility: TVisibility); overload; virtual;
   public
     destructor Destroy; override;
     function ToString: string; override;
@@ -94,6 +94,7 @@ type
   strict protected
     procedure AddSupportedCodeSections(AdditionalSupportedCodeSections: TSupportedCodeSections); virtual;
     function GetFinalizationText: IStringListWrapper; virtual;
+    function GetHasSubMembers: Boolean; virtual;
     function GetImplementationText: IStringListWrapper; virtual;
     function GetImplementationUnits: IStringListWrapper; virtual;
     function GetInitializationText: IStringListWrapper; virtual;
@@ -108,7 +109,11 @@ type
     procedure SetSupportedCodeSections(const Value: TSupportedCodeSections); virtual;
     procedure SetVisibility(const Value: TVisibility); virtual;
   public
+    procedure FillSubMembers(const SubMembers: TListOfGeneratableInUnit); virtual;
+    function CreateStringListWrapperThenForSelfAndSubMembers(const Proc:
+        TStringListWrapperGeneratableInUnitProc): IStringListWrapper; virtual;
     property FinalizationText: IStringListWrapper read GetFinalizationText;
+    property HasSubMembers: Boolean read GetHasSubMembers;
     property ImplementationText: IStringListWrapper read GetImplementationText;
     property ImplementationUnits: IStringListWrapper read GetImplementationUnits;
     property InitializationText: IStringListWrapper read GetInitializationText;
@@ -147,6 +152,7 @@ type
     function GetInterfaceText: IStringListWrapper; override;
     function GetConstants: TListOfGeneratableConstant; virtual;
     function GetFields: TListOfGeneratableField; virtual;
+    function GetHasSubMembers: Boolean; override;
     procedure InitializeOrCreateFields; override;
     procedure SetAncestorName(const Value: string); virtual;
     procedure SetRequiresForwardDeclaration(const Value: Boolean); virtual;
@@ -154,6 +160,7 @@ type
     constructor Create(const Owner: TComponent; const MemberName: string; const AncestorName: string = 'TObject';
       const RequiresForwardDeclaration: Boolean = False);
     destructor Destroy; override;
+    procedure FillSubMembers(const SubMembers: TListOfGeneratableInUnit); override;
     property AncestorName: string read FAncestorName write SetAncestorName;
     property Declaration: string read GetDeclaration;
     property ForwardDeclaration: string read GetForwardDeclaration;
@@ -281,6 +288,37 @@ begin
   raise ENotSupportedException.CreateFmt('GetFinalizationText is not overrided in %s', [Self.ClassName]);
 end;
 
+function TGeneratableInUnit.GetHasSubMembers: Boolean;
+begin
+  Result := False;
+end;
+
+procedure TGeneratableInUnit.FillSubMembers(const SubMembers:
+    TListOfGeneratableInUnit);
+begin
+end;
+
+function TGeneratableInUnit.CreateStringListWrapperThenForSelfAndSubMembers(
+    const Proc: TStringListWrapperGeneratableInUnitProc): IStringListWrapper;
+var
+  SubMember: TGeneratableInUnit;
+  SubMembers: TListOfGeneratableInUnit;
+begin
+  Result := TStringListWrapper.Create();
+  Proc(Result, Self);
+  if HasSubMembers then
+  begin
+    SubMembers := TListOfGeneratableInUnit.Create();
+    try
+      FillSubMembers(SubMembers);
+      for SubMember in SubMembers do
+        Proc(Result, SubMember);
+    finally
+      SubMembers.Free;
+    end;
+  end;
+end;
+
 function TGeneratableInUnit.GetImplementationText: IStringListWrapper;
 begin
   raise ENotSupportedException.CreateFmt('GetImplementationText is not overrided in %s', [Self.ClassName]);
@@ -385,8 +423,17 @@ begin
   InitializationStringBuilder := TStringBuilder.Create();
   try
     AppendMemberStringListWrapper(StringBuilder,
-      function(Member: TGeneratableInUnit): IStringListWrapper begin if scsFinalizationText in Member.SupportedCodeSections then Result :=
-        Member.FinalizationText else Result := TStringListWrapper.Create(); end);
+      function(Member: TGeneratableInUnit): IStringListWrapper
+      begin
+        Result := Member.CreateStringListWrapperThenForSelfAndSubMembers(
+          procedure (StringListWrapper: IStringListWrapper; InnerMember: TGeneratableInUnit)
+          begin
+            if scsFinalizationText in InnerMember.SupportedCodeSections then
+              StringListWrapper.AddStringListWrapper(InnerMember.FinalizationText);
+          end
+        );
+      end
+    );
     if InitializationStringBuilder.Length > 0 then
     begin
       StringBuilder.AppendLine('finalization');
@@ -489,12 +536,15 @@ end;
 procedure TGeneratableUnit.AppendInterfaceUses(const StringBuilder: TStringBuilder);
 begin
   Self.AppendMemberUses(StringBuilder,
-    function(Member: TGeneratableInUnit) : IStringListWrapper
+    function(Member: TGeneratableInUnit): IStringListWrapper
     begin
-      if scsInterfaceUnits in Member.SupportedCodeSections then
-        Result := Member.InterfaceUnits
-      else
-        Result := TStringListWrapper.Create();
+      Result := Member.CreateStringListWrapperThenForSelfAndSubMembers(
+        procedure (StringListWrapper: IStringListWrapper; InnerMember: TGeneratableInUnit)
+        begin
+          if scsInterfaceUnits in InnerMember.SupportedCodeSections then
+            StringListWrapper.AddStringListWrapper(InnerMember.InterfaceUnits);
+        end
+      );
     end
   );
 end;
@@ -579,7 +629,7 @@ begin
   FFinalImplementationComments := TListOfString.Create();
 end;
 
-procedure TGeneratableUnit.RunOnClassesAndMethods(const Proc: TProc<TGeneratableInUnit>);
+procedure TGeneratableUnit.RunOnClassesAndMethods(const Proc: TGeneratableInUnitProc);
 var
   Visibility: TVisibility;
 begin
@@ -587,7 +637,7 @@ begin
     RunOnClassesAndMethods(Proc, Visibility);
 end;
 
-procedure TGeneratableUnit.RunOnClassesAndMethods(const Proc: TProc<TGeneratableInUnit>; const WithVisibility: TVisibility);
+procedure TGeneratableUnit.RunOnClassesAndMethods(const Proc: TGeneratableInUnitProc; const WithVisibility: TVisibility);
 var
   Member: TGeneratableInUnit;
 begin
@@ -629,7 +679,8 @@ begin
   Self.MemberName := '';
 end;
 
-constructor TGeneratable.Create(const Owner: TComponent; const MemberName: string);
+constructor TGeneratable.Create(const Owner: TComponent; const MemberName:
+    string);
 begin
   Assert(MemberName <> NullAsStringValue, Format('%s requires a non-empty MemberName', [ClassName]));
   inherited Create(Owner);
@@ -646,7 +697,7 @@ procedure TGeneratable.InitializeOrCreateFields;
 begin
 end;
 
-procedure TGeneratable.RunOnMember(const Member: TGeneratableInUnit; const Proc: TProc<TGeneratableInUnit>; const WithVisibility: TVisibility);
+procedure TGeneratable.RunOnMember(const Member: TGeneratableInUnit; const Proc: TGeneratableInUnitProc; const WithVisibility: TVisibility);
 begin
   if Member.Visibility = WithVisibility then
     Proc(Member);
@@ -686,13 +737,26 @@ begin
   end;
 end;
 
+procedure TGeneratableClass.FillSubMembers(const SubMembers:
+    TListOfGeneratableInUnit);
+var
+  Member: TGeneratableInUnitMaintainingUsesLists;
+begin
+  for Member in Constants do
+    SubMembers.Add(Member);
+  for Member in Fields do
+    SubMembers.Add(Member);
+  for Member in Methods do
+    SubMembers.Add(Member);
+  for Member in Properties do
+    SubMembers.Add(Member);
+end;
+
 function TGeneratableClass.GetDeclaration: string;
 var
   Content: IStringListWrapper;
   Visibility: TVisibility;
   Members: TListOfGeneratableInUnit;
-  Method: TGeneratableMethod;
-  TheProperty: TGeneratableProperty;
   Member: TGeneratableInUnit;
   VisibilityText: string;
   HaveGeneratableConstants: Boolean;
@@ -765,6 +829,15 @@ end;
 function TGeneratableClass.GetFields: TListOfGeneratableField;
 begin
   Result := FFields;
+end;
+
+function TGeneratableClass.GetHasSubMembers: Boolean;
+begin
+  Result := inherited GetHasSubMembers;
+  Result := Result or (Constants.Count > 0);
+  Result := Result or (Fields.Count > 0);
+  Result := Result or (Methods.Count > 0);
+  Result := Result or (Properties.Count > 0);
 end;
 
 procedure TGeneratableClass.InitializeOrCreateFields;
