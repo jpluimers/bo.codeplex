@@ -40,6 +40,7 @@ type
 
   TLegalPersonListBaseClientDataSet = class(TBaseEntityList)
   strict protected
+    procedure FillValidCriterionFieldNames(); override;
     function GetData(): Integer; overload; override;
     function GetEntityClass(): TEntityClass; overload; override;
     function GetID_LegalPersonField(): TIntegerField; virtual;
@@ -221,6 +222,15 @@ begin
 end;
 
 { TLegalPersonListBaseClientDataSet }
+
+procedure TLegalPersonListBaseClientDataSet.FillValidCriterionFieldNames();
+begin
+  inherited FillValidCriterionFieldNames();
+  ValidCriterionFieldNames.Add(ID_LegalPersonFieldName);
+  ValidCriterionFieldNames.Add(EID_BaseEntityFieldName);
+  ValidCriterionFieldNames.Add(NameFieldName);
+  ValidCriterionFieldNames.Add(LegalCodeFieldName);
+end;
 
 function TLegalPersonListBaseClientDataSet.GetData(): Integer;
 begin

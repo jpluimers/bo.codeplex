@@ -56,7 +56,8 @@ uses
   UserPersonUnit in '..\src\ORM\ORM.Actual\UserPersonUnit.pas',
   ClientDataSetSupportingCalculatedAndLookupFieldsUnit in '..\..\..\..\bo.DB\ClientDataSetSupportingCalculatedAndLookupFieldsUnit.pas',
   SqlWhereCriterionsUnit in '..\..\..\..\bo.DB\SqlWhereCriterionsUnit.pas',
-  ClientDataSetSupportingWhereOrderByUnit in '..\..\..\..\bo.DB\ClientDataSetSupportingWhereOrderByUnit.pas';
+  ClientDataSetSupportingWhereOrderByUnit in '..\..\..\..\bo.DB\ClientDataSetSupportingWhereOrderByUnit.pas',
+  StringListWrapperUnit in '..\..\..\..\bo.Text\StringListWrapperUnit.pas';
 
 {$R *.res}
 

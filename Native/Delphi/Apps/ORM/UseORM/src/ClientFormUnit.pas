@@ -12,6 +12,8 @@ type
     ClientListDBGrid: TDBGrid;
     ClientListDataSource: TDataSource;
     NewClientButton: TButton;
+    FilteredCheckBox: TCheckBox;
+    procedure FilteredCheckBoxClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure NewClientButtonClick(Sender: TObject);
   end;
@@ -25,6 +27,14 @@ uses
   ORMEntityListFactoryDataModuleIUnit, ClientDetailFormUnit;
 
 {$R *.dfm}
+
+procedure TClientForm.FilteredCheckBoxClick(Sender: TObject);
+begin
+  if FilteredCheckBox.Checked then
+    ClientListDataSource.DataSet := ORMEntityListFactoryDataModule.FilteredClientList
+  else
+    ClientListDataSource.DataSet := ORMEntityListFactoryDataModule.ClientList;
+end;
 
 procedure TClientForm.FormCreate(Sender: TObject);
 begin

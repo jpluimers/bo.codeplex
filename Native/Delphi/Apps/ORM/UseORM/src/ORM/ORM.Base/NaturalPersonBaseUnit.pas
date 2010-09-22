@@ -52,6 +52,7 @@ type
 
   TNaturalPersonListBaseClientDataSet = class(TBaseEntityList)
   strict protected
+    procedure FillValidCriterionFieldNames(); override;
     function GetData(): Integer; overload; override;
     function GetEntityClass(): TEntityClass; overload; override;
     function GetID_NaturalPersonField(): TIntegerField; virtual;
@@ -365,6 +366,19 @@ begin
 end;
 
 { TNaturalPersonListBaseClientDataSet }
+
+procedure TNaturalPersonListBaseClientDataSet.FillValidCriterionFieldNames();
+begin
+  inherited FillValidCriterionFieldNames();
+  ValidCriterionFieldNames.Add(ID_NaturalPersonFieldName);
+  ValidCriterionFieldNames.Add(EID_BaseEntityFieldName);
+  ValidCriterionFieldNames.Add(FirstNameFieldName);
+  ValidCriterionFieldNames.Add(InitialsFieldName);
+  ValidCriterionFieldNames.Add(LastNameFieldName);
+  ValidCriterionFieldNames.Add(BirthDateFieldName);
+  ValidCriterionFieldNames.Add(PlaceOfBirthFieldName);
+  ValidCriterionFieldNames.Add(SSNFieldName);
+end;
 
 function TNaturalPersonListBaseClientDataSet.GetData(): Integer;
 begin
