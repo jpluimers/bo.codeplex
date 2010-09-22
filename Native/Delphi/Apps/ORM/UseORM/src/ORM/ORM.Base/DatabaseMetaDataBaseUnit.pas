@@ -36,6 +36,7 @@ type
 
   TDatabaseMetaDataListBaseClientDataSet = class(TEntityListClientDataSet)
   strict protected
+    procedure FillValidCriterionFieldNames(); override;
     function GetData(): Integer; overload; override;
     function GetEntityClass(): TEntityClass; overload; override;
     function GetID_DatabaseMetaDataField(): TIntegerField; virtual;
@@ -184,6 +185,14 @@ begin
 end;
 
 { TDatabaseMetaDataListBaseClientDataSet }
+
+procedure TDatabaseMetaDataListBaseClientDataSet.FillValidCriterionFieldNames();
+begin
+  inherited FillValidCriterionFieldNames();
+  ValidCriterionFieldNames.Add(ID_DatabaseMetaDataFieldName);
+  ValidCriterionFieldNames.Add(VersionFieldName);
+  ValidCriterionFieldNames.Add(LastUpdateFieldName);
+end;
 
 function TDatabaseMetaDataListBaseClientDataSet.GetData(): Integer;
 begin

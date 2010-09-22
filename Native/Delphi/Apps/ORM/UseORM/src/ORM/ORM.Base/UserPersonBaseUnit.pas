@@ -40,6 +40,7 @@ type
 
   TUserPersonListBaseClientDataSet = class(TNaturalPersonList)
   strict protected
+    procedure FillValidCriterionFieldNames(); override;
     function GetData(): Integer; overload; override;
     function GetEntityClass(): TEntityClass; overload; override;
     function GetID_UserPersonField(): TIntegerField; virtual;
@@ -221,6 +222,15 @@ begin
 end;
 
 { TUserPersonListBaseClientDataSet }
+
+procedure TUserPersonListBaseClientDataSet.FillValidCriterionFieldNames();
+begin
+  inherited FillValidCriterionFieldNames();
+  ValidCriterionFieldNames.Add(ID_UserPersonFieldName);
+  ValidCriterionFieldNames.Add(EID_NaturalPersonFieldName);
+  ValidCriterionFieldNames.Add(UserPersonsNameFieldName);
+  ValidCriterionFieldNames.Add(PasswordMD5HashFieldName);
+end;
 
 function TUserPersonListBaseClientDataSet.GetData(): Integer;
 begin

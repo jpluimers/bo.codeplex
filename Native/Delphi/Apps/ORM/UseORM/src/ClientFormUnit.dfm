@@ -31,6 +31,15 @@ object ClientForm: TClientForm
       TabOrder = 0
       OnClick = NewClientButtonClick
     end
+    object FilteredCheckBox: TCheckBox
+      Left = 408
+      Top = 13
+      Width = 97
+      Height = 17
+      Caption = 'FilteredCheckBox'
+      TabOrder = 1
+      OnClick = FilteredCheckBoxClick
+    end
   end
   object ClientListDBGrid: TDBGrid
     Left = 0

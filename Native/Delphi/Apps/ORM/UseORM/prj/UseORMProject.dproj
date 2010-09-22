@@ -120,6 +120,7 @@
 			<DCCReference Include="..\..\..\..\bo.DB\ClientDataSetSupportingCalculatedAndLookupFieldsUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DB\SqlWhereCriterionsUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DB\ClientDataSetSupportingWhereOrderByUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Text\StringListWrapperUnit.pas"/>
 			<None Include="Debug\Win32\UseORMProject.ini"/>
 			<None Include="..\..\..\..\Include\Defines.inc"/>
 			<None Include="..\..\..\..\..\..\Forks\FastMM\FastMM4Options.inc"/>

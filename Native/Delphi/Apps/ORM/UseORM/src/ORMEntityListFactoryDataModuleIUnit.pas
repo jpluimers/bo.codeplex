@@ -11,12 +11,15 @@ type
     procedure DataModuleCreate(Sender: TObject);
   strict private
     FClientList: TClientList;
+    FFilteredClientList: TClientList;
     FLookupEntityListManager: TLookupEntityListManager;
   strict protected
     function GetClientList: TClientList; virtual;
+    function GetFilteredClientList: TClientList; virtual;
     function GetLookupEntityListManager: TLookupEntityListManager; virtual;
   public
     property ClientList: TClientList read GetClientList;
+    property FilteredClientList: TClientList read GetFilteredClientList;
     property LookupEntityListManager: TLookupEntityListManager read GetLookupEntityListManager;
   end;
 
@@ -43,6 +46,17 @@ begin
     FClientList.Fill;
   end;
   Result := FClientList;
+end;
+
+function TORMEntityListFactoryDataModule.GetFilteredClientList: TClientList;
+begin
+  if not Assigned(FFilteredClientList) then
+  begin
+    FFilteredClientList := TClientList.Create(LookupEntityListManager);
+    FFilteredClientList.AddFilterCriterion(TClientList.FirstNameFieldName, 'Foo');
+    FFilteredClientList.Fill;
+  end;
+  Result := FFilteredClientList;
 end;
 
 function TORMEntityListFactoryDataModule.GetLookupEntityListManager: TLookupEntityListManager;

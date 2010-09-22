@@ -37,6 +37,7 @@ type
 
   TClientListBaseClientDataSet = class(TNaturalPersonList)
   strict protected
+    procedure FillValidCriterionFieldNames(); override;
     function GetData(): Integer; overload; override;
     function GetEntityClass(): TEntityClass; overload; override;
     function GetID_ClientField(): TIntegerField; virtual;
@@ -185,6 +186,14 @@ begin
 end;
 
 { TClientListBaseClientDataSet }
+
+procedure TClientListBaseClientDataSet.FillValidCriterionFieldNames();
+begin
+  inherited FillValidCriterionFieldNames();
+  ValidCriterionFieldNames.Add(ID_ClientFieldName);
+  ValidCriterionFieldNames.Add(EID_NaturalPersonFieldName);
+  ValidCriterionFieldNames.Add(ID_Company_LegalPersonFieldName);
+end;
 
 function TClientListBaseClientDataSet.GetData(): Integer;
 begin

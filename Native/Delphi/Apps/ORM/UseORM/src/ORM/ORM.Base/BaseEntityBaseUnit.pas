@@ -54,6 +54,7 @@ type
 
   TBaseEntityListBaseClientDataSet = class(TEntityListClientDataSet)
   strict protected
+    procedure FillValidCriterionFieldNames(); override;
     function GetData(): Integer; overload; override;
     function GetEntityClass(): TEntityClass; overload; override;
     function GetID_BaseEntityField(): TIntegerField; virtual;
@@ -400,6 +401,20 @@ begin
 end;
 
 { TBaseEntityListBaseClientDataSet }
+
+procedure TBaseEntityListBaseClientDataSet.FillValidCriterionFieldNames();
+begin
+  inherited FillValidCriterionFieldNames();
+  ValidCriterionFieldNames.Add(ID_BaseEntityFieldName);
+  ValidCriterionFieldNames.Add(ExternalIDFieldName);
+  ValidCriterionFieldNames.Add(ID_UserPersonInsertFieldName);
+  ValidCriterionFieldNames.Add(TimeStampInsertFieldName);
+  ValidCriterionFieldNames.Add(ID_UserPersonUpdateFieldName);
+  ValidCriterionFieldNames.Add(TimeStampLastUpdateFieldName);
+  ValidCriterionFieldNames.Add(StartDateTimeFieldName);
+  ValidCriterionFieldNames.Add(FinishDateTimeFieldName);
+  ValidCriterionFieldNames.Add(RemarkFieldName);
+end;
 
 function TBaseEntityListBaseClientDataSet.GetData(): Integer;
 begin

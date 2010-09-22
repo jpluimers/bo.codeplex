@@ -55,6 +55,7 @@ type
 
   TAddressListBaseClientDataSet = class(TBaseEntityList)
   strict protected
+    procedure FillValidCriterionFieldNames(); override;
     function GetData(): Integer; overload; override;
     function GetEntityClass(): TEntityClass; overload; override;
     function GetID_AddressField(): TIntegerField; virtual;
@@ -401,6 +402,20 @@ begin
 end;
 
 { TAddressListBaseClientDataSet }
+
+procedure TAddressListBaseClientDataSet.FillValidCriterionFieldNames();
+begin
+  inherited FillValidCriterionFieldNames();
+  ValidCriterionFieldNames.Add(ID_AddressFieldName);
+  ValidCriterionFieldNames.Add(EID_BaseEntityFieldName);
+  ValidCriterionFieldNames.Add(RoutingFieldName);
+  ValidCriterionFieldNames.Add(StreetNameFieldName);
+  ValidCriterionFieldNames.Add(HouseNumberFieldName);
+  ValidCriterionFieldNames.Add(PostalCodeFieldName);
+  ValidCriterionFieldNames.Add(CityFieldName);
+  ValidCriterionFieldNames.Add(CountryCodeFieldName);
+  ValidCriterionFieldNames.Add(CountryFieldName);
+end;
 
 function TAddressListBaseClientDataSet.GetData(): Integer;
 begin
