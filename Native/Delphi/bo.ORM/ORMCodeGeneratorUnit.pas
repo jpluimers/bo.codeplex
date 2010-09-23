@@ -6,7 +6,7 @@ uses
   Classes, SysUtils, Generics.Collections,
   ReporterUnit, CodeGeneratorUnit,
   StringListWrapperUnit, LoggerUnit,
-  MSSystemColumnUnit, MSSystemTableUnit;
+  MSSystemColumnUnit, MSSystemTableUnit, ConcreteMethodReferencesUnit;
 
 type
   TSysColumnHelper = class(TComponent)
@@ -81,6 +81,8 @@ type
     procedure Generate; virtual;
     procedure GenerateActual(const MemberListName: string; const TheUnit: TGeneratableUnit); virtual;
     procedure GenerateBase(const MemberListName: string; const TheUnit: TGeneratableUnit); virtual;
+    procedure GenerateEntityListPropertyAndEntityListClass(const UnitType: TUnitType; const TheBaseOrActualClass: TGeneratableClass; const MemberListName: string);
+        virtual;
     function GenerateFieldName(const CurrentColumnName: string): string; virtual;
     procedure GenerateSelectStatement(const MethodBodyText: IStringListWrapper); virtual;
     function GenerateTableName(const TableName: string): string; virtual;
@@ -99,7 +101,7 @@ type
     procedure GenerateTheBasesClassQueryMethods(const TheBaseListClass: TGeneratableClass; const MemberName: string); virtual;
     function GetMemberName: string; virtual;
     procedure RunForEachColumnNameInSysTableAndAppendCommasWhereNeeded(const MSSystemTable: TMSSystemTable; const ColumnsStringBuilder: TStringBuilder; const Proc:
-        TProc<string>; const SkipIdColums: Boolean = False); virtual;
+        TStringProc; const SkipIdColums: Boolean = False); virtual;
   public
     constructor Create(const Owner: TComponent; const SysTables: TMSSystemTables; const TableName: string; const UnitType:
         TUnitType; const Logger: TLogger);
@@ -220,27 +222,27 @@ begin
     Inc(T);
     Inc(Y, 42);
 {
-object GebruikersnaamDbDisplayLabel: TDbDisplayLabel
+object UsernameDbDisplayLabel: TDbDisplayLabel
   Left = 10
   Top = 8
   Width = 165
   Height = 17
-  FocusControl = GebruikersnaamDbEdit
+  FocusControl = UsernameDbEdit
 end
-object GebruikersnaamDbEdit: TDBEdit
+object UsernameDbEdit: TDBEdit
   Left = 10
   Top = 22
   Width = 221
   Height = 21
   TabOrder = 0
 end
-object WachtwoordDbDisplayLabel: TDbDisplayLabel
+object PasswordDbDisplayLabel: TDbDisplayLabel
   Left = 10
   Top = 50
   Width = 165
   Height = 17
 end
-object WachtwoordDbEdit: TDBEdit
+object PasswordDbEdit: TDBEdit
   Left = 10
   Top = 64
   Width = 221
@@ -251,7 +253,7 @@ end
   end;
   TheUnit.FinalImplementationComments.Add('');
 
-  TheUnit.FinalImplementationComments.Add(Format('procedure T%sWijzigenForm.Set%s(const Value: T%s);', [MemberName, MemberName, MemberName]));
+  TheUnit.FinalImplementationComments.Add(Format('procedure T%sDetailForm.Set%s(const Value: T%s);', [MemberName, MemberName, MemberName]));
   TheUnit.FinalImplementationComments.Add('var');
   TheUnit.FinalImplementationComments.Add(Format('  %s: T%s;', [MemberListName, MemberListName]));
   TheUnit.FinalImplementationComments.Add('begin');
@@ -261,7 +263,7 @@ end
   for QualifiedColumnRecord in AllQualifiedColumnRecords do
   begin
     ColumnName := QualifiedColumnRecord.MSSystemColumn.ToString();
-    TheUnit.FinalImplementationComments.Add(Format('    AssignDataField(Self.%sDbDisplayLabel, Self.%sDbEdit, %s.%sField);',
+    TheUnit.FinalImplementationComments.Add(Format('    AssignDataField(DataSource, Self.%sDbDisplayLabel, Self.%sDbEdit, %s.%sField);',
       [ColumnName, ColumnName, MemberListName, ColumnName]));
   end;
   TheUnit.FinalImplementationComments.Add(Format('    F%s := Value;', [MemberName]));
@@ -271,26 +273,79 @@ end
   TheUnit.FinalImplementationComments.Add('    DataSource.DataSet := nil;');
   TheUnit.FinalImplementationComments.Add('end;');
 {
-procedure TGebruikerWijzigenForm.SetGebruiker(const Value: TGebruiker);
+procedure TUserWijzigenForm.SetUser(const Value: TUser);
 var
-  GebruikerList: TGebruikerList;
+  UserList: TUserList;
 begin
-  FGebruiker := Value;
+  FUser := Value;
   if Assigned(Value) then
   begin
-    GebruikerList := Value.GebruikerList;
-    AssignDataField(Self.GebruikersnaamDbDisplayLabel, Self.GebruikersnaamDbEdit, GebruikerList.GebruikersnaamField);
-    AssignDataField(Self.WachtwoordDbDisplayLabel, Self.WachtwoordDbEdit, GebruikerList.WachtwoordHashField);
-    AssignDataField(Self.StartDatumDbDisplayLabel, Self.StartDatumDbEdit, GebruikerList.StartdatumField);
-    AssignDataField(Self.EindDatumDbDisplayLabel, Self.EindDatumDbEdit, GebruikerList.EindDatumField);
-    AssignDataField(Self.OpmerkingDbDisplayLabel, Self.OpmerkingDBEdit, GebruikerList.OpmerkingField);
-//    Self.OpmerkingDBEdit.DataField := GebruikerList.
-    DataSource.DataSet := GebruikerList;
+    UserList := Value.UserList;
+    AssignDataField(Self.UsernameDbDisplayLabel, Self.UsernameDbEdit, UserList.UsernameField);
+    AssignDataField(Self.PasswordDbDisplayLabel, Self.PasswordDbEdit, UserList.PasswordHashField);
+    AssignDataField(Self.StartDateDbDisplayLabel, Self.StartDateDbEdit, UserList.StartDateField);
+    AssignDataField(Self.FinishDateDbDisplayLabel, Self.FinishDateDbEdit, UserList.FinishDateField);
+    AssignDataField(Self.RemarkDbDisplayLabel, Self.RemarkDBEdit, UserList.RemarkField);
+//    Self.RemarkDBEdit.DataField := UserList.
+    DataSource.DataSet := UserList;
   end
   else
     DataSource.DataSet := nil;
 end;
 }
+end;
+
+procedure TORMCodeGenerator.GenerateEntityListPropertyAndEntityListClass(const UnitType: TUnitType; const TheBaseOrActualClass: TGeneratableClass; const
+    MemberListName: string);
+var
+  Suffix: string;
+  GetMembersName: string;
+  MembersNameClass: string;
+  TheMethod: TGeneratableMethod;
+  TheProperty: TGeneratableProperty;
+  PropertyVisibility: TVisibility;
+begin
+  case UnitType of
+    utBase:
+    begin
+      Suffix := 'Base';
+      PropertyVisibility := vStrictProtected;
+    end;
+    utActual:
+    begin
+      Suffix := NullAsStringValue;
+      PropertyVisibility := vPublic;
+    end;
+    else
+      Assert(False, 'Unsupported UnitType Value');
+  end;
+
+  MembersNameClass := Format('T%s%s', [MemberListName, Suffix]);
+  GetMembersName := Format('Get%s%s', [MemberListName, Suffix]);
+
+  TheMethod := TGeneratableMethod.Create(TheBaseOrActualClass, GetMembersName, vStrictProtected, bkVirtual);
+  TheMethod.ReturnType := MembersNameClass;
+  //  strict protected
+  //    function GetUsers: TUsers; virtual;
+  TheMethod.BodyText.Add(Format('  Result := EntityList as %s;', [MembersNameClass]));
+  //function TUser.GetUsers: TUsers;
+  //begin
+  //  Result := EntityList as TUsers;
+  //end;
+  TheProperty := TGeneratableProperty.Create(TheBaseOrActualClass, MemberListName, MembersNameClass, PropertyVisibility);
+  TheProperty.ReadMember := GetMembersName;
+  //  strict protected
+  //    property Users: TUsers read GetUsers;
+
+  TheMethod := TGeneratableMethod.Create(TheBaseOrActualClass, 'GetEntityListClass', vStrictProtected, bkOverride);
+  TheMethod.ReturnType := 'TEntityListClass';
+  TheMethod.BodyText.Add(Format('  Result := %s;', [MembersNameClass]));
+  //  strict protected
+  //    function GetEntityListClass: TEntityListClass; override;
+  //function TUserBase.GetEntityListClass: TEntityListClass;
+  //begin
+  //  Result := TUsers;
+  //end;
 end;
 
 procedure TORMCodeGenerator.GenerateSelectStatement(const MethodBodyText: IStringListWrapper);
@@ -304,56 +359,46 @@ var
   IsFirstColumn: Boolean;
   OpeningParentheses: string;
 begin
-  // dit was heel simpel:
+  // From simple:
   //  TheMethod.BodyText.Add(Format('  ReadQuery.SQL.Add(''SELECT * FROM %s'');', [MemberName]));
-  // 20100107: nu is het ietsje ingewikkelder:
+  // To intermediate:
   //  ReadQuery.SQL.Add('SELECT ' +
-  //  '  Gebruiker.ID_Gebruiker, ' +
-  //  '  Gebruiker.EID_NatuurlijkPersoon, ' +
-  //  '  Gebruiker.Gebruikersnaam, ' +
-  //  '  Gebruiker.WachtwoordHash, ' +
-  //  '  Gebruiker.Startdatum, ' +
-  //  '  Gebruiker.EindDatum, ' +
-  //  '  Gebruiker.Opmerking ' +
-  //  'FROM Gebruiker');
-  // 2010108 maar het wordt nog veel ingewikkelder:
-  //SELECT
-  //  Client.ID_Client,
-  //  Client.EID_NatuurlijkPersoon,
-  //  Client.ID_FamilieContactPersoon,
-  //  Client.ID_FinancieelContactPersoon,
-  //  Client.ID_VerblijfsinstellingRechtsPersoon,
-  //  Client.ID_VerblijfsinstellingContactPersoon,
-  //--  NatuurlijkPersoon.ID_NatuurlijkPersoon,
-  //  NatuurlijkPersoon.EID_Entiteit,
-  //  NatuurlijkPersoon.GeslachtsCode,
-  //  NatuurlijkPersoon.Roepnaam,
-  //  NatuurlijkPersoon.Voornamen,
-  //  NatuurlijkPersoon.GeboorteDatum,
-  //  NatuurlijkPersoon.GeboortePlaatsNaam,
-  //  NatuurlijkPersoon.Voorletters,
-  //  NatuurlijkPersoon.TussenVoegsel,
-  //  NatuurlijkPersoon.Achternaam,
-  //  NatuurlijkPersoon.PartnerTussenVoegsel,
-  //  NatuurlijkPersoon.PartnerAchternaam,
-  //  NatuurlijkPersoon.BSN,
-  //--  Entiteit.ID_Entiteit,
-  //  Entiteit.ID_GebruikerInvoer,
-  //  Entiteit.TimeStampInvoer,
-  //  Entiteit.ID_GebruikerLaatsteWijziging,
-  //  Entiteit.TimeStampLaatsteWijziging,
-  //  Entiteit.ExternNummer
-  //FROM
-  //  Client
-  //LEFT JOIN
-  //  NatuurlijkPersoon
-  //ON
-  //  NatuurlijkPersoon.ID_NatuurlijkPersoon = Client.EID_NatuurlijkPersoon
-  //LEFT JOIN
-  //  Entiteit
-  //ON
-  //  Entiteit.ID_Entiteit = NatuurlijkPersoon.EID_Entiteit
-
+  //  '  User.ID_User, ' +
+  //  '  User.EID_PhysicalPerson, ' +
+  //  '  User.Username, ' +
+  //  '  User.PasswordHash, ' +
+  //  '  User.StartDate, ' +
+  //  '  User.FinishDate, ' +
+  //  '  User.Remark ' +
+  //  'FROM User');
+  // To complex - note the (( to create Access compatible joins and the 1=1 to get only zero rows, and to know the WHERE position:
+  //  ReadQuery.SQL.Add('   SELECT ' +
+  //  '  Client.ID_Client, ' +
+  //  '  Client.EID_NaturalPerson, ' +
+  //  '  Client.ID_Company_LegalPerson, ' +
+  //  '  NaturalPerson.ID_NaturalPerson, ' +
+  //  '  NaturalPerson.EID_BaseEntity, ' +
+  //  '  NaturalPerson.FirstName, ' +
+  //  '  NaturalPerson.Initials, ' +
+  //  '  NaturalPerson.LastName, ' +
+  //  '  NaturalPerson.BirthDate, ' +
+  //  '  NaturalPerson.PlaceOfBirth, ' +
+  //  '  NaturalPerson.SSN, ' +
+  //  '  NaturalPerson.ID_Gender, ' +
+  //  '  BaseEntity.ID_BaseEntity, ' +
+  //  '  BaseEntity.ExternalID, ' +
+  //  '  BaseEntity.ID_UserPersonInsert, ' +
+  //  '  BaseEntity.TimeStampInsert, ' +
+  //  '  BaseEntity.ID_UserPersonUpdate, ' +
+  //  '  BaseEntity.TimeStampLastUpdate, ' +
+  //  '  BaseEntity.StartDateTime, ' +
+  //  '  BaseEntity.FinishDateTime, ' +
+  //  '  BaseEntity.Remark ' +
+  //  '   FROM (( Client ' +
+  //  '   LEFT JOIN NaturalPerson ON NaturalPerson.ID_NaturalPerson = Client.EID_NaturalPerson) ' +
+  //  '   LEFT JOIN BaseEntity ON BaseEntity.ID_BaseEntity = NaturalPerson.EID_BaseEntity) ' +
+  //  'WHERE (1=1) '
+  //  );
   ColumnsStringBuilder := TStringBuilder.Create;
   try
     JoinsStringBuilder := TStringBuilder.Create;
@@ -407,59 +452,24 @@ end;
 function TORMCodeGenerator.GenerateTheActualClass(const MemberName, MemberListName: string; const TheUnit: TGeneratableUnit): TGeneratableClass;
 var
   TheActualClass: TGeneratableClass;
-  MembersNameClass: string;
-  MSSystemColumn: TMSSystemColumn;
   TheMethod: TGeneratableMethod;
   TheProperty: TGeneratableProperty;
-  CurrentColumnName: string;
-  GetMembersName: string;
-  GetMethodName: string;
-  SetMethodName: string;
-  NullableTypeName: string;
 begin
   TheActualClass := TGeneratableClass.Create(TheUnit, Format('T%s', [MemberName]), Format('T%sBase', [MemberName]), True);
-  //  TGebruiker = class(TGebruikerBase)
+  //  TUser = class(TUserBase)
   TheActualClass.InterfaceUnits.Add('ORMEntityUnit');
   TheActualClass.InterfaceUnits.Add(Format('%sBaseUnit', [MemberName]));
   TheActualClass.InterfaceUnits.Add('NullablesUnit');
   TheActualClass.InterfaceUnits.Add('Classes');
 
-  MembersNameClass := Format('T%s', [MemberListName]);
-  GetMembersName := Format('Get%s', [MemberListName]);
-
-  { --> dit stuk lijkt als twee druppens water op het 1e stuk van GenerateTheBaseClass }
-  TheMethod := TGeneratableMethod.Create(TheActualClass, GetMembersName, vStrictProtected, bkVirtual);
-  TheMethod.ReturnType := MembersNameClass;
-  //  strict protected
-  //    function GetGebruikers: TGebruikers; virtual;
-  TheMethod.BodyText.Add(Format('  Result := EntityList as %s;', [MembersNameClass]));
-  //function TGebruiker.GetGebruikers: TGebruikers;
-  //begin
-  //  Result := EntityList as TGebruikers;
-  //end;
-
-  TheProperty := TGeneratableProperty.Create(TheActualClass, MemberListName, MembersNameClass, vPublic);
-  TheProperty.ReadMember := GetMembersName;
-  //  strict protected
-  //    property Gebruikers: TGebruikers read GetGebruikers;
-
-  TheMethod := TGeneratableMethod.Create(TheActualClass, 'GetEntityListClass', vStrictProtected, bkOverride);
-  TheMethod.ReturnType := 'TEntityListClass';
-  TheMethod.BodyText.Add(Format('  Result := %s;', [MembersNameClass]));
-  //  strict protected
-  //    function GetEntityListClass: TEntityListClass; override;
-  //function TGebruikerBase.GetEntityListClass: TEntityListClass;
-  //begin
-  //  Result := TGebruikers;
-  //end;
-  { dit stuk lijkt als twee druppens water op het 1e stuk van GenerateTheBaseClass <-- }
+  GenerateEntityListPropertyAndEntityListClass(utActual, TheActualClass, MemberListName);
 
   TheMethod := TGeneratableMethod.Create(TheActualClass, 'Destroy', vPublic, bkOverride);
   TheMethod.MethodKind := mkDestructor;
   //  public
   //    destructor Destroy; override;
   TheMethod.BodyText.Add('  inherited Destroy;');
-  //destructor TGebruiker.Destroy;
+  //destructor TUser.Destroy;
   //begin
   //  inherited Destroy;
   //end;
@@ -482,17 +492,17 @@ begin
 
   TheMethod.BodyText.Add('  Value := inherited Current;');
   TheMethod.BodyText.Add(Format('  Result := Value as %s;', [TheActualClass.MemberName]));
-  //  TGebruikersBaseEnumerator = class(TEntityListEnumerator)
+  //  TUsersBaseEnumerator = class(TEntityListEnumerator)
   //  public
-  //    function GetCurrent(): TGebruiker;
-  //    property Current: TGebruiker read GetCurrent;
+  //    function GetCurrent(): TUser;
+  //    property Current: TUser read GetCurrent;
   //  end;
-  //function TGebruikersBaseEnumerator.GetCurrent(): TGebruiker;
+  //function TUsersBaseEnumerator.GetCurrent(): TUser;
   //var
-  //  Value: TGebruikerBase;
+  //  Value: TUserBase;
   //begin
   //  Value := inherited Current;
-  //  Result := Value as TGebruikerBase;
+  //  Result := Value as TUserBase;
   //end;
   TheProperty := TGeneratableProperty.Create(TheActualEnumeratorClass, 'Current', TheActualClass.MemberName, vPublic);
   TheProperty.ReadMember := TheMethod.MemberName;
@@ -510,7 +520,7 @@ begin
   TheActualListClass := TGeneratableClass.Create(
     TheUnit, Format('T%s', [MemberListName]), Format('T%sBase', [MemberListName]), True);
   TheActualListClass.ImplementationUnits.Add('SysUtils');
-  //  TGebruikers = class(TGebruikersBase)
+  //  TUsers = class(TUsersBase)
 
   TheMethod := TGeneratableMethod.Create(TheActualListClass, 'GetData', vStrictProtected, bkOverride);
   TheMethod.ReturnType := 'Integer';
@@ -518,7 +528,7 @@ begin
   //    function GetData: Integer; overload; override;
   TheMethod.BodyText.Add('  Result := inherited GetData();');
   TheMethod.BodyText.Add('  HideIDColumns();');
-  //function TGebruikers.GetData: Integer;
+  //function TUsers.GetData: Integer;
   //begin
   //  Result := inherited GetData();
   //  HideIDColumns();
@@ -529,42 +539,40 @@ begin
   //  strict protected
   //    function GetEntityClass: TEntityClass; override;
   TheMethod.BodyText.Add(Format('  Result := %s;', [TheActualClass.MemberName]));
-  //function TGebruikers.GetEntityClass: TEntityClass;
+  //function TUsers.GetEntityClass: TEntityClass;
   //begin
-  //  Result := TGebruiker;
+  //  Result := TUser;
   //end;
 
   //  public
-  //    function GetEnumerator: TGebruikersEnumerator;
+  //    function GetEnumerator: TUsersEnumerator;
   TheMethod := TGeneratableMethod.Create(TheActualListClass, 'GetEnumerator', vPublic);
   TheMethod.ReturnType := TheActualEnumeratorClass.MemberName;
   TheMethod.BodyText.Add(Format('  Result := %s.Create(Self);', [TheActualEnumeratorClass.MemberName]));
-  Result := TheActualListClass;
 
 //  strict protected
-//    function GetById(ID: TNullableInteger): TGebruiker; virtual;
+//    function GetById(ID: TNullableInteger): TUser; virtual;
   TheMethod := TGeneratableMethod.Create(TheActualListClass, 'GetById', vStrictProtected);
   TheMethod.ReturnType := TheActualClass.MemberName;
   TheMethod.Parameters := 'ID: TNullableInteger'; //jpl: mag geen CONST parameter zijn, want dat slikt de Delphi compiler niet bij de property
   TheMethod.BodyText.Add(Format('  Result := GetEntityById(ID) as %s;', [TheActualClass.MemberName]));
-//  Result := GetEntityById(ID) as TGebruiker;
-  Result := TheActualListClass;
+//  Result := GetEntityById(ID) as TUser;
 
 //  public
-//    property ById[ID: TNullableInteger]: TGebruiker read GetById;
+//    property ById[ID: TNullableInteger]: TUser read GetById;
   TheProperty := TGeneratableProperty.Create(TheActualListClass, 'ById[ID: TNullableInteger]', TheActualClass.MemberName, vPublic);
   TheProperty.ReadMember := TheMethod.MemberName;
 
 //  strict private
-//    function GetCurrent: TGebruiker;
+//    function GetCurrent: TUser;
   TheMethod := TGeneratableMethod.Create(TheActualListClass, 'GetCurrent', vStrictPrivate); //jpl: 20100204 - non-virtual; strict private
   TheMethod.ReturnType := TheActualClass.MemberName;
   TheMethod.BodyText.Add(Format('  Result := CurrentEntity as %s;', [TheActualClass.MemberName]));
-//  Result := CurrentEntity as TGebruiker;
+//  Result := CurrentEntity as TUser;
   Result := TheActualListClass;
 
 //  public
-//    property Current: TGebruiker read GetCurrent;
+//    property Current: TUser read GetCurrent;
   TheProperty := TGeneratableProperty.Create(TheActualListClass, 'Current', TheActualClass.MemberName, vPublic);
   TheProperty.ReadMember := TheMethod.MemberName;
 end;
@@ -575,12 +583,10 @@ var
   JoinedTableName: string;
   TheBaseClassAncestorName: string;
   TheBaseClass: TGeneratableClass;
-  MembersNameClass: string;
   MSSystemColumn: TMSSystemColumn;
   TheMethod: TGeneratableMethod;
   TheProperty: TGeneratableProperty;
   CurrentColumnName: string;
-  GetMembersName: string;
   GetMethodName: string;
   SetMethodName: string;
   NullableTypeName: string;
@@ -603,36 +609,10 @@ begin
   TheBaseClass.InterfaceUnits.Add('ORMEntityUnit');
   TheBaseClass.InterfaceUnits.Add('DataSetEnumeratorUnit');
   TheBaseClass.InterfaceUnits.Add('NullablesUnit');
-  TheBaseClass.InterfaceUnits.Add('db');
+  TheBaseClass.InterfaceUnits.Add('DB');
   TheBaseClass.InterfaceUnits.Add('ADODB');
 
-  MembersNameClass := Format('T%sBase', [MemberListName]);
-  GetMembersName := Format('Get%sBase', [MemberListName]);
-
-  TheMethod := TGeneratableMethod.Create(TheBaseClass, GetMembersName, vStrictProtected, bkVirtual);
-  TheMethod.ReturnType := MembersNameClass;
-  TheMethod.BodyText.Add(Format('  Result := EntityList as %s;', [MembersNameClass]));
-  //  strict protected
-  //    function GetGebruikersBase: TGebruikersBase; virtual;
-
-  TheProperty := TGeneratableProperty.Create(TheBaseClass, MemberListName, MembersNameClass, vStrictProtected);
-  TheProperty.ReadMember := GetMembersName;
-  //  strict protected
-  //    property GebruikersBase: TGebruikersBase read GetGebruikersBase;
-  //function TGebruikerBase.GetGebruikersBase: TGebruikersBase;
-  //begin
-  //  Result := EntityList as TGebruikersBase;
-  //end;
-
-  TheMethod := TGeneratableMethod.Create(TheBaseClass, 'GetEntityListClass', vStrictProtected, bkOverride);
-  TheMethod.ReturnType := 'TEntityListClass';
-  TheMethod.BodyText.Add(Format('  Result := %s;', [MembersNameClass]));
-  //  strict protected
-  //    function GetEntityListClass: TEntityListClass; override;
-  //function TGebruikerBase.GetEntityListClass: TEntityListClass;
-  //begin
-  //  Result := TGebruikersBase;
-  //end;
+  GenerateEntityListPropertyAndEntityListClass(utBase, TheBaseClass, MemberListName);
 
   for QualifiedColumnRecord in FirstTableQualifiedColumnRecords do
   begin
@@ -644,7 +624,7 @@ begin
     SetMethodName := Format('Set%s', [CurrentColumnName]);
 
     //  strict protected
-    //    function GetEindDatum: TNullableDateTime; virtual;
+    //    function GetFinishDate: TNullableDateTime; virtual;
     TheMethod := TGeneratableMethod.Create(TheBaseClass, GetMethodName, vStrictProtected, bkVirtual);
     TheMethod.ReturnType := NullableTypeName;
     //jpl: "Value" tussenresultaat is nodig omdat je in de "anonymous method" geen Result mag gebruiken
@@ -656,21 +636,21 @@ begin
     TheMethod.BodyText.Add('  end');
     TheMethod.BodyText.Add('  );');
     TheMethod.BodyText.Add('  Result := Value;');
-    //function TGebruikerBase.GetEindDatum: TNullableDateTime;
+    //function TUserBase.GetFinishDate: TNullableDateTime;
     //var
     //  Value: TNullableDateTime;
     //begin
     //  ExecuteAtDictionaryID(
     //  procedure
     //  begin
-    //    Value := GebruikersBase.EindDatum;
+    //    Value := UsersBase.FinishDate;
     //  end
     //  );
     //  Result := Value;
     //end;
 
     //  strict protected
-    //    procedure SetEindDatum(const Value: TNullableDateTime); virtual;
+    //    procedure SetFinishDate(const Value: TNullableDateTime); virtual;
 
     TheMethod := TGeneratableMethod.Create(TheBaseClass, SetMethodName, vStrictProtected, bkVirtual);
     TheMethod.Parameters := Format('const Value: %s', [SysColumnAsTNullableTypeName(MSSystemColumn)]);
@@ -683,7 +663,7 @@ begin
     TheMethod.BodyText.Add(Format('      %s.%s := NewValue;', [MemberListName, CurrentColumnName]));
     TheMethod.BodyText.Add('    end');
     TheMethod.BodyText.Add('  );');
-    //procedure TGebruikerBase.SetEindDatum(const Value: TNullableDateTime);
+    //procedure TUserBase.SetFinishDate(const Value: TNullableDateTime);
     //var
     //  NewValue: TNullableDateTime;
     //begin
@@ -691,13 +671,13 @@ begin
     //  ExecuteAtBookmarkInEditMode(
     //    procedure
     //    begin
-    //      GebruikersBase.EindDatum := NewValue;
+    //      UsersBase.FinishDate := NewValue;
     //    end
     //  );
     //end;
 
     //  public
-    //    property EindDatum: TNullableDateTime read GetEindDatum write SetEindDatum;
+    //    property FinishDate: TNullableDateTime read GetFinishDate write SetFinishDate;
     TheProperty := TGeneratableProperty.Create(TheBaseClass, CurrentColumnName, NullableTypeName, vPublic);
     TheProperty.ReadMember := GetMethodName;
     TheProperty.WriteMember := SetMethodName;
@@ -721,13 +701,6 @@ var
   TheBaseClientDataSetClassAncestorName: string;
   TheConstant: TGeneratableConstant;
 begin
-  //  TheMethod := TGeneratableMethod.Create(TheBaseClientDataSetClass, 'GetCurrent', vPublic);
-  //  TheMethod.ReturnType := TheBaseClass.MemberName;
-  //  TheMethod.BodyText.Add(Format('  raise ENotSupportedException.Create(''not supported yet: function %s.%s: %s;''', [TheBaseClientDataSetClass.MemberName,
-  //      TheMethod.MemberName, TheBaseClass.MemberName]));
-  //  TheMethod.BodyText.Add(Format('    //  Result := %s(FCollection[FIndex]);', [TheBaseClass.MemberName]));
-  //  TheProperty := TGeneratableProperty.Create(TheBaseClientDataSetClass, 'Current', TheBaseClass.MemberName, vPublic);
-
   if JoinReferenceRecords.Count > 0 then
   begin
     JoinReferenceRecord := JoinReferenceRecords.First;
@@ -741,7 +714,25 @@ begin
   end;
   TheBaseClientDataSetClass := TGeneratableClass.Create(TheUnit, Format('T%sBaseClientDataSet', [MemberListName]), TheBaseClientDataSetClassAncestorName);
 
-  //  TGebruikerBaseClientDataSet = class(TEntityListClientDataSet)
+  //  TUserBaseClientDataSet = class(TEntityListClientDataSet)
+
+  //  strict protected
+  //    procedure FillValidCriterionFieldNames; override;
+  TheMethod := TGeneratableMethod.Create(TheBaseClientDataSetClass, 'FillValidCriterionFieldNames', vStrictProtected, bkOverride);
+  //procedure TClientListBaseClientDataSet.FillValidCriterionFieldNames;
+  //begin
+  //  inherited FillValidCriterionFieldNames();
+  //  ValidCriterionFieldNames.Add(ID_ClientFieldName);
+  //  ValidCriterionFieldNames.Add(EID_NaturalPersonFieldName);
+  //  ValidCriterionFieldNames.Add(ID_Company_LegalPersonFieldName);
+  //end;
+  TheMethod.BodyText.Add(Format('  inherited %s();', [TheMethod.MemberName]));
+  for QualifiedColumnRecord in FirstTableQualifiedColumnRecords do
+  begin
+    MSSystemColumn := QualifiedColumnRecord.MSSystemColumn;
+    CurrentColumnName := MSSystemColumn.ToString();
+    TheMethod.BodyText.Add(Format('  ValidCriterionFieldNames.Add(%s);', [GenerateFieldName(CurrentColumnName)]));
+  end;
 
   //  strict protected
   //    function GetData: Integer; overload; override;
@@ -772,7 +763,7 @@ begin
     FieldNameConstantName := GenerateFieldName(CurrentColumnName);
 
     //  public
-    //    const ID_GebruikerFieldName = 'ID_Gebruiker';
+    //    const ID_UserFieldName = 'ID_User';
     TheConstant := TGeneratableConstant.Create(TheBaseClientDataSetClass,
       FieldNameConstantName,
       Format('''%s''', [CurrentColumnName]),
@@ -780,7 +771,7 @@ begin
       vPublic);
 
     //  public
-    //    const ID_Gebruiker_UpdateFieldName = 'ID_Gebruiker_Update';
+    //    const ID_User_UpdateFieldName = 'ID_User_Update';
     TheConstant := TGeneratableConstant.Create(TheBaseClientDataSetClass,
       Format('%sParameterName', [GetChangedColumnName(CurrentColumnName)]),
       Format('''%s''', [GetChangedColumnName(CurrentColumnName)]),
@@ -788,13 +779,13 @@ begin
       vPublic);
 
     //  strict protected
-    //    function GetEindDatumField: TDateTimeField; virtual;
+    //    function GetFinishDateField: TDateTimeField; virtual;
     TheMethod := TGeneratableMethod.Create(TheBaseClientDataSetClass, Format('Get%sField', [CurrentColumnName]), vStrictProtected, bkVirtual);
     TheMethod.ReturnType := SysColumnAsTFieldClassName(MSSystemColumn);
     TheMethod.BodyText.Add(Format('  Result := Fields.FieldByName(%s) as %s;', [FieldNameConstantName, TheMethod.ReturnType]));
 
     //  public
-    //    property EindDatumField: TDateTimeField read GetEindDatumField;
+    //    property FinishDateField: TDateTimeField read GetFinishDateField;
     TheProperty := TGeneratableProperty.Create(TheBaseClientDataSetClass, Format('%sField', [CurrentColumnName]), TheMethod.ReturnType, vPublic);
     TheProperty.ReadMember := TheMethod.MemberName;
   end;
@@ -817,18 +808,18 @@ begin
 
   TheMethod.BodyText.Add('  Entity := inherited Current;');
   TheMethod.BodyText.Add(Format('  Result := Entity as %s;', [TheBaseClass.MemberName]));
-  //  TGebruikersBaseEnumerator = class(TEntityListEnumerator)
+  //  TUsersBaseEnumerator = class(TEntityListEnumerator)
   //  strict private
-  //    function GetCurrent(): TGebruikerBase;
+  //    function GetCurrent(): TUserBase;
   //  public
-  //    property Current: TGebruikerBase read GetCurrent;
+  //    property Current: TUserBase read GetCurrent;
   //  end;
-  //function TGebruikersBaseEnumerator.GetCurrent(): TGebruikerBase;
+  //function TUsersBaseEnumerator.GetCurrent(): TUserBase;
   //var
   //  Entity: TEntity;
   //begin
   //  Entity := inherited Current;
-  //  Result := Entity as TGebruikerBase;
+  //  Result := Entity as TUserBase;
   //end;
   TheProperty := TGeneratableProperty.Create(TheBaseEnumeratorClass, 'Current', TheBaseClass.MemberName, vPublic);
   TheProperty.ReadMember := TheMethod.MemberName;
@@ -869,32 +860,32 @@ begin
     TheMethod := TGeneratableMethod.Create(TheBaseListClass, GetMethodName, vStrictProtected, bkVirtual);
     TheMethod.ReturnType := NullableTypeName;
     //  strict protected
-    //    function GetEindDatum: TNullableDateTime; virtual;
+    //    function GetFinishDate: TNullableDateTime; virtual;
     TheMethod.BodyText.Add(Format('  Result := %s.%s;', [GetFieldColumnName(CurrentColumnName), NullableHelperName]));
-    //function TGebruikersBase.GetEindDatum: TNullableDateTime;
+    //function TUsersBase.GetFinishDate: TNullableDateTime;
     //begin
-    //  Result := EindDatumField.AsNullableDateTime;
+    //  Result := FinishDateField.AsNullableDateTime;
     //end;
 
     TheMethod := TGeneratableMethod.Create(TheBaseListClass, SetMethodName, vStrictProtected, bkVirtual);
     TheMethod.Parameters := Format('const Value: %s', [SysColumnAsTNullableTypeName(MSSystemColumn)]);
     //  strict protected
-    //    procedure SetEindDatum(const Value: TNullableDateTime); virtual;
+    //    procedure SetFinishDate(const Value: TNullableDateTime); virtual;
     TheMethod.BodyText.Add(Format('  %s.%s := Value;', [GetFieldColumnName(CurrentColumnName), NullableHelperName]));
-    //procedure TGebruikersBase.SetEindDatum(const Value: TNullableDateTime);
+    //procedure TUsersBase.SetFinishDate(const Value: TNullableDateTime);
     //begin
-    //  EindDatumField.AsNullableDateTime := Value;
+    //  FinishDateField.AsNullableDateTime := Value;
     //end;
 
     //  public
-    //    property EindDatum: TNullableDateTime read GetEindDatum write SetEindDatum;
+    //    property FinishDate: TNullableDateTime read GetFinishDate write SetFinishDate;
     TheProperty := TGeneratableProperty.Create(TheBaseListClass, CurrentColumnName, NullableTypeName, vPublic);
     TheProperty.ReadMember := GetMethodName;
     TheProperty.WriteMember := SetMethodName;
   end;
 
   //  public
-  //    function GetEnumerator: TGebruikersBaseEnumerator;
+  //    function GetEnumerator: TUsersBaseEnumerator;
   TheMethod := TGeneratableMethod.Create(TheBaseListClass, 'GetEnumerator', vPublic);
   TheMethod.ReturnType := TheBaseEnumeratorClass.MemberName;
   TheMethod.BodyText.Add(Format('  Result := %s.Create(Self);', [TheBaseEnumeratorClass.MemberName]));
@@ -919,9 +910,9 @@ begin
   //  strict private
   //    procedure SetDeleteQueryText(const SetDeleteQueryText: string);
   TheMethod.BodyText.Add(Format('  DeleteQueryText := ''DELETE FROM %s WHERE %s = :%s'';', [MemberName, IDColumnName, IDColumnName]));
-  //procedure TGebruikersBase.SetDeleteQueryText(const DeleteQuery: TDBQuery);
+  //procedure TUsersBase.SetDeleteQueryText(const DeleteQuery: TDBQuery);
   //begin
-  //  DeleteQueryText := 'DELETE FROM Gebruiker WHERE ID_Gebruiker = :ID_Gebruiker';
+  //  DeleteQueryText := 'DELETE FROM User WHERE ID_User = :ID_User';
   //end;
 
   TheMethod := TGeneratableMethod.Create(TheBaseListClass, 'SetInsertQueryText', vStrictPrivate, bkRegular);
@@ -932,8 +923,8 @@ begin
   //  begin
   //    InsertQueryText :=
   //    'INSERT INTO ContactPersoon (' +
-  //    '  EID_NatuurlijkPersoon  ) VALUES (' +
-  //    '  :EID_NatuurlijkPersoon_Changed  )';
+  //    '  EID_PhysicalPerson  ) VALUES (' +
+  //    '  :EID_PhysicalPerson_Changed  )';
   //  end;
   ColumnsStringBuilder := TStringBuilder.Create;
   try
@@ -957,9 +948,9 @@ begin
   //    procedure SetReadQueryText(const ReadQuery: TDBQuery); override;
   //  TheMethod.BodyText.Add(Format('  ReadQuery.SQL.Add(''SELECT * FROM %s'');', [MemberName]));
   GenerateSelectStatement(TheMethod.BodyText);
-  //procedure TGebruikersBase.SetReadQueryText(const ReadQuery: TDBQuery);
+  //procedure TUsersBase.SetReadQueryText(const ReadQuery: TDBQuery);
   //begin
-  //  ReadQuery.SQL.Add('SELECT * FROM Gebruiker');
+  //  ReadQuery.SQL.Add('SELECT * FROM User');
   //end;
 
   TheMethod := TGeneratableMethod.Create(TheBaseListClass, 'SetUpdateQueryText', vStrictPrivate, bkRegular);
@@ -976,26 +967,26 @@ begin
     ColumnsStringBuilder.AppendLine(' '' +');
     ColumnsStringBuilder.AppendFormat('  ''WHERE %s = :%s '';', [IDColumnName, IDColumnName]);
     //    UpdateQueryText :=
-    //    'UPDATE Gebruiker ' + 'SET ' +
-    //    //'  ID_NatuurlijkPersoon = :ID_NatuurlijkPersoon_Update, ' + // skip Identity field!
-    //    '  Gebruikersnaam = :Gebruikersnaam_Update, ' +
-    //    '  WachtwoordHash = :WachtwoordHash_Update, ' +
-    //    '  Startdatum = :Startdatum_Update, ' +
-    //    '  EindDatum = :EindDatum_Update ' +
-    //    'WHERE ID_Gebruiker = :ID_Gebruiker ';
+    //    'UPDATE User ' + 'SET ' +
+    //    //'  ID_PhysicalPerson = :ID_PhysicalPerson_Update, ' + // skip Identity field!
+    //    '  Username = :Username_Update, ' +
+    //    '  PasswordHash = :PasswordHash_Update, ' +
+    //    '  StartDate = :StartDate_Update, ' +
+    //    '  FinishDate = :FinishDate_Update ' +
+    //    'WHERE ID_User = :ID_User ';
     TheMethod.BodyText.Add(ColumnsStringBuilder.ToString);
   finally
     ColumnsStringBuilder.Free;
   end;
-  //procedure TGebruikersBase.SetUpdateQueryText(const UpdateQuery: TDBQuery);
+  //procedure TUsersBase.SetUpdateQueryText(const UpdateQuery: TDBQuery);
   //begin
-  //  UpdateQuery.SQL.Add('UPDATE Gebruiker ' + 'SET ' +
-  //    'ID_NatuurlijkPersoon = :ID_NatuurlijkPersoon_Update, ' +
-  //    'Gebruikersnaam = :Gebruikersnaam_Update, ' +
-  //    'WachtwoordHash = :WachtwoordHash_Update, ' +
-  //    'Startdatum = :Startdatum_Update, ' +
-  //    'EindDatum = :EindDatum_Update ' +
-  //    'WHERE ' + 'ID_Gebruiker = :ID_Gebruiker ');
+  //  UpdateQuery.SQL.Add('UPDATE User ' + 'SET ' +
+  //    'ID_PhysicalPerson = :ID_PhysicalPerson_Update, ' +
+  //    'Username = :Username_Update, ' +
+  //    'PasswordHash = :PasswordHash_Update, ' +
+  //    'StartDate = :StartDate_Update, ' +
+  //    'FinishDate = :FinishDate_Update ' +
+  //    'WHERE ' + 'ID_User = :ID_User ');
   //end;
   TheMethod := TGeneratableMethod.Create(TheBaseListClass, 'SetParams', vStrictPrivate, bkRegular);
   TheMethod.Parameters := 'const DBQuery: TDBQuery';
@@ -1006,18 +997,18 @@ begin
     if not SysColumnIsIdColumnOf(MSSystemColumn, FirstSysTable) then
     begin
       ColumnName := MSSystemColumn.ToString();
-      //  DBQuery.AssignParam(ID_NatuurlijkPersoon, ID_NatuurlijkPersoonFieldName);
+      //  DBQuery.AssignParam(ID_PhysicalPerson, ID_PhysicalPersonFieldName);
       TheMethod.BodyText.Add(Format('  DBQuery.AssignParam(%s, %sParameterName);', [ColumnName,  GetChangedColumnName(ColumnName)]));
     end;
   end;
-  //procedure TGebruikersBase.SetParams(const DBQuery: TDBQuery);
+  //procedure TUsersBase.SetParams(const DBQuery: TDBQuery);
   //begin
-  //  // DBQuery.AssignParam(ID_Gebruiker, 'ID_Gebruiker'); // Skip ID column!
-  //  DBQuery.AssignParam(ID_NatuurlijkPersoon, 'ID_NatuurlijkPersoon');
-  //  DBQuery.AssignParam(Gebruikersnaam, 'Gebruikersnaam');
-  //  DBQuery.AssignParam(WachtwoordHash, 'WachtwoordHash');
-  //  DBQuery.AssignParam(Startdatum, 'Startdatum');
-  //  DBQuery.AssignParam(EindDatum, 'EindDatum');
+  //  // DBQuery.AssignParam(ID_User, 'ID_User'); // Skip ID column!
+  //  DBQuery.AssignParam(ID_PhysicalPerson, 'ID_PhysicalPerson');
+  //  DBQuery.AssignParam(Username, 'Username');
+  //  DBQuery.AssignParam(PasswordHash, 'PasswordHash');
+  //  DBQuery.AssignParam(StartDate, 'StartDate');
+  //  DBQuery.AssignParam(FinishDate, 'FinishDate');
   //end;
 
   TheConstant := TGeneratableConstant.Create(TheBaseListClass,
@@ -1028,6 +1019,7 @@ begin
 
   TheMethod := TGeneratableMethod.Create(TheBaseListClass, 'FillJoinedColumnPair', vStrictPrivate, bkRegular);
   TheMethod.ReturnType := 'TJoinedColumnPair';
+  TheMethod.InterfaceUnits.Add('JoinedColumnPairUnit');
   //  strict private
   //    function FillJoinedColumnPair: TJoinedColumnPair;
   if JoinReferenceRecords.Count = 0 then
@@ -1044,27 +1036,28 @@ begin
       GenerateFieldName(JoinReferenceRecord.SourceSysColumn.ToString()),
       GenerateTableName(JoinReferenceRecord.ReferenceSysTable.ToString()),
       GenerateFieldName(JoinReferenceRecord.ReferenceSysColumn.ToString())]));
-  //  Result := TJoinedColumnPair.Create(Client_TableName, EID_NatuurlijkPersoonFieldName, NatuurlijkPersoon_TableName, ID_NatuurlijkPersoonFieldName);
+  //  Result := TJoinedColumnPair.Create(Client_TableName, EID_PhysicalPersonFieldName, PhysicalPerson_TableName, ID_PhysicalPersonFieldName);
   end;
   //function TContactPersoonListBase.FillJoinedColumnPair: TJoinedColumnPair;
   //begin
   //  Result := TJoinedColumnPair.Create(Entiteit_TableName, Self.ID_EntiteitFieldName);
-  //  Result := TJoinedColumnPair.Create(Client_TableName, EID_NatuurlijkPersoonFieldName, NatuurlijkPersoon_TableName, ID_NatuurlijkPersoonFieldName);
+  //  Result := TJoinedColumnPair.Create(Client_TableName, EID_PhysicalPersonFieldName, PhysicalPerson_TableName, ID_PhysicalPersonFieldName);
   //end;
 
   TheMethod := TGeneratableMethod.Create(TheBaseListClass, 'FillDeleteQueryRecordList', vStrictProtected, bkOverride);
-  TheMethod.Parameters := 'const DeleteQueryRecordList: TEntityQueryRecordList';
+  TheMethod.Parameters := 'const DeleteQueryRecordList: TMSDMLQueryRecordList';
+  TheMethod.InterfaceUnits.Add('MSDMLQueryRecordUnit');
   //  strict protected
-  //    procedure FillDeleteQueryRecordList(const DeleteQueryRecordList: TEntityQueryRecordList); override;
-  TheMethod.LocalVars.Add('DeleteQueryRecord', 'TEntityQueryRecord');
+  //    procedure FillDeleteQueryRecordList(const DeleteQueryRecordList: TMSDMLQueryRecordList); override;
+  TheMethod.LocalVars.Add('DeleteQueryRecord', 'TMSDMLQueryRecord');
   TheMethod.BodyText.Add('  inherited FillDeleteQueryRecordList(DeleteQueryRecordList);');
   TheMethod.BodyText.Add('  DeleteQueryRecord.SetQueryTextMethod := Self.SetDeleteQueryText;');
   TheMethod.BodyText.Add('  DeleteQueryRecord.SetParamsMethod := nil;');
   TheMethod.BodyText.Add('  DeleteQueryRecord.JoinedColumnPair := FillJoinedColumnPair();');
   TheMethod.BodyText.Add('  DeleteQueryRecordList.Add(DeleteQueryRecord);');
-  //procedure TContactPersoonListBase.FillDeleteQueryRecordList(const DeleteQueryRecordList: TEntityQueryRecordList);
+  //procedure TContactPersoonListBase.FillDeleteQueryRecordList(const DeleteQueryRecordList: TMSDMLQueryRecordList);
   //var
-  //  DeleteQueryRecord: TEntityQueryRecord;
+  //  DeleteQueryRecord: TMSDMLQueryRecord;
   //begin
   //  inherited FillDeleteQueryRecordList(DeleteQueryRecordList);
   //  DeleteQueryRecord.SetQueryTextMethod := Self.SetDeleteQueryText;
@@ -1074,18 +1067,18 @@ begin
   //end;
 
   TheMethod := TGeneratableMethod.Create(TheBaseListClass, 'FillInsertQueryRecordList', vStrictProtected, bkOverride);
-  TheMethod.Parameters := 'const InsertQueryRecordList: TEntityQueryRecordList';
+  TheMethod.Parameters := 'const InsertQueryRecordList: TMSDMLQueryRecordList';
   //  strict protected
-  //    procedure FillInsertQueryRecordList(const InsertQueryRecordList: TEntityQueryRecordList); override;
-  TheMethod.LocalVars.Add('InsertQueryRecord', 'TEntityQueryRecord');
+  //    procedure FillInsertQueryRecordList(const InsertQueryRecordList: TMSDMLQueryRecordList); override;
+  TheMethod.LocalVars.Add('InsertQueryRecord', 'TMSDMLQueryRecord');
   TheMethod.BodyText.Add('  inherited FillInsertQueryRecordList(InsertQueryRecordList);');
   TheMethod.BodyText.Add('  InsertQueryRecord.SetQueryTextMethod := Self.SetInsertQueryText;');
   TheMethod.BodyText.Add('  InsertQueryRecord.SetParamsMethod := Self.SetParams;');
   TheMethod.BodyText.Add('  InsertQueryRecord.JoinedColumnPair := FillJoinedColumnPair();');
   TheMethod.BodyText.Add('  InsertQueryRecordList.Add(InsertQueryRecord);');
-  //procedure TContactPersoonListBase.FillInsertQueryRecordList(const InsertQueryRecordList: TEntityQueryRecordList);
+  //procedure TContactPersoonListBase.FillInsertQueryRecordList(const InsertQueryRecordList: TMSDMLQueryRecordList);
   //var
-  //  InsertQueryRecord: TEntityQueryRecord;
+  //  InsertQueryRecord: TMSDMLQueryRecord;
   //begin
   //  inherited FillInsertQueryRecordList(InsertQueryRecordList);
   //  InsertQueryRecord.SetQueryTextMethod := Self.SetInsertQueryText;
@@ -1095,18 +1088,18 @@ begin
   //end;
 
   TheMethod := TGeneratableMethod.Create(TheBaseListClass, 'FillUpdateQueryRecordList', vStrictProtected, bkOverride);
-  TheMethod.Parameters := 'const UpdateQueryRecordList: TEntityQueryRecordList';
+  TheMethod.Parameters := 'const UpdateQueryRecordList: TMSDMLQueryRecordList';
   //  strict protected
-  //    procedure FillUpdateQueryRecordList(const UpdateQueryRecordList: TEntityQueryRecordList); override;
-  TheMethod.LocalVars.Add('UpdateQueryRecord', 'TEntityQueryRecord');
+  //    procedure FillUpdateQueryRecordList(const UpdateQueryRecordList: TMSDMLQueryRecordList); override;
+  TheMethod.LocalVars.Add('UpdateQueryRecord', 'TMSDMLQueryRecord');
   TheMethod.BodyText.Add('  inherited FillUpdateQueryRecordList(UpdateQueryRecordList);');
   TheMethod.BodyText.Add('  UpdateQueryRecord.SetQueryTextMethod := Self.SetUpdateQueryText;');
   TheMethod.BodyText.Add('  UpdateQueryRecord.SetParamsMethod := Self.SetParams;');
   TheMethod.BodyText.Add('  UpdateQueryRecord.JoinedColumnPair := FillJoinedColumnPair();');
   TheMethod.BodyText.Add('  UpdateQueryRecordList.Add(UpdateQueryRecord);');
-  //procedure TContactPersoonListBase.FillUpdateQueryRecordList(const UpdateQueryRecordList: TEntityQueryRecordList);
+  //procedure TContactPersoonListBase.FillUpdateQueryRecordList(const UpdateQueryRecordList: TMSDMLQueryRecordList);
   //var
-  //  UpdateQueryRecord: TEntityQueryRecord;
+  //  UpdateQueryRecord: TMSDMLQueryRecord;
   //begin
   //  inherited FillUpdateQueryRecordList(UpdateQueryRecordList);
   //  UpdateQueryRecord.SetQueryTextMethod := Self.SetUpdateQueryText;
@@ -1122,7 +1115,7 @@ begin
 end;
 
 procedure TORMCodeGenerator.RunForEachColumnNameInSysTableAndAppendCommasWhereNeeded(const MSSystemTable: TMSSystemTable;
-  const ColumnsStringBuilder: TStringBuilder; const Proc: TProc<string>; const SkipIdColums: Boolean = False);
+  const ColumnsStringBuilder: TStringBuilder; const Proc: TStringProc; const SkipIdColums: Boolean = False);
 var
   First: Boolean;
   ColumnIndex: Integer;
@@ -1169,7 +1162,7 @@ function TSysColumnHelper.SysColumnAsDelphiTypeName(const MSSystemColumn: TMSSys
 // zie: syscolmns, coltype
 // http://msdn.microsoft.com/en-us/library/aa260398(SQL.80).aspx
 // http://devpinoy.org/blogs/keithrull/archive/2006/06/17/HowTo_3A00_-List-Database-Objects-in-SQL-Server-using-sysobjects_2C00_-MSSystemColumns-and-systypes.aspx
-// xtype zit uiteindelijk in systypes:
+// xtype is in systypes:
 // http://msdn.microsoft.com/en-us/library/aa260587(SQL.80).aspx
 // is_identity:
 // http://stackoverflow.com/questions/87747/how-do-you-determine-what-sql-tables-have-an-identity-column-programatically

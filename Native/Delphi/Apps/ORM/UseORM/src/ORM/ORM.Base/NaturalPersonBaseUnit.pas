@@ -8,7 +8,7 @@ uses
   ORMEntityUnit,
   DataSetEnumeratorUnit,
   NullablesUnit,
-  db,
+  DB,
   ADODB,
   BaseEntityUnit,
   JoinedColumnPairUnit,

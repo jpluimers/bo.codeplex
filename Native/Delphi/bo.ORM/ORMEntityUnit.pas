@@ -13,18 +13,12 @@ uses
   DataSetEnumeratorUnit, DataSetHelperUnit,
   MSConnectionLayerUnit,
   MSConnectionDataModuleUnit,
-  ADOConnectionStringBuilderUnit;
+  ADOConnectionStringBuilderUnit, JoinedColumnPairUnit, MSDMLQueryRecordUnit,
+  ClientDataSetSupportingCalculatedAndLookupFieldsUnit, SqlWhereCriterionsUnit,
+  ClientDataSetSupportingWhereOrderByUnit, GenericExceptionUnit;
 
 type
-  TListOfInteger = TList<Integer>;
-
-type
-  TPostAction = (paInsert, paUpdate);
-  TCreateCalculatedFieldOption = (coHideFields, coAddSizeOfStringFields);
-  TCreateCalculatedFieldOptions = set of TCreateCalculatedFieldOption;
-
-const
-  AllCreateCalculatedFieldOptions = [Low(TCreateCalculatedFieldOption)..High(TCreateCalculatedFieldOption)];
+  TPostAction = (paEdit, paInsert);
 
 type
   TEntity = class;
@@ -32,45 +26,6 @@ type
   TReadOnlyEntityList = class;
   TEntityList = class;
   TEntityListClass = class of TEntityList;
-
-  TJoinedColumnPair = record
-  strict private
-    FChildColumn: string;
-    FChildTable: string;
-    FIsJoin: Boolean;
-    FNewID: TNullableInteger;
-    FOldID: TNullableInteger;
-    FParentColumn: string;
-    FParentTable: string;
-  public
-    class function Create(const ChildTable: string; const ChildColumn: string): TJoinedColumnPair; overload; static;
-    class function Create(const ChildTable: string; const ChildColumn: string; const ParentTable: string; const ParentColumn: string): TJoinedColumnPair;
-        overload; static;
-    procedure ModifyID(const OldID, NewID: TNullableInteger);
-    function ToString: string;
-    property ChildColumn: string read FChildColumn;
-    property ChildTable: string read FChildTable;
-    property IsJoin: Boolean read FIsJoin;
-    property NewID: TNullableInteger read FNewID;
-    property OldID: TNullableInteger read FOldID;
-    property ParentColumn: string read FParentColumn;
-    property ParentTable: string read FParentTable;
-  end;
-  TJoinedColumnPairList = TList<TJoinedColumnPair>;
-
-  TSetQueryTextMethod = procedure(var QueryText: string) of object;
-  TSetParamsMethod = procedure(const DBQuery: TDBQuery) of object;
-
-  TEntityQueryRecord = record
-    JoinedColumnPair: TJoinedColumnPair;
-    SetQueryTextMethod: TSetQueryTextMethod;
-    SetParamsMethod: TSetParamsMethod;
-    procedure SetupQuery(const DBQuery: TDBQuery);
-    procedure SetupQueryText(const DBQuery: TDBQuery);
-  end;
-
-  TEntityQueryRecordList = TList<TEntityQueryRecord>;
-  TFillQueryRecordListMethod = procedure (const InsertQueryRecordList: TEntityQueryRecordList) of object;
 
   TLookupEntityListManager = class;
 
@@ -97,97 +52,9 @@ type
     property LookupEntityListManager: TLookupEntityListManager read GetLookupEntityListManager;
   end;
 
-  TSqlTools = class(TClientDataSet)
-  strict protected
-    function CreateCalculatedField(const FieldName: string; const SourceFieldNames: array of string; const FieldNameToPositionAfter: string = ''; const
-        CreateCalculatedFieldOptions: TCreateCalculatedFieldOptions = AllCreateCalculatedFieldOptions): TField; virtual;
-    procedure CreateCalculatedFields; virtual;
-    function CreateLookupField(const LookupDataSet: TDataSet; const LookupKeyFieldName, LookupResultFieldName: string;
-      const KeyFieldName: string = ''; const FieldName: string = ''): TField; virtual;
-    procedure CreateLookupFields; virtual;
-    procedure HookFieldsOnGetTextEvents; virtual;
-    procedure MemoFieldsOnGetText(Sender: TField; var Text: string; DisplayText: Boolean); virtual;
-  protected
-    procedure CreateFields; override;
-  public
-    function GetEndOfWherePosition(const SqlText: string): Integer;
-  end;
-
-  TCriterionKey = record
-    FieldName: string;
-    JoinEntityClass: TEntityClass;
-    JoinEntityKeyFieldName: string;
-    EntityClass: TEntityClass;
-    EntityLookupFieldName: string;
-    class function Create(const FieldName: string; const JoinEntityClass: TEntityClass = nil; const JoinEntityKeyFieldName: string = ''; const EntityClass:
-        TEntityClass = nil; const EntityLookupFieldName: string = ''): TCriterionKey; static;
-    function IsJoin: Boolean;
-  end;
-  TStringDictionaryOfNullableDateTime = TDictionary<TCriterionKey, TNullableDateTime>;
-  TStringDictionaryOfNullableInteger = TDictionary<TCriterionKey, TNullableInteger>;
-  TStringDictionaryOfNullableString = TDictionary<TCriterionKey, TNullableString>;
-  TStringNullableDateTimePair = TPair<TCriterionKey, TNullableDateTime>;
-  TStringNullableIntegerPair = TPair<TCriterionKey, TNullableInteger>;
-  TStringNullableStringPair = TPair<TCriterionKey, TNullableString>;
-
-  TOrderByDirection = (obdDefault, obdAscending, obdDescending);
-  TStringOrderByDirectionPair = TPair<string, TOrderByDirection>;
-  TListOfStringOrderByDirectionPair = TList<TStringOrderByDirectionPair>;
-
-  TCriterions = class(TObject)
-  strict private
-    FNullableDateTimeCriterions: TStringDictionaryOfNullableDateTime;
-    FNullableIntegerCriterions: TStringDictionaryOfNullableInteger;
-    FNullableStringCriterions: TStringDictionaryOfNullableString;
-    FPrefix: string;
-    FUseLikeForStrings: Boolean;
-  strict protected
-    function GetNullableDateTimeCriterions: TStringDictionaryOfNullableDateTime;
-    function GetNullableIntegerCriterions: TStringDictionaryOfNullableInteger;
-    function GetNullableStringCriterions: TStringDictionaryOfNullableString;
-  public
-    constructor Create(const Prefix: string; const UseLikeForStrings: Boolean = False);
-    destructor Destroy; override;
-    procedure ApplyWhereClause(const ReadQuery: TDBQuery); virtual;
-    procedure Clear; virtual;
-    property NullableDateTimeCriterions: TStringDictionaryOfNullableDateTime read GetNullableDateTimeCriterions;
-    property NullableIntegerCriterions: TStringDictionaryOfNullableInteger read GetNullableIntegerCriterions;
-    property NullableStringCriterions: TStringDictionaryOfNullableString read GetNullableStringCriterions;
-    property Prefix: string read FPrefix;
-    property UseLikeForStrings: Boolean read FUseLikeForStrings;
-  end;
-
-  TWhereOrderBySupport = class(TSqlTools)
-  strict private
-    FFilterCriterions: TCriterions;
-    FOrderByItems: TListOfStringOrderByDirectionPair;
-    FSearchCriterions: TCriterions;
-  strict protected
-    function GetFilterCriterions: TCriterions;
-    function GetOrderByItems: TListOfStringOrderByDirectionPair;
-    function GetSearchCriterions: TCriterions;
-    property FilterCriterions: TCriterions read GetFilterCriterions;
-    property OrderByItems: TListOfStringOrderByDirectionPair read GetOrderByItems;
-    property SearchCriterions: TCriterions read GetSearchCriterions;
-  public
-    destructor Destroy; override;
-    procedure AddFilterCriterion(const FieldName: string; const Value: TNullableInteger); overload; virtual;
-    procedure AddFilterCriterion(const FieldName: string; const Value: TNullableString); overload; virtual;
-    procedure AddOrderByItem(const ColumnName: string; const OrderByDirection: TOrderByDirection = obdDefault); overload; virtual;
-    procedure AddSearchCriterion(const Value: TNullableDateTime; const FieldName: string); overload; virtual;
-    procedure AddSearchCriterion(const Value: TNullableInteger; const FieldName: string); overload; virtual;
-    procedure AddSearchCriterion(const Value: TNullableString; const FieldName: string; const JoinEntityClass: TEntityClass = nil; const
-        JoinEntityKeyFieldName: string = ''; const EntityClass: TEntityClass = nil; const EntityLookupFieldName: string = ''); overload; virtual;
-    procedure ClearFilterCriterions; overload; virtual;
-    procedure ClearSearchCriterions; overload; virtual;
-  end;
-
-  EEntityListException = class(SysUtils.EArgumentOutOfRangeException)
-  end;
-
   TIntegerDictionaryOfEntity = TDictionary<Integer, TEntity>;
   TEntityObjectList = TObjectList<TEntity>;
-  TReadOnlyEntityList = class(TWhereOrderBySupport)
+  TReadOnlyEntityList = class(TClientDataSetSupportingWhereOrderBy)
   strict private
     FEntityDictionary: TIntegerDictionaryOfEntity;
     FEntityList: TEntityObjectList;
@@ -200,6 +67,7 @@ type
     procedure CalculateCalculatedFields; virtual;
     procedure ClearList; virtual;
     function CreateQuery: TDBQuery; virtual;
+    function GetContainsID(ID: TNullableInteger): Boolean; virtual;
     function GetCount: Integer; virtual;
     function GetCurrentEntity: TEntity; virtual;
     function GetData: Integer; overload; virtual;
@@ -210,7 +78,6 @@ type
     function GetDictionaryIDFieldName: string; virtual;
     function GetDictionaryIDNullableInteger: TNullableInteger; virtual;
     function GetEntityById(ID: TNullableInteger): TEntity; virtual;
-    function GetContainsID(ID: TNullableInteger): Boolean; virtual;
     function GetEntityClass: TEntityClass; virtual;
     function GetLookupEntityListManager: TLookupEntityListManager; virtual;
     function GetParentTableName: string; virtual;
@@ -223,6 +90,7 @@ type
     function IsIDField(const Field: TField): Boolean; virtual;
     function Locate(const NewDictionaryID: Integer): Boolean; overload; virtual;
     function LocatedAtDictionaryId(const ADictionaryID: Integer): Boolean; overload; virtual;
+    procedure OwnThisEntity(NewEntity: TEntity); virtual;
     procedure SetNeedsFill(const Value: Boolean); virtual;
     procedure SetReadQueryText(const ReadQuery: TDBQuery); virtual;
     property DataModule: TMSConnectionDataModule read GetDataModule;
@@ -243,6 +111,7 @@ type
     function Locate(const Entity: TEntity): Boolean; overload; virtual;
     procedure Refill; virtual;
     function ToString: string; override;
+    property ContainsID[ID: TNullableInteger]: Boolean read GetContainsID;
     property Count: Integer read GetCount;
     property CurrentEntity: TEntity read GetCurrentEntity;
     property DictionaryID: TNullableInteger read GetDictionaryID;
@@ -250,7 +119,6 @@ type
     property DictionaryIDFieldName: string read GetDictionaryIDFieldName;
     property DictionaryIDNullableInteger: TNullableInteger read GetDictionaryIDNullableInteger;
     property EntityById[ID: TNullableInteger]: TEntity read GetEntityById;
-    property ContainsID[ID: TNullableInteger]: Boolean read GetContainsID;
     property EntityClass: TEntityClass read GetEntityClass;
     property LookupEntityListManager: TLookupEntityListManager read GetLookupEntityListManager;
     property NeedsFill: Boolean read FNeedsFill write SetNeedsFill;
@@ -292,7 +160,7 @@ type
     property LookupEntityListDictionary: TLookupEntityListDictionary read GetLookupEntityListDictionary;
   end;
 
-  TEntityList = class(TReadOnlyEntityList) //##jpl: merge TEntityListClientDataSet into this
+  TEntityList = class(TReadOnlyEntityList)
   strict private
     FDeleteQuery: TDBQuery;
     FIdentityQuery: TDBQuery;
@@ -312,6 +180,8 @@ type
     constructor Create(AOwner: TComponent); override;
   end;
 
+  TFillQueryRecordListMethod = procedure (const InsertQueryRecordList: TMSDMLQueryRecordList) of object;
+
   TEntityListClientDataSet = class(TEntityList)
   strict private
     FInsertedIdentity: TNullableInteger;
@@ -320,24 +190,25 @@ type
     procedure AssertChangeCountIs1; virtual;
     procedure ConfirmChanges; virtual;
     function CreateFilledEntityQueryRecordList(const FillQueryRecordListMethod: TFillQueryRecordListMethod; const FillQueryRecordListMethodName: string):
-        TEntityQueryRecordList; virtual;
+        TMSDMLQueryRecordList; virtual;
     procedure DoDelete; virtual;
+    procedure DoEdit; virtual;
     procedure DoInsert; virtual;
     procedure DoInternalPost(StartState: TDataSetState); virtual;
-    procedure DoUpdate; virtual;
     procedure ExecuteAndVerifyCountIs1(const DMLQuery: TDBQuery; const ID: TNullableInteger); overload; virtual;
-    procedure ExecuteAndVerifyCountIs1(const QueryRecord: TEntityQueryRecord); overload; virtual;
-    procedure FillDeleteQueryRecordList(const DeleteQueryRecordList: TEntityQueryRecordList); virtual;
-    procedure FillInsertQueryRecordList(const InsertQueryRecordList: TEntityQueryRecordList); virtual;
-    procedure FillUpdateQueryRecordList(const UpdateQueryRecordList: TEntityQueryRecordList); virtual;
+    procedure ExecuteAndVerifyCountIs1(const QueryRecord: TMSDMLQueryRecord); overload; virtual;
+    procedure FillDeleteQueryRecordList(const DeleteQueryRecordList: TMSDMLQueryRecordList); virtual;
+    procedure FillInsertQueryRecordList(const InsertQueryRecordList: TMSDMLQueryRecordList); virtual;
+    procedure FillUpdateQueryRecordList(const UpdateQueryRecordList: TMSDMLQueryRecordList); virtual;
+    procedure ReleaseThisEntity(NewEntity: TEntity); virtual;
     procedure SetDictionaryIDFieldValue(const NewIdValue: Integer); virtual;
     procedure SetIDFieldValue(const IDFieldName: string; const NewIdValue: Integer); virtual;
     procedure WrapInTransaction(const Proc: TProc); virtual;
     property InsertedIdentity: TNullableInteger read FInsertedIdentity;
   protected
     procedure DoAfterDelete; override;
-    procedure DoBeforeDelete; override;
     procedure DoAfterPost; override;
+    procedure DoBeforeDelete; override;
     procedure DoOnNewRecord; override;
     procedure InternalCancel; override;
     procedure InternalDelete; override;
@@ -346,6 +217,8 @@ type
   public
     procedure Dump;
   end;
+
+  EEntityListClientDataSet = EGenericException<TEntityListClientDataSet>;
 
   TEntityListEnumerator = class(TDataSetEnumerator)
   public
@@ -448,12 +321,12 @@ begin
 end;
 
 function TEntityListClientDataSet.CreateFilledEntityQueryRecordList(const FillQueryRecordListMethod: TFillQueryRecordListMethod; const
-    FillQueryRecordListMethodName: string): TEntityQueryRecordList;
+    FillQueryRecordListMethodName: string): TMSDMLQueryRecordList;
 var
-  EntityQueryRecordList: TEntityQueryRecordList;
-  EntityQueryRecord: TEntityQueryRecord;
+  EntityQueryRecordList: TMSDMLQueryRecordList;
+  EntityQueryRecord: TMSDMLQueryRecord;
 begin
-  EntityQueryRecordList := TEntityQueryRecordList.Create();
+  EntityQueryRecordList := TMSDMLQueryRecordList.Create();
   try
     FillQueryRecordListMethod(EntityQueryRecordList);
     Assert(EntityQueryRecordList.Count > 0, Format('%s.%s delivers an empty list', [Self.ClassName, FillQueryRecordListMethodName]));
@@ -476,12 +349,6 @@ begin
   ConfirmChanges();
   OutputDebugString('DoAfterDelete:');
   Dump();
-end;
-
-procedure TEntityListClientDataSet.DoBeforeDelete;
-begin
-  inherited DoBeforeDelete;
-  ConfirmChanges();
 end;
 
 procedure TEntityListClientDataSet.DoAfterPost;
@@ -509,10 +376,16 @@ begin
   end;
 end;
 
+procedure TEntityListClientDataSet.DoBeforeDelete;
+begin
+  inherited DoBeforeDelete;
+  ConfirmChanges();
+end;
+
 procedure TEntityListClientDataSet.DoDelete;
 var
-  DeleteQueryRecordList: TEntityQueryRecordList;
-  DeleteQueryRecord: TEntityQueryRecord;
+  DeleteQueryRecordList: TMSDMLQueryRecordList;
+  DeleteQueryRecord: TMSDMLQueryRecord;
 begin
   AssertChangeCountIs1();
   DeleteQueryRecordList := CreateFilledEntityQueryRecordList(FillDeleteQueryRecordList, 'FillDeleteQueryRecordList');
@@ -529,13 +402,29 @@ begin
   end;
 end;
 
+procedure TEntityListClientDataSet.DoEdit;
+var
+  UpdateQueryRecordList: TMSDMLQueryRecordList;
+  UpdateQueryRecord: TMSDMLQueryRecord;
+begin
+  UpdateQueryRecordList := CreateFilledEntityQueryRecordList(FillUpdateQueryRecordList, 'FillUpdateQueryRecordList');
+  try
+    for UpdateQueryRecord in UpdateQueryRecordList do
+    begin
+      ExecuteAndVerifyCountIs1(UpdateQueryRecord);
+    end;
+  finally
+    UpdateQueryRecordList.Free;
+  end;
+end;
+
 procedure TEntityListClientDataSet.DoInsert;
 const
   NullID = -1;
 var
   NewID: Integer;
-  InsertQueryRecordList: TEntityQueryRecordList;
-  InsertQueryRecord: TEntityQueryRecord;
+  InsertQueryRecordList: TMSDMLQueryRecordList;
+  InsertQueryRecord: TMSDMLQueryRecord;
   JoinedColumnPair: TJoinedColumnPair;
   JoinDescription: string;
   ParentID: Integer;
@@ -598,7 +487,7 @@ begin
         0:
           PostAction := paInsert;
         1:
-          PostAction := paUpdate;
+          PostAction := paEdit;
       else
         Assert(False, Format('InternalPost of %s found %d matching records in table %s for ID field %s, but expected 0 or 1', [ClassName, Count, TheTableName, TheDictionaryIDFieldName]));
       end;
@@ -606,10 +495,10 @@ begin
     WrapInTransaction(procedure
     begin
         case PostAction of
+          paEdit:
+            DoEdit;
           paInsert:
             DoInsert;
-          paUpdate:
-            DoUpdate;
         end;
       end);
   except
@@ -663,23 +552,7 @@ begin
   SetDictionaryIDFieldValue(NewIdValue);
   NewEntityClass := Self.EntityClass;
   NewEntity := NewEntityClass.Create(Self);
-  EntityDictionary.Add(NewEntity.DictionaryID, NewEntity);
-end;
-
-procedure TEntityListClientDataSet.DoUpdate;
-var
-  UpdateQueryRecordList: TEntityQueryRecordList;
-  UpdateQueryRecord: TEntityQueryRecord;
-begin
-  UpdateQueryRecordList := CreateFilledEntityQueryRecordList(FillUpdateQueryRecordList, 'FillUpdateQueryRecordList');
-  try
-    for UpdateQueryRecord in UpdateQueryRecordList do
-    begin
-      ExecuteAndVerifyCountIs1(UpdateQueryRecord);
-    end;
-  finally
-    UpdateQueryRecordList.Free;
-  end;
+  OwnThisEntity(NewEntity);
 end;
 
 procedure TEntityListClientDataSet.Dump;
@@ -739,7 +612,7 @@ begin
       [ClassName, ID.Value, Count]));
 end;
 
-procedure TEntityListClientDataSet.ExecuteAndVerifyCountIs1(const QueryRecord: TEntityQueryRecord);
+procedure TEntityListClientDataSet.ExecuteAndVerifyCountIs1(const QueryRecord: TMSDMLQueryRecord);
 var
   FieldName: string;
   ParameterValue: TNullableInteger;
@@ -750,7 +623,7 @@ begin
   ParameterValue := IDField.AsNullableInteger;
   QueryRecord.SetupQuery(UpdateQuery);
   if ParameterValue.IsNull then
-    raise EEntityListException.CreateFmt('Entity %s, Field %s is NULL but should have a value to execute the query "%s", %s',
+    raise EEntityListClientDataSet.CreateFmt('Entity %s, Field %s is NULL but should have a value to execute the query "%s", %s',
       [ClassName, FieldName, UpdateQuery.SQL.Text, ToString()]);
   UpdateQuery.AssignParam(ParameterValue, IDField.FieldName);
   ExecuteAndVerifyCountIs1(UpdateQuery, ParameterValue);
@@ -758,19 +631,19 @@ end;
 
 { TGebruikerBaseCollection }
 
-procedure TEntityListClientDataSet.FillDeleteQueryRecordList(const DeleteQueryRecordList: TEntityQueryRecordList);
+procedure TEntityListClientDataSet.FillDeleteQueryRecordList(const DeleteQueryRecordList: TMSDMLQueryRecordList);
 begin
-  //jpl: 20100130 - voor descendants om te overriden
+  // descendants can override
 end;
 
-procedure TEntityListClientDataSet.FillInsertQueryRecordList(const InsertQueryRecordList: TEntityQueryRecordList);
+procedure TEntityListClientDataSet.FillInsertQueryRecordList(const InsertQueryRecordList: TMSDMLQueryRecordList);
 begin
-  //jpl: 20100129 - voor descendants om te overriden
+  // descendants can override
 end;
 
-procedure TEntityListClientDataSet.FillUpdateQueryRecordList(const UpdateQueryRecordList: TEntityQueryRecordList);
+procedure TEntityListClientDataSet.FillUpdateQueryRecordList(const UpdateQueryRecordList: TMSDMLQueryRecordList);
 begin
-  //jpl: 20100129 - voor descendants om te overriden
+  // descendants can override
 end;
 
 procedure TEntityListClientDataSet.InternalCancel;
@@ -780,10 +653,7 @@ begin
   NewEntity := CurrentEntity;
   inherited InternalCancel;
   if State = dsInsert then
-  begin
-    EntityDictionary.Remove(NewEntity.DictionaryID);
-    NewEntity.Free();
-  end;
+    ReleaseThisEntity(NewEntity);
 end;
 
 procedure TEntityListClientDataSet.InternalDelete;
@@ -812,6 +682,12 @@ begin
   inherited InternalPost; // zodat de ChangeCount op 1 of 0 komt te staan; komt voor als je een veld wijzigt, en daarna met Undo het veld weer terugzet.
   if ChangeCount <> 0 then
     DoInternalPost(StartState);
+end;
+
+procedure TEntityListClientDataSet.ReleaseThisEntity(NewEntity: TEntity);
+begin
+//  EntityList.Remove(NewEntity); //##jpl: memory leak; show FastMM
+  EntityDictionary.Remove(NewEntity.DictionaryID);
 end;
 
 procedure TEntityListClientDataSet.SetDictionaryIDFieldValue(const NewIdValue: Integer);
@@ -953,458 +829,10 @@ begin
   Result := Entity;
 end;
 
-function TSqlTools.CreateCalculatedField(const FieldName: string; const SourceFieldNames: array of string; const FieldNameToPositionAfter: string =
-    ''; const CreateCalculatedFieldOptions: TCreateCalculatedFieldOptions = AllCreateCalculatedFieldOptions): TField;
-var
-  StringFieldSize: Integer;
-  FirstSourceField: TField;
-  SourceField: TField;
-  SourceFieldClass: TFieldClass;
-  SourceFieldName: string;
-  CalculatedField: TField;
-  ActualFieldIndex: Integer;
-  FieldToPositionAfter: TField;
-begin
-  FirstSourceField := nil;
-  SourceFieldClass := nil;
-  ActualFieldIndex := 0;
-
-  StringFieldSize := 0;
-  for SourceFieldName in SourceFieldNames do
-  begin
-    SourceField := Self.FieldByName(SourceFieldName);
-    if coAddSizeOfStringFields in CreateCalculatedFieldOptions then
-      if SourceField is TStringField then
-        StringFieldSize := StringFieldSize + SourceField.Size;
-    if ActualFieldIndex < SourceField.Index then
-      ActualFieldIndex := SourceField.Index + 1;
-    if Assigned(SourceFieldClass) then
-    begin
-      Assert(SourceField.InheritsFrom(SourceFieldClass), Format('SourceField %s.%s of type %s does not match LookupKeyField %s.%s of type %s',
-          [Self.ClassName, SourceField.FieldName, SourceField.ClassName, Self.ClassName, FirstSourceField.FieldName, FirstSourceField.ClassName]));
-    end
-    else
-    begin
-      FirstSourceField := SourceField;
-      SourceFieldClass := Self.GetFieldClass(SourceField.DataType);
-    end;
-  end;
-
-  if FieldNameToPositionAfter <> NullAsStringValue then
-  begin
-    FieldToPositionAfter := Self.FieldByName(FieldNameToPositionAfter);
-    ActualFieldIndex := FieldToPositionAfter.Index + 1;
-  end;
-
-  if Assigned(SourceFieldClass) then
-    CalculatedField := SourceFieldClass.Create(Self)
-  else
-    CalculatedField := TStringField.Create(Self);
-  try
-    if coAddSizeOfStringFields in CreateCalculatedFieldOptions then
-      if CalculatedField is TStringField then
-        if StringFieldSize <> 0 then
-          CalculatedField.Size := StringFieldSize;
-
-    //JR: 04-05-2010
-    //Hier moet even een goede oplossing voor komen.
-    //De size lijkt goed gezet te worden, maar is toch te smal voor bijvoorbeeld de emailadressen.
-    //Zet het nu even hard op 500, dan wordt hij niet te breed, maar past het goed.
-    CalculatedField.Size := 500;
-
-    CalculatedField.FieldKind := fkCalculated;
-    CalculatedField.FieldName := FieldName;
-    CalculatedField.DataSet := Self; //jpl: 20100124 - mag pas na de assignment van FieldName
-    CalculatedField.Index := ActualFieldIndex;
-    //  CalculatedField.Calculated := True; //jpl: 20100124 - niet nodig, vanwege "CalculatedField.FieldKind := fkCalculated;"
-    //  Self.Fields.Add(CalculatedField); //jpl: 20100124 - mag niet, vanwege "CalculatedField.DataSet := Self;"
-  except
-    CalculatedField.Free;
-    raise ;
-  end;
-
-  if coHideFields in CreateCalculatedFieldOptions then
-    for SourceFieldName in SourceFieldNames do
-    begin
-      SourceField := Self.FieldByName(SourceFieldName);
-      SourceField.Visible := False;
-    end;
-  Result := CalculatedField;
-end;
-
-procedure TSqlTools.CreateCalculatedFields;
-begin
-  //jpl: 20100124 - voor descendants om te overriden
-end;
-
-procedure TSqlTools.CreateFields;
-begin
-  inherited CreateFields;
-  CreateLookupFields();
-  CreateCalculatedFields();
-  HookFieldsOnGetTextEvents();
-end;
-
-function TSqlTools.CreateLookupField(const LookupDataSet: TDataSet; const LookupKeyFieldName, LookupResultFieldName: string;
-  const KeyFieldName: string = ''; const FieldName: string = ''): TField;
-var
-  LookupField: TField;
-  ActualKeyFieldName: string;
-  ActualFieldName: string;
-  KeyField: TField;
-  LookupKeyField: TField;
-  LookupResultField: TField;
-  FieldClass: TFieldClass;
-begin
-  LookupKeyField := LookupDataSet.FieldByName(LookupKeyFieldName);
-  LookupResultField := LookupDataSet.FieldByName(LookupResultFieldName);
-
-  if KeyFieldName = NullAsStringValue then
-    ActualKeyFieldName := LookupKeyFieldName
-  else
-    ActualKeyFieldName := KeyFieldName;
-
-  KeyField := Self.FieldByName(ActualKeyFieldName);
-  Assert(LookupKeyField.InheritsFrom(KeyField.ClassType), Format('KeyField %s.%s of type %s does not match LookupKeyField %s.%s of type %s',
-      [KeyField.DataSet.ClassName, KeyField.FieldName, KeyField.ClassName, LookupKeyField.DataSet.ClassName, LookupKeyField.FieldName,
-      LookupKeyField.ClassName]));
-
-  if FieldName = NullAsStringValue then
-    ActualFieldName := StripIDFromFieldName(ActualKeyFieldName) + LookupResultFieldName
-  else
-    ActualFieldName := FieldName;
-
-  FieldClass := Self.GetFieldClass(LookupResultField.DataType);
-  LookupField := FieldClass.Create(Self);
-  try
-    if LookupField is TStringField then
-      if LookupResultField is TStringField then
-        TStringField(LookupField).Size := TStringField(LookupResultField).Size;
-
-    LookupField.FieldKind := fkLookup;
-
-    LookupField.LookupDataSet := LookupDataSet;
-    LookupField.LookupKeyFields := LookupKeyFieldName;
-    LookupField.LookupResultField := LookupResultFieldName;
-
-    LookupField.KeyFields := ActualKeyFieldName;
-    LookupField.FieldName := ActualFieldName;
-    LookupField.DataSet := Self; //jpl: 20100122 - mag pas na de assignment van FieldName
-
-    LookupField.Index := KeyField.Index + 1;
-
-    //  LookupField.Lookup := True; //jpl: 20100122 - niet nodig, vanwege "LookupField.FieldKind := fkLookup;"
-    //  Self.Fields.Add(LookupField); //jpl: 20100122 - mag niet, vanwege "LookupField.DataSet := Self;"
-  except
-    LookupField.Free;
-    raise ;
-  end;
-
-  Result := LookupField;
-end;
-
-procedure TSqlTools.CreateLookupFields;
-begin
-  //jpl: 20100122 - voor descendants om te overriden
-end;
-
-function TSqlTools.GetEndOfWherePosition(const SqlText: string): Integer;
-begin
-  Result := -1;
-end;
-
-procedure TSqlTools.HookFieldsOnGetTextEvents;
-var
-  Field: TField;
-begin
-  for Field in Fields do
-    Field.OnGetText := Self.MemoFieldsOnGetText;
-end;
-
-procedure TSqlTools.MemoFieldsOnGetText(Sender: TField; var Text: string; DisplayText: Boolean);
-var
-  GetTextText: string;
-  ClassDesc: string;
-begin
-  GetTextText := Text;
-  FieldGetText(Sender, GetTextText, DisplayText);
-  ClassDesc := FieldGetClassDesc(Sender);
-  if GetTextText = ClassDesc then
-  begin
-    Text := Sender.AsString;
-    if DisplayText then
-      if Length(Text) > Sender.DisplayWidth then
-        Text := EllipsisText(Text, Sender.DisplayWidth);
-  end
-  else if (Text = NullAsStringValue) and not Sender.IsNull then
-    Text := Sender.AsString;
-end;
-
-class function TJoinedColumnPair.Create(const ChildTable: string; const ChildColumn: string): TJoinedColumnPair;
-begin
-  Result.FChildTable := ChildTable;
-  Result.FChildColumn := ChildColumn;
-  Result.FIsJoin := False;
-  Result.FNewID.Clear();
-  Result.FOldID.Clear();
-end;
-
-class function TJoinedColumnPair.Create(const ChildTable: string; const ChildColumn: string; const ParentTable: string; const ParentColumn: string):
-    TJoinedColumnPair;
-begin
-  Result.FChildTable := ChildTable;
-  Result.FChildColumn := ChildColumn;
-  Result.FParentTable := ParentTable;
-  Result.FParentColumn := ParentColumn;
-  Result.FIsJoin := True;
-  Result.FNewID.Clear();
-  Result.FOldID.Clear();
-end;
-
-procedure TJoinedColumnPair.ModifyID(const OldID, NewID: TNullableInteger);
-begin
-  Self.FOldID := OldID;
-  Self.FNewID := NewID;
-end;
-
-function TJoinedColumnPair.ToString: string;
-begin
-  Result := Format('IsJoin=%s, Parent=%s.%s, Child=%s.%s', [BoolToStr(IsJoin), ParentTable, ParentColumn, ChildTable, ChildColumn]);
-end;
-
-procedure TEntityQueryRecord.SetupQuery(const DBQuery: TDBQuery);
-begin
-  SetupQueryText(DBQuery);
-  if Assigned(SetParamsMethod) then
-    SetParamsMethod(DBQuery);
-end;
-
-procedure TEntityQueryRecord.SetupQueryText(const DBQuery: TDBQuery);
-var
-  QueryText: string;
-begin
-  SetQueryTextMethod(QueryText);
-  DBQuery.SQL.Text := QueryText;
-end;
-
-constructor TCriterions.Create(const Prefix: string; const UseLikeForStrings: Boolean = False);
-begin
-  inherited Create;
-  FPrefix := Prefix;
-  FUseLikeForStrings := UseLikeForStrings;
-end;
-
-destructor TCriterions.Destroy;
-begin
-  FreeAndNil(FNullableDateTimeCriterions);
-  FreeAndNil(FNullableIntegerCriterions);
-  FreeAndNil(FNullableStringCriterions);
-  inherited Destroy;
-end;
-
-procedure TCriterions.ApplyWhereClause(const ReadQuery: TDBQuery);
-var
-  AddingFirstCriterion: Boolean;
-  FoundDefaultWhereClause: Boolean;
-  function Prefixed(const Key: TCriterionKey): string;
-  begin
-    Result := Prefix+Key.FieldName; //##jpl: uitbreiden voor joins
-  end;
-  procedure AddCriterion(const Key: TCriterionKey; const IsStringCriterion: Boolean = False);
-  var
-    FieldName: string;
-    Section: string;
-    Expression: string;
-    Mask: string;
-    Prefix: string;
-    Suffix: string;
-    JoinEntityTableName: string;
-    EntityTableName: string;
-  begin
-    FieldName := Key.FieldName;
-    if AddingFirstCriterion and not FoundDefaultWhereClause then
-      Section := DefaultWhereClause
-    else
-      Section := 'AND';
-    if Key.IsJoin()  then
-    begin
-      // AND (EXISTS (SELECT * FROM Adres WHERE Adres.ID_Entiteit = Entiteit.ID_Entiteit AND Adres.Woonplaats LIKE '*zoetermeer*'))
-      JoinEntityTableName := StripClassPrefixT(Key.JoinEntityClass.ClassName);
-      EntityTableName := StripClassPrefixT(Key.EntityClass.ClassName);
-      Prefix := Format('EXISTS (SELECT * FROM %s WHERE %s.%s = %s.%s AND %s.',
-        [JoinEntityTableName, JoinEntityTableName, Key.JoinEntityKeyFieldName, EntityTableName, Key.EntityLookupFieldName, JoinEntityTableName]);
-      Suffix := ')';
-    end
-    else
-    begin
-      // AND (NatuurlijkPersoon.Voornamen LIKE '*OHA*')
-      Prefix := NullAsStringValue;
-      Suffix := NullAsStringValue;
-    end;
-    // jpl: let op: spatie aan het begin voor als er een CRLF Aan het einde van ReadQuery.SQL staat.
-    if IsStringCriterion and UseLikeForStrings then
-      Mask := ' %s (%s%s LIKE :%s%s) '
-    else
-      Mask := ' %s (%s%s = :%s%s) ';
-    Expression := Format(Mask, [Section, Prefix, FieldName, Prefixed(Key), Suffix]);
-    ReadQuery.SQL.Add(Expression);
-    AddingFirstCriterion := False;
-  end;
-var
-  NullableDateTimeCriterion: TStringNullableDateTimePair;
-  NullableIntegerCriterion: TStringNullableIntegerPair;
-  NullableStringCriterion: TStringNullableStringPair;
-begin
-  FoundDefaultWhereClause := AnsiContainsText(ReadQuery.SQL.Text, DefaultWhereClause);
-
-  AddingFirstCriterion := True;
-
-  for NullableDateTimeCriterion in NullableDateTimeCriterions do
-    AddCriterion(NullableDateTimeCriterion.Key);
-  for NullableIntegerCriterion in NullableIntegerCriterions do
-    AddCriterion(NullableIntegerCriterion.Key);
-  for NullableStringCriterion in NullableStringCriterions do
-    AddCriterion(NullableStringCriterion.Key, True);
-
-  // AssignParam after you generated the complete SQL!
-  for NullableDateTimeCriterion in NullableDateTimeCriterions do
-    ReadQuery.AssignParam(NullableDateTimeCriterion.Value, Prefixed(NullableDateTimeCriterion.Key));
-  for NullableIntegerCriterion in NullableIntegerCriterions do
-    ReadQuery.AssignParam(NullableIntegerCriterion.Value, Prefixed(NullableIntegerCriterion.Key));
-  for NullableStringCriterion in NullableStringCriterions do
-    ReadQuery.AssignParam(NullableStringCriterion.Value, Prefixed(NullableStringCriterion.Key)); //##jpl: misschien hier het WildCard gedrag heen verplaatsen
-end;
-
-procedure TCriterions.Clear;
-begin
-  NullableIntegerCriterions.Clear();
-  NullableStringCriterions.Clear();
-end;
-
-function TCriterions.GetNullableDateTimeCriterions: TStringDictionaryOfNullableDateTime;
-begin
-  if not Assigned(FNullableDateTimeCriterions) then
-    FNullableDateTimeCriterions := TStringDictionaryOfNullableDateTime.Create();
-  Result := FNullableDateTimeCriterions;
-end;
-
-function TCriterions.GetNullableIntegerCriterions: TStringDictionaryOfNullableInteger;
-begin
-  if not Assigned(FNullableIntegerCriterions) then
-    FNullableIntegerCriterions := TStringDictionaryOfNullableInteger.Create();
-  Result := FNullableIntegerCriterions;
-end;
-
-function TCriterions.GetNullableStringCriterions: TStringDictionaryOfNullableString;
-begin
-  if not Assigned(FNullableStringCriterions) then
-    FNullableStringCriterions := TStringDictionaryOfNullableString.Create();
-  Result := FNullableStringCriterions;
-end;
-
-class function TCriterionKey.Create(const FieldName: string; const JoinEntityClass: TEntityClass = nil; const JoinEntityKeyFieldName: string = ''; const
-    EntityClass: TEntityClass = nil; const EntityLookupFieldName: string = ''): TCriterionKey;
-begin
-  Result.FieldName := FieldName;
-  Result.JoinEntityClass := JoinEntityClass;
-  Result.JoinEntityKeyFieldName := JoinEntityKeyFieldName;
-  Result.EntityClass := EntityClass;
-  Result.EntityLookupFieldName := EntityLookupFieldName;
-end;
-
-function TCriterionKey.IsJoin: Boolean;
-begin
-  Result := Assigned(JoinEntityClass) and Assigned(EntityClass) and (JoinEntityKeyFieldName <> NullAsStringValue) and (EntityLookupFieldName <> NullAsStringValue);
-end;
-
-destructor TWhereOrderBySupport.Destroy;
-begin
-  FreeAndNil(FFilterCriterions);
-  FreeAndNil(FSearchCriterions);
-  FreeAndNil(FOrderByItems);
-
-  inherited Destroy;
-end;
-
-procedure TWhereOrderBySupport.AddFilterCriterion(const FieldName: string; const Value: TNullableInteger);
-begin
-  //##jpl: hier moet nog een FieldName check in: bestaat de FieldName wel
-  //  Assert(FieldName.DataSet = Self, 'You can only add a criterion for the current entity list');
-  FilterCriterions.NullableIntegerCriterions.Add(TCriterionKey.Create(FieldName), Value);
-end;
-
-procedure TWhereOrderBySupport.AddFilterCriterion(const FieldName: string; const Value: TNullableString);
-begin
-  //##jpl: hier moet nog een FieldName check in: bestaat de FieldName wel
-  //  Assert(FieldName.DataSet = Self, 'You can only add a criterion for the current entity list');
-  FilterCriterions.NullableStringCriterions.Add(TCriterionKey.Create(FieldName), Value);
-end;
-
-procedure TWhereOrderBySupport.AddOrderByItem(const ColumnName: string; const OrderByDirection: TOrderByDirection = obdDefault);
-begin
-  //##jpl: hier moet nog een ColumnName check in: bestaat de ColumnName wel
-  //  Assert(ColumnName.DataSet = Self, 'You can only add a criterion for the current entity list');
-  OrderByItems.Add(TStringOrderByDirectionPair.Create(ColumnName, OrderByDirection));
-end;
-
-procedure TWhereOrderBySupport.AddSearchCriterion(const Value: TNullableDateTime; const FieldName: string);
-begin
-  //##jpl: hier moet nog een FieldName check in: bestaat de FieldName wel
-  //  Assert(FieldName.DataSet = Self, 'You can only add a criterion for the current entity list');
-  SearchCriterions.NullableDateTimeCriterions.Add(TCriterionKey.Create(FieldName), Value);
-end;
-
-procedure TWhereOrderBySupport.AddSearchCriterion(const Value: TNullableInteger; const FieldName: string);
-begin
-  //##jpl: hier moet nog een FieldName check in: bestaat de FieldName wel
-  //  Assert(FieldName.DataSet = Self, 'You can only add a criterion for the current entity list');
-  SearchCriterions.NullableIntegerCriterions.Add(TCriterionKey.Create(FieldName), Value);
-end;
-
-procedure TWhereOrderBySupport.AddSearchCriterion(const Value: TNullableString; const FieldName: string; const JoinEntityClass: TEntityClass = nil;
-    const JoinEntityKeyFieldName: string = ''; const EntityClass: TEntityClass = nil; const EntityLookupFieldName: string = '');
-begin
-  //##jpl: hier moet nog een FieldName check in: bestaat de FieldName wel
-  //  Assert(FieldName.DataSet = Self, 'You can only add a criterion for the current entity list');
-  SearchCriterions.NullableStringCriterions.Add(
-    TCriterionKey.Create(FieldName, JoinEntityClass, JoinEntityKeyFieldName, EntityClass, EntityLookupFieldName),
-    Value);
-end;
-
-procedure TWhereOrderBySupport.ClearFilterCriterions;
-begin
-  FilterCriterions.Clear();
-end;
-
-procedure TWhereOrderBySupport.ClearSearchCriterions;
-begin
-  SearchCriterions.Clear();
-end;
-
-function TWhereOrderBySupport.GetFilterCriterions: TCriterions;
-begin
-  if not Assigned(FFilterCriterions) then
-    FFilterCriterions := TCriterions.Create('Filter');
-  Result := FFilterCriterions;
-end;
-
-function TWhereOrderBySupport.GetOrderByItems: TListOfStringOrderByDirectionPair;
-begin
-  if not Assigned(FOrderByItems) then
-    FOrderByItems := TListOfStringOrderByDirectionPair.Create();
-  Result := FOrderByItems;
-end;
-
-function TWhereOrderBySupport.GetSearchCriterions: TCriterions;
-begin
-  if not Assigned(FSearchCriterions) then
-    FSearchCriterions := TCriterions.Create('Search', True);
-  Result := FSearchCriterions;
-end;
-
 destructor TLookupEntityListManager.Destroy;
 begin
-  FLookupEntityListDictionary.Clear();
+  if Assigned(FLookupEntityListDictionary) then
+    FLookupEntityListDictionary.Clear();
   inherited Destroy;
   FreeAndNil(FLookupEntityListDictionary);
 end;
@@ -1447,37 +875,14 @@ begin
   end;
 end;
 
-constructor TReadOnlyEntityList.Create(AOwner: TComponent);
-begin
-  Assert(AOwner is TLookupEntityListManager, Format('While creating %s, Owner should be of type %s but is of type %s',
-    [Self.ClassName, TLookupEntityListManager.ClassName, AOwner.ClassName]));
-
-  inherited Create(AOwner);
-
-  ReadOnly := True;
-
-  FEntityDictionary := TIntegerDictionaryOfEntity.Create();
-  FEntityList := TEntityObjectList.Create(False); //jpl: 20100219 - EntityList does not own objects (since they have Owner=Self, so we remove them)
-
-  FNeedsFill := True;
-end;
-
-destructor TReadOnlyEntityList.Destroy;
-begin
-  FreeAndNil(FEntityDictionary);
-  FreeAndNil(FEntityList);
-
-  inherited Destroy;
-end;
-
 procedure TReadOnlyEntityList.AddFilterCriterions;
 begin
-  //jpl: 20100128 voor descendants om te overriden
+  // descendants can override
 end;
 
 procedure TReadOnlyEntityList.AddOrderByItems;
 begin
-  //jpl: 20100128 voor descendants om te overriden
+  // descendants can override
 end;
 
 procedure TReadOnlyEntityList.ApplyOrderByClause(const ReadQuery: TDBQuery);
@@ -1519,22 +924,9 @@ begin
     AddCriterion(OrderByItem.Key, OrderByItem.Value);
 end;
 
-procedure TReadOnlyEntityList.AssignDataFrom(const DataSet: TDataSet);
-begin
-  if not Assigned(DataSet) then
-    Exit;
-
-  TScreenSupport.ExecuteWithWaitCursor(
-  procedure
-  begin
-    InternalAssignDataFrom(DataSet)
-  end
-  );
-end;
-
 procedure TReadOnlyEntityList.CalculateCalculatedFields;
 begin
-  //jpl: 20100122 - voor descendants om te overriden
+  // descendants can override
 end;
 
 procedure TReadOnlyEntityList.ClearList;
@@ -1549,48 +941,20 @@ end;
 function TReadOnlyEntityList.CreateQuery: TDBQuery;
 begin
   Result := DataModule.CreateQuery();
+  Self.InsertComponent(Result);
 end;
 
-procedure TReadOnlyEntityList.DoOnCalcFields;
-begin
-  CalculateCalculatedFields();
-  inherited DoOnCalcFields;
-end;
-
-procedure TReadOnlyEntityList.ExecuteAtDictionaryID(const NewDictionaryID: Integer; const Proc: TProc);
+function TReadOnlyEntityList.GetContainsID(ID: TNullableInteger): Boolean;
 var
-  NeedToRestoreBookmark: Boolean;
-  CurrentBookmark: TBookmark;
+  IDValue: Integer;
 begin
-  NeedToRestoreBookmark := not LocatedAtDictionaryId(NewDictionaryID);
-  if NeedToRestoreBookmark then
-    CurrentBookmark := Self.GetBookmark;
-  try
-    Locate(NewDictionaryID);
-    Proc();
-  finally
-    if NeedToRestoreBookmark then
-      Self.GotoBookmark(CurrentBookmark);
-  end;
-end;
-
-var
-  QueryCount: Integer = 0; //jpl: voor het debuggen: als deze heel snel in waarde stijgt, is er meestal iets recursief mis.
-
-procedure TReadOnlyEntityList.Fill;
-var
-  Line: string;
-begin
-  if not NeedsFill then
+  if ID.IsFilled then
   begin
-    Line := Format('%s does not need Fill', [ClassName]);
-    OutputDebugString(PChar(Line));
-    Exit;
-  end;
-
-  AddFilterCriterions();
-  AddOrderByItems();
-  InternalFill();
+    IDValue := ID.Value;
+    Result := EntityDictionary.ContainsKey(IDValue);
+  end
+  else
+    Result := False;
 end;
 
 function TReadOnlyEntityList.GetCount: Integer;
@@ -1636,9 +1000,7 @@ begin
     NewEntity := NewEntityClass.Create(Self);
 
     NewEntity.GetData(SelectQuery);
-
-    EntityList.Add(NewEntity);
-    EntityDictionary.Add(NewEntity.DictionaryID, NewEntity);
+    OwnThisEntity(NewEntity);
     Inc(Result);
   end;
 
@@ -1692,34 +1054,16 @@ begin
       Result := EntityDictionary.Items[IDValue];
     except
       on E: Exception do
-        raise EEntityListException.CreateFmt('%s for %s with ID %d', [E.Message, ClassName, IDValue]);
+        raise EEntityListClientDataSet.CreateFmt('%s for %s with ID %d', [E.Message, ClassName, IDValue]);
     end;
   end
   else
     Result := nil;
 end;
 
-function TReadOnlyEntityList.GetContainsID(ID: TNullableInteger): Boolean;
-var
-  IDValue: Integer;
-begin
-  if ID.IsFilled then
-  begin
-    IDValue := ID.Value;
-    Result := EntityDictionary.ContainsKey(IDValue);
-  end
-  else
-    Result := False;
-end;
-
 function TReadOnlyEntityList.GetEntityClass: TEntityClass;
 begin
   Result := TEntity;
-end;
-
-function TReadOnlyEntityList.GetEnumerator: TDataSetEnumerator;
-begin
-  Result := TDataSetEnumerator.Create(Self);
 end;
 
 function TReadOnlyEntityList.GetLookupEntityListManager: TLookupEntityListManager;
@@ -1749,7 +1093,9 @@ end;
 function TReadOnlyEntityList.GetSelectQuery: TDBQuery;
 begin
   if not Assigned(FSelectQuery) then
+  begin
     FSelectQuery := CreateQuery();
+  end;
   Result := FSelectQuery;
 end;
 
@@ -1793,6 +1139,9 @@ begin
   end;
 end;
 
+var
+  QueryCount: Integer = 0; //jpl: voor het debuggen: als deze heel snel in waarde stijgt, is er meestal iets recursief mis.
+
 procedure TReadOnlyEntityList.InternalFill;
 begin
   ClearList;
@@ -1803,7 +1152,7 @@ begin
   SearchCriterions.ApplyWhereClause(SelectQuery);
   ApplyOrderByClause(SelectQuery);
 
-  Inc(QueryCount);
+  Inc(QueryCount); //##jpl: to watch stray queries
   OutputDebugString(PChar(Format('At ticks %d, QueryCount=%d, SQL=%s', [Ticks, QueryCount, SelectQuery.SQL.Text])));
 
   SelectQuery.Open;
@@ -1821,11 +1170,6 @@ var
 begin
   FieldName := Field.FieldName;
   Result := IsIDFieldName(FieldName);
-end;
-
-function TReadOnlyEntityList.Locate(const Entity: TEntity): Boolean;
-begin
-  Result := Locate(Entity.DictionaryID);
 end;
 
 function TReadOnlyEntityList.Locate(const NewDictionaryID: Integer): Boolean;
@@ -1846,6 +1190,106 @@ begin
   Result := Self.DictionaryID = ADictionaryID;
 end;
 
+procedure TReadOnlyEntityList.OwnThisEntity(NewEntity: TEntity);
+begin
+  EntityList.Add(NewEntity);
+  EntityDictionary.Add(NewEntity.DictionaryID, NewEntity);
+end;
+
+procedure TReadOnlyEntityList.SetNeedsFill(const Value: Boolean);
+begin
+  FNeedsFill := Value;
+end;
+
+procedure TReadOnlyEntityList.SetReadQueryText(const ReadQuery: TDBQuery);
+begin
+end;
+
+procedure TReadOnlyEntityList.DoOnCalcFields;
+begin
+  CalculateCalculatedFields();
+  inherited DoOnCalcFields();
+end;
+
+constructor TReadOnlyEntityList.Create(AOwner: TComponent);
+begin
+  Assert(AOwner is TLookupEntityListManager, Format('While creating %s, Owner should be of type %s but is of type %s',
+    [Self.ClassName, TLookupEntityListManager.ClassName, AOwner.ClassName]));
+
+  inherited Create(AOwner);
+
+  ReadOnly := True;
+
+  FEntityDictionary := TIntegerDictionaryOfEntity.Create();
+  FEntityList := TEntityObjectList.Create(True); //##jpl: 20100922 EntityList does own the objects as the objects are TPersistent
+
+  FNeedsFill := True;
+end;
+
+destructor TReadOnlyEntityList.Destroy;
+begin
+  FreeAndNil(FEntityDictionary);
+  FreeAndNil(FEntityList);
+
+  inherited Destroy;
+end;
+
+procedure TReadOnlyEntityList.AssignDataFrom(const DataSet: TDataSet);
+begin
+  if not Assigned(DataSet) then
+    Exit;
+
+  TScreenSupport.ExecuteWithWaitCursor(
+  procedure
+  begin
+    InternalAssignDataFrom(DataSet)
+  end
+  );
+end;
+
+procedure TReadOnlyEntityList.ExecuteAtDictionaryID(const NewDictionaryID: Integer; const Proc: TProc);
+var
+  NeedToRestoreBookmark: Boolean;
+  CurrentBookmark: TBookmark;
+begin
+  NeedToRestoreBookmark := not LocatedAtDictionaryId(NewDictionaryID);
+  if NeedToRestoreBookmark then
+    CurrentBookmark := Self.GetBookmark;
+  try
+    Locate(NewDictionaryID);
+    Proc();
+  finally
+    if NeedToRestoreBookmark then
+      Self.GotoBookmark(CurrentBookmark);
+  end;
+end;
+
+procedure TReadOnlyEntityList.Fill;
+var
+  Line: string;
+begin
+  if not NeedsFill then
+  begin
+    Line := Format('%s does not need Fill', [ClassName]);
+    OutputDebugString(PChar(Line));
+    Exit;
+  end;
+
+  AddFilterCriterions();
+  AddOrderByItems();
+  InternalFill();
+end;
+
+function TReadOnlyEntityList.GetEnumerator: TDataSetEnumerator;
+begin
+  Result := TDataSetEnumerator.Create(Self);
+end;
+
+function TReadOnlyEntityList.Locate(const Entity: TEntity): Boolean;
+begin
+  Result := Locate(Entity.DictionaryID);
+end;
+
 { TGebruikerBaseCollection }
 
 procedure TReadOnlyEntityList.Refill;
@@ -1857,15 +1301,6 @@ begin
   InternalFill();
   if DictionaryID.IsFilled then
     Locate(DictionaryIDLocation.Value);
-end;
-
-procedure TReadOnlyEntityList.SetNeedsFill(const Value: Boolean);
-begin
-  FNeedsFill := Value;
-end;
-
-procedure TReadOnlyEntityList.SetReadQueryText(const ReadQuery: TDBQuery);
-begin
 end;
 
 function TReadOnlyEntityList.ToString: string;
@@ -1937,63 +1372,5 @@ begin
   Result := Format('%s.%s.%d.%s',
     [FEntityListClass.ClassName, FFilterCriterionFieldName, Ord(ValueIsNull), ValueString]);
 end;
-
-(*
-  //function AddParamSQLForDetail(Params: TParams; SQL: WideString; Native: Boolean; QuoteChar: WideString = ''): WideString;
-  const
-  SWhere = ' where ';     { do not localize }
-  SAnd = ' and ';         { do not localize }
-
-  function GenerateParamSQL: WideString;
-  var
-  I: Integer;
-  ParamName: WideString;
-  begin
-  for I := 0 to Params.Count -1 do
-  begin
-  if QuoteChar = '"' then
-  ParamName := '"' + WideStringReplace(Params[I].Name, '"', '""', [rfReplaceAll] ) + '"'
-  else
-  ParamName := QuoteChar + Params[I].Name +QuoteChar;
-  if I > 0 then Result := Result + SAnd;
-  if Native then
-  Result := Result + WideFormat('%s = ?', [ParamName])
-  else
-  Result := Result + WideFormat('%s = :%s', [ParamName, ParamName]);
-  end;
-  if pos(WideString(SWhere), WideLowerCase(Result)) > 0 then
-  Result := SAnd + Result
-  else
-  Result := SWhere + Result;
-  end;
-
-  function AddWhereClause: WideString;
-  var
-  Start: PWideChar;
-  Rest, FName: Widestring;
-  SQLToken, CurSection: TSQLToken;
-  begin
-  Start := PWideChar(SQL);
-  CurSection := stUnknown;
-  repeat
-  SQLToken := NextSQLToken(Start, FName, CurSection);
-  until SQLToken in [stFrom, stEnd];
-  if SQLToken = stFrom then
-  NextSQLToken(Start, FName, CurSection);
-  Rest := Widestring(Start);
-  if Rest = '' then
-  Result := SQL + ' ' + GenerateParamSQL
-  else
-  Result := Copy(SQL, 1, pos(Rest, SQL)) + ' ' + GenerateParamSQL + Rest;
-  end;
-
-  begin
-  Result := SQL;
-  if (Params.Count > 0) then
-  Result := AddWhereClause;
-  end;
-*)
-
-{ TLookupEntityListDictionaryKeyEqualityComparer<T> }
 
 end.
