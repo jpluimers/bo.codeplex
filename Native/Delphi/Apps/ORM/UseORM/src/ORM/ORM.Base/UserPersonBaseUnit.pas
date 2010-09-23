@@ -308,6 +308,7 @@ begin
   '  NaturalPerson.BirthDate, ' +
   '  NaturalPerson.PlaceOfBirth, ' +
   '  NaturalPerson.SSN, ' +
+  '  NaturalPerson.ID_Gender, ' +
   '  BaseEntity.ID_BaseEntity, ' +
   '  BaseEntity.ExternalID, ' +
   '  BaseEntity.ID_UserPersonInsert, ' +
@@ -593,161 +594,176 @@ object SSNDbEdit: TDBEdit
   Height = 21
   TabOrder = 11
 end
-object ID_BaseEntityDbDisplayLabel: TDbDisplayLabel
+object ID_GenderDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 512
   Width = 165
   Height = 17
-  FocusControl = ID_BaseEntityDbEdit
+  FocusControl = ID_GenderDbEdit
 end
-object ID_BaseEntityDbEdit: TDBEdit
+object ID_GenderDbEdit: TDBEdit
   Left = 10
   Top = 526
   Width = 221
   Height = 21
   TabOrder = 12
 end
-object ExternalIDDbDisplayLabel: TDbDisplayLabel
+object ID_BaseEntityDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 554
   Width = 165
   Height = 17
-  FocusControl = ExternalIDDbEdit
+  FocusControl = ID_BaseEntityDbEdit
 end
-object ExternalIDDbEdit: TDBEdit
+object ID_BaseEntityDbEdit: TDBEdit
   Left = 10
   Top = 568
   Width = 221
   Height = 21
   TabOrder = 13
 end
-object ID_UserPersonInsertDbDisplayLabel: TDbDisplayLabel
+object ExternalIDDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 596
   Width = 165
   Height = 17
-  FocusControl = ID_UserPersonInsertDbEdit
+  FocusControl = ExternalIDDbEdit
 end
-object ID_UserPersonInsertDbEdit: TDBEdit
+object ExternalIDDbEdit: TDBEdit
   Left = 10
   Top = 610
   Width = 221
   Height = 21
   TabOrder = 14
 end
-object TimeStampInsertDbDisplayLabel: TDbDisplayLabel
+object ID_UserPersonInsertDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 638
   Width = 165
   Height = 17
-  FocusControl = TimeStampInsertDbEdit
+  FocusControl = ID_UserPersonInsertDbEdit
 end
-object TimeStampInsertDbEdit: TDBEdit
+object ID_UserPersonInsertDbEdit: TDBEdit
   Left = 10
   Top = 652
   Width = 221
   Height = 21
   TabOrder = 15
 end
-object ID_UserPersonUpdateDbDisplayLabel: TDbDisplayLabel
+object TimeStampInsertDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 680
   Width = 165
   Height = 17
-  FocusControl = ID_UserPersonUpdateDbEdit
+  FocusControl = TimeStampInsertDbEdit
 end
-object ID_UserPersonUpdateDbEdit: TDBEdit
+object TimeStampInsertDbEdit: TDBEdit
   Left = 10
   Top = 694
   Width = 221
   Height = 21
   TabOrder = 16
 end
-object TimeStampLastUpdateDbDisplayLabel: TDbDisplayLabel
+object ID_UserPersonUpdateDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 722
   Width = 165
   Height = 17
-  FocusControl = TimeStampLastUpdateDbEdit
+  FocusControl = ID_UserPersonUpdateDbEdit
 end
-object TimeStampLastUpdateDbEdit: TDBEdit
+object ID_UserPersonUpdateDbEdit: TDBEdit
   Left = 10
   Top = 736
   Width = 221
   Height = 21
   TabOrder = 17
 end
-object StartDateTimeDbDisplayLabel: TDbDisplayLabel
+object TimeStampLastUpdateDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 764
   Width = 165
   Height = 17
-  FocusControl = StartDateTimeDbEdit
+  FocusControl = TimeStampLastUpdateDbEdit
 end
-object StartDateTimeDbEdit: TDBEdit
+object TimeStampLastUpdateDbEdit: TDBEdit
   Left = 10
   Top = 778
   Width = 221
   Height = 21
   TabOrder = 18
 end
-object FinishDateTimeDbDisplayLabel: TDbDisplayLabel
+object StartDateTimeDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 806
   Width = 165
   Height = 17
-  FocusControl = FinishDateTimeDbEdit
+  FocusControl = StartDateTimeDbEdit
 end
-object FinishDateTimeDbEdit: TDBEdit
+object StartDateTimeDbEdit: TDBEdit
   Left = 10
   Top = 820
   Width = 221
   Height = 21
   TabOrder = 19
 end
-object RemarkDbDisplayLabel: TDbDisplayLabel
+object FinishDateTimeDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 848
   Width = 165
   Height = 17
-  FocusControl = RemarkDbEdit
+  FocusControl = FinishDateTimeDbEdit
 end
-object RemarkDbEdit: TDBEdit
+object FinishDateTimeDbEdit: TDBEdit
   Left = 10
   Top = 862
   Width = 221
   Height = 21
   TabOrder = 20
 end
+object RemarkDbDisplayLabel: TDbDisplayLabel
+  Left = 13
+  Top = 890
+  Width = 165
+  Height = 17
+  FocusControl = RemarkDbEdit
+end
+object RemarkDbEdit: TDBEdit
+  Left = 10
+  Top = 904
+  Width = 221
+  Height = 21
+  TabOrder = 21
+end
 
-procedure TUserPersonWijzigenForm.SetUserPerson(const Value: TUserPerson);
+procedure TUserPersonDetailForm.SetUserPerson(const Value: TUserPerson);
 var
   UserPersonList: TUserPersonList;
 begin
   if Assigned(Value) then
   begin
     UserPersonList:= Value.UserPersonList;
-    AssignDataField(Self.ID_UserPersonDbDisplayLabel, Self.ID_UserPersonDbEdit, UserPersonList.ID_UserPersonField);
-    AssignDataField(Self.EID_NaturalPersonDbDisplayLabel, Self.EID_NaturalPersonDbEdit, UserPersonList.EID_NaturalPersonField);
-    AssignDataField(Self.UserPersonsNameDbDisplayLabel, Self.UserPersonsNameDbEdit, UserPersonList.UserPersonsNameField);
-    AssignDataField(Self.PasswordMD5HashDbDisplayLabel, Self.PasswordMD5HashDbEdit, UserPersonList.PasswordMD5HashField);
-    AssignDataField(Self.ID_NaturalPersonDbDisplayLabel, Self.ID_NaturalPersonDbEdit, UserPersonList.ID_NaturalPersonField);
-    AssignDataField(Self.EID_BaseEntityDbDisplayLabel, Self.EID_BaseEntityDbEdit, UserPersonList.EID_BaseEntityField);
-    AssignDataField(Self.FirstNameDbDisplayLabel, Self.FirstNameDbEdit, UserPersonList.FirstNameField);
-    AssignDataField(Self.InitialsDbDisplayLabel, Self.InitialsDbEdit, UserPersonList.InitialsField);
-    AssignDataField(Self.LastNameDbDisplayLabel, Self.LastNameDbEdit, UserPersonList.LastNameField);
-    AssignDataField(Self.BirthDateDbDisplayLabel, Self.BirthDateDbEdit, UserPersonList.BirthDateField);
-    AssignDataField(Self.PlaceOfBirthDbDisplayLabel, Self.PlaceOfBirthDbEdit, UserPersonList.PlaceOfBirthField);
-    AssignDataField(Self.SSNDbDisplayLabel, Self.SSNDbEdit, UserPersonList.SSNField);
-    AssignDataField(Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, UserPersonList.ID_BaseEntityField);
-    AssignDataField(Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, UserPersonList.ExternalIDField);
-    AssignDataField(Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, UserPersonList.ID_UserPersonInsertField);
-    AssignDataField(Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, UserPersonList.TimeStampInsertField);
-    AssignDataField(Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, UserPersonList.ID_UserPersonUpdateField);
-    AssignDataField(Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, UserPersonList.TimeStampLastUpdateField);
-    AssignDataField(Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, UserPersonList.StartDateTimeField);
-    AssignDataField(Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, UserPersonList.FinishDateTimeField);
-    AssignDataField(Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, UserPersonList.RemarkField);
+    AssignDataField(DataSource, Self.ID_UserPersonDbDisplayLabel, Self.ID_UserPersonDbEdit, UserPersonList.ID_UserPersonField);
+    AssignDataField(DataSource, Self.EID_NaturalPersonDbDisplayLabel, Self.EID_NaturalPersonDbEdit, UserPersonList.EID_NaturalPersonField);
+    AssignDataField(DataSource, Self.UserPersonsNameDbDisplayLabel, Self.UserPersonsNameDbEdit, UserPersonList.UserPersonsNameField);
+    AssignDataField(DataSource, Self.PasswordMD5HashDbDisplayLabel, Self.PasswordMD5HashDbEdit, UserPersonList.PasswordMD5HashField);
+    AssignDataField(DataSource, Self.ID_NaturalPersonDbDisplayLabel, Self.ID_NaturalPersonDbEdit, UserPersonList.ID_NaturalPersonField);
+    AssignDataField(DataSource, Self.EID_BaseEntityDbDisplayLabel, Self.EID_BaseEntityDbEdit, UserPersonList.EID_BaseEntityField);
+    AssignDataField(DataSource, Self.FirstNameDbDisplayLabel, Self.FirstNameDbEdit, UserPersonList.FirstNameField);
+    AssignDataField(DataSource, Self.InitialsDbDisplayLabel, Self.InitialsDbEdit, UserPersonList.InitialsField);
+    AssignDataField(DataSource, Self.LastNameDbDisplayLabel, Self.LastNameDbEdit, UserPersonList.LastNameField);
+    AssignDataField(DataSource, Self.BirthDateDbDisplayLabel, Self.BirthDateDbEdit, UserPersonList.BirthDateField);
+    AssignDataField(DataSource, Self.PlaceOfBirthDbDisplayLabel, Self.PlaceOfBirthDbEdit, UserPersonList.PlaceOfBirthField);
+    AssignDataField(DataSource, Self.SSNDbDisplayLabel, Self.SSNDbEdit, UserPersonList.SSNField);
+    AssignDataField(DataSource, Self.ID_GenderDbDisplayLabel, Self.ID_GenderDbEdit, UserPersonList.ID_GenderField);
+    AssignDataField(DataSource, Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, UserPersonList.ID_BaseEntityField);
+    AssignDataField(DataSource, Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, UserPersonList.ExternalIDField);
+    AssignDataField(DataSource, Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, UserPersonList.ID_UserPersonInsertField);
+    AssignDataField(DataSource, Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, UserPersonList.TimeStampInsertField);
+    AssignDataField(DataSource, Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, UserPersonList.ID_UserPersonUpdateField);
+    AssignDataField(DataSource, Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, UserPersonList.TimeStampLastUpdateField);
+    AssignDataField(DataSource, Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, UserPersonList.StartDateTimeField);
+    AssignDataField(DataSource, Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, UserPersonList.FinishDateTimeField);
+    AssignDataField(DataSource, Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, UserPersonList.RemarkField);
     FUserPerson := Value;
     DataSource.DataSet := UserPersonList;
   end

@@ -389,16 +389,16 @@ object LastUpdateDbEdit: TDBEdit
   TabOrder = 2
 end
 
-procedure TDatabaseMetaDataWijzigenForm.SetDatabaseMetaData(const Value: TDatabaseMetaData);
+procedure TDatabaseMetaDataDetailForm.SetDatabaseMetaData(const Value: TDatabaseMetaData);
 var
   DatabaseMetaDataList: TDatabaseMetaDataList;
 begin
   if Assigned(Value) then
   begin
     DatabaseMetaDataList:= Value.DatabaseMetaDataList;
-    AssignDataField(Self.ID_DatabaseMetaDataDbDisplayLabel, Self.ID_DatabaseMetaDataDbEdit, DatabaseMetaDataList.ID_DatabaseMetaDataField);
-    AssignDataField(Self.VersionDbDisplayLabel, Self.VersionDbEdit, DatabaseMetaDataList.VersionField);
-    AssignDataField(Self.LastUpdateDbDisplayLabel, Self.LastUpdateDbEdit, DatabaseMetaDataList.LastUpdateField);
+    AssignDataField(DataSource, Self.ID_DatabaseMetaDataDbDisplayLabel, Self.ID_DatabaseMetaDataDbEdit, DatabaseMetaDataList.ID_DatabaseMetaDataField);
+    AssignDataField(DataSource, Self.VersionDbDisplayLabel, Self.VersionDbEdit, DatabaseMetaDataList.VersionField);
+    AssignDataField(DataSource, Self.LastUpdateDbDisplayLabel, Self.LastUpdateDbEdit, DatabaseMetaDataList.LastUpdateField);
     FDatabaseMetaData := Value;
     DataSource.DataSet := DatabaseMetaDataList;
   end

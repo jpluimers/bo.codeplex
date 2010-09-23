@@ -11,7 +11,6 @@ object ClientForm: TClientForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -22,41 +21,23 @@ object ClientForm: TClientForm
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 0
-    object NewClientButton: TButton
-      Left = 12
+    object ClientListButton: TButton
+      Left = 16
       Top = 9
-      Width = 149
+      Width = 175
       Height = 25
-      Caption = 'NewClientButton'
+      Caption = 'ClientListButton'
       TabOrder = 0
-      OnClick = NewClientButtonClick
+      OnClick = ClientListButtonClick
     end
-    object FilteredCheckBox: TCheckBox
-      Left = 408
-      Top = 13
-      Width = 97
-      Height = 17
-      Caption = 'FilteredCheckBox'
+    object GenderListButton: TButton
+      Left = 208
+      Top = 9
+      Width = 175
+      Height = 25
+      Caption = 'GenderListButton'
       TabOrder = 1
-      OnClick = FilteredCheckBoxClick
+      OnClick = GenderListButtonClick
     end
-  end
-  object ClientListDBGrid: TDBGrid
-    Left = 0
-    Top = 41
-    Width = 643
-    Height = 307
-    Align = alClient
-    DataSource = ClientListDataSource
-    TabOrder = 1
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
-  end
-  object ClientListDataSource: TDataSource
-    Left = 174
-    Top = 104
   end
 end

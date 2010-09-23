@@ -9,13 +9,10 @@ uses
 type
   TClientForm = class(TForm)
     Panel1: TPanel;
-    ClientListDBGrid: TDBGrid;
-    ClientListDataSource: TDataSource;
-    NewClientButton: TButton;
-    FilteredCheckBox: TCheckBox;
-    procedure FilteredCheckBoxClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure NewClientButtonClick(Sender: TObject);
+    ClientListButton: TButton;
+    GenderListButton: TButton;
+    procedure ClientListButtonClick(Sender: TObject);
+    procedure GenderListButtonClick(Sender: TObject);
   end;
 
 var
@@ -24,38 +21,19 @@ var
 implementation
 
 uses
-  ORMEntityListFactoryDataModuleIUnit, ClientDetailFormUnit;
+  ClientListFormUnit,
+  GenderListFormUnit;
 
 {$R *.dfm}
 
-procedure TClientForm.FilteredCheckBoxClick(Sender: TObject);
+procedure TClientForm.ClientListButtonClick(Sender: TObject);
 begin
-  if FilteredCheckBox.Checked then
-    ClientListDataSource.DataSet := ORMEntityListFactoryDataModule.FilteredClientList
-  else
-    ClientListDataSource.DataSet := ORMEntityListFactoryDataModule.ClientList;
+  ClientListForm.ShowModal();
 end;
 
-procedure TClientForm.FormCreate(Sender: TObject);
+procedure TClientForm.GenderListButtonClick(Sender: TObject);
 begin
-  ClientListDataSource.DataSet := ORMEntityListFactoryDataModule.ClientList;
-end;
-
-procedure TClientForm.NewClientButtonClick(Sender: TObject);
-var
-  ClientDetailForm: TClientDetailForm;
-begin
-  ClientDetailForm := TClientDetailForm.Create(Application);
-  try
-    ORMEntityListFactoryDataModule.ClientList.Insert();
-    ClientDetailForm.Client := ORMEntityListFactoryDataModule.ClientList.Current;
-    if ClientDetailForm.ShowModal = mrOk then
-      ORMEntityListFactoryDataModule.ClientList.Post
-    else
-      ORMEntityListFactoryDataModule.ClientList.Cancel;
-  finally
-    ClientDetailForm.Free();
-  end;
+  GenderListForm.ShowModal();
 end;
 
 end.

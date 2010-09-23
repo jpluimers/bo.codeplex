@@ -12,3 +12,13 @@ MSDMLQueryRecordUnit - MS SQL server dependency
 FastMM: C:\develop\codeplex\TFS05\bo\Native\Delphi\Apps\ORM\UseORM\prj\Debug\Win32\UseORMProject_MemoryManager_EventLog.txt
 
 //  EntityList.Remove(NewEntity); //##jpl: memory leak; show FastMM
+
+TNaturalPersonList.CreateLookupFields
+TNaturalPersonList.GetGenderList
+
+TORMCodeGenerator.GenerateSelectStatement
+(((( for Access compatible joins
+
+TORMListBaseForm.EditOrInsert - and the way to check the required fields
+
+    FClientFormLazyFormFactory: TLazyFormFactory<TClientForm>;

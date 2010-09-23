@@ -597,26 +597,26 @@ object RemarkDbEdit: TDBEdit
   TabOrder = 12
 end
 
-procedure TLegalPersonWijzigenForm.SetLegalPerson(const Value: TLegalPerson);
+procedure TLegalPersonDetailForm.SetLegalPerson(const Value: TLegalPerson);
 var
   LegalPersonList: TLegalPersonList;
 begin
   if Assigned(Value) then
   begin
     LegalPersonList:= Value.LegalPersonList;
-    AssignDataField(Self.ID_LegalPersonDbDisplayLabel, Self.ID_LegalPersonDbEdit, LegalPersonList.ID_LegalPersonField);
-    AssignDataField(Self.EID_BaseEntityDbDisplayLabel, Self.EID_BaseEntityDbEdit, LegalPersonList.EID_BaseEntityField);
-    AssignDataField(Self.NameDbDisplayLabel, Self.NameDbEdit, LegalPersonList.NameField);
-    AssignDataField(Self.LegalCodeDbDisplayLabel, Self.LegalCodeDbEdit, LegalPersonList.LegalCodeField);
-    AssignDataField(Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, LegalPersonList.ID_BaseEntityField);
-    AssignDataField(Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, LegalPersonList.ExternalIDField);
-    AssignDataField(Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, LegalPersonList.ID_UserPersonInsertField);
-    AssignDataField(Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, LegalPersonList.TimeStampInsertField);
-    AssignDataField(Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, LegalPersonList.ID_UserPersonUpdateField);
-    AssignDataField(Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, LegalPersonList.TimeStampLastUpdateField);
-    AssignDataField(Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, LegalPersonList.StartDateTimeField);
-    AssignDataField(Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, LegalPersonList.FinishDateTimeField);
-    AssignDataField(Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, LegalPersonList.RemarkField);
+    AssignDataField(DataSource, Self.ID_LegalPersonDbDisplayLabel, Self.ID_LegalPersonDbEdit, LegalPersonList.ID_LegalPersonField);
+    AssignDataField(DataSource, Self.EID_BaseEntityDbDisplayLabel, Self.EID_BaseEntityDbEdit, LegalPersonList.EID_BaseEntityField);
+    AssignDataField(DataSource, Self.NameDbDisplayLabel, Self.NameDbEdit, LegalPersonList.NameField);
+    AssignDataField(DataSource, Self.LegalCodeDbDisplayLabel, Self.LegalCodeDbEdit, LegalPersonList.LegalCodeField);
+    AssignDataField(DataSource, Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, LegalPersonList.ID_BaseEntityField);
+    AssignDataField(DataSource, Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, LegalPersonList.ExternalIDField);
+    AssignDataField(DataSource, Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, LegalPersonList.ID_UserPersonInsertField);
+    AssignDataField(DataSource, Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, LegalPersonList.TimeStampInsertField);
+    AssignDataField(DataSource, Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, LegalPersonList.ID_UserPersonUpdateField);
+    AssignDataField(DataSource, Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, LegalPersonList.TimeStampLastUpdateField);
+    AssignDataField(DataSource, Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, LegalPersonList.StartDateTimeField);
+    AssignDataField(DataSource, Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, LegalPersonList.FinishDateTimeField);
+    AssignDataField(DataSource, Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, LegalPersonList.RemarkField);
     FLegalPerson := Value;
     DataSource.DataSet := LegalPersonList;
   end
