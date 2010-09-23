@@ -815,22 +815,22 @@ object RemarkDbEdit: TDBEdit
   TabOrder = 8
 end
 
-procedure TBaseEntityWijzigenForm.SetBaseEntity(const Value: TBaseEntity);
+procedure TBaseEntityDetailForm.SetBaseEntity(const Value: TBaseEntity);
 var
   BaseEntityList: TBaseEntityList;
 begin
   if Assigned(Value) then
   begin
     BaseEntityList:= Value.BaseEntityList;
-    AssignDataField(Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, BaseEntityList.ID_BaseEntityField);
-    AssignDataField(Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, BaseEntityList.ExternalIDField);
-    AssignDataField(Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, BaseEntityList.ID_UserPersonInsertField);
-    AssignDataField(Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, BaseEntityList.TimeStampInsertField);
-    AssignDataField(Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, BaseEntityList.ID_UserPersonUpdateField);
-    AssignDataField(Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, BaseEntityList.TimeStampLastUpdateField);
-    AssignDataField(Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, BaseEntityList.StartDateTimeField);
-    AssignDataField(Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, BaseEntityList.FinishDateTimeField);
-    AssignDataField(Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, BaseEntityList.RemarkField);
+    AssignDataField(DataSource, Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, BaseEntityList.ID_BaseEntityField);
+    AssignDataField(DataSource, Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, BaseEntityList.ExternalIDField);
+    AssignDataField(DataSource, Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, BaseEntityList.ID_UserPersonInsertField);
+    AssignDataField(DataSource, Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, BaseEntityList.TimeStampInsertField);
+    AssignDataField(DataSource, Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, BaseEntityList.ID_UserPersonUpdateField);
+    AssignDataField(DataSource, Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, BaseEntityList.TimeStampLastUpdateField);
+    AssignDataField(DataSource, Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, BaseEntityList.StartDateTimeField);
+    AssignDataField(DataSource, Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, BaseEntityList.FinishDateTimeField);
+    AssignDataField(DataSource, Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, BaseEntityList.RemarkField);
     FBaseEntity := Value;
     DataSource.DataSet := BaseEntityList;
   end

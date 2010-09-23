@@ -121,6 +121,19 @@
 			<DCCReference Include="..\..\..\..\bo.DB\SqlWhereCriterionsUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DB\ClientDataSetSupportingWhereOrderByUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.Text\StringListWrapperUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Base\GenderBaseUnit.pas"/>
+			<DCCReference Include="..\src\ORM\ORM.Actual\GenderUnit.pas"/>
+			<DCCReference Include="..\src\GenderDetailFormUnit.pas">
+				<Form>GenderDetailForm</Form>
+			</DCCReference>
+			<DCCReference Include="..\src\GenderListFormUnit.pas">
+				<Form>GenderListForm</Form>
+			</DCCReference>
+			<DCCReference Include="..\src\ClientListFormUnit.pas">
+				<Form>ClientListForm</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\..\..\bo.ORM\ORMDetailBaseFormUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.ORM\ORMListBaseFormUnit.pas"/>
 			<None Include="Debug\Win32\UseORMProject.ini"/>
 			<None Include="..\..\..\..\Include\Defines.inc"/>
 			<None Include="..\..\..\..\..\..\Forks\FastMM\FastMM4Options.inc"/>

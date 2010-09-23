@@ -952,31 +952,31 @@ object RemarkDbEdit: TDBEdit
   TabOrder = 17
 end
 
-procedure TAddressWijzigenForm.SetAddress(const Value: TAddress);
+procedure TAddressDetailForm.SetAddress(const Value: TAddress);
 var
   AddressList: TAddressList;
 begin
   if Assigned(Value) then
   begin
     AddressList:= Value.AddressList;
-    AssignDataField(Self.ID_AddressDbDisplayLabel, Self.ID_AddressDbEdit, AddressList.ID_AddressField);
-    AssignDataField(Self.EID_BaseEntityDbDisplayLabel, Self.EID_BaseEntityDbEdit, AddressList.EID_BaseEntityField);
-    AssignDataField(Self.RoutingDbDisplayLabel, Self.RoutingDbEdit, AddressList.RoutingField);
-    AssignDataField(Self.StreetNameDbDisplayLabel, Self.StreetNameDbEdit, AddressList.StreetNameField);
-    AssignDataField(Self.HouseNumberDbDisplayLabel, Self.HouseNumberDbEdit, AddressList.HouseNumberField);
-    AssignDataField(Self.PostalCodeDbDisplayLabel, Self.PostalCodeDbEdit, AddressList.PostalCodeField);
-    AssignDataField(Self.CityDbDisplayLabel, Self.CityDbEdit, AddressList.CityField);
-    AssignDataField(Self.CountryCodeDbDisplayLabel, Self.CountryCodeDbEdit, AddressList.CountryCodeField);
-    AssignDataField(Self.CountryDbDisplayLabel, Self.CountryDbEdit, AddressList.CountryField);
-    AssignDataField(Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, AddressList.ID_BaseEntityField);
-    AssignDataField(Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, AddressList.ExternalIDField);
-    AssignDataField(Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, AddressList.ID_UserPersonInsertField);
-    AssignDataField(Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, AddressList.TimeStampInsertField);
-    AssignDataField(Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, AddressList.ID_UserPersonUpdateField);
-    AssignDataField(Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, AddressList.TimeStampLastUpdateField);
-    AssignDataField(Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, AddressList.StartDateTimeField);
-    AssignDataField(Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, AddressList.FinishDateTimeField);
-    AssignDataField(Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, AddressList.RemarkField);
+    AssignDataField(DataSource, Self.ID_AddressDbDisplayLabel, Self.ID_AddressDbEdit, AddressList.ID_AddressField);
+    AssignDataField(DataSource, Self.EID_BaseEntityDbDisplayLabel, Self.EID_BaseEntityDbEdit, AddressList.EID_BaseEntityField);
+    AssignDataField(DataSource, Self.RoutingDbDisplayLabel, Self.RoutingDbEdit, AddressList.RoutingField);
+    AssignDataField(DataSource, Self.StreetNameDbDisplayLabel, Self.StreetNameDbEdit, AddressList.StreetNameField);
+    AssignDataField(DataSource, Self.HouseNumberDbDisplayLabel, Self.HouseNumberDbEdit, AddressList.HouseNumberField);
+    AssignDataField(DataSource, Self.PostalCodeDbDisplayLabel, Self.PostalCodeDbEdit, AddressList.PostalCodeField);
+    AssignDataField(DataSource, Self.CityDbDisplayLabel, Self.CityDbEdit, AddressList.CityField);
+    AssignDataField(DataSource, Self.CountryCodeDbDisplayLabel, Self.CountryCodeDbEdit, AddressList.CountryCodeField);
+    AssignDataField(DataSource, Self.CountryDbDisplayLabel, Self.CountryDbEdit, AddressList.CountryField);
+    AssignDataField(DataSource, Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, AddressList.ID_BaseEntityField);
+    AssignDataField(DataSource, Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, AddressList.ExternalIDField);
+    AssignDataField(DataSource, Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, AddressList.ID_UserPersonInsertField);
+    AssignDataField(DataSource, Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, AddressList.TimeStampInsertField);
+    AssignDataField(DataSource, Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, AddressList.ID_UserPersonUpdateField);
+    AssignDataField(DataSource, Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, AddressList.TimeStampLastUpdateField);
+    AssignDataField(DataSource, Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, AddressList.StartDateTimeField);
+    AssignDataField(DataSource, Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, AddressList.FinishDateTimeField);
+    AssignDataField(DataSource, Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, AddressList.RemarkField);
     FAddress := Value;
     DataSource.DataSet := AddressList;
   end

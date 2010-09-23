@@ -10,8 +10,8 @@ uses
 type
   TUseORMMainForm = class(TForm)
     Panel1: TPanel;
-    ShowClientListButton: TButton;
-    procedure ShowClientListButtonClick(Sender: TObject);
+    ShowClientFormButton: TButton;
+    procedure ShowClientFormButtonClick(Sender: TObject);
   strict private
 //    FClientForm: TClientForm;
     FClientFormLazyFormFactory: TLazyFormFactory<TClientForm>;
@@ -39,7 +39,7 @@ begin
   Result := ClientFormLazyFormFactory.Instance;
 end;
 
-procedure TUseORMMainForm.ShowClientListButtonClick(Sender: TObject);
+procedure TUseORMMainForm.ShowClientFormButtonClick(Sender: TObject);
 begin
   ClientForm.Show();
 end;

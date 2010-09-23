@@ -57,7 +57,14 @@ uses
   ClientDataSetSupportingCalculatedAndLookupFieldsUnit in '..\..\..\..\bo.DB\ClientDataSetSupportingCalculatedAndLookupFieldsUnit.pas',
   SqlWhereCriterionsUnit in '..\..\..\..\bo.DB\SqlWhereCriterionsUnit.pas',
   ClientDataSetSupportingWhereOrderByUnit in '..\..\..\..\bo.DB\ClientDataSetSupportingWhereOrderByUnit.pas',
-  StringListWrapperUnit in '..\..\..\..\bo.Text\StringListWrapperUnit.pas';
+  StringListWrapperUnit in '..\..\..\..\bo.Text\StringListWrapperUnit.pas',
+  GenderBaseUnit in '..\src\ORM\ORM.Base\GenderBaseUnit.pas',
+  GenderUnit in '..\src\ORM\ORM.Actual\GenderUnit.pas',
+  GenderDetailFormUnit in '..\src\GenderDetailFormUnit.pas' {GenderDetailForm},
+  GenderListFormUnit in '..\src\GenderListFormUnit.pas' {GenderListForm},
+  ClientListFormUnit in '..\src\ClientListFormUnit.pas' {ClientListForm},
+  ORMDetailBaseFormUnit in '..\..\..\..\bo.ORM\ORMDetailBaseFormUnit.pas',
+  ORMListBaseFormUnit in '..\..\..\..\bo.ORM\ORMListBaseFormUnit.pas';
 
 {$R *.res}
 
@@ -68,5 +75,8 @@ begin
   Application.CreateForm(TUseORMMainForm, UseORMMainForm);
   Application.CreateForm(TClientForm, ClientForm);
   Application.CreateForm(TClientDetailForm, ClientDetailForm);
+  Application.CreateForm(TGenderDetailForm, GenderDetailForm);
+  Application.CreateForm(TGenderListForm, GenderListForm);
+  Application.CreateForm(TClientListForm, ClientListForm);
   Application.Run;
 end.

@@ -115,8 +115,6 @@ begin
     if Pos(' ', CamelCaseString) > 0 then
       Result := CamelCaseString;
     Result := StripSuffixClass(CamelCaseString, SuffixClassToStrip);
-    Result := AnsiReplaceStr(Result, 'Modal Data ', NullAsStringValue); //JR: 20-04-2010 --> dit wil je niet in de caption van het Form hebben staan.
-    Result := AnsiReplaceStr(Result, 'Modal ', NullAsStringValue);      //idem...
     Result := LowerCase(Result);
     Result[1] := CamelCaseString[1];
   end;

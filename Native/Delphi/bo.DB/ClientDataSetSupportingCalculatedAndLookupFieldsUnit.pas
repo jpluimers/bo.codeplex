@@ -3,7 +3,7 @@ unit ClientDataSetSupportingCalculatedAndLookupFieldsUnit;
 interface
 
 uses
-  DBClient, DB;
+  DBClient, DB, Generics.Collections;
 
 type
   TCreateCalculatedFieldOption = (coHideFields, coAddSizeOfStringFields);
@@ -13,8 +13,13 @@ const
   AllCreateCalculatedFieldOptions = [Low(TCreateCalculatedFieldOption)..High(TCreateCalculatedFieldOption)];
 
 type
+  TFieldList = TList<TField>;
+
+type
   TClientDataSetSupportingCalculatedAndLookupFields = class(TClientDataSet)
   strict protected
+    procedure CalculateDefaultWidths(const DefaultWidthStringFieldList: TFieldList); virtual;
+    procedure CalculateDefaultWidths1(const DefaultWidthStringFieldList: TFieldList; const MaxRecordCount: Integer); virtual;
     function CreateCalculatedField(const FieldName: string; const SourceFieldNames: array of string; const FieldNameToPositionAfter: string = ''; const
         CreateCalculatedFieldOptions: TCreateCalculatedFieldOptions = AllCreateCalculatedFieldOptions): TField; virtual;
     procedure CreateCalculatedFields; virtual;
@@ -25,6 +30,7 @@ type
     procedure MemoFieldsOnGetText(Sender: TField; var Text: string; DisplayText: Boolean); virtual;
   protected
     procedure CreateFields; override;
+    procedure DoAfterOpen; override;
   end;
 
 implementation
@@ -32,8 +38,59 @@ implementation
 uses
   SysUtils, Variants, FieldNameHelperUnit, DbCrackerUnit, StringUtilsUnit;
 
-function TClientDataSetSupportingCalculatedAndLookupFields.CreateCalculatedField(const FieldName: string; const SourceFieldNames: array of string; const FieldNameToPositionAfter: string =
-    ''; const CreateCalculatedFieldOptions: TCreateCalculatedFieldOptions = AllCreateCalculatedFieldOptions): TField;
+procedure TClientDataSetSupportingCalculatedAndLookupFields.CalculateDefaultWidths(const DefaultWidthStringFieldList: TFieldList);
+begin
+  CalculateDefaultWidths1(DefaultWidthStringFieldList, 10);
+end;
+
+procedure TClientDataSetSupportingCalculatedAndLookupFields.CalculateDefaultWidths1(const DefaultWidthStringFieldList: TFieldList; const MaxRecordCount:
+    Integer);
+var
+  Bookmark: TBookmark;
+  Count: Integer;
+  Field: TField;
+  ValueLength: Integer;
+  OldActive: Boolean;
+begin
+  OldActive := Active;
+  try
+    Open;
+    if (DefaultWidthStringFieldList.Count > 0) and (not IsEmpty) then
+    begin
+      if OldActive then
+        Bookmark := GetBookmark();
+      try
+        try
+          for Field in DefaultWidthStringFieldList do
+            Field.DisplayWidth := 1;
+          Count := 0;
+          First;
+          repeat
+            for Field in DefaultWidthStringFieldList do
+            begin
+              ValueLength := Length(Field.AsString);
+              if ValueLength > Field.DisplayWidth then
+                Field.DisplayWidth := ValueLength;
+            end;
+            Next;
+            Inc(Count);
+          until EOF or (Count > MaxRecordCount);
+        finally
+          if OldActive then
+              GotoBookmark(Bookmark);
+        end;
+      finally
+        if OldActive then
+          FreeBookmark(Bookmark);
+      end;
+    end;
+  finally
+    Active := OldActive;
+  end;
+end;
+
+function TClientDataSetSupportingCalculatedAndLookupFields.CreateCalculatedField(const FieldName: string; const SourceFieldNames: array of string; const
+    FieldNameToPositionAfter: string = ''; const CreateCalculatedFieldOptions: TCreateCalculatedFieldOptions = AllCreateCalculatedFieldOptions): TField;
 var
   StringFieldSize: Integer;
   FirstSourceField: TField;
@@ -85,12 +142,6 @@ begin
         if StringFieldSize <> 0 then
           CalculatedField.Size := StringFieldSize;
 
-    //JR: 04-05-2010
-    //Hier moet even een goede oplossing voor komen.
-    //De size lijkt goed gezet te worden, maar is toch te smal voor bijvoorbeeld de emailadressen.
-    //Zet het nu even hard op 500, dan wordt hij niet te breed, maar past het goed.
-    CalculatedField.Size := 500; //##jpl
-
     CalculatedField.FieldKind := fkCalculated;
     CalculatedField.FieldName := FieldName;
     CalculatedField.DataSet := Self; //jpl: 20100124 - mag pas na de assignment van FieldName
@@ -99,7 +150,7 @@ begin
     //  Self.Fields.Add(CalculatedField); //jpl: 20100124 - mag niet, vanwege "CalculatedField.DataSet := Self;"
   except
     CalculatedField.Free;
-    raise ;
+    raise;
   end;
 
   if coHideFields in CreateCalculatedFieldOptions then
@@ -113,12 +164,12 @@ end;
 
 procedure TClientDataSetSupportingCalculatedAndLookupFields.CreateCalculatedFields;
 begin
-  //jpl: 20100124 - voor descendants om te overriden
+  // descendants can override
 end;
 
 procedure TClientDataSetSupportingCalculatedAndLookupFields.CreateFields;
 begin
-  inherited CreateFields;
+  inherited CreateFields();
   CreateLookupFields();
   CreateCalculatedFields();
   HookFieldsOnGetTextEvents();
@@ -184,7 +235,27 @@ end;
 
 procedure TClientDataSetSupportingCalculatedAndLookupFields.CreateLookupFields;
 begin
-  //jpl: 20100122 - voor descendants om te overriden
+  // descendants can override
+end;
+
+procedure TClientDataSetSupportingCalculatedAndLookupFields.DoAfterOpen;
+var
+  Field: TField;
+  DefaultWidthStringFieldList: TFieldList;
+begin
+  inherited DoAfterOpen();
+  DefaultWidthStringFieldList := TFieldList.Create();
+  try
+    for Field in Fields do
+    begin
+      if Field.DisplayWidth = FieldGetDefaultWidth(Field) then
+        if Field is TStringField then
+          DefaultWidthStringFieldList.Add(Field);
+    end;
+    CalculateDefaultWidths(DefaultWidthStringFieldList);
+  finally
+    DefaultWidthStringFieldList.Free;
+  end;
 end;
 
 procedure TClientDataSetSupportingCalculatedAndLookupFields.HookFieldsOnGetTextEvents;

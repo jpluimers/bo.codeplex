@@ -21,14 +21,14 @@ object UseORMMainForm: TUseORMMainForm
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 0
-    object ShowClientListButton: TButton
+    object ShowClientFormButton: TButton
       Left = 14
       Top = 6
       Width = 183
       Height = 25
-      Caption = 'ShowClientListButton'
+      Caption = 'ShowClientFormButton'
       TabOrder = 0
-      OnClick = ShowClientListButtonClick
+      OnClick = ShowClientFormButtonClick
     end
   end
 end

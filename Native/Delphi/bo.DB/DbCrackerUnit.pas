@@ -30,6 +30,8 @@ function GetDataLinkDBLookupControl(const DataLink: TDataLink): TDBLookupControl
 function GetLabelFocusControl(const CustomLabel: TCustomLabel): TWinControl;
 
 function FieldGetText(const Field: TField; var Text: string; const DisplayText: Boolean): string;
+function FieldGetDefaultWidth(const Field: TField): Integer;
+
 
 function FieldGetClassDesc(const Field: TField): string;
 
@@ -251,6 +253,14 @@ begin
     [Field.DataSet.Name, Field.Name, FieldKindDescription]));
   TDBLookupControlHack(DbLookupControl).DataSource := DataSource;
   TDBLookupControlHack(DbLookupControl).DataField := Field.FieldName;
+end;
+
+function FieldGetDefaultWidth(const Field: TField): Integer;
+var
+  FieldCracker: TFieldCracker;
+begin
+  FieldCracker := TFieldCracker(Field);
+  Result := FieldCracker.GetDefaultWidth();
 end;
 
 end.

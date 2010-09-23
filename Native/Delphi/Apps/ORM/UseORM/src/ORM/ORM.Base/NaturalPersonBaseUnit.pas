@@ -38,6 +38,8 @@ type
     procedure SetPlaceOfBirth(const Value: TNullableString); virtual;
     function GetSSN(): TNullableString; virtual;
     procedure SetSSN(const Value: TNullableString); virtual;
+    function GetID_Gender(): TNullableInteger; virtual;
+    procedure SetID_Gender(const Value: TNullableInteger); virtual;
     property NaturalPersonList: TNaturalPersonListBase read GetNaturalPersonListBase;
   public
     property ID_NaturalPerson: TNullableInteger read GetID_NaturalPerson write SetID_NaturalPerson;
@@ -48,6 +50,7 @@ type
     property BirthDate: TNullableDateTime read GetBirthDate write SetBirthDate;
     property PlaceOfBirth: TNullableString read GetPlaceOfBirth write SetPlaceOfBirth;
     property SSN: TNullableString read GetSSN write SetSSN;
+    property ID_Gender: TNullableInteger read GetID_Gender write SetID_Gender;
   end;
 
   TNaturalPersonListBaseClientDataSet = class(TBaseEntityList)
@@ -63,6 +66,7 @@ type
     function GetBirthDateField(): TDateTimeField; virtual;
     function GetPlaceOfBirthField(): TStringField; virtual;
     function GetSSNField(): TStringField; virtual;
+    function GetID_GenderField(): TIntegerField; virtual;
   public
     const
       ID_NaturalPersonFieldName = 'ID_NaturalPerson';
@@ -81,6 +85,8 @@ type
       PlaceOfBirth_ChangedParameterName = 'PlaceOfBirth_Changed';
       SSNFieldName = 'SSN';
       SSN_ChangedParameterName = 'SSN_Changed';
+      ID_GenderFieldName = 'ID_Gender';
+      ID_Gender_ChangedParameterName = 'ID_Gender_Changed';
     property ID_NaturalPersonField: TIntegerField read GetID_NaturalPersonField;
     property EID_BaseEntityField: TIntegerField read GetEID_BaseEntityField;
     property FirstNameField: TStringField read GetFirstNameField;
@@ -89,6 +95,7 @@ type
     property BirthDateField: TDateTimeField read GetBirthDateField;
     property PlaceOfBirthField: TStringField read GetPlaceOfBirthField;
     property SSNField: TStringField read GetSSNField;
+    property ID_GenderField: TIntegerField read GetID_GenderField;
   end;
 
   TNaturalPersonBaseEnumerator = class(TEntityListEnumerator)
@@ -126,6 +133,8 @@ type
     procedure SetPlaceOfBirth(const Value: TNullableString); virtual;
     function GetSSN(): TNullableString; virtual;
     procedure SetSSN(const Value: TNullableString); virtual;
+    function GetID_Gender(): TNullableInteger; virtual;
+    procedure SetID_Gender(const Value: TNullableInteger); virtual;
   public
     const
       NaturalPerson_TableName = 'NaturalPerson';
@@ -138,6 +147,7 @@ type
     property BirthDate: TNullableDateTime read GetBirthDate write SetBirthDate;
     property PlaceOfBirth: TNullableString read GetPlaceOfBirth write SetPlaceOfBirth;
     property SSN: TNullableString read GetSSN write SetSSN;
+    property ID_Gender: TNullableInteger read GetID_Gender write SetID_Gender;
   end;
 
 implementation
@@ -365,6 +375,32 @@ begin
   );
 end;
 
+function TNaturalPersonBase.GetID_Gender(): TNullableInteger;
+var
+  Value: TNullableInteger;
+begin
+  ExecuteAtDictionaryID(
+  procedure
+  begin
+    Value := NaturalPersonList.ID_Gender;
+  end
+  );
+  Result := Value;
+end;
+
+procedure TNaturalPersonBase.SetID_Gender(const Value: TNullableInteger);
+var
+  NewValue: TNullableInteger;
+begin
+  NewValue := Value;
+  ExecuteAtBookmarkInEditMode(
+    procedure
+    begin
+      NaturalPersonList.ID_Gender := NewValue;
+    end
+  );
+end;
+
 { TNaturalPersonListBaseClientDataSet }
 
 procedure TNaturalPersonListBaseClientDataSet.FillValidCriterionFieldNames();
@@ -378,11 +414,13 @@ begin
   ValidCriterionFieldNames.Add(BirthDateFieldName);
   ValidCriterionFieldNames.Add(PlaceOfBirthFieldName);
   ValidCriterionFieldNames.Add(SSNFieldName);
+  ValidCriterionFieldNames.Add(ID_GenderFieldName);
 end;
 
 function TNaturalPersonListBaseClientDataSet.GetData(): Integer;
 begin
   Result := inherited GetData();
+  LastNameField.Required := True;
 end;
 
 function TNaturalPersonListBaseClientDataSet.GetEntityClass(): TEntityClass;
@@ -430,6 +468,11 @@ begin
   Result := Fields.FieldByName(SSNFieldName) as TStringField;
 end;
 
+function TNaturalPersonListBaseClientDataSet.GetID_GenderField(): TIntegerField;
+begin
+  Result := Fields.FieldByName(ID_GenderFieldName) as TIntegerField;
+end;
+
 { TNaturalPersonBaseEnumerator }
 
 function TNaturalPersonBaseEnumerator.GetCurrent(): TNaturalPersonBase;
@@ -457,14 +500,16 @@ begin
   '  LastName, ' +
   '  BirthDate, ' +
   '  PlaceOfBirth, ' +
-  '  SSN  ) VALUES (' +
+  '  SSN, ' +
+  '  ID_Gender  ) VALUES (' +
   '  :EID_BaseEntity_Changed, ' +
   '  :FirstName_Changed, ' +
   '  :Initials_Changed, ' +
   '  :LastName_Changed, ' +
   '  :BirthDate_Changed, ' +
   '  :PlaceOfBirth_Changed, ' +
-  '  :SSN_Changed  )';
+  '  :SSN_Changed, ' +
+  '  :ID_Gender_Changed  )';
 end;
 
 procedure TNaturalPersonListBase.SetReadQueryText(const ReadQuery: TDBQuery);
@@ -478,6 +523,7 @@ begin
   '  NaturalPerson.BirthDate, ' +
   '  NaturalPerson.PlaceOfBirth, ' +
   '  NaturalPerson.SSN, ' +
+  '  NaturalPerson.ID_Gender, ' +
   '  BaseEntity.ID_BaseEntity, ' +
   '  BaseEntity.ExternalID, ' +
   '  BaseEntity.ID_UserPersonInsert, ' +
@@ -503,7 +549,8 @@ begin
   '  LastName = :LastName_Changed, ' +
   '  BirthDate = :BirthDate_Changed, ' +
   '  PlaceOfBirth = :PlaceOfBirth_Changed, ' +
-  '  SSN = :SSN_Changed ' +
+  '  SSN = :SSN_Changed, ' +
+  '  ID_Gender = :ID_Gender_Changed ' +
   'WHERE ID_NaturalPerson = :ID_NaturalPerson ';
 end;
 
@@ -516,6 +563,7 @@ begin
   DBQuery.AssignParam(BirthDate, BirthDate_ChangedParameterName);
   DBQuery.AssignParam(PlaceOfBirth, PlaceOfBirth_ChangedParameterName);
   DBQuery.AssignParam(SSN, SSN_ChangedParameterName);
+  DBQuery.AssignParam(ID_Gender, ID_Gender_ChangedParameterName);
 end;
 
 function TNaturalPersonListBase.FillJoinedColumnPair(): TJoinedColumnPair;
@@ -636,6 +684,16 @@ begin
   SSNField.AsNullableString := Value;
 end;
 
+function TNaturalPersonListBase.GetID_Gender(): TNullableInteger;
+begin
+  Result := ID_GenderField.AsNullableInteger;
+end;
+
+procedure TNaturalPersonListBase.SetID_Gender(const Value: TNullableInteger);
+begin
+  ID_GenderField.AsNullableInteger := Value;
+end;
+
 function TNaturalPersonListBase.GetEnumerator(): TNaturalPersonBaseEnumerator;
 begin
   Result := TNaturalPersonBaseEnumerator.Create(Self);
@@ -754,157 +812,172 @@ object SSNDbEdit: TDBEdit
   Height = 21
   TabOrder = 7
 end
-object ID_BaseEntityDbDisplayLabel: TDbDisplayLabel
+object ID_GenderDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 344
   Width = 165
   Height = 17
-  FocusControl = ID_BaseEntityDbEdit
+  FocusControl = ID_GenderDbEdit
 end
-object ID_BaseEntityDbEdit: TDBEdit
+object ID_GenderDbEdit: TDBEdit
   Left = 10
   Top = 358
   Width = 221
   Height = 21
   TabOrder = 8
 end
-object ExternalIDDbDisplayLabel: TDbDisplayLabel
+object ID_BaseEntityDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 386
   Width = 165
   Height = 17
-  FocusControl = ExternalIDDbEdit
+  FocusControl = ID_BaseEntityDbEdit
 end
-object ExternalIDDbEdit: TDBEdit
+object ID_BaseEntityDbEdit: TDBEdit
   Left = 10
   Top = 400
   Width = 221
   Height = 21
   TabOrder = 9
 end
-object ID_UserPersonInsertDbDisplayLabel: TDbDisplayLabel
+object ExternalIDDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 428
   Width = 165
   Height = 17
-  FocusControl = ID_UserPersonInsertDbEdit
+  FocusControl = ExternalIDDbEdit
 end
-object ID_UserPersonInsertDbEdit: TDBEdit
+object ExternalIDDbEdit: TDBEdit
   Left = 10
   Top = 442
   Width = 221
   Height = 21
   TabOrder = 10
 end
-object TimeStampInsertDbDisplayLabel: TDbDisplayLabel
+object ID_UserPersonInsertDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 470
   Width = 165
   Height = 17
-  FocusControl = TimeStampInsertDbEdit
+  FocusControl = ID_UserPersonInsertDbEdit
 end
-object TimeStampInsertDbEdit: TDBEdit
+object ID_UserPersonInsertDbEdit: TDBEdit
   Left = 10
   Top = 484
   Width = 221
   Height = 21
   TabOrder = 11
 end
-object ID_UserPersonUpdateDbDisplayLabel: TDbDisplayLabel
+object TimeStampInsertDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 512
   Width = 165
   Height = 17
-  FocusControl = ID_UserPersonUpdateDbEdit
+  FocusControl = TimeStampInsertDbEdit
 end
-object ID_UserPersonUpdateDbEdit: TDBEdit
+object TimeStampInsertDbEdit: TDBEdit
   Left = 10
   Top = 526
   Width = 221
   Height = 21
   TabOrder = 12
 end
-object TimeStampLastUpdateDbDisplayLabel: TDbDisplayLabel
+object ID_UserPersonUpdateDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 554
   Width = 165
   Height = 17
-  FocusControl = TimeStampLastUpdateDbEdit
+  FocusControl = ID_UserPersonUpdateDbEdit
 end
-object TimeStampLastUpdateDbEdit: TDBEdit
+object ID_UserPersonUpdateDbEdit: TDBEdit
   Left = 10
   Top = 568
   Width = 221
   Height = 21
   TabOrder = 13
 end
-object StartDateTimeDbDisplayLabel: TDbDisplayLabel
+object TimeStampLastUpdateDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 596
   Width = 165
   Height = 17
-  FocusControl = StartDateTimeDbEdit
+  FocusControl = TimeStampLastUpdateDbEdit
 end
-object StartDateTimeDbEdit: TDBEdit
+object TimeStampLastUpdateDbEdit: TDBEdit
   Left = 10
   Top = 610
   Width = 221
   Height = 21
   TabOrder = 14
 end
-object FinishDateTimeDbDisplayLabel: TDbDisplayLabel
+object StartDateTimeDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 638
   Width = 165
   Height = 17
-  FocusControl = FinishDateTimeDbEdit
+  FocusControl = StartDateTimeDbEdit
 end
-object FinishDateTimeDbEdit: TDBEdit
+object StartDateTimeDbEdit: TDBEdit
   Left = 10
   Top = 652
   Width = 221
   Height = 21
   TabOrder = 15
 end
-object RemarkDbDisplayLabel: TDbDisplayLabel
+object FinishDateTimeDbDisplayLabel: TDbDisplayLabel
   Left = 13
   Top = 680
   Width = 165
   Height = 17
-  FocusControl = RemarkDbEdit
+  FocusControl = FinishDateTimeDbEdit
 end
-object RemarkDbEdit: TDBEdit
+object FinishDateTimeDbEdit: TDBEdit
   Left = 10
   Top = 694
   Width = 221
   Height = 21
   TabOrder = 16
 end
+object RemarkDbDisplayLabel: TDbDisplayLabel
+  Left = 13
+  Top = 722
+  Width = 165
+  Height = 17
+  FocusControl = RemarkDbEdit
+end
+object RemarkDbEdit: TDBEdit
+  Left = 10
+  Top = 736
+  Width = 221
+  Height = 21
+  TabOrder = 17
+end
 
-procedure TNaturalPersonWijzigenForm.SetNaturalPerson(const Value: TNaturalPerson);
+procedure TNaturalPersonDetailForm.SetNaturalPerson(const Value: TNaturalPerson);
 var
   NaturalPersonList: TNaturalPersonList;
 begin
   if Assigned(Value) then
   begin
     NaturalPersonList:= Value.NaturalPersonList;
-    AssignDataField(Self.ID_NaturalPersonDbDisplayLabel, Self.ID_NaturalPersonDbEdit, NaturalPersonList.ID_NaturalPersonField);
-    AssignDataField(Self.EID_BaseEntityDbDisplayLabel, Self.EID_BaseEntityDbEdit, NaturalPersonList.EID_BaseEntityField);
-    AssignDataField(Self.FirstNameDbDisplayLabel, Self.FirstNameDbEdit, NaturalPersonList.FirstNameField);
-    AssignDataField(Self.InitialsDbDisplayLabel, Self.InitialsDbEdit, NaturalPersonList.InitialsField);
-    AssignDataField(Self.LastNameDbDisplayLabel, Self.LastNameDbEdit, NaturalPersonList.LastNameField);
-    AssignDataField(Self.BirthDateDbDisplayLabel, Self.BirthDateDbEdit, NaturalPersonList.BirthDateField);
-    AssignDataField(Self.PlaceOfBirthDbDisplayLabel, Self.PlaceOfBirthDbEdit, NaturalPersonList.PlaceOfBirthField);
-    AssignDataField(Self.SSNDbDisplayLabel, Self.SSNDbEdit, NaturalPersonList.SSNField);
-    AssignDataField(Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, NaturalPersonList.ID_BaseEntityField);
-    AssignDataField(Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, NaturalPersonList.ExternalIDField);
-    AssignDataField(Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, NaturalPersonList.ID_UserPersonInsertField);
-    AssignDataField(Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, NaturalPersonList.TimeStampInsertField);
-    AssignDataField(Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, NaturalPersonList.ID_UserPersonUpdateField);
-    AssignDataField(Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, NaturalPersonList.TimeStampLastUpdateField);
-    AssignDataField(Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, NaturalPersonList.StartDateTimeField);
-    AssignDataField(Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, NaturalPersonList.FinishDateTimeField);
-    AssignDataField(Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, NaturalPersonList.RemarkField);
+    AssignDataField(DataSource, Self.ID_NaturalPersonDbDisplayLabel, Self.ID_NaturalPersonDbEdit, NaturalPersonList.ID_NaturalPersonField);
+    AssignDataField(DataSource, Self.EID_BaseEntityDbDisplayLabel, Self.EID_BaseEntityDbEdit, NaturalPersonList.EID_BaseEntityField);
+    AssignDataField(DataSource, Self.FirstNameDbDisplayLabel, Self.FirstNameDbEdit, NaturalPersonList.FirstNameField);
+    AssignDataField(DataSource, Self.InitialsDbDisplayLabel, Self.InitialsDbEdit, NaturalPersonList.InitialsField);
+    AssignDataField(DataSource, Self.LastNameDbDisplayLabel, Self.LastNameDbEdit, NaturalPersonList.LastNameField);
+    AssignDataField(DataSource, Self.BirthDateDbDisplayLabel, Self.BirthDateDbEdit, NaturalPersonList.BirthDateField);
+    AssignDataField(DataSource, Self.PlaceOfBirthDbDisplayLabel, Self.PlaceOfBirthDbEdit, NaturalPersonList.PlaceOfBirthField);
+    AssignDataField(DataSource, Self.SSNDbDisplayLabel, Self.SSNDbEdit, NaturalPersonList.SSNField);
+    AssignDataField(DataSource, Self.ID_GenderDbDisplayLabel, Self.ID_GenderDbEdit, NaturalPersonList.ID_GenderField);
+    AssignDataField(DataSource, Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, NaturalPersonList.ID_BaseEntityField);
+    AssignDataField(DataSource, Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, NaturalPersonList.ExternalIDField);
+    AssignDataField(DataSource, Self.ID_UserPersonInsertDbDisplayLabel, Self.ID_UserPersonInsertDbEdit, NaturalPersonList.ID_UserPersonInsertField);
+    AssignDataField(DataSource, Self.TimeStampInsertDbDisplayLabel, Self.TimeStampInsertDbEdit, NaturalPersonList.TimeStampInsertField);
+    AssignDataField(DataSource, Self.ID_UserPersonUpdateDbDisplayLabel, Self.ID_UserPersonUpdateDbEdit, NaturalPersonList.ID_UserPersonUpdateField);
+    AssignDataField(DataSource, Self.TimeStampLastUpdateDbDisplayLabel, Self.TimeStampLastUpdateDbEdit, NaturalPersonList.TimeStampLastUpdateField);
+    AssignDataField(DataSource, Self.StartDateTimeDbDisplayLabel, Self.StartDateTimeDbEdit, NaturalPersonList.StartDateTimeField);
+    AssignDataField(DataSource, Self.FinishDateTimeDbDisplayLabel, Self.FinishDateTimeDbEdit, NaturalPersonList.FinishDateTimeField);
+    AssignDataField(DataSource, Self.RemarkDbDisplayLabel, Self.RemarkDbEdit, NaturalPersonList.RemarkField);
     FNaturalPerson := Value;
     DataSource.DataSet := NaturalPersonList;
   end
