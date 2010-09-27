@@ -92,8 +92,14 @@ begin
     AssignDataField(DataSource, Self.PlaceOfBirthDbDisplayLabel, Self.PlaceOfBirthDbEdit, ClientList.PlaceOfBirthField);
     AssignDataField(DataSource, Self.SSNDbDisplayLabel, Self.SSNDbEdit, ClientList.SSNField);
 
-    AssignDataField(DataSource, Self.ID_GenderDbDisplayLabel, Self.ID_GenderDbEdit, ClientList.ID_GenderField);
-    AssignDataField(DataSource, Self.ID_GenderDbDisplayLabel, Self.GenderDBLookupComboBox, ClientList.GenderField);
+    AssignDataField(DataSource,
+      Self.ID_GenderDbDisplayLabel,
+      Self.ID_GenderDbEdit,
+      ClientList.ID_GenderField);
+    AssignDataField(DataSource,
+      Self.ID_GenderDbDisplayLabel,
+      Self.GenderDBLookupComboBox,
+      ClientList.GenderField);
 
     AssignDataField(DataSource, Self.ID_BaseEntityDbDisplayLabel, Self.ID_BaseEntityDbEdit, ClientList.ID_BaseEntityField);
     AssignDataField(DataSource, Self.ExternalIDDbDisplayLabel, Self.ExternalIDDbEdit, ClientList.ExternalIDField);

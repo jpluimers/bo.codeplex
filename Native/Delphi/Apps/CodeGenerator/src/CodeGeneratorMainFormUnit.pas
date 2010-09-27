@@ -18,7 +18,6 @@ type
     procedure ForEach(
       const StringListWrapper: IStringListWrapper;
       const Proc: TStringStringProc); virtual;
-  published
   end;
 
 var
@@ -28,6 +27,9 @@ implementation
 
 uses
   CodeGeneratorUnit;
+
+const
+  SDoChanged = 'DoChanged';
 
 {$R *.dfm}
 
@@ -39,6 +41,7 @@ var
   TheUnit: TGeneratableUnit;
   TheBaseClass: TGeneratableClass;
   TheNotificationMethod: TGeneratableMethod;
+  TheConstant: TGeneratableConstant;
   TheField: TGeneratableField;
   TheMethod: TGeneratableMethod;
   TheProperty: TGeneratableProperty;
@@ -46,16 +49,23 @@ var
 begin
   TheUnit := TGeneratableUnit.Create(nil, 'GeneratedUnit');
   try
-    TheBaseClass := TGeneratableClass.Create(TheUnit, 'TBasePerson');
+    TheBaseClass := TGeneratableClass.Create(TheUnit, 'TBasePerson', 'TComponent');
+    TheBaseClass.InterfaceUnits.Add('Classes');
 
     TheNotificationMethod := TGeneratableMethod.Create(
-      TheBaseClass, 'DoChanged', vPublic, bkVirtual);
+      TheBaseClass, SDoChanged, vPublic, bkVirtual);
 
     PropertyNames := TStringListWrapper.Create();
     PropertyNames.Values['FirstName'] := 'string';
     PropertyNames.Values['Initials'] := 'string';
     PropertyNames.Values['LastName'] := 'string';
     PropertyNames.Values['Age'] := 'Integer';
+
+    TheConstant := TGeneratableConstant.Create(
+      TheBaseClass, 'MyPi', '3.14', 'Double', vPublic);
+
+    TheConstant := TGeneratableConstant.Create(
+      TheBaseClass, 'MyE', '2.72', '', vPublic);
 
     //Generics: show the method CollectMembersWithVisibility and its usage
     ForEach(PropertyNames,
@@ -70,7 +80,8 @@ begin
       procedure (Name, Value: string)
       begin
         GetMethodName := 'Get' + Name;
-        TheMethod := TGeneratableMethod.Create(TheBaseClass, GetMethodName, vStrictProtected, bkVirtual, True);
+        TheMethod := TGeneratableMethod.Create(TheBaseClass,
+          GetMethodName, vStrictProtected, bkVirtual, True);
         TheMethod.ReturnType := Value;
         TheMethod.BodyText.Add(Format('  Result := F%s;', [Name]));
       end
@@ -95,7 +106,8 @@ begin
     TheActualClass := TGeneratableClass.Create(TheUnit, 'TActualPerson',
       TheBaseClass.MemberName, True);
 
-    TheNotificationMethod := TGeneratableMethod.Create(TheActualClass, 'DoChanged', vPublic, bkOverride);
+    TheNotificationMethod := TGeneratableMethod.Create(TheActualClass,
+      SDoChanged, vPublic, bkOverride);
     TheNotificationMethod.LocalVars.Add('Foo', 'string');
     TheNotificationMethod.BodyText.Append('  Beep();');
     TheNotificationMethod.InterfaceUnits.Add('SysUtils');
