@@ -117,7 +117,8 @@ begin
   inherited CreateLookupFields();
 
   FGenderFieldName := CreateLookupField(GenderList,
-    TGenderList.ID_GenderFieldName, TGenderList.NameFieldName, Self.ID_GenderFieldName).FieldName;
+    TGenderList.ID_GenderFieldName, TGenderList.NameFieldName,
+    Self.ID_GenderFieldName).FieldName;
 
   TimeStampInsertField.Visible := False;
   TimeStampLastUpdateField.Visible := False;
@@ -157,7 +158,9 @@ function TNaturalPersonList.GetGenderList: TReadOnlyEntityList;
 var
   Key: TLookupEntityListDictionaryKey;
 begin
-//  Key := TLookupEntityListDictionaryKey.Create(TGenderList, TGenderList.NameFieldName, 'Male'); //##jpl: Filtered list: Field-name + filter-value needed
+//  Key := TLookupEntityListDictionaryKey.Create(
+//    TGenderList,
+//    TGenderList.NameFieldName, 'Male'); //##jpl: Filtered list: Field-name + filter-value needed
   Key := TLookupEntityListDictionaryKey.Create(TGenderList);
   Result := LookupEntityListManager.LookupEntityList[Key];
 end;

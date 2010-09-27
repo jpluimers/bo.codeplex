@@ -10,7 +10,12 @@ uses
   ConcreteCollectionsUnit;
 
 type
-  TSupportedCodeSection = (scsFinalizationText, scsImplementationText, scsImplementationUnits, scsInitializationText, scsInterfaceText,
+  TSupportedCodeSection = (
+    scsFinalizationText,
+    scsImplementationText,
+    scsImplementationUnits,
+    scsInitializationText,
+    scsInterfaceText,
     scsInterfaceUnits);
   TSupportedCodeSections = set of TSupportedCodeSection;
 
@@ -107,7 +112,7 @@ type
     function GetSupportedCodeSections: TSupportedCodeSections; virtual;
     function GetVisibility: string; overload; virtual;
     function GetVisibility(const Visibility: TVisibility): string; overload; virtual;
-    procedure Indent(StringBuilder: TStringBuilder); virtual;
+    procedure Indent(const StringBuilder: TStringBuilder); virtual;
     procedure InitializeOrCreateFields; override;
     //1 cannot be public, as we don't want this to be called from the outside world
     procedure SetSupportedCodeSections(const Value: TSupportedCodeSections); virtual;
@@ -272,6 +277,7 @@ type
   strict protected
     function GetConstantExpressionPart: string; override;
     function GetRequiresTypeName: Boolean; override;
+    procedure Indent(const StringBuilder: TStringBuilder); override;
     procedure InitializeOrCreateFields; override;
     procedure SetValue(const Value: string); virtual;
   public
@@ -287,6 +293,9 @@ implementation
 
 uses
   StrUtils;
+
+const
+  STwoSpaces = '  ';
 
 procedure TGeneratableInUnit.AddSupportedCodeSections(AdditionalSupportedCodeSections: TSupportedCodeSections);
 begin
@@ -391,7 +400,7 @@ begin
   end;
 end;
 
-procedure TGeneratableInUnit.Indent(StringBuilder: TStringBuilder);
+procedure TGeneratableInUnit.Indent(const StringBuilder: TStringBuilder);
 var
   TheOwner: TComponent;
 begin
@@ -399,7 +408,7 @@ begin
   while TheOwner <> nil do
   begin
     //    if TheOwner is TGeneratableClass then
-    StringBuilder.Append('  ');
+    StringBuilder.Append(STwoSpaces);
     TheOwner := TheOwner.Owner;
   end;
 end;
@@ -616,7 +625,12 @@ var
 begin
   UnitNameList := TStringListWrapper.Create();
 
-  RunOnClassesAndMethods( procedure(Member: TGeneratableInUnit)begin AppendUsesList(UnitNameList, Member, GetMemberStringListWrapper); end);
+  RunOnClassesAndMethods(
+    procedure(Member: TGeneratableInUnit)
+    begin
+      AppendUsesList(UnitNameList, Member, GetMemberStringListWrapper);
+    end
+  );
 
   if UnitNameList.Count > 0 then
   begin
@@ -1224,6 +1238,12 @@ begin
   Result := False;
 end;
 
+procedure TGeneratableConstant.Indent(const StringBuilder: TStringBuilder);
+begin
+  inherited Indent(StringBuilder);
+  StringBuilder.Append(STwoSpaces);
+end;
+
 procedure TGeneratableConstant.InitializeOrCreateFields;
 begin
   inherited InitializeOrCreateFields();
@@ -1262,7 +1282,7 @@ begin
   StringBuilder := TStringBuilder.Create;
   try
     Indent(StringBuilder);
-    StringBuilder.AppendFormat('  %s', [MemberName]);
+    StringBuilder.AppendFormat('%s', [MemberName]);
     if TypeName <> NullAsStringValue then
       StringBuilder.AppendFormat(': %s', [TypeName]);
 

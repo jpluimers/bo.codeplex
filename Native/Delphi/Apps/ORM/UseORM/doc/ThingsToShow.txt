@@ -22,3 +22,5 @@ TORMCodeGenerator.GenerateSelectStatement
 TORMListBaseForm.EditOrInsert - and the way to check the required fields
 
     FClientFormLazyFormFactory: TLazyFormFactory<TClientForm>;
+
+TLookupEntityListManager.RefillAll

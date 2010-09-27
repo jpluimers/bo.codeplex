@@ -6,7 +6,8 @@ uses
   StringListWrapperUnit in '..\..\..\bo.Text\StringListWrapperUnit.pas',
   CodeGeneratorUnit in '..\..\..\bo.CodeGenerator\CodeGeneratorUnit.pas',
   ConcreteCollectionsUnit in '..\..\..\bo.Generics\ConcreteCollectionsUnit.pas',
-  ConcreteMethodReferencesUnit in '..\..\..\bo.Generics\ConcreteMethodReferencesUnit.pas';
+  ConcreteMethodReferencesUnit in '..\..\..\bo.Generics\ConcreteMethodReferencesUnit.pas',
+  GeneratedUnit in '..\src\GeneratedUnit.pas';
 
 {$R *.res}
 
