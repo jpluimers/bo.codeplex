@@ -28,7 +28,7 @@ object GenerateORMMainForm: TGenerateORMMainForm
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    object Bevel1: TBevel
+    object LeftRightBevel: TBevel
       Left = 216
       Top = -2
       Width = 6

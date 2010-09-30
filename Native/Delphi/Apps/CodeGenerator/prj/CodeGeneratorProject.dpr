@@ -7,7 +7,11 @@ uses
   CodeGeneratorUnit in '..\..\..\bo.CodeGenerator\CodeGeneratorUnit.pas',
   ConcreteCollectionsUnit in '..\..\..\bo.Generics\ConcreteCollectionsUnit.pas',
   ConcreteMethodReferencesUnit in '..\..\..\bo.Generics\ConcreteMethodReferencesUnit.pas',
-  GeneratedUnit in '..\src\GeneratedUnit.pas';
+  GeneratedUnit in '..\src\GeneratedUnit.pas',
+  NullablesUnit in '..\..\..\bo.System\NullablesUnit.pas',
+  BaseTypesUnit in '..\..\..\bo.System\BaseTypesUnit.pas',
+  FormatSettingsHelperUnit in '..\..\..\bo.Helpers\FormatSettingsHelperUnit.pas',
+  MathUnit in '..\..\..\bo.System\MathUnit.pas';
 
 {$R *.res}
 

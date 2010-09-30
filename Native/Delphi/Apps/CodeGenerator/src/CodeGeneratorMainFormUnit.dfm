@@ -30,6 +30,14 @@ object CodeGeneratorMainForm: TCodeGeneratorMainForm
       TabOrder = 0
       OnClick = GenerateUnitButtonClick
     end
+    object Edit1: TEdit
+      Left = 264
+      Top = 8
+      Width = 121
+      Height = 24
+      TabOrder = 1
+      Text = 'Edit1'
+    end
   end
   object GeneratedUnitGroupBox: TGroupBox
     Left = 0

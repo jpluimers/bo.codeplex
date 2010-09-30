@@ -9,6 +9,9 @@ uses
 type
   TActualPerson = class;
 
+// TDateTimeFormat
+  TDateTimeFormat = (dtfDateOnly,dtfTimeOnly,dtfDateTime);
+
   TBasePerson = class(TComponent)
   strict private
     FFirstName: string;
@@ -43,6 +46,10 @@ type
     property Initials;
     property LastName;
     property Age;
+  end;
+
+// TNullableDateTime
+  TNullableDateTime = record
   end;
 
 implementation
