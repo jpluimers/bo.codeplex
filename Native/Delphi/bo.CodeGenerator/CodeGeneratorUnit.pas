@@ -10,6 +10,12 @@ uses
   ConcreteCollectionsUnit;
 
 type
+  TMyRecord = record
+  type
+    TMyInnerRecord = record
+    end;
+  end;
+
   TSupportedCodeSection = (
     scsFinalizationText,
     scsImplementationText,
@@ -33,6 +39,8 @@ type
 
   TListOfGeneratableInUnit = TList<TGeneratableInUnit>;
 
+  TUnitSection = (usDeclaration, usDefinition); //##jpl: implement in TGeneratable
+
   TGeneratable = class(TComponent)
   strict private
     FMemberName: string;
@@ -49,12 +57,16 @@ type
   end;
 
   TGeneratableClass = class;
+  TGeneratableRecord = class;
+  TGeneratableEnumeration = class;
   TGeneratableConstant = class;
   TGeneratableFieldOrConstant = class;
   TGeneratableMethod = class;
   TGeneratableProperty = class;
 
   TListOfGeneratableClass = TList<TGeneratableClass>;
+  TListOfGeneratableRecord = TList<TGeneratableRecord>;
+  TListOfGeneratableEnumeration = TList<TGeneratableEnumeration>;
   TListOfGeneratableMethod = TList<TGeneratableMethod>;
   TListOfGeneratableConstant = TList<TGeneratableConstant>;
   TListOfGeneratableField = TList<TGeneratableFieldOrConstant>;
@@ -63,8 +75,10 @@ type
   TGeneratableUnit = class(TGeneratable)
   strict private
     FClasses: TListOfGeneratableClass;
+    FRecords: TListOfGeneratableRecord;
     FFinalImplementationComments: TListOfString;
     FMethods: TListOfGeneratableMethod;
+    FEnumerations: TListOfGeneratableEnumeration;
   strict protected
     procedure AppendFinalization(const StringBuilder: TStringBuilder); virtual;
     procedure AppendForwardedClassDeclarations(const StringBuilder: TStringBuilder); virtual;
@@ -85,6 +99,7 @@ type
       virtual;
     procedure AppendUsesList(const UnitNameList: IStringListWrapper; const Member: TGeneratableInUnit;
       const GetMemberStringListWrapper: TFunc<TGeneratableInUnit, IStringListWrapper>); virtual;
+    function GetTypeCount: Integer; virtual;
     procedure InitializeOrCreateFields; override;
     procedure RunOnClassesAndMethods(const Proc: TGeneratableInUnitProc); overload; virtual;
     procedure RunOnClassesAndMethods(const Proc: TGeneratableInUnitProc; const WithVisibility: TVisibility); overload; virtual;
@@ -92,8 +107,11 @@ type
     destructor Destroy; override;
     function ToString: string; override;
     property Classes: TListOfGeneratableClass read FClasses;
+    property Records: TListOfGeneratableRecord read FRecords;
     property FinalImplementationComments: TListOfString read FFinalImplementationComments;
     property Methods: TListOfGeneratableMethod read FMethods;
+    property Enumerations: TListOfGeneratableEnumeration read FEnumerations;
+    property TypeCount: Integer read GetTypeCount;
   end;
 
   TGeneratableInUnit = class(TGeneratable)
@@ -146,7 +164,23 @@ type
     destructor Destroy; override;
   end;
 
-  TGeneratableClass = class(TGeneratableInUnitMaintainingUsesLists)
+  TGeneratableType = class(TGeneratableInUnitMaintainingUsesLists)
+  public
+    constructor Create(const Owner: TComponent; const MemberName: string); override;
+  end;
+
+  TGeneratableClassOrInterfaceOrRecord = class(TGeneratableType)
+  strict protected
+    procedure AddTypeHeader(Content: IStringListWrapper); virtual;
+    function GetKeyWord: string; virtual;
+  public
+    property KeyWord: string read GetKeyWord;
+  end;
+
+  TGeneratableClassOrInterface = class(TGeneratableClassOrInterfaceOrRecord)
+  end;
+
+  TGeneratableClass = class(TGeneratableClassOrInterface)
   strict private
     FAncestorName: string;
     FConstants: TListOfGeneratableConstant;
@@ -164,6 +198,7 @@ type
     function GetConstants: TListOfGeneratableConstant; virtual;
     function GetFields: TListOfGeneratableField; virtual;
     function GetHasSubMembers: Boolean; override;
+    function GetKeyWord: string; override;
     procedure InitializeOrCreateFields; override;
     procedure SetAncestorName(const Value: string); virtual;
     procedure SetRequiresForwardDeclaration(const Value: Boolean); virtual;
@@ -182,8 +217,6 @@ type
     property RequiresForwardDeclaration: Boolean read FRequiresForwardDeclaration write SetRequiresForwardDeclaration;
   end;
 
-  TClassSection = (csDeclaration, csDefinition);
-
   TGeneratableMethod = class(TGeneratableInUnitMaintainingUsesLists)
   strict private
     FBindingKind: TBindingKind;
@@ -200,7 +233,7 @@ type
     function GetImplementationText: IStringListWrapper; override;
     function GetInterfaceText: IStringListWrapper; override;
     function GetMehodKindPrefix: string; virtual;
-    function GetMethodSignature(const ClassSection: TClassSection = csDeclaration): string; virtual;
+    function GetMethodSignature(const ClassSection: TUnitSection = usDeclaration): string; virtual;
     procedure InitializeOrCreateFields; override;
     procedure SetBindingKind(const Value: TBindingKind); virtual;
     procedure SetIsOverload(const Value: Boolean); virtual;
@@ -287,6 +320,54 @@ type
   end;
 
   TGeneratableField = class(TGeneratableFieldOrConstant)
+  end;
+
+  TGeneratableRecord = class(TGeneratableClassOrInterfaceOrRecord)
+  strict private
+    FConstants: TListOfGeneratableConstant;
+    FFields: TListOfGeneratableField;
+    FMethods: TListOfGeneratableMethod;
+    FProperties: TListOfGeneratableProperty;
+    FRequiresForwardDeclaration: Boolean;
+  private
+  strict protected
+    procedure CollectMembersWithVisibility<T: TGeneratableInUnit>(const Target: TListOfGeneratableInUnit; const Source: TList<T>;
+      const Visibility: TVisibility);
+    function GetDeclaration: string;
+    function GetForwardDeclaration: string;
+    function GetImplementationText: IStringListWrapper; override;
+    function GetInterfaceText: IStringListWrapper; override;
+    function GetConstants: TListOfGeneratableConstant; virtual;
+    function GetFields: TListOfGeneratableField; virtual;
+    function GetHasSubMembers: Boolean; override;
+    function GetKeyWord: string; override;
+    procedure InitializeOrCreateFields; override;
+    procedure SetRequiresForwardDeclaration(const Value: Boolean); virtual;
+  public
+    constructor Create(const Owner: TComponent; const MemberName: string; const RequiresForwardDeclaration: Boolean = False);
+    destructor Destroy; override;
+    procedure FillSubMembers(const SubMembers: TListOfGeneratableInUnit); override;
+    property Declaration: string read GetDeclaration;
+    property ForwardDeclaration: string read GetForwardDeclaration;
+    property Constants: TListOfGeneratableConstant read GetConstants;
+    property Fields: TListOfGeneratableField read GetFields;
+    property Methods: TListOfGeneratableMethod read FMethods;
+    property Properties: TListOfGeneratableProperty read FProperties;
+    property RequiresForwardDeclaration: Boolean read FRequiresForwardDeclaration write SetRequiresForwardDeclaration;
+  end;
+
+  TGeneratableEnumeration = class(TGeneratableType)
+  strict private
+    FIdentifiers: IStringListWrapper;
+  strict protected
+    function GetDeclaration: string;
+    function GetIdentifiers: IStringListWrapper;
+    function GetInterfaceText: IStringListWrapper; override;
+    procedure InitializeOrCreateFields; override;
+  public
+    destructor Destroy; override;
+    property Declaration: string read GetDeclaration;
+    property Identifiers: IStringListWrapper read GetIdentifiers;
   end;
 
 implementation
@@ -434,6 +515,8 @@ destructor TGeneratableUnit.Destroy;
 begin
   FreeAndNil(FMethods);
   FreeAndNil(FFinalImplementationComments);
+  FreeAndNil(FEnumerations);
+  FreeAndNil(FRecords);
   FreeAndNil(FClasses);
   inherited Destroy;
 end;
@@ -663,10 +746,17 @@ begin
   end;
 end;
 
+function TGeneratableUnit.GetTypeCount: Integer;
+begin
+  Result := Classes.Count + Records.Count; //##jpl: refactor into "Types.Count";
+end;
+
 procedure TGeneratableUnit.InitializeOrCreateFields;
 begin
   inherited InitializeOrCreateFields();
   FClasses := TListOfGeneratableClass.Create();
+  FRecords := TListOfGeneratableRecord.Create();
+  FEnumerations := TListOfGeneratableEnumeration.Create();
   FMethods := TListOfGeneratableMethod.Create();
   FFinalImplementationComments := TListOfString.Create();
 end;
@@ -683,7 +773,13 @@ procedure TGeneratableUnit.RunOnClassesAndMethods(const Proc: TGeneratableInUnit
 var
   Member: TGeneratableInUnit;
 begin
+  //##jpl: rename to "RunOnMembers"
+  //##jpl: refacor into using a global "Types" list, and query sublists by type of that.
+  for Member in Enumerations do
+    RunOnMember(Member, Proc, WithVisibility);
   for Member in Classes do
+    RunOnMember(Member, Proc, WithVisibility);
+  for Member in Records do
     RunOnMember(Member, Proc, WithVisibility);
   for Member in Methods do
     RunOnMember(Member, Proc, WithVisibility);
@@ -804,7 +900,7 @@ var
   HaveGeneratableConstants: Boolean;
 begin
   Content := TStringListWrapper.Create();
-  Content.Add(Format('  %s = class(%s)', [MemberName, AncestorName]));
+  AddTypeHeader(Content);
   for Visibility := Low(TVisibility) to High(TVisibility) do
   begin
     Members := TListOfGeneratableInUnit.Create();
@@ -882,6 +978,11 @@ begin
   Result := Result or (Properties.Count > 0);
 end;
 
+function TGeneratableClass.GetKeyWord: string;
+begin
+  Result := Format('class(%s)', [AncestorName]);
+end;
+
 procedure TGeneratableClass.InitializeOrCreateFields;
 begin
   inherited InitializeOrCreateFields();
@@ -955,7 +1056,7 @@ var
 begin
   Result := TStringListWrapper.Create();
   Result.Add('');
-  Result.Add(GetMethodSignature(csDefinition));
+  Result.Add(GetMethodSignature(usDefinition));
   if LocalVars.Count > 0 then
   begin
     Result.Add('var');
@@ -973,7 +1074,7 @@ end;
 function TGeneratableMethod.GetInterfaceText: IStringListWrapper;
 begin
   Result := TStringListWrapper.Create();
-  Result.Add(GetMethodSignature(csDeclaration));
+  Result.Add(GetMethodSignature(usDeclaration));
 end;
 
 function TGeneratableMethod.GetMehodKindPrefix: string;
@@ -1006,7 +1107,7 @@ begin
   end;
 end;
 
-function TGeneratableMethod.GetMethodSignature(const ClassSection: TClassSection = csDeclaration): string;
+function TGeneratableMethod.GetMethodSignature(const ClassSection: TUnitSection = usDeclaration): string;
 var
   StringBuilder: TStringBuilder;
   DefinitionPrefix: string;
@@ -1015,11 +1116,11 @@ var
 begin
   StringBuilder := TStringBuilder.Create;
   try
-    if ClassSection = csDeclaration then
+    if ClassSection = usDeclaration then
       Indent(StringBuilder);
 
     DefinitionPrefix := NullAsStringValue;
-    if ClassSection = csDefinition then
+    if ClassSection = usDefinition then
       if Assigned(Owner) then
         if Owner is TGeneratableClass then
         begin
@@ -1034,7 +1135,7 @@ begin
     if ReturnType <> '' then
       StringBuilder.AppendFormat(': %s', [ReturnType]);
     StringBuilder.Append(';');
-    if ClassSection = csDeclaration then
+    if ClassSection = usDeclaration then
     begin
       if IsOverload then
         StringBuilder.Append(' overload;');
@@ -1313,6 +1414,209 @@ end;
 procedure TGeneratableFieldOrConstant.SetTypeName(const Value: string);
 begin
   FTypeName := Value;
+end;
+
+constructor TGeneratableRecord.Create(const Owner: TComponent; const MemberName: string; const RequiresForwardDeclaration: Boolean = False);
+begin
+  inherited Create(Owner, MemberName);
+  Self.RequiresForwardDeclaration := RequiresForwardDeclaration;
+end;
+
+destructor TGeneratableRecord.Destroy;
+begin
+  FreeAndNil(FProperties);
+  FreeAndNil(FMethods);
+  FreeAndNil(FFields);
+  FreeAndNil(FConstants);
+  inherited Destroy;
+end;
+
+procedure TGeneratableRecord.CollectMembersWithVisibility<T>(const Target: TListOfGeneratableInUnit; const Source: TList<T>;
+  const Visibility: TVisibility);
+var
+  Member: TGeneratableInUnit;
+begin
+  for Member in Source do
+  begin
+    if Member.Visibility = Visibility then
+      Target.Add(Member);
+  end;
+end;
+
+procedure TGeneratableRecord.FillSubMembers(const SubMembers:
+    TListOfGeneratableInUnit);
+var
+  Member: TGeneratableInUnitMaintainingUsesLists;
+begin
+  for Member in Constants do
+    SubMembers.Add(Member);
+  for Member in Fields do
+    SubMembers.Add(Member);
+  for Member in Methods do
+    SubMembers.Add(Member);
+  for Member in Properties do
+    SubMembers.Add(Member);
+end;
+
+function TGeneratableRecord.GetDeclaration: string;
+var
+  Content: IStringListWrapper;
+  Visibility: TVisibility;
+  Members: TListOfGeneratableInUnit;
+  Member: TGeneratableInUnit;
+  VisibilityText: string;
+  HaveGeneratableConstants: Boolean;
+begin
+  Content := TStringListWrapper.Create();
+  AddTypeHeader(Content);
+  for Visibility := Low(TVisibility) to High(TVisibility) do
+  begin
+    Members := TListOfGeneratableInUnit.Create();
+    try
+      CollectMembersWithVisibility<TGeneratableConstant>(Members, Constants, Visibility);
+      HaveGeneratableConstants := Members.Count > 0;
+      CollectMembersWithVisibility<TGeneratableFieldOrConstant>(Members, Fields, Visibility);
+      CollectMembersWithVisibility<TGeneratableMethod>(Members, Methods, Visibility);
+      CollectMembersWithVisibility<TGeneratableProperty>(Members, Properties, Visibility);
+      if Members.Count > 0 then
+      begin
+        VisibilityText := Self.GetVisibility(Visibility);
+        if VisibilityText <> NullAsStringValue then
+          Content.Add(Format('  %s', [VisibilityText]));
+        if HaveGeneratableConstants then
+        begin
+          Content.Add('    const');
+          for Member in Constants do
+            Content.AddStringListWrapper(Member.InterfaceText);
+        end;
+        for Member in Members do
+        begin
+          if not (Member is TGeneratableConstant) then
+            Content.AddStringListWrapper(Member.InterfaceText);
+        end;
+      end;
+    finally
+      Members.Free;
+    end;
+  end;
+  Content.Add('  end;');
+  Result := Content.Text;
+end;
+
+function TGeneratableRecord.GetForwardDeclaration: string;
+begin
+  Result := Format(' %s = class;', [MemberName]);
+end;
+
+function TGeneratableRecord.GetImplementationText: IStringListWrapper;
+var
+  Method: TGeneratableMethod;
+begin
+  Result := TStringListWrapper.Create();
+  if Methods.Count > 0 then
+  begin
+    Result.Add(Format('{ %s }', [MemberName]));
+    for Method in Methods do
+      Result.AddStringListWrapper(Method.ImplementationText);
+  end;
+end;
+
+function TGeneratableRecord.GetInterfaceText: IStringListWrapper;
+begin
+  Result := TStringListWrapper.Create();
+  Result.Text := Declaration;
+end;
+
+function TGeneratableRecord.GetConstants: TListOfGeneratableConstant;
+begin
+  Result := FConstants;
+end;
+
+function TGeneratableRecord.GetFields: TListOfGeneratableField;
+begin
+  Result := FFields;
+end;
+
+function TGeneratableRecord.GetHasSubMembers: Boolean;
+begin
+  Result := inherited GetHasSubMembers;
+  Result := Result or (Constants.Count > 0);
+  Result := Result or (Fields.Count > 0);
+  Result := Result or (Methods.Count > 0);
+  Result := Result or (Properties.Count > 0);
+end;
+
+function TGeneratableRecord.GetKeyWord: string;
+begin
+  Result := 'record';
+end;
+
+procedure TGeneratableRecord.InitializeOrCreateFields;
+begin
+  inherited InitializeOrCreateFields();
+  FConstants := TListOfGeneratableConstant.Create();
+  FFields := TListOfGeneratableField.Create();
+  FMethods := TListOfGeneratableMethod.Create();
+  FProperties := TListOfGeneratableProperty.Create();
+  AddSupportedCodeSections([scsImplementationText, scsInterfaceText]);
+  if Owner is TGeneratableUnit then (Owner as TGeneratableUnit)
+    .Records.Add(Self);
+end;
+
+procedure TGeneratableRecord.SetRequiresForwardDeclaration(const Value: Boolean);
+begin
+  FRequiresForwardDeclaration := Value;
+end;
+
+constructor TGeneratableType.Create(const Owner: TComponent; const MemberName: string);
+begin
+  inherited Create(Owner, MemberName);
+end;
+
+destructor TGeneratableEnumeration.Destroy;
+begin
+  FIdentifiers := nil;
+  inherited Destroy;
+end;
+
+function TGeneratableEnumeration.GetDeclaration: string;
+var
+  Content: IStringListWrapper;
+begin
+  Content := TStringListWrapper.Create();
+  Content.Add(Format('  %s = (%s);', [MemberName, Identifiers.DelimitedText]));
+  Result := Content.Text;
+end;
+
+function TGeneratableEnumeration.GetIdentifiers: IStringListWrapper;
+begin
+  Result := FIdentifiers;
+end;
+
+function TGeneratableEnumeration.GetInterfaceText: IStringListWrapper;
+begin
+  Result := TStringListWrapper.Create();
+  Result.Text := Declaration;
+end;
+
+procedure TGeneratableEnumeration.InitializeOrCreateFields;
+begin
+  inherited InitializeOrCreateFields();
+  FIdentifiers := TStringListWrapper.Create();
+  AddSupportedCodeSections([scsInterfaceText]);
+  if Owner is TGeneratableUnit then (Owner as TGeneratableUnit)
+    .Enumerations.Add(Self);
+end;
+
+procedure TGeneratableClassOrInterfaceOrRecord.AddTypeHeader(Content: IStringListWrapper);
+begin
+  Content.Add(Format('  %s = %s', [MemberName, KeyWord]));
+end;
+
+function TGeneratableClassOrInterfaceOrRecord.GetKeyWord: string;
+begin
+  Result := Format('%s requires an override of the GetKeyWord method', [ClassName]);
+  Assert(False, Result);
 end;
 
 end.

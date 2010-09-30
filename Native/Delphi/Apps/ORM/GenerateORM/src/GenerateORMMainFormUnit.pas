@@ -10,7 +10,7 @@ uses
 type
   TGenerateORMMainForm = class(TForm)
     AutoSelectAllTablesCheckBox: TCheckBox;
-    Bevel1: TBevel;
+    LeftRightBevel: TBevel;
     ColumnsMemo: TMemo;
     ConnectToDatabaseButton: TButton;
     DatabasePanel: TPanel;

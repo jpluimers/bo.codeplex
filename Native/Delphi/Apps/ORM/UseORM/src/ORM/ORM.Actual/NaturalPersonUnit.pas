@@ -16,8 +16,10 @@ type
   strict protected
     function GetNaturalPersonList(): TNaturalPersonList; virtual;
     function GetEntityListClass(): TEntityListClass; override;
+    function GetFullName: string; virtual;
   public
     destructor Destroy(); override;
+    property FullName: string read GetFullName;
     property NaturalPersonList: TNaturalPersonList read GetNaturalPersonList;
   end;
 
@@ -80,6 +82,11 @@ begin
   inherited Destroy;
 end;
 
+function TNaturalPerson.GetFullName: string;
+begin
+  Result := (EntityList as TNaturalPersonList).FullName;
+end;
+
 { TNaturalPersonEnumerator }
 
 function TNaturalPersonEnumerator.GetCurrent(): TNaturalPerson;
@@ -119,11 +126,6 @@ begin
   FGenderFieldName := CreateLookupField(GenderList,
     TGenderList.ID_GenderFieldName, TGenderList.NameFieldName,
     Self.ID_GenderFieldName).FieldName;
-
-  TimeStampInsertField.Visible := False;
-  TimeStampLastUpdateField.Visible := False;
-  StartDateTimeField.Visible := False;
-  FinishDateTimeField.Visible := False;
 end;
 
 { TNaturalPersonList }
@@ -132,6 +134,11 @@ function TNaturalPersonList.GetData(): Integer;
 begin
   Result := inherited GetData();
   HideIDColumns();
+
+  TimeStampInsertField.Visible := False;
+  TimeStampLastUpdateField.Visible := False;
+  StartDateTimeField.Visible := False;
+  FinishDateTimeField.Visible := False;
 end;
 
 function TNaturalPersonList.GetEntityClass(): TEntityClass;
