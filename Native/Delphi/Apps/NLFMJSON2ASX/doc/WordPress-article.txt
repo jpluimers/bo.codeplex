@@ -1,0 +1,279 @@
+I tried searching for an XSD or other schema that describes <a href="http://en.wikipedia.org/wiki/Advanced_Stream_Redirector" target="_blank">ASX (Advanced Stream Redirector) files</a>, but somehow could not find them.
+
+The ASX files can be used to generate a playlist, but they are a bit richer in content than the <a href="http://en.wikipedia.org/wiki/Windows_Media_Player_Playlist" target="_blank">WPL (Windows Media Player Playlist) file format</a>.
+
+So here is a post with some references to ASX files, examples, documentation and an XSD you could use for ASX files, and why ASX is not XML.<!--more-->
+
+Microsoft calls ASX "Windows Media Metafile", and it is <a href="http://msdn.microsoft.com/en-us/library/aa385262.aspx" target="_blank">documented</a> in the <a href="http://msdn.microsoft.com/en-us/library/aa969732.aspx" target="_blank">Windows Media Player 11 SDK documentation</a>.
+It can have different extensions (.WAX, .WVX and .ASX) depending on the streams it is supposed to encapsulate (.WMA, .WMV and .ASF), but in practice, .ASX can be used for any stream, including .ASF which now means "<a href="http://en.wikipedia.org/wiki/Advanced_Systems_Format" target="_blank">Advanced Systems Format</a>" in stead of only "Advanced Streams Format".
+Probably, .WAX and .WVX can be used for other formats as well, I just haven't tried: according to the <a href="http://msdn.microsoft.com/en-us/library/aa387813.aspx" target="_blank">extensions list</a>, .ASX just seems to be able to encapsulate the broadest set of formats.
+
+Microsoft documents on how to <a href="http://msdn.microsoft.com/en-us/library/aa386633.aspx" target="_blank">create a metafile playlist</a>, which basically looks like this:
+
+[sourcecode language="xml"]
+<ASX version = "3.0">
+<!--A simple playlist with entries to be played in sequence.-->
+    <Title>The Show Title</Title>
+    <Entry>
+        <Ref href = "mms://adventure-works.com/Path/title1.wma" />
+    </Entry>
+    <Entry>
+        <Ref href = "mms://adventure-works.com/Path/title2.wma" />
+    </Entry>
+    <Entry>
+        <Ref href = "mms://adventure-works.com/Path/title3.wma" />
+    </Entry>
+</ASX>
+[/sourcecode]
+
+So, an .ASX files contains an <a href="http://msdn.microsoft.com/en-us/library/aa385261.aspx" target="_blank">ASX element</a> containing a list of <a href="http://msdn.microsoft.com/en-us/library/aa387158.aspx" target="_blank">ENTRY elements</a> which in turn contains a <a href="http://msdn.microsoft.com/en-us/library/aa393127.aspx" target="_blank">TITLE</a> and <a href="http://msdn.microsoft.com/en-us/library/aa392678.aspx" target="_blank">REF</a> element and optionally some more elements like <a href="http://msdn.microsoft.com/en-us/library/aa385271.aspx" target="_blank">AUHTOR</a>.
+
+From the Microsoft documentation, it is totally unclear if the element names are case sensitive.
+Experimenting shows they are not, but the opening and closing tags must be have the same case.
+<em>At first sight, that is probably the reason why there is no XSD for it: that would "fix" the case to be sensitive.</em>
+
+But for generating .ASX files it is still convenient to have an XSD to start with, so I generated one.
+
+The <a href="http://www.xmlforasp.net" target="_blank">&lt;XML for ASP.NET/&gt; site</a> has a handy <a href="http://www.xmlforasp.net/codebank/system_xml_schema/buildschema/buildxmlschema.aspx" target="_blank">online XML Schema Generator</a> that accepts XML and infers XSD for it.
+
+It can generate both "Russian Doll Style" XSD (that has all the types inlined) or generate the XSD with "Separate Complex Types" (which often are easier to grasp).
+
+This is some workable XSD that can serve as a base for ASX files that Windows Media Player understands:
+
+[sourcecode language="xml"]
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="asx" type="asxType" />
+  <xsd:complexType name="asxType">
+    <xsd:sequence>
+      <xsd:element name="title" type="xsd:string" />
+      <xsd:element maxOccurs="unbounded" name="entry" type="entryType" />
+    </xsd:sequence>
+    <xsd:attribute name="version" type="xsd:decimal" />
+  </xsd:complexType>
+  <xsd:complexType name="entryType">
+    <xsd:sequence>
+      <xsd:element name="title" type="xsd:string" />
+      <xsd:element name="ref" type="refType" />
+      <xsd:element name="author" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="refType">
+    <xsd:attribute name="href" type="xsd:string" />
+  </xsd:complexType>
+</xsd:schema>
+[/sourcecode]
+
+Notes:
+<ol>
+	<li>The XSD omits the XML declaration <strong>&lt;?xml version="1.0" encoding="utf-8"?&gt;</strong> because of a wordpress bug; some of the XSD might also be gone because of <a href="http://en.forums.wordpress.com/topic/saving-destroys-xml-source-code-with-namespace-prefixes?replies=4" target="_blank">another wordpress bug</a>.
+<strong><em>(Note to self: to circumvent these bugs, save your blog post in "HTML" mode, then do not switch to "Visual" mode after saving).</em></strong></li>
+	<li>It could be refined (for instance by limiting the href to <a href="http://books.xmlschemata.org/relaxng/ch19-77009.html" target="_blank">xsd:anyURI</a> instead of <a href="http://books.xmlschemata.org/relaxng/ch19-77303.html" target="_blank">xsd:string</a> - both definitions from the excellent <a href="http://books.xmlschemata.org/relaxng/" target="_blank">Relax NG book by Eric van der Vlist</a>), but it gives you a start.</li>
+</ol>
+After generating the ASX based on this XSD, Windows Media Player kept complaining that it could not play the XML file.
+In the end there were 2 reasons the ASX file was invalid
+<ol>
+	<li>The ASX file cannot have an XML declaration like <strong>&lt;?xml version="1.0" encoding="utf-8"?&gt;</strong>.
+<em>So ASX looks like XML, but it is not, and hence this is the true reason there is also no XSD for it: ASX are not XML :-)</em>
+This was easy to fix: just make sure that when you write out the ASX, the XML declaration is not written (alternatively: write out the ASX, then strip the XML declaration)</li>
+	<li>All ENTRY elements must also contain a REF element.
+Also easy to fix, and caused by an incomplete <a href="http://www.nederland.fm/common/radio/zenders/nederland.js" target="_blank">stream list</a> (not all stream URLs were yet filled in).
+Easy fix too: only write out the records to the ASX that have a REF.</li>
+</ol>
+Finally some Delphi XE code, based on the above XSD, that generates the ASX file I wanted.
+It converts from a media list in JSON format to an ASX file.
+
+[sourcecode language="delphi"]
+unit NLFMJSON2ASXUnit;
+
+interface
+
+uses
+  DBXJSON, ASXUnit, SysUtils, XMLIntf;
+
+type
+  TNLFMJSON2ASX = class(TObject)
+  private
+    function GetJSON(JSONText: string): string;
+    procedure ParseInnerJSONObject(JSONObject: TJSONObject; Builder: TStringBuilder; Entries: IXMLEntryTypeList);
+    procedure ParseItems(Pair: TJSONPair; Builder: TStringBuilder; Entries: IXMLEntryTypeList);
+    procedure SaveASX(ASX: IXMLAsxType; Builder: TStringBuilder);
+    function SetOwnerDocumentOptions(const ASX: IXMLAsxType): IXMLDocument;
+  public
+    function ParseJSON(JSONText: string): TJSONValue;
+    function ParseJSONValue(const JSONValue: TJSONValue): string;
+  end;
+
+implementation
+
+uses
+  Variants, Classes;
+
+function TNLFMJSON2ASX.GetJSON(JSONText: string): string;
+const
+  ValidStartCharacters = '{'; // '"0123456789{[tfn';
+var
+  ResultLength: Integer;
+  StartPos: Integer;
+begin
+  Result := JSONText;
+  StartPos := 0;
+  while True do
+  begin
+    Inc(StartPos);
+    ResultLength := Length(Result);
+    if StartPos > ResultLength then
+      Exit(NullAsStringValue);
+    if Pos(Result[StartPos], ValidStartCharacters) > 0 then
+      Exit(Copy(Result, StartPos, ResultLength));
+  end;
+end;
+
+procedure TNLFMJSON2ASX.ParseInnerJSONObject(JSONObject: TJSONObject; Builder: TStringBuilder; Entries: IXMLEntryTypeList);
+var
+  Author: string;
+  Entry: IXMLEntryType;
+  Href: string;
+  AlternativeHref: string;
+  PairIndex: Integer;
+  Pair: TJSONPair;
+  PairJsonString: TJSONString;
+  PairJSONValue: TJSONValue;
+  Title: string;
+begin
+  for PairIndex := 0 to JSONObject.Size - 1 do
+  begin
+    Pair := JSONObject.Get(PairIndex);
+    PairJSONValue := Pair.JsonValue;
+    PairJsonString := Pair.JsonString;
+
+    if PairJSONValue is TJSONString then
+    begin
+      if PairJsonString.Value = 'o' then
+        Title := PairJSONValue.Value
+      else if PairJsonString.Value = 'm' then
+        Href := PairJSONValue.Value
+      else if PairJsonString.Value = 'z' then
+        Author := PairJSONValue.Value
+      else if PairJsonString.Value = 's' then
+        AlternativeHref := PairJSONValue.Value;
+    end;
+  end;
+  Entry := nil;
+  if Href = NullAsStringValue then
+    Href := AlternativeHref;
+  if Title <> NullAsStringValue then
+    if Href <> NullAsStringValue then
+      if Author <> NullAsStringValue then
+      begin
+        Entry := Entries.Add();
+        Entry.Title := Title;
+        Entry.Ref.Href := Href;
+        Entry.Author := Author;
+      end;
+  if not Assigned(Entry) then
+  begin
+    Builder.Append(JSONObject);
+    Builder.AppendLine;
+  end;
+end;
+
+procedure TNLFMJSON2ASX.ParseItems(Pair: TJSONPair; Builder: TStringBuilder; Entries: IXMLEntryTypeList);
+var
+  ArrayIndex: Integer;
+  JSONArray: TJSONArray;
+  PairJSONValue: TJSONValue;
+  ArrayJSONValue: TJSONValue;
+  JSONObject: TJSONObject;
+begin
+  PairJSONValue := Pair.JsonValue;
+  if PairJSONValue is TJSONArray then
+  begin
+    JSONArray := TJSONArray(PairJSONValue);
+    for ArrayIndex := 0 to JSONArray.Size-1 do
+    begin
+      ArrayJSONValue := JSONArray.Get(ArrayIndex);
+      if ArrayJSONValue is TJSONObject then
+      begin
+        JSONObject := TJSONObject(ArrayJSONValue);
+        ParseInnerJSONObject(JSONObject, Builder, Entries);
+      end;
+    end;
+    Builder.Append(Pair.JsonValue);
+  end;
+end;
+
+function TNLFMJSON2ASX.ParseJSON(JSONText: string): TJSONValue;
+var
+  JSONString: string;
+begin
+  JSONString := GetJSON(JSONText);
+  Result := TJSONObject.ParseJSONValue(JSONString);
+end;
+
+function TNLFMJSON2ASX.ParseJSONValue(const JSONValue: TJSONValue): string;
+var
+  Builder: TStringBuilder;
+  JSONObject: TJSONObject;
+  Pair: TJSONPair;
+  PairIndex: Integer;
+  ASX: IXMLAsxType;
+begin
+  Builder := TStringBuilder.Create();
+  try
+    if JSONValue is TJSONObject then
+    begin
+      ASX := NewASX;
+      SetOwnerDocumentOptions(ASX);
+      ASX.Title := 'From NLFM JSON';
+      JSONObject := TJSONObject(JSONValue);
+      for PairIndex := 0 to JSONObject.Size-1 do
+      begin
+        Pair := JSONObject.Get(PairIndex);
+        Builder.Append(Pair.JsonString);
+        Builder.AppendLine;
+        if Pair.JsonString.Value = 'items' then
+        begin
+          ParseItems(Pair, Builder, ASX.Entry);
+        end;
+      end;
+      SaveASX(ASX, Builder);
+      Result := Builder.ToString();
+    end
+    else
+      Result := JSONValue.ToString;
+  finally
+    Builder.Free;
+  end;
+end;
+
+procedure TNLFMJSON2ASX.SaveASX(ASX: IXMLAsxType; Builder: TStringBuilder);
+var
+  OwnerDocument: IXMLDocument;
+  XMLLines: TStrings;
+begin
+  Builder.AppendLine;
+  XMLLines := TStringList.Create();
+  try
+    OwnerDocument := SetOwnerDocumentOptions(ASX);
+    XMLLines.Assign(OwnerDocument.XML);
+    XMLLines.Delete(0); // delete the XML declaration
+    Builder.Append(XMLLines.Text);
+    XMLLines.SaveToFile('..\..\..\doc\NLFM.ASX');
+  finally
+    XMLLines.Free;
+  end;
+end;
+
+function TNLFMJSON2ASX.SetOwnerDocumentOptions(const ASX: IXMLAsxType): IXMLDocument;
+begin
+  Result := ASX.OwnerDocument;
+  Result.Options := Result.Options + [doNodeAutoIndent];
+end;
+
+end.
+[/sourcecode]
+
+I hope this sheds some light on ASX files and how to write them.
+
+--jeroen

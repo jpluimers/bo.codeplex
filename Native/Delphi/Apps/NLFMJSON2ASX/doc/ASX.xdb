@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/10.0/XMLDataBinding">
+	<xsd:element name="asx" type="asxType"/>
+	<xsd:complexType name="asxType">
+		<xsd:annotation>
+      <xsd:appinfo xdb:docElement="asx"/>
+    </xsd:annotation>
+    <xsd:sequence>
+			<xsd:element name="title" type="xsd:string"/>
+			<xsd:element maxOccurs="unbounded" name="entry" type="entryType"/>
+		</xsd:sequence>
+		<xsd:attribute name="version" type="xsd:decimal"/>
+	</xsd:complexType>
+	<xsd:complexType name="entryType">
+		<xsd:annotation>
+      <xsd:appinfo xdb:repeated="True"/>
+    </xsd:annotation>
+    <xsd:sequence>
+			<xsd:element name="title" type="xsd:string"/>
+			<xsd:element name="ref" type="refType"/>
+			<xsd:element name="author" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="refType">
+		<xsd:attribute name="href" type="xsd:string"/>
+	</xsd:complexType>
+</xsd:schema>
