@@ -33,7 +33,8 @@ uses
   ConcreteCollectionsUnit in '..\..\..\..\bo.Generics\ConcreteCollectionsUnit.pas',
   ConcreteMethodReferencesUnit in '..\..\..\..\bo.Generics\ConcreteMethodReferencesUnit.pas',
   ReportingLoggerUnit in '..\..\..\..\bo.Logging\ReportingLoggerUnit.pas',
-  ReportProxyUnit in '..\..\..\..\bo.Logging\ReportProxyUnit.pas';
+  ReportProxyUnit in '..\..\..\..\bo.Logging\ReportProxyUnit.pas',
+  McGyverUnit in '..\..\..\..\bo.System\McGyverUnit.pas';
 
 {$R *.res}
 

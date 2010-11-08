@@ -116,7 +116,7 @@ type
 implementation
 
 uses
-  Variants, StrUtils, TypInfo, Windows, FieldNameHelperUnit, SqlConstsUnit, StringUtilsUnit;
+  Variants, StrUtils, TypInfo, Windows, FieldNameHelperUnit, SqlConstsUnit, StringUtilsUnit, McGyverUnit;
 
 constructor TORMCodeGenerator.Create(const Owner: TComponent; const SysTables: TMSSystemTables; const TableName:
     string; const UnitType: TUnitType; const Logger: TLogger);
@@ -183,6 +183,7 @@ begin
   TheActualClass := GenerateTheActualClass(MemberName, MemberListName, TheUnit);
   TheActualEnumeratorClass := GenerateTheActualEnumeratorClass(MemberName, TheUnit, TheActualClass);
   TheActualListClass := GenerateTheActualListClass(MemberName, MemberListName, TheUnit, TheActualEnumeratorClass, TheActualClass);
+  Touch(TheActualListClass);
 end;
 
 procedure TORMCodeGenerator.GenerateBase(const MemberListName: string; const TheUnit: TGeneratableUnit);
@@ -200,6 +201,7 @@ begin
   TheBaseClientDataSetClass := GenerateTheBaseClientDataSetClass(MemberName, MemberListName, TheUnit, TheBaseClass);
   TheBaseEnumeratorClass := GenerateTheBaseEnumeratorClass(MemberName, TheUnit, TheBaseClass);
   TheBaseListClass := GenerateTheBaseListClass(MemberName, MemberListName, TheBaseClientDataSetClass, TheBaseEnumeratorClass, TheUnit);
+  Touch(TheBaseListClass);
   Y := 8;
   T := 0;
   for QualifiedColumnRecord in AllQualifiedColumnRecords do
@@ -317,7 +319,10 @@ begin
       PropertyVisibility := vPublic;
     end;
     else
+    begin
+      PropertyVisibility := vDefault; // jpl: gets rid of warning later on
       Assert(False, 'Unsupported UnitType Value');
+    end;
   end;
 
   MembersNameClass := Format('T%s%s', [MemberListName, Suffix]);
@@ -453,7 +458,6 @@ function TORMCodeGenerator.GenerateTheActualClass(const MemberName, MemberListNa
 var
   TheActualClass: TGeneratableClass;
   TheMethod: TGeneratableMethod;
-  TheProperty: TGeneratableProperty;
 begin
   TheActualClass := TGeneratableClass.Create(TheUnit, Format('T%s', [MemberName]), Format('T%sBase', [MemberName]), True);
   //  TUser = class(TUserBase)
@@ -769,6 +773,7 @@ begin
       Format('''%s''', [CurrentColumnName]),
       NullAsStringValue,
       vPublic);
+    Touch(TheConstant);
 
     //  public
     //    const ID_User_UpdateFieldName = 'ID_User_Update';
@@ -777,6 +782,7 @@ begin
       Format('''%s''', [GetChangedColumnName(CurrentColumnName)]),
       NullAsStringValue,
       vPublic);
+    Touch(TheConstant);
 
     //  strict protected
     //    function GetFinishDateField: TDateTimeField; virtual;

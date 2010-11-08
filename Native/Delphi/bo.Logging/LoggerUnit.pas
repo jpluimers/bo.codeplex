@@ -14,30 +14,6 @@ uses
 type
   TStringArray = array of string;
 
-  ILogger = interface(IReportProxy)
-    procedure Log; overload;
-    procedure Log(const Line: string); overload;
-    procedure Log(const Description: string; const Item: Integer); overload;
-    procedure Log(const Description: string; const Index: Integer; const Item: Integer); overload;
-    procedure Log(const Description: string; const Index: Integer; const Item: string); overload;
-    procedure Log(const Description: string; const Item: string); overload;
-    procedure Log(const FormatMask: string; const Arguments: array of const); overload;
-    procedure Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings); overload;
-    procedure Log(const Description: string; const TypeInfo: PTypeInfo; const Value: Integer); overload;
-    procedure Log(const Description: string; const TypeTypeInfo: PTypeInfo; const Prefix: string = ''); overload;
-    procedure Log(const Description: string; const Item: ShortStringBase); overload;
-    procedure Log(const Description: string; const Item: Boolean); overload;
-    procedure Log(const Description: string; const Index: Integer; const Item: Boolean); overload;
-    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Boolean); overload;
-    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Integer); overload;
-    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix, Item: string); overload;
-    procedure Log(const Description: string; const Index: Integer; const Item: Pointer); overload;
-    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Pointer); overload;
-    procedure Log(const Description: string; const Item: Pointer); overload;
-    procedure Log(const E: Exception); overload;
-    procedure LogMulti(const Description: string; const Items: array of string); overload;
-  end;
-
   TReportProxyLogger = class(TReportProxy)
   strict protected
      procedure Report(const FormatMask: string; const Arguments: array of const); overload; virtual;
@@ -48,7 +24,7 @@ type
      procedure Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings); overload; virtual;
   end;
 
-  TLogger = class abstract(TReportProxyLogger, ILogger)
+  TLogger = class abstract(TReportProxyLogger)
   public
     procedure LogMulti(const Description: string; const Items: array of string); overload; virtual;
     procedure Log(); overload; virtual;
