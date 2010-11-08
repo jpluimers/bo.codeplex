@@ -86,6 +86,7 @@
 			<DCCReference Include="..\..\..\..\bo.Generics\ConcreteMethodReferencesUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.Logging\ReportingLoggerUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.Logging\ReportProxyUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.System\McGyverUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
