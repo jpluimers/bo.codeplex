@@ -1,47 +1,89 @@
+// all classes should implement IInterface, and instances should be referenced as interfaces.
+// there should not be any circular dependencies (otherwise the release mechanism will leak)
+
 unit LoggerUnit;
 
 interface
 
 uses
-  SysUtils, ReporterUnit, TypInfo;
+  SysUtils,
+  TypInfo,
+  ReporterUnit,
+  ReportProxyUnit;
 
 type
-  TLogReportEvent = procedure(const Line: string) of object;
-
   TStringArray = array of string;
 
-  TLogger = class abstract(TObject)
-  strict private
-    FOnReport: TLogReportEvent;
+  ILogger = interface(IReportProxy)
+    procedure Log; overload;
+    procedure Log(const Line: string); overload;
+    procedure Log(const Description: string; const Item: Integer); overload;
+    procedure Log(const Description: string; const Index: Integer; const Item: Integer); overload;
+    procedure Log(const Description: string; const Index: Integer; const Item: string); overload;
+    procedure Log(const Description: string; const Item: string); overload;
+    procedure Log(const FormatMask: string; const Arguments: array of const); overload;
+    procedure Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings); overload;
+    procedure Log(const Description: string; const TypeInfo: PTypeInfo; const Value: Integer); overload;
+    procedure Log(const Description: string; const TypeTypeInfo: PTypeInfo; const Prefix: string = ''); overload;
+    procedure Log(const Description: string; const Item: ShortStringBase); overload;
+    procedure Log(const Description: string; const Item: Boolean); overload;
+    procedure Log(const Description: string; const Index: Integer; const Item: Boolean); overload;
+    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Boolean); overload;
+    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Integer); overload;
+    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix, Item: string); overload;
+    procedure Log(const Description: string; const Index: Integer; const Item: Pointer); overload;
+    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Pointer); overload;
+    procedure Log(const Description: string; const Item: Pointer); overload;
+    procedure Log(const E: Exception); overload;
+    procedure LogMulti(const Description: string; const Items: array of string); overload;
+  end;
+
+  TReportProxyLogger = class(TReportProxy)
   strict protected
-    constructor Create(const OnLog: TLogReportEvent);
-    property OnReport: TLogReportEvent read FOnReport write FOnReport;
-  protected
-    procedure Report(const Line: string); overload; virtual;
+     procedure Report(const FormatMask: string; const Arguments: array of const); overload; virtual;
+     procedure Report(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings); overload; virtual;
+  public
+     procedure Log(const Line: string); overload; virtual;
+     procedure Log(const FormatMask: string; const Arguments: array of const); overload; virtual;
+     procedure Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings); overload; virtual;
+  end;
+
+  TLogger = class abstract(TReportProxyLogger, ILogger)
   public
     procedure LogMulti(const Description: string; const Items: array of string); overload; virtual;
     procedure Log(); overload; virtual;
     procedure Log(const Description: string; const Item: string); overload; virtual;
+    procedure Log(const Description: string; const Item: Boolean); overload; virtual;
     procedure Log(const Description: string; const Item: Integer); overload; virtual;
-    procedure Log(const Line: string); overload; virtual;
-    procedure Log(const FormatMask: string; const Arguments: array of const); overload; virtual;
-    procedure Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings);
-        overload; virtual;
     procedure Log(const Description: string; const TypeInfo: PTypeInfo; const Value: Integer); overload; virtual;
     procedure Log(const Description: string; const TypeTypeInfo: PTypeInfo; const Prefix: string = ''); overload; virtual;
+    procedure Log(const Description: string; const Index: Integer; const Item: Boolean); overload; virtual;
     procedure Log(const Description: string; const Index: Integer; const Item: Integer); overload; virtual;
     procedure Log(const Description: string; const Index: Integer; const Item: string); overload; virtual;
     procedure Log(const Description: string; const Item: ShortStringBase); overload; virtual;
-    procedure Report(const FormatMask: string; const Arguments: array of const); overload; virtual;
-    procedure Report(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings);
-        overload; virtual;
+    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Boolean); overload; virtual;
+    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Integer); overload; virtual;
+    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix, Item: string); overload; virtual;
+    procedure Log(const Description: string; const Item: Pointer); overload; virtual;
+    procedure Log(const Description: string; const Index: Integer; const Item: Pointer); overload; virtual;
+    procedure Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Pointer); overload; virtual;
+    procedure Log(const E: Exception); overload; virtual;
+    function PointerToString(const Item: Pointer): string;
   end;
 
-  TReportingLogger = class(TLogger)
+  TReportProxies = array of IReportProxy;
+
+  // show difference between open arrays and array types: http://stackoverflow.com/questions/3780235/delphi-array-of-char-and-tchararray-incompatible-types
+  TTeeLogger = class(TLogger)
+  strict private
+    FReportProxies: TReportProxies;
+  strict protected
+    property ReportProxies: TReportProxies read FReportProxies;
+  protected
+    procedure Report(const Line: string); overload; override;
   public
-    constructor Create(Reporter: TReporter);
-    destructor Destroy; override;
-    property OnReport;
+    constructor Create(const ReportProxies: TReportProxies); overload;
+    constructor Create(const ReportProxyArray: array of IReportProxy); overload;
   end;
 
 implementation
@@ -54,30 +96,9 @@ begin
   Log('%s:%s', [Description, Item]);
 end;
 
-procedure TLogger.Log(const Description: string; const Item: Integer);
+procedure TLogger.Log(const Description: string; const Item: Boolean);
 begin
-  Log('%s:%d', [Description, Item]);
-end;
-
-constructor TLogger.Create(const OnLog: TLogReportEvent);
-begin
-  inherited Create();
-  FOnReport := OnLog;
-end;
-
-procedure TLogger.Log(const Line: string);
-begin
-  Report(Line);
-end;
-
-procedure TLogger.Log(const FormatMask: string; const Arguments: array of const);
-begin
-  Report(FormatMask, Arguments);
-end;
-
-procedure TLogger.Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings);
-begin
-  Report(FormatMask, Arguments, FormatSettings);
+  Log(Description, BoolToStr(Item));
 end;
 
 procedure TLogger.Log(const Description: string; const TypeInfo: PTypeInfo; const Value: Integer);
@@ -221,7 +242,7 @@ end;
 
 procedure TLogger.Log(const Description: string; const Index: Integer; const Item: Integer);
 begin
-  Log('%s[%d]:%d', [Description, Index, Item]);
+  Log(Description, Index, IntToStr(Item));
 end;
 
 procedure TLogger.Log(const Description: string; const Index: Integer; const Item: string);
@@ -239,6 +260,51 @@ begin
   Log('');
 end;
 
+procedure TLogger.Log(const Description: string; const Item: Integer);
+begin
+  Log(Description, IntToStr(Item));
+end;
+
+procedure TLogger.Log(const Description: string; const Index: Integer; const Item: Boolean);
+begin
+  Log(Description, Index, BoolToStr(Item));
+end;
+
+procedure TLogger.Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Boolean);
+begin
+  Log(Description, Index, DescriptionSuffix, BoolToStr(Item));
+end;
+
+procedure TLogger.Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Integer);
+begin
+  Log(Description, Index, DescriptionSuffix, IntToStr(Item));
+end;
+
+procedure TLogger.Log(const Description: string; const Index: Integer; const DescriptionSuffix, Item: string);
+begin
+  Log('%s[%d].%s:%s', [Description, Index, DescriptionSuffix, Item]);
+end;
+
+procedure TLogger.Log(const Description: string; const Item: Pointer);
+begin
+  Log(Description, PointerToString(Item));
+end;
+
+procedure TLogger.Log(const Description: string; const Index: Integer; const Item: Pointer);
+begin
+  Log(Description, Index, PointerToString(Item));
+end;
+
+procedure TLogger.Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Pointer);
+begin
+  Log(Description, Index, DescriptionSuffix, PointerToString(Item));
+end;
+
+procedure TLogger.Log(const E: Exception);
+begin
+  Log('Exception "%s", at %p: "%s"', [E.ClassName, ExceptAddr, E.Message]);
+end;
+
 procedure TLogger.LogMulti(const Description: string; const Items: array of string);
 var
   Item: string;
@@ -252,43 +318,65 @@ begin
   end;
 end;
 
-procedure TLogger.Report(const FormatMask: string; const Arguments: array of const);
-var
-  Line: string;
+function TLogger.PointerToString(const Item: Pointer): string;
 begin
-  Line := Format(FormatMask, Arguments);
-  Log(Line);
+  Result := Format('%p', [Item]);
 end;
 
-procedure TLogger.Report(const FormatMask: string; const Arguments: array of const; const FormatSettings:
-    TFormatSettings);
+procedure TReportProxyLogger.Log(const Line: string);
+begin
+  Report(Line);
+end;
+
+procedure TReportProxyLogger.Log(const FormatMask: string; const Arguments: array of const);
+begin
+  Report(FormatMask, Arguments);
+end;
+
+procedure TReportProxyLogger.Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings);
+begin
+  Report(FormatMask, Arguments, FormatSettings);
+end;
+
+procedure TReportProxyLogger.Report(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings);
 var
   Line: string;
 begin
   Line := Format(FormatMask, Arguments, FormatSettings);
+  Report(Line);
 end;
 
-procedure TLogger.Report(const Line: string);
+procedure TReportProxyLogger.Report(const FormatMask: string; const Arguments: array of const);
 var
-  OnLog: TLogReportEvent;
+  Line: string;
 begin
-  OnLog := Self.OnReport;
-  if Assigned(OnLog) then
-    OnLog(Line);
+  Line := Format(FormatMask, Arguments);
+  Report(Line);
 end;
 
-constructor TReportingLogger.Create(Reporter: TReporter);
+constructor TTeeLogger.Create(const ReportProxies: TReportProxies);
 begin
-  if Assigned(Reporter) then
-    inherited Create(Reporter.Report)
-  else
-    inherited Create(nil);
+  inherited Create(nil);
+  FReportProxies := ReportProxies;
 end;
 
-destructor TReportingLogger.Destroy;
+constructor TTeeLogger.Create(const ReportProxyArray: array of IReportProxy);
+var
+  ReportProxies: TReportProxies;
+  Index: Integer;
 begin
-  inherited;
+  SetLength(ReportProxies, Length(ReportProxyArray));
+  for Index := Low(ReportProxyArray) to High(ReportProxyArray) do
+    ReportProxies[Index] := ReportProxyArray[Index];
+  Create(ReportProxies);
+end;
 
+procedure TTeeLogger.Report(const Line: string);
+var
+  ReportProxy: IReportProxy;
+begin
+  for ReportProxy in ReportProxies do
+    ReportProxy.Report(Line);
 end;
 
 end.
