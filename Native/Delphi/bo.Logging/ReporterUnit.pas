@@ -3,7 +3,11 @@ unit ReporterUnit;
 interface
 
 type
-  TReporter = class abstract
+  IReporter = interface(IInterface)
+    procedure Report(const Line: string);
+  end;
+
+  TReporter = class abstract(TInterfacedObject, IReporter)
   public
     procedure Report(const Line: string); virtual; abstract;
   end;

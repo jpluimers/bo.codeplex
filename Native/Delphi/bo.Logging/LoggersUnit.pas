@@ -3,24 +3,19 @@ unit LoggersUnit;
 interface
 
 uses
-  LoggerUnit, ReporterUnit, Classes;
+  ReporterUnit,
+  ReportingLoggerUnit,
+  Classes;
 
 type
   TConsoleLogger = class(TReportingLogger)
-  strict private
-    FReporter: TReporter;
   public
     constructor Create;
-    destructor Destroy; override;
   end;
 
-type
   TStringsLogger = class(TReportingLogger)
-  strict private
-    FReporter: TReporter;
   public
     constructor Create(const Strings: TStrings);
-    destructor Destroy; override;
   end;
 
 implementation
@@ -29,27 +24,19 @@ uses
   ReportersUnit;
 
 constructor TConsoleLogger.Create;
+var
+  Reporter: IReporter;
 begin
-  FReporter := TConsoleReporter.Create();
-  inherited Create(FReporter);
-end;
-
-destructor TConsoleLogger.Destroy;
-begin
-  inherited;
-  FReporter.Free; FReporter := nil;
+  Reporter := TConsoleReporter.Create();
+  inherited Create(Reporter);
 end;
 
 constructor TStringsLogger.Create(const Strings: TStrings);
+var
+  Reporter: IReporter;
 begin
-  FReporter := TStringsReporter.Create(Strings);
-  inherited Create(FReporter);
-end;
-
-destructor TStringsLogger.Destroy;
-begin
-  inherited;
-  FReporter.Free; FReporter := nil;
+  Reporter := TStringsReporter.Create(Strings);
+  inherited Create(Reporter);
 end;
 
 end.
