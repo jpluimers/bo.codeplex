@@ -398,8 +398,8 @@ begin
     i := j;
     I64LWDivMod( 100000*i, 5, n1, n2);
     I64LWDivMod(-100000*i, 5, n1, n2);
-    I64LWDivMod( Int64($FFFFFFFFFFFFFFFF), $7FFFFFFFFFFFFFFF, n1, n2);
-    I64LWDivMod( -160000000015, -80000000008, n1, n2 );
+    I64LWDivMod( Int64($FFFFFFFFFFFFFFFF), $7FFFFFFF, n1, n2);
+    I64LWDivMod( -160000000015, 8000008, n1, n2 );
   end;
   Res1 := GetTickCount - StartTick;
 
@@ -411,8 +411,8 @@ begin
     i := j;
     I64DivMod_Naive( 100000*i, 5, n1, n2);
     I64DivMod_Naive(-100000*i, 5, n1, n2);
-    I64DivMod_Naive( Int64($FFFFFFFFFFFFFFFF), $7FFFFFFFFFFFFFFF, n1, n2);
-    I64DivMod_Naive( -160000000015, -80000000008, n1, n2 );
+    I64DivMod_Naive( Int64($FFFFFFFFFFFFFFFF), $7FFFFFFF, n1, n2);
+    I64DivMod_Naive( -160000000015, 8000008, n1, n2 );
   end;
   Res2 := GetTickCount - StartTick;
 
