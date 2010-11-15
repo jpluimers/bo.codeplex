@@ -16,19 +16,23 @@ implementation
 uses
   SysUtils,
 {$ifdef win32}
-  Windows;
+  Windows, DebuggingUnit;
 {$else}
   WinTypes, WinProcs;
 {$endif win32}
+
+const
+  FourK = 4096;
+  AlmostFourK = FourK - SizeOf(DWord);
 
 type
   PSharedMem = ^TSharedMem;
   TSharedMem = record
     ProcessID: DWord;
 {$ifdef UNICODE}
-    CharBuffer: array[0..500] of AnsiChar;
+    CharBuffer: array[0..AlmostFourK-1] of AnsiChar;
 {$else}
-    CharBuffer: array[0..500] of Char;
+    CharBuffer: array[0..AlmostFourK-1] of Char;
 {$endif UNICODE}
   end;
 
@@ -66,12 +70,12 @@ end;
 procedure OutputDebugView(lpOutputString: PAnsiChar); stdcall;
 {$ifdef win32}
 var
-  heventDBWIN: THandle;  { DBWIN32 synchronization object }
+  heventDBWIN: THandle;  { DebugView/DBWIN32 synchronization object }
   heventData: THandle;   { data passing synch object }
   hSharedFile: THandle;  { memory mapped file shared data }
   SharedMem: PSharedmem; { shared data }
-  VerInfo: TOSVERSIONINFO;
 begin
+{ protocol: http://unixwiz.net/techtips/outputdebugstring.html }
 { Do a regular OutputDebugString so that the output is
   still seen in the debugger window if it exists. }
 {$ifdef UNICODE}
@@ -79,19 +83,8 @@ begin
 {$else}
   Windows.OutputDebugString(lpOutputString);
 {$endif UNICODE}
-{ The regular OutputDebugString only works in the following circumstances:
-    - Windows 95: never
-    - Windows NT: only if run as part of Delphi (DebugHook=0)
-    - Win32s: never
-}
-{ bail if OutputDebugString is supposed to work }
-  VerInfo.dwOSVersionInfoSize := sizeof(TOSVERSIONINFO);
-  GetVersionEx(VerInfo);
-  with VerInfo do
-    if (dwPlatformId = VER_PLATFORM_WIN32_NT) and
-       (DebugHook=0) { running as part of Delphi? }
-    then
-      exit;
+  if DoesOutputDebugStringRedirectToDebugView then
+    Exit;
 { make sure DBWIN is open and waiting }
   heventDBWIN := OpenEvent(EVENT_MODIFY_STATE, FALSE, 'DBWIN_BUFFER_READY');
   if heventDBWIN = 0 then begin

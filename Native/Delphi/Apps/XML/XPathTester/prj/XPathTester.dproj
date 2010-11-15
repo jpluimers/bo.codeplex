@@ -1,7 +1,7 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{DA9304A2-BB38-4958-A1AB-4CCE2D42FFCF}</ProjectGuid>
-			<MainSource>LoggerReporterDemoProject.dpr</MainSource>
+			<ProjectGuid>{D86C9568-0D31-451D-943E-251D8B183EAE}</ProjectGuid>
+			<MainSource>XPathTester.dpr</MainSource>
 			<ProjectVersion>12.2</ProjectVersion>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
@@ -35,6 +35,7 @@
 			<DCC_K>false</DCC_K>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_DebugDCUs>true</DCC_DebugDCUs>
 			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
 			<DCC_Optimize>false</DCC_Optimize>
 			<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
@@ -46,25 +47,27 @@
 			<DCC_DebugInformation>false</DCC_DebugInformation>
 		</PropertyGroup>
 		<ItemGroup>
-			<DelphiCompile Include="LoggerReporterDemoProject.dpr">
+			<DelphiCompile Include="XPathTester.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
 			<DCCReference Include="..\src\MainFormUnit.pas">
 				<Form>MainForm</Form>
 			</DCCReference>
-			<DCCReference Include="..\..\..\bo.Logging\LoggerUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.Logging\ReporterUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.TypeInfo\RecordTypeInfoUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.Logging\ReportProxyUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.DebugView\OutputDebugViewLoggerUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.DebugView\OutputDebugViewReporterUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.DebugView\OutputDebugViewUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.Logging\LoggersUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.Logging\ReportingLoggerUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.Logging\ReportersUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.Debugging\DebuggingUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\LoggerUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Text\StringListWrapperUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\ReporterUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\ReportProxyUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.TypeInfo\RecordTypeInfoUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Helpers\WebBrowserHelperUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\LoggersUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Text\StringUtilsUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.XML\XmlHelperUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Helpers\ComponentHelperUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\ReportingLoggerUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Helpers\MakeResourceUrlUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\ReportersUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -112,7 +115,7 @@
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 					<Source>
-						<Source Name="MainSource">LoggerReporterDemoProject.dpr</Source>
+						<Source Name="MainSource">XPathTester.dpr</Source>
 					</Source>
 				</Delphi.Personality>
 				<Platforms>

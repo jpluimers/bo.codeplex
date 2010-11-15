@@ -70,12 +70,12 @@ end;
 
 procedure TMD5Calculator.CalculateFile(const Filename:string; var MD5Hash: string);
 begin
-  MD5Hash := FileMD5Digest(Filename);
+  MD5Hash := string(FileMD5Digest(Filename));
 end;
 
 procedure TMD5Calculator.CalculateString(const Buffer:string; var MD5Hash: string);
 begin
-  MD5Hash := StringMD5Digest(Buffer);
+  MD5Hash := string(StringMD5Digest(Buffer));
 end;
 
 procedure TMessageDigest_5Calculator.CalculateFile(const Filename:string; var MD5Hash: string);

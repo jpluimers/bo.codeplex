@@ -54,6 +54,9 @@ type
 
 implementation
 
+uses
+  Windows;
+
 { TBasePerson }
 
 procedure TBasePerson.DoChanged();
@@ -110,7 +113,7 @@ procedure TActualPerson.DoChanged();
 var
   Foo: string;
 begin
-  Beep();
+  SysUtils.Beep();
 end;
 
 end.
