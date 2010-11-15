@@ -36,7 +36,7 @@ end;
 
 destructor TStringsReporter.Destroy;
 begin
-  inherited;
+  inherited Destroy;
   FStrings := nil;
 end;
 

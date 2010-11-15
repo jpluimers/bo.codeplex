@@ -26,6 +26,7 @@ type
 
   TLogger = class abstract(TReportProxyLogger)
   public
+    procedure Flush; virtual;
     procedure LogMulti(const Description: string; const Items: array of string); overload; virtual;
     procedure Log(); overload; virtual;
     procedure Log(const Description: string; const Item: string); overload; virtual;
@@ -66,6 +67,11 @@ implementation
 
 uses
   RecordTypeInfoUnit, SetTypeInfoUnit, EnumTypeInfoUnit;
+
+procedure TLogger.Flush;
+begin
+  // allow descendants to override.
+end;
 
 procedure TLogger.Log(const Description: string; const Item: string);
 begin

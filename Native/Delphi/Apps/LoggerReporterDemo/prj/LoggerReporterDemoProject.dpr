@@ -14,7 +14,8 @@ uses
   OutputDebugViewUnit in '..\..\..\bo.DebugView\OutputDebugViewUnit.pas',
   LoggersUnit in '..\..\..\bo.Logging\LoggersUnit.pas',
   ReportingLoggerUnit in '..\..\..\bo.Logging\ReportingLoggerUnit.pas',
-  ReportersUnit in '..\..\..\bo.Logging\ReportersUnit.pas';
+  ReportersUnit in '..\..\..\bo.Logging\ReportersUnit.pas',
+  DebuggingUnit in '..\..\..\bo.Debugging\DebuggingUnit.pas';
 
 {$R *.res}
 

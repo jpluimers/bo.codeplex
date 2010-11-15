@@ -16,8 +16,9 @@ type
     function Directory: string;
     function Filename: string;
     function Pathname: string;
-    function FileNameRelativeTo(const Extension: string): string;
+    function PathNameWithExtension(const Extension: string): string;
     function DesktopFoldername: string;
+    function RelativeToDirectory(const FileName: string): string;
     procedure TerminateDuringStartup;
     property InifileName: string read GetInifileName;
   end;
@@ -91,7 +92,7 @@ begin
   //  Result := Self.ExeName;
 end;
 
-function TApplicationHelper.FileNameRelativeTo(const Extension: string): string;
+function TApplicationHelper.PathNameWithExtension(const Extension: string): string;
 begin
   Result := Self.Pathname;
   Result := ChangeFileExt(Result, Extension);
@@ -99,13 +100,18 @@ end;
 
 function TApplicationHelper.GetInifileName: string;
 begin
-  Result := Application.FileNameRelativeTo('.ini');
+  Result := Application.PathNameWithExtension('.ini');
 end;
 
 function TApplicationHelper.GetProcessId: DWORD;
 begin
   if (GetWindowThreadProcessID(Self.Handle, Result) = 0) then
     RaiseLastOSError();
+end;
+
+function TApplicationHelper.RelativeToDirectory(const FileName: string): string;
+begin
+  Result := IncludeTrailingPathDelimiter(Self.Directory) + FileName;
 end;
 
 procedure TApplicationHelper.TerminateDuringStartup;

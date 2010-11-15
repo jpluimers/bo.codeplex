@@ -3,7 +3,7 @@ unit StringUtilsUnit;
 interface
 
 uses
-  StdCtrls; // TEllipsisPosition
+  StdCtrls, Classes, SysUtils; // TEllipsisPosition
 
 function CommaSeparated(const Values: array of string): string; overload;
 
@@ -27,6 +27,29 @@ function CreateNewGuidString: string;
 
 function StripLowercasePrefix(const Value: string): string;
 
+function SpacesPrefix(const Level: Integer): string;
+
+//1 borrowed from TStrings.SaveToFile
+procedure SaveToFile(const Value, FileName: string; const Encoding: TEncoding); overload;
+
+//1 borrowed from TStrings.SaveToStream
+procedure SaveToStream(const Value: string; const Stream: TStream; Encoding: TEncoding); overload;
+
+//1 borrowed from TStrings.LoadFromFile(
+function LoadFromFile(const FileName: string): string; overload;
+
+//1 borrowed from TStrings.LoadFromFile(
+function LoadFromFile(const FileName: string; const Encoding: TEncoding): string; overload;
+
+//1 borrowed from TStrings.LoadFromStream
+function LoadFromStream(const Stream: TStream): string; overload;
+
+//1 borrowed from TStrings.LoadFromStream
+function LoadFromStream(const Stream: TStream; Encoding: TEncoding): string; overload;
+
+//1 based on TSOAPAttachment.ObjectToSOAP
+function CreateGuidString: string;
+
 const
   sDefaultClassPrefixT = 'T';
   sTab = #9;
@@ -34,7 +57,7 @@ const
 implementation
 
 uses
-  StrUtils, SysUtils, Character, Variants, ComObj;
+  StrUtils, Character, Variants, ComObj;
 
 function CommaSeparated(const Values: array of string): string;
 var
@@ -223,6 +246,94 @@ begin
     else
       Exit;
   end;
+end;
+
+function SpacesPrefix(const Level: Integer): string;
+begin
+  Result := DupeString('  ', Level);
+end;
+
+function LoadFromFile(const FileName: string; const Encoding: TEncoding): string;
+var
+  Stream: TStream;
+begin
+  Stream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
+  try
+    Result := LoadFromStream(Stream, Encoding);
+  finally
+    Stream.Free;
+  end;
+end;
+
+function LoadFromStream(const Stream: TStream; Encoding: TEncoding): string;
+var
+  Size: Integer;
+  Buffer: TBytes;
+begin
+  Size := Stream.Size - Stream.Position;
+  SetLength(Buffer, Size);
+  Stream.Read(Buffer[0], Size);
+
+  Size := TEncoding.GetBufferEncoding(Buffer, Encoding);
+  Result := Encoding.GetString(Buffer, Size, Length(Buffer) - Size);
+end;
+
+procedure SaveToFile(const Value, FileName: string; const Encoding: TEncoding);
+var
+  StringStream: TStringStream;
+  Stream: TStream;
+begin
+  StringStream := TStringStream.Create(Value, Encoding);
+  try
+    Stream := TFileStream.Create(FileName, fmCreate);
+    try
+       SaveToStream(Value, Stream, Encoding);
+    finally
+       Stream.Free;
+    end;
+  finally
+    StringStream.Free;
+  end;
+end;
+
+procedure SaveToStream(const Value: string; const Stream: TStream; Encoding: TEncoding);
+var
+  Buffer: TBytes;
+  Preamble: TBytes;
+begin
+  if Encoding = nil then
+    Encoding := TEncoding.Default;
+  Buffer := Encoding.GetBytes(Value);
+  Preamble := Encoding.GetPreamble;
+  if Length(Preamble) > 0 then
+    Stream.WriteBuffer(Preamble[0], Length(Preamble));
+  Stream.WriteBuffer(Buffer[0], Length(Buffer));
+end;
+
+function LoadFromFile(const FileName: string): string;
+var
+  Stream: TStream;
+begin
+  Stream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
+  try
+    Result := LoadFromStream(Stream);
+  finally
+    Stream.Free;
+  end;
+end;
+
+function LoadFromStream(const Stream: TStream): string;
+begin
+  Result := LoadFromStream(Stream, nil);
+end;
+
+function CreateGuidString: string;
+var
+   GUID: TGUID;
+begin
+  CreateGuid(GUID);
+  Result := GuidToString(GUID);
+  Result := Copy(Result, 2, Length(Result) -2 );
 end;
 
 end.

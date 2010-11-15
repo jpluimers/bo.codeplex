@@ -30,16 +30,25 @@
 			<Projects Include="Apps\Number2StringEnNl\src\Numer2StringEnNlProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="Apps\XERegExPhoneDemo\prj\PhoneRegExProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Tests\DivMod\prj\DivModGuiTestProject.dproj">
+				<Dependencies/>
+			</Projects>
 			<Projects Include="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="Apps\ORM\UseORM\prj\UseORMProject.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="Apps\XERegExPhoneDemo\prj\PhoneRegExProject.dproj">
+			<Projects Include="Apps\XML\DumpXml\prj\DumpXml.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="Tests\DivMod\prj\DivModGuiTestProject.dproj">
+			<Projects Include="Apps\XML\ValidateXmlWithXsd\prj\ValidateXmlWithXsd.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Apps\XML\XPathTester\prj\XPathTester.dproj">
 				<Dependencies/>
 			</Projects>
 		</ItemGroup>
@@ -131,24 +140,6 @@
 		<Target Name="Numer2StringEnNlProject:Make">
 			<MSBuild Projects="Apps\Number2StringEnNl\src\Numer2StringEnNlProject.dproj" Targets="Make"/>
 		</Target>
-		<Target Name="GenerateORMProject">
-			<MSBuild Projects="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj"/>
-		</Target>
-		<Target Name="GenerateORMProject:Clean">
-			<MSBuild Projects="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="GenerateORMProject:Make">
-			<MSBuild Projects="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="UseORMProject">
-			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject.dproj"/>
-		</Target>
-		<Target Name="UseORMProject:Clean">
-			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="UseORMProject:Make">
-			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject.dproj" Targets="Make"/>
-		</Target>
 		<Target Name="PhoneRegExProject">
 			<MSBuild Projects="Apps\XERegExPhoneDemo\prj\PhoneRegExProject.dproj"/>
 		</Target>
@@ -167,14 +158,59 @@
 		<Target Name="DivModGuiTestProject:Make">
 			<MSBuild Projects="Tests\DivMod\prj\DivModGuiTestProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="GenerateORMProject">
+			<MSBuild Projects="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj"/>
+		</Target>
+		<Target Name="GenerateORMProject:Clean">
+			<MSBuild Projects="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="GenerateORMProject:Make">
+			<MSBuild Projects="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="UseORMProject">
+			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject.dproj"/>
+		</Target>
+		<Target Name="UseORMProject:Clean">
+			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="UseORMProject:Make">
+			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="DumpXml">
+			<MSBuild Projects="Apps\XML\DumpXml\prj\DumpXml.dproj"/>
+		</Target>
+		<Target Name="DumpXml:Clean">
+			<MSBuild Projects="Apps\XML\DumpXml\prj\DumpXml.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="DumpXml:Make">
+			<MSBuild Projects="Apps\XML\DumpXml\prj\DumpXml.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="ValidateXmlWithXsd">
+			<MSBuild Projects="Apps\XML\ValidateXmlWithXsd\prj\ValidateXmlWithXsd.dproj"/>
+		</Target>
+		<Target Name="ValidateXmlWithXsd:Clean">
+			<MSBuild Projects="Apps\XML\ValidateXmlWithXsd\prj\ValidateXmlWithXsd.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="ValidateXmlWithXsd:Make">
+			<MSBuild Projects="Apps\XML\ValidateXmlWithXsd\prj\ValidateXmlWithXsd.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="XPathTester">
+			<MSBuild Projects="Apps\XML\XPathTester\prj\XPathTester.dproj"/>
+		</Target>
+		<Target Name="XPathTester:Clean">
+			<MSBuild Projects="Apps\XML\XPathTester\prj\XPathTester.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="XPathTester:Make">
+			<MSBuild Projects="Apps\XML\XPathTester\prj\XPathTester.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;FreeAndNilPointerUnitTestProject;LoggerReporterDemoProject;MD5DUnitGUIProject;NLFMJSON2ASX;Numer2StringEnNlProjectTests;Numer2StringEnNlProject;GenerateORMProject;UseORMProject;PhoneRegExProject;DivModGuiTestProject"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;FreeAndNilPointerUnitTestProject;LoggerReporterDemoProject;MD5DUnitGUIProject;NLFMJSON2ASX;Numer2StringEnNlProjectTests;Numer2StringEnNlProject;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;FreeAndNilPointerUnitTestProject:Clean;LoggerReporterDemoProject:Clean;MD5DUnitGUIProject:Clean;NLFMJSON2ASX:Clean;Numer2StringEnNlProjectTests:Clean;Numer2StringEnNlProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;FreeAndNilPointerUnitTestProject:Clean;LoggerReporterDemoProject:Clean;MD5DUnitGUIProject:Clean;NLFMJSON2ASX:Clean;Numer2StringEnNlProjectTests:Clean;Numer2StringEnNlProject:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;FreeAndNilPointerUnitTestProject:Make;LoggerReporterDemoProject:Make;MD5DUnitGUIProject:Make;NLFMJSON2ASX:Make;Numer2StringEnNlProjectTests:Make;Numer2StringEnNlProject:Make;GenerateORMProject:Make;UseORMProject:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;FreeAndNilPointerUnitTestProject:Make;LoggerReporterDemoProject:Make;MD5DUnitGUIProject:Make;NLFMJSON2ASX:Make;Numer2StringEnNlProjectTests:Make;Numer2StringEnNlProject:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>
