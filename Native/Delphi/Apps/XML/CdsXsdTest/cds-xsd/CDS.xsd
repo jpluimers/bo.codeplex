@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="CDS_METADATA_FIELDS_include.xsd"/>
+	<!-- DATAPACKET/datapacket -->
+	<xs:element name="DATAPACKET" type="datapacket"/>
+	<xs:complexType name="datapacket">
+		<xs:sequence>
+			<xs:element ref="METADATA"/>
+			<xs:element ref="ROWDATA"/>
+		</xs:sequence>
+		<xs:attribute name="Version" type="xs:NMTOKEN" use="required"/>
+	</xs:complexType>
+	<!-- METADATA/metadata -->
+	<xs:element name="METADATA" type="metadata"/>
+	<xs:complexType name="metadata">
+		<xs:sequence>                                    
+			<xs:element ref="FIELDS"/>
+			<xs:element ref="PARAMS"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- PARAMS/params -->
+	<xs:element name="PARAMS" type="params"/>
+	<xs:complexType name="params">
+		<xs:attribute name="MD_FIELDLINKS" type="xs:string" use="optional"/>
+		<xs:attribute name="DEFAULT_ORDER" type="xs:positiveInteger"/>
+		<xs:attribute name="LCID" type="xs:positiveInteger"/>
+		<xs:attribute name="CHANGE_LOG" type="xs:string" use="optional"/>
+		<xs:attribute name="PRIMARY_KEY" type="xs:positiveInteger" use="optional"/>
+	</xs:complexType>
+	<!-- ROWDATA/rowdata -->
+	<xs:element name="ROWDATA" type="rowdata"/>
+	<xs:complexType name="rowdata">
+		<xs:sequence>
+			<xs:element ref="ROW" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ROW/row -->
+	<xs:element name="ROW" type="row"/>
+	<xs:complexType name="row">
+		<xs:sequence>
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="RowState" type="xs:NMTOKEN" use="optional"/>
+		<xs:anyAttribute namespace="##any" processContents="lax"/>
+	</xs:complexType>
+</xs:schema>
