@@ -12,6 +12,9 @@
 			<Projects Include="XPathTester\prj\XPathTester.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="CdsXsdTest\CdsXsdTest.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +50,23 @@
 		<Target Name="XPathTester:Make">
 			<MSBuild Projects="XPathTester\prj\XPathTester.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="CdsXsdTest">
+			<MSBuild Projects="CdsXsdTest\CdsXsdTest.dproj"/>
+		</Target>
+		<Target Name="CdsXsdTest:Clean">
+			<MSBuild Projects="CdsXsdTest\CdsXsdTest.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="CdsXsdTest:Make">
+			<MSBuild Projects="CdsXsdTest\CdsXsdTest.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="DumpXml;ValidateXmlWithXsd;XPathTester"/>
+			<CallTarget Targets="DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean"/>
+			<CallTarget Targets="DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make"/>
+			<CallTarget Targets="DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

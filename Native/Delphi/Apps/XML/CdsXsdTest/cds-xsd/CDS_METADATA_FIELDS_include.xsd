@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- include portion of the METADATA FIELDS that CDS uses -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- FIELDS/fields -->
+  <xs:element name="FIELDS" type="fields"/>
+  <xs:complexType name="fields">
+    <xs:sequence>
+      <xs:element ref="FIELD" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- FIELD/field -->
+  <xs:element name="FIELD" type="field"/>
+  <xs:complexType name="field">
+    <xs:sequence>
+      <xs:element ref="PARAM" minOccurs="0"/>
+      <!-- FIELDS is for nested datasets -->
+      <xs:element ref="FIELDS" minOccurs="0" maxOccurs="unbounded"/>
+      <!-- PARAMS is for nested datasets -->
+      <xs:element name="PARAMS" type="fieldParams" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <!-- fieldname is used when the DBMS allows for non-identifier characters (like spaces) in fieldnames -->
+    <xs:attribute name="fieldname" use="optional" type="xs:string"/>
+    <xs:attribute name="fieldtype" use="required" type="FIELDTYPE"/>
+    <xs:attribute name="SUBTYPE" use="optional" type="subtype"/>
+    <!-- DECIMALS is for BCD -->
+    <xs:attribute name="DECIMALS" type="xs:positiveInteger" use="optional"/>
+    <!-- WIDTH is for Character, BCD, Bytes and Unicode -->
+    <xs:attribute name="WIDTH" type="xs:positiveInteger" use="optional"/>
+    <xs:attribute name="attrname" type="xs:Name" use="required"/>
+<!-- need to incorporate these; probably as attributes as FIELD :
+#define szUNIQUE_KEY          "UNIQUE_KEY"
+#define szSERVER_COL          "SERVER_COL"
+#define szCONSTRAINTS         "CONSTRAINTS"
+#define szDATASET_CONTEXT     "DATASET_CONTEXT"
+#define szDATASET_DELTA       "DATASET_DELTA"
+#define szREADONLY            "READONLY"
+#define szBDEDOMX             "BDEDOMAIN_X"
+#define szBDERECX             "BDERECORD_X"
+#define szBDEDEFX             "BDEDEFAULT_X"
+#define szAUTOINCVALUE        "AUTOINCVALUE"
+#define szELEMENTS            "ELEMENTS"
+#define szTABLENAME           "TABLENAME"
+#define szTYPENAME            "TYPENAME"
+#define szUPDATEMODE          "UPDATEMODE"
+#define szMD_SEMANTICS        "MD_SEMANTICS"
+#define szCALCULATED          "CALCULATED"
+#define szFIELDNAME	         "FIELDNAME"
+-->
+  </xs:complexType>
+  <!-- fieldParams -->
+  <xs:complexType name="fieldParams">
+    <xs:attribute name="DEFAULT_ORDER" type="xs:positiveInteger"/>
+    <xs:attribute name="PRIMARY_KEY" type="xs:positiveInteger"/>
+    <xs:attribute name="LCID" type="xs:positiveInteger"/>
+  </xs:complexType>
+  <!-- FIELDTYPE -->
+  <xs:simpleType name="FIELDTYPE">
+    <xs:restriction base="xs:Name">
+      <!-- observed in real life CDS XML: -->
+      <xs:enumeration value="byte"/>
+      <!-- from Delphi XE file dsxml.h: -->
+      <xs:enumeration value="i1"/>
+      <xs:enumeration value="i2"/>
+      <xs:enumeration value="i4"/>
+      <xs:enumeration value="i8"/>
+      <xs:enumeration value="ui1"/>
+      <xs:enumeration value="ui2"/>
+      <xs:enumeration value="ui4"/>
+      <xs:enumeration value="ui8"/>
+      <xs:enumeration value="r4"/>
+      <xs:enumeration value="r8"/>
+      <xs:enumeration value="r10"/>
+<!-- szXMLFloat/szXMLNumber <xs:enumeration value="r8"/> -->
+      <xs:enumeration value="fixed"/>
+      <xs:enumeration value="fixedFMT"/>
+      <xs:enumeration value="boolean"/>
+      <xs:enumeration value="date"/>
+      <xs:enumeration value="dateTime"/>
+      <xs:enumeration value="time"/>
+      <xs:enumeration value="array"/>
+      <xs:enumeration value="struct"/>
+      <xs:enumeration value="nested"/>
+      <xs:enumeration value="string.uni"/>
+      <xs:enumeration value="string"/>
+      <xs:enumeration value="bin.hex"/>
+      <xs:enumeration value="IntArray"/>
+      <xs:enumeration value="UIntArray"/>
+      <xs:enumeration value="SQLdateTime"/>
+      <xs:enumeration value="SQLdateTimeOffset"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- subtype -->
+  <xs:simpleType name="subtype">
+    <xs:restriction base="xs:Name">
+      <xs:enumeration value="Text"/>
+      <xs:enumeration value="Binary"/>
+      <xs:enumeration value="Formatted"/>
+      <xs:enumeration value="Ole"/>
+      <xs:enumeration value="Graphics"/>
+      <xs:enumeration value="dBASEOle"/>
+      <xs:enumeration value="TypedBinary"/>
+      <xs:enumeration value="Money"/>
+      <xs:enumeration value="Autoinc"/>
+      <xs:enumeration value="AccessOle"/>
+      <xs:enumeration value="HMemo"/>
+      <xs:enumeration value="HBinary"/>
+      <xs:enumeration value="ADTNestedTable"/>
+      <xs:enumeration value="FixedChar"/>
+      <xs:enumeration value="Reference"/>
+      <xs:enumeration value="BFile"/>
+      <xs:enumeration value="ADTDate"/>
+      <xs:enumeration value="Guid"/>
+      <xs:enumeration value="WideText"/>
+      <!-- Binary is required for fieldtype="bin.hex" -->
+      <!-- FixedChar is required for fieldtype="string" when the field is CHAR (but not NCHAR) -->
+      <!-- Guid is required for fieldtype="string" when the field is GUID -->
+      <!-- Text is required for fieldtype="bin.hex" when the underlying field is TEXT or NTEXT (memo?) -->
+      <!-- Money is required for fieldtype="float" when the underlying field is CURRENCY -->
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- PARAM/param -->
+  <xs:element name="PARAM" type="param"/>
+  <xs:complexType name="param">
+    <xs:attribute name="Name" type="paramName" use="required"/>
+    <!-- two forms of Value are possible; xs:Name is for ORIGIN; xs:postiveInteger is for PROVFLAGS (in combination with Type)
+		<xs:attribute name="Value" type="xs:Name" use="required"/>
+		<xs:attribute name="Value" type="xs:postiveInteger" use="required"/>
+-->
+    <xs:attribute name="Value" type="xs:string" use="required"/>
+    <xs:attribute name="Type" type="FIELDTYPE" use="optional"/>
+    <xs:attribute name="Roundtrip" type="xs:Name" use="required" fixed="True"/>
+  </xs:complexType>
+  <!-- paramName -->
+  <xs:simpleType name="paramName">
+    <xs:restriction base="xs:Name">
+      <xs:enumeration value="ORIGIN"/>
+      <xs:enumeration value="PROVFLAGS"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
