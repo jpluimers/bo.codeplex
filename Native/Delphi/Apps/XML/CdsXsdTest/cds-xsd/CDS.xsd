@@ -21,12 +21,15 @@
 	<!-- PARAMS/params -->
 	<xs:element name="PARAMS" type="params"/>
 	<xs:complexType name="params">
-		<xs:attribute name="MD_FIELDLINKS" type="xs:string" use="optional"/>
+    <xs:sequence>
+      <xs:element name="PARAM" type="paramsParam" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="MD_FIELDLINKS" type="xs:string" use="optional"/>
 		<xs:attribute name="DEFAULT_ORDER" type="xs:positiveInteger"/>
 		<xs:attribute name="LCID" type="xs:positiveInteger"/>
 		<xs:attribute name="CHANGE_LOG" type="xs:string" use="optional"/>
 		<xs:attribute name="PRIMARY_KEY" type="xs:positiveInteger" use="optional"/>
-	</xs:complexType>
+  </xs:complexType>
 	<!-- ROWDATA/rowdata -->
 	<xs:element name="ROWDATA" type="rowdata"/>
 	<xs:complexType name="rowdata">

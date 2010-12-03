@@ -5,7 +5,9 @@ program ValidateXmlWithXsd;
 uses
   SysUtils,
   XmlValidatorUnit in '..\..\..\..\bo.XML\XmlValidatorUnit.pas',
-  XmlDumperUnit in '..\..\..\..\bo.XML\XmlDumperUnit.pas';
+  XmlDumperUnit in '..\..\..\..\bo.XML\XmlDumperUnit.pas',
+  XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas',
+  msxmlFactoryUnit in '..\..\..\..\bo.XML\msxmlFactoryUnit.pas';
 
 begin
   try

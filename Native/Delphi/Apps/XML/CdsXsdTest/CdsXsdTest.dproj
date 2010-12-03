@@ -29,7 +29,7 @@
 			<DCC_ExeOutput>.\$(Config)\$(Platform)</DCC_ExeOutput>
 			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
 			<DCC_Define>_CONSOLE_TESTRUNNER;$(DCC_Define)</DCC_Define>
-			<DCC_DcuOutput>.</DCC_DcuOutput>
+			<DCC_DcuOutput>.\$(Config)\$(Platform)</DCC_DcuOutput>
 			<DCC_N>false</DCC_N>
 			<DCC_S>false</DCC_S>
 			<DCC_K>false</DCC_K>
@@ -37,6 +37,7 @@
 			<DCC_F>false</DCC_F>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_DebugDCUs>true</DCC_DebugDCUs>
 			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
 			<DCC_Optimize>false</DCC_Optimize>
 			<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
@@ -53,6 +54,8 @@
 			</DelphiCompile>
 			<DCCReference Include="..\..\..\bo.XML\XmlValidatorUnit.pas"/>
 			<DCCReference Include="CdsXsdTestCaseUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.XML\msxmlFactoryUnit.pas"/>
 			<None Include="cds-xsd\CDS_METADATA_FIELDS_include.xsd"/>
 			<None Include="cds-xsd\CDS.xsd"/>
 			<BuildConfiguration Include="Release">
@@ -112,6 +115,7 @@
 					<SourceProjectName>C:\develop\codeplex\TFS05\bo\Native\Delphi\Apps\XML\XPathTester\prj\XPathTester.dproj</SourceProjectName>
 					<TestFramework>DUnit / Delphi Win32</TestFramework>
 					<TestRunner>GUI</TestRunner>
+					<TestProjectName/>
 				</UnitTesting>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>

@@ -4,7 +4,9 @@ program DumpXml;
 
 uses
   SysUtils,
-  XmlDumperUnit in '..\..\..\..\bo.XML\XmlDumperUnit.pas';
+  XmlDumperUnit in '..\..\..\..\bo.XML\XmlDumperUnit.pas',
+  msxmlFactoryUnit in '..\..\..\..\bo.XML\msxmlFactoryUnit.pas',
+  XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas';
 
 var
   Index: Integer;
