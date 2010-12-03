@@ -1,0 +1,8 @@
+Turbo Dump  Version 6.4.0.0 Copyright (c) 1988-2010 Embarcadero Technologies, Inc.
+                   Display of File 1-normal.xml
+
+000000: 3C 3F 78 6D 6C 20 76 65  72 73 69 6F 6E 20 3D 20 <?xml version =  
+000010: 22 31 2E 30 22 20 65 6E  63 6F 64 69 6E 67 3D 22 "1.0" encoding=" 
+000020: 57 69 6E 64 6F 77 73 2D  31 32 35 32 22 3F 3E 3C Windows-1252"?>< 
+000030: 52 4F 57 20 43 69 74 79  3D 22 E0 22 2F 3E 0D 0A ROW City="."/>.. 
+

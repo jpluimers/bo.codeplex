@@ -27,7 +27,7 @@
     <!-- WIDTH is for Character, BCD, Bytes and Unicode -->
     <xs:attribute name="WIDTH" type="xs:positiveInteger" use="optional"/>
     <xs:attribute name="attrname" type="xs:Name" use="required"/>
-<!-- need to incorporate these; probably as attributes as FIELD :
+    <!-- need to incorporate these; probably as attributes as FIELD :
 #define szUNIQUE_KEY          "UNIQUE_KEY"
 #define szSERVER_COL          "SERVER_COL"
 #define szCONSTRAINTS         "CONSTRAINTS"
@@ -70,7 +70,7 @@
       <xs:enumeration value="r4"/>
       <xs:enumeration value="r8"/>
       <xs:enumeration value="r10"/>
-<!-- szXMLFloat/szXMLNumber <xs:enumeration value="r8"/> -->
+      <!-- szXMLFloat/szXMLNumber <xs:enumeration value="r8"/> -->
       <xs:enumeration value="fixed"/>
       <xs:enumeration value="fixedFMT"/>
       <xs:enumeration value="boolean"/>
@@ -116,6 +116,20 @@
       <!-- Guid is required for fieldtype="string" when the field is GUID -->
       <!-- Text is required for fieldtype="bin.hex" when the underlying field is TEXT or NTEXT (memo?) -->
       <!-- Money is required for fieldtype="float" when the underlying field is CURRENCY -->
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- PARAM in the context of PARAMS -->
+  <xs:complexType name="paramsParam">
+    <xs:attribute name="Name" type="paramsParamNameType" use="required"/>
+    <xs:attribute name="Value" type="xs:string" use="required"/>
+    <xs:attribute name="Type" type="FIELDTYPE" use="required"/>
+  </xs:complexType>
+  <!-- paramsParamNameType-->
+  <xs:simpleType name="paramsParamNameType">
+    <xs:restriction base="xs:Name">
+      <xs:enumeration value="BDEDOMAIN_X"/>
+      <xs:enumeration value="BDERECORD_X"/>
+      <xs:enumeration value="BDEDEFAULT_X"/>
     </xs:restriction>
   </xs:simpleType>
   <!-- PARAM/param -->

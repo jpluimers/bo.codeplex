@@ -30,7 +30,8 @@ implementation
 uses
   SysUtils,
   Variants,
-  ComObj;
+  ComObj,
+  msxmlFactoryUnit;
 
 destructor TXmlDumper.Destroy;
 begin
@@ -52,7 +53,7 @@ var
   XmlDocument: IXMLDOMDocument3;
   node: IXMLDOMNode;
 begin
-  XmlDocument := CoFreeThreadedDOMDocument60.Create();
+  XmlDocument := TmsxmlFactory.CreateXMLDOMDocument3WithValidateOnParse();
   if not Assigned(XmlDocument) then
     RaiseLastOSError();
 

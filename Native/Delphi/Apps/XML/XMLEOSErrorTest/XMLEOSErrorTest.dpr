@@ -1,4 +1,4 @@
-program CdsXsdTest;
+program XMLEOSErrorTest;
 {
 
   Delphi DUnit Test Project
@@ -19,9 +19,9 @@ uses
   TestFramework,
   GUITestRunner,
   TextTestRunner,
-  XmlValidatorUnit in '..\..\..\bo.XML\XmlValidatorUnit.pas',
-  CdsXsdTestCaseUnit in 'CdsXsdTestCaseUnit.pas',
+  XMLEOSErrorTestCaseUnit in 'XMLEOSErrorTestCaseUnit.pas',
   XMLDOMParseErrorToStringUnit in '..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas',
+  XMLDOMParseErrorUnit in '..\..\..\bo.XML\XMLDOMParseErrorUnit.pas',
   msxmlFactoryUnit in '..\..\..\bo.XML\msxmlFactoryUnit.pas';
 
 {$R *.RES}
