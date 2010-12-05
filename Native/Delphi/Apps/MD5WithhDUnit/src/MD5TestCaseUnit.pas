@@ -26,11 +26,9 @@ type
     procedure Test(const RelativeFileName: string); overload; virtual;
   published
     {$IFDEF CLR}[Test]{$ENDIF}
-    procedure Test_; overload;
+    procedure Test_EmptyFileName; overload;
     {$IFDEF CLR}[Test]{$ENDIF}
-    procedure Test_1; overload;
-    {$IFDEF CLR}[Test]{$ENDIF}
-    procedure Test_2; overload;
+    procedure Test_DamnSmallLinuxBootFloppy; overload;
   end;
 
   TMD5StringTestCase<T: TMD5BaseCalculator, constructor> = class(TMD5BaseTestCase<T>)
@@ -138,6 +136,7 @@ begin
     with TStreamReader.Create(Md5FileName) do
     try
       ExpectedMD5Hash := LowerCase(ReadToEnd());
+      ExpectedMD5Hash := Copy(ExpectedMD5Hash, 1, 32);
     finally
       Free;
     end;
@@ -145,21 +144,15 @@ begin
   end;
 end;
 
-procedure TMD5FileTestCase<T>.Test_;
+procedure TMD5FileTestCase<T>.Test_EmptyFileName;
 begin
   Test(S_);
 end;
 
-procedure TMD5FileTestCase<T>.Test_1;
+procedure TMD5FileTestCase<T>.Test_DamnSmallLinuxBootFloppy;
 begin
-  Test('MW7.PL');
+  Test('damn-small-linux.bootfloppy.img');
 end;
-
-procedure TMD5FileTestCase<T>.Test_2;
-begin
-  Test('Progress.ssl.dll');
-end;
-
 
 procedure TMD5StringTestCase<T>.Calculate(const Buffer:string; var MD5Hash: string);
 begin

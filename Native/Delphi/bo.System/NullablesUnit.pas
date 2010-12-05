@@ -345,7 +345,7 @@ begin
   if YearsAdjusted and (FMonths < 1) then
     Inc(FMonths, 11); // 11, since months start at 1 (not at 0)
 
-  RunningMonth := FromDateMonth + FMonths;
+//  RunningMonth := FromDateMonth + FMonths;
   RunningDate := IncMonth(RunningDate, FMonths);
 
   if RunningDate > ToDate then
