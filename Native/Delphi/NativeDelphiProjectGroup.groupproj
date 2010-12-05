@@ -12,9 +12,6 @@
 			<Projects Include="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="Apps\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj">
-				<Dependencies/>
-			</Projects>
 			<Projects Include="Apps\LoggerReporterDemo\prj\LoggerReporterDemoProject.dproj">
 				<Dependencies/>
 			</Projects>
@@ -54,6 +51,9 @@
 			<Projects Include="Tests\MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="Tests\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -88,15 +88,6 @@
 		</Target>
 		<Target Name="CodeGeneratorProject:Make">
 			<MSBuild Projects="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="FreeAndNilPointerUnitTestProject">
-			<MSBuild Projects="Apps\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj"/>
-		</Target>
-		<Target Name="FreeAndNilPointerUnitTestProject:Clean">
-			<MSBuild Projects="Apps\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="FreeAndNilPointerUnitTestProject:Make">
-			<MSBuild Projects="Apps\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="LoggerReporterDemoProject">
 			<MSBuild Projects="Apps\LoggerReporterDemo\prj\LoggerReporterDemoProject.dproj"/>
@@ -215,14 +206,23 @@
 		<Target Name="MD5DUnitGUIProject:Make">
 			<MSBuild Projects="Tests\MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="FreeAndNilPointerUnitTestProject">
+			<MSBuild Projects="Tests\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj"/>
+		</Target>
+		<Target Name="FreeAndNilPointerUnitTestProject:Clean">
+			<MSBuild Projects="Tests\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="FreeAndNilPointerUnitTestProject:Make">
+			<MSBuild Projects="Tests\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;FreeAndNilPointerUnitTestProject;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;FreeAndNilPointerUnitTestProject:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;FreeAndNilPointerUnitTestProject:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>
