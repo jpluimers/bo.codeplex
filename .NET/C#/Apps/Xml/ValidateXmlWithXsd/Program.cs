@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 using bo.Xml;
 
 namespace ValidateXmlWithXsd
@@ -7,7 +8,7 @@ namespace ValidateXmlWithXsd
     {
         static void Main(string[] args)
         {
-            if (2 != args.Length)
+            if (2 > args.Length)
             {
                 Console.WriteLine("use two parameters: XmlFile and XsdFile");
             }
@@ -16,8 +17,9 @@ namespace ValidateXmlWithXsd
                 logic instance = new logic();
                 try
                 {
+                    bool debug = (args.Length > 2);
                     instance.Run(
-                        args[0], args[1]
+                        args[0], args[1], debug
                     );
                 }
                 catch (Exception ex)
@@ -30,8 +32,15 @@ namespace ValidateXmlWithXsd
 
     class logic
     {
-        public void Run(string xmlFileName, string xsdFileName)
+        public bool Debug { get; private set; }
+
+        private XmlNodeType lastXmlNodeType { get; set; }
+        private string lastValue { get; set; }
+
+        public void Run(string xmlFileName, string xsdFileName, bool debug)
         {
+            this.Debug = debug;
+
             bo.Xml.XmlValidator validator = new bo.Xml.XmlValidator();
 
             validator.XmlReadEventHandler += new bo.Xml.XmlReadEventHandler(validator_XmlReadEventHandler);
@@ -42,13 +51,25 @@ namespace ValidateXmlWithXsd
             {
                 result = "OK.";
             }
+            else
+            {
+                if (Debug)
+                {
+                    Console.WriteLine("last node={0}: {1}", lastXmlNodeType, lastValue);
+                }
+            }
             Console.WriteLine(result);
         }
 
         void validator_XmlReadEventHandler(object sender, bo.Xml.XmlReadEventArgs e)
         {
-            //if (reader.NodeType == XmlNodeType.Text)
-            //    Console.WriteLine(reader.Value);
+            if (Debug)
+            {
+                if (e.Reader.NodeType == XmlNodeType.Text)
+                    Console.WriteLine(e.Reader.Value);
+                lastXmlNodeType = e.Reader.NodeType;
+                lastValue = e.Reader.Value;
+            }
         }
 
     }
