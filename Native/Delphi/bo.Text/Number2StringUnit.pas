@@ -571,7 +571,6 @@ var
   LTensNames: TStringArray10;
   LUseAndConjunction: Boolean;
   LZeroToString: string;
-  Index: Integer;
 begin
   if not Assigned(FNumber2StringStaticProperties) then
   begin
@@ -682,7 +681,6 @@ var
   LTensNames: TStringArray10;
   LUseAndConjunction: Boolean;
   LZeroToString: string;
-  Index: Integer;
 begin
   if not Assigned(FNumber2StringStaticProperties) then
   begin
@@ -1004,7 +1002,6 @@ var
   LTensNames: TStringArray10;
   LUseAndConjunction: Boolean;
   LZeroToString: string;
-  Index: Integer;
 begin
   if not Assigned(FNumber2StringStaticProperties) then
   begin

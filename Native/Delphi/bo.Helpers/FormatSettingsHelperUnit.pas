@@ -100,7 +100,13 @@ end;
 
 class function TFormatSettingsHelper.GetLocaleFormatSettings: TFormatSettings;
 begin
+{$ifdef old DelphiVersions}
   SysUtils.GetLocaleFormatSettings(LocaleId, Result);
+{$else}
+{$WARN SYMBOL_PLATFORM OFF}
+  Result := SysUtils.TFormatSettings.Create(LocaleId)
+{$WARN SYMBOL_PLATFORM ON}
+{$endif}
 end;
 
 class function TFormatSettingsHelper.GetLocaleID: Integer;
