@@ -1,3 +1,14 @@
+{$ifdef DEBUG}
+  {$define FastMM}
+  {$define EnableMemoryLeakReporting}
+  {$define FullDebugMode}
+  {$define FullDebugModeCallBacks}
+  { $define RawStackTraces}
+  {$define CatchUseOfFreedInterfaces} // disables CheckUseOfFreedBlocksOnShutdown
+  { $define NoRaiseExceptionsForInterfaceError} //##jpl
+  { $define NoRaiseExceptionsForVirtualMethodError} //##jpl
+{$endif DEBUG}
+
 {
 
 Fast Memory Manager: Options Include File
