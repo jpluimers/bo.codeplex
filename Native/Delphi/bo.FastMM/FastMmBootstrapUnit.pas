@@ -7,7 +7,7 @@ unit FastMmBootstrapUnit;
 
 interface
 
-{$Include ..\..\FastMM\UnderConstruction\FastMM4Options.inc}
+{$Include ..\..\..\..\..\Forks\FastMM\FastMM4Options.inc}
 
 {$IFDEF FastMM}
 uses
@@ -262,10 +262,12 @@ initialization
 
 finalization
   SysUtils.FreeAndNil(GThreadCount);
+{$if RTLVersion <= 20} // Delphi 2009
   GSocketListClassPointer := @GSocketListClass;
   GStackCriticalSectionPointer := Pointer(Cardinal(GSocketListClassPointer) + 8);
   GStackCriticalSection := GStackCriticalSectionPointer;
   SysUtils.FreeAndNil(GStackCriticalSection^);
+{$ifend}
 {$ENDIF FastMM}
 end.
 
