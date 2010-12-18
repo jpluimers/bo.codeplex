@@ -1,3 +1,5 @@
+{$I Defines.inc}
+
 (*
 
 Fast Memory Manager 4.96
