@@ -3,7 +3,8 @@ unit OutputDebugViewLoggerUnit;
 interface
 
 uses
-  ReporterUnit, ReportingLoggerUnit;
+  ReporterUnit,
+  ReportingLoggerUnit;
 
 type
   TOutputDebugViewLogger = class(TReportingLogger)

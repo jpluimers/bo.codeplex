@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, LoggerUnit;
+  Dialogs, StdCtrls, ExtCtrls, LoggerUnit, LoggerInterfaceUnit;
 
 type
   TMainForm = class(TForm)
@@ -15,10 +15,10 @@ type
     LogButton: TButton;
     procedure LogButtonClick(Sender: TObject);
   strict private
-    FLogger: TLogger;
+    FLogger: ILogger;
   strict protected
-    function GetLogger: TLogger;
-    property Logger: TLogger read GetLogger;
+    function GetLogger: ILogger;
+    property Logger: ILogger read GetLogger;
   public
     destructor Destroy; override;
   end;
@@ -36,11 +36,10 @@ uses
 destructor TMainForm.Destroy;
 begin
   inherited Destroy;
-  FLogger.Free;
   FLogger := nil;
 end;
 
-function TMainForm.GetLogger: TLogger;
+function TMainForm.GetLogger: ILogger;
 begin
   if not Assigned(FLogger) then
     FLogger :=  TTeeLogger.Create([
@@ -54,6 +53,7 @@ end;
 procedure TMainForm.LogButtonClick(Sender: TObject);
 begin
   Logger.Log(Sender.ClassName, (Sender as TComponent).Name);
+  Logger.Log('Foo Bar', 1, 'Foo', 'Bar');
 end;
 
 end.

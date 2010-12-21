@@ -6,7 +6,8 @@ uses
   SysUtils,
   XmlDumperUnit in '..\..\..\..\bo.XML\XmlDumperUnit.pas',
   msxmlFactoryUnit in '..\..\..\..\bo.XML\msxmlFactoryUnit.pas',
-  XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas';
+  XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas',
+  FileVersionUnit in '..\..\..\..\bo.System\FileVersionUnit.pas';
 
 var
   Index: Integer;

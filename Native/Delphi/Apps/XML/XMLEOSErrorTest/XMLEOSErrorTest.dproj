@@ -2,7 +2,7 @@
 		<PropertyGroup>
 			<ProjectGuid>{76792565-72B9-4E51-A2CA-08D67FE3C209}</ProjectGuid>
 			<MainSource>XMLEOSErrorTest.dpr</MainSource>
-			<ProjectVersion>12.2</ProjectVersion>
+			<ProjectVersion>12.3</ProjectVersion>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform>Win32</Platform>
@@ -55,6 +55,7 @@
 			<DCCReference Include="..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.XML\XMLDOMParseErrorUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.XML\msxmlFactoryUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.System\FileVersionUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -68,7 +69,7 @@
 			</BuildConfiguration>
 		</ItemGroup>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
-		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj"/>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
 		<ProjectExtensions>
 			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
 			<Borland.ProjectType/>

@@ -1,66 +1,84 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{97FE6F70-EC7F-4F0D-A515-DADC3902FA20}</ProjectGuid>
+			<ProjectGuid>{9CD5978E-11F7-4D04-B52F-EEAF047D9245}</ProjectGuid>
+			<MainSource>GenericPublicSubscribeVCLProject.dpr</MainSource>
 			<ProjectVersion>12.3</ProjectVersion>
-			<MainSource>FreeAndNilPointerUnitTestProject.dpr</MainSource>
-			<Config Condition="'$(Config)'==''">Debug</Config>
-			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
 			<Base>True</Base>
+			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform>Win32</Platform>
-			<AppType>Console</AppType>
+			<AppType>Application</AppType>
 			<FrameworkType>VCL</FrameworkType>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
 			<Base>true</Base>
 		</PropertyGroup>
-		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
 			<Cfg_1>true</Cfg_1>
 			<CfgParent>Base</CfgParent>
 			<Base>true</Base>
 		</PropertyGroup>
-		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
 			<Cfg_2>true</Cfg_2>
 			<CfgParent>Base</CfgParent>
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_ExeOutput>..\bin</DCC_ExeOutput>
-			<DCC_DependencyCheckOutputName>..\bin\FreeAndNilPointerUnitTestProject.exe</DCC_DependencyCheckOutputName>
 			<DCC_ImageBase>00400000</DCC_ImageBase>
-			<DCC_BplOutput>..\lib</DCC_BplOutput>
-			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
-			<DCC_Platform>x86</DCC_Platform>
-			<DCC_DcuOutput>..\lib</DCC_DcuOutput>
+			<DCC_DcuOutput>.\$(Config)\$(Platform)</DCC_DcuOutput>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_ExeOutput>.\$(Config)\$(Platform)</DCC_ExeOutput>
+			<DCC_E>false</DCC_E>
 			<DCC_N>false</DCC_N>
 			<DCC_S>false</DCC_S>
-			<DCC_DcpOutput>..\lib</DCC_DcpOutput>
-			<DCC_E>false</DCC_E>
 			<DCC_F>false</DCC_F>
 			<DCC_K>false</DCC_K>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_DebugDCUs>true</DCC_DebugDCUs>
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+			<DCC_Optimize>false</DCC_Optimize>
+			<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
 			<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
 			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
 			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
 			<DCC_DebugInformation>false</DCC_DebugInformation>
 		</PropertyGroup>
-		<PropertyGroup Condition="'$(Cfg_2)'!=''">
-			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
-		</PropertyGroup>
 		<ItemGroup>
-			<DelphiCompile Include="FreeAndNilPointerUnitTestProject.dpr">
+			<DelphiCompile Include="GenericPublicSubscribeVCLProject.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="..\src\FreeAndNilPointerTestCaseUnit.pas"/>
-			<DCCReference Include="..\src\FreeAndNilPointerUnit.pas"/>
-			<BuildConfiguration Include="Debug">
+			<DCCReference Include="..\src\GenericPublishSubscribeMainFormUnit.pas">
+				<Form>GenericPublishSubscribeMainForm</Form>
+			</DCCReference>
+			<DCCReference Include="..\src\MessageServiceUnit.pas"/>
+			<DCCReference Include="..\src\MessageSubscribersUnit.pas"/>
+			<DCCReference Include="..\src\MessagesUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\LoggerUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\LoggersUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\ReporterUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\ReportProxyUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.TypeInfo\RecordTypeInfoUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\ReportingLoggerUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\ReportersUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DebugView\OutputDebugViewLoggerUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DebugView\OutputDebugViewReporterUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DebugView\OutputDebugViewUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Debugging\DebuggingUnit.pas"/>
+			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
 			</BuildConfiguration>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
-			<BuildConfiguration Include="Release">
+			<BuildConfiguration Include="Debug">
 				<Key>Cfg_1</Key>
 				<CfgParent>Base</CfgParent>
 			</BuildConfiguration>
@@ -72,10 +90,6 @@
 			<Borland.ProjectType/>
 			<BorlandProject>
 				<Delphi.Personality>
-					<Source>
-						<Source Name="MainSource">FreeAndNilPointerUnitTestProject.dpr</Source>
-					</Source>
-					<Parameters/>
 					<VersionInfo>
 						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
 						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
@@ -103,6 +117,9 @@
 						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
+					<Source>
+						<Source Name="MainSource">GenericPublicSubscribeVCLProject.dpr</Source>
+					</Source>
 				</Delphi.Personality>
 				<Platforms>
 					<Platform value="Win32">True</Platform>

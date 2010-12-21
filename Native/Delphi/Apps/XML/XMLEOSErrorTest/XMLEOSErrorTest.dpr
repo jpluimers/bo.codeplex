@@ -22,7 +22,8 @@ uses
   XMLEOSErrorTestCaseUnit in 'XMLEOSErrorTestCaseUnit.pas',
   XMLDOMParseErrorToStringUnit in '..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas',
   XMLDOMParseErrorUnit in '..\..\..\bo.XML\XMLDOMParseErrorUnit.pas',
-  msxmlFactoryUnit in '..\..\..\bo.XML\msxmlFactoryUnit.pas';
+  msxmlFactoryUnit in '..\..\..\bo.XML\msxmlFactoryUnit.pas',
+  FileVersionUnit in '..\..\..\bo.System\FileVersionUnit.pas';
 
 {$R *.RES}
 

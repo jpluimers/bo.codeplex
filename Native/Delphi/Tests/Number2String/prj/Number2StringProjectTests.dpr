@@ -24,7 +24,8 @@ uses
   Number2StringUnit in '..\..\..\bo.Text\Number2StringUnit.pas',
   ConcreteCollectionsUnit in '..\..\..\bo.Generics\ConcreteCollectionsUnit.pas',
   MathUnit in '..\..\..\bo.System\MathUnit.pas',
-  DivModUnit in '..\..\..\bo.System\DivModUnit.pas';
+  DivModUnit in '..\..\..\bo.System\DivModUnit.pas',
+  AbstractTestNumber2StringUnit in '..\src\AbstractTestNumber2StringUnit.pas';
 
 {$R *.RES}
 

@@ -22,7 +22,8 @@ uses
   XmlValidatorUnit in '..\..\..\bo.XML\XmlValidatorUnit.pas',
   CdsXsdTestCaseUnit in 'CdsXsdTestCaseUnit.pas',
   XMLDOMParseErrorToStringUnit in '..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas',
-  msxmlFactoryUnit in '..\..\..\bo.XML\msxmlFactoryUnit.pas';
+  msxmlFactoryUnit in '..\..\..\bo.XML\msxmlFactoryUnit.pas',
+  FileVersionUnit in '..\..\..\bo.System\FileVersionUnit.pas';
 
 {$R *.RES}
 
