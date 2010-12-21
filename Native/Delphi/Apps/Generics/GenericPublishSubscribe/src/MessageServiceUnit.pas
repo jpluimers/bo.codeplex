@@ -3,26 +3,11 @@ unit MessageServiceUnit;
 interface
 
 uses
-  Generics.Collections;
+  Generics.Collections,
+  ClassicMessageSubscriberUnit,
+  GenericSubscriberOfUnit;
 
 type
-  IImplementedWithClass = interface(IInterface)
-    function ToString: string;
-  end;
-
-  IMessage = interface(IImplementedWithClass)
-    ['{B1794F44-F6EE-4E7B-849A-995F05897E1C}']
-  end;
-
-  ISubscriber = interface(IImplementedWithClass)
-    ['{D655967E-90C6-4613-92C5-1E5B53619EE0}']
-  end;
-
-  ISubscriberOf<T: IMessage> = interface(ISubscriber)
-    ['{6FD82B1D-61C6-4572-BA7D-D70DA9A73285}']
-    procedure Consume(const Message: T);
-    function Supports(const Message: T): Boolean;
-  end;
   ISubscriberOfIMessage = ISubscriberOf<IMessage>;
   TListISubscriber = TList<ISubscriber>;
 

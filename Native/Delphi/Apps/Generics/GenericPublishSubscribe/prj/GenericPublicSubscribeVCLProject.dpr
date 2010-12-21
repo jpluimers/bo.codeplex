@@ -3,6 +3,8 @@ program GenericPublicSubscribeVCLProject;
 uses
   Forms,
   GenericPublishSubscribeMainFormUnit in '..\src\GenericPublishSubscribeMainFormUnit.pas' {GenericPublishSubscribeMainForm},
+  ClassicMessageSubscriberUnit in '..\src\ClassicMessageSubscriberUnit.pas',
+  GenericSubscriberOfUnit in '..\src\GenericSubscriberOfUnit.pas',
   MessageServiceUnit in '..\src\MessageServiceUnit.pas',
   MessageSubscribersUnit in '..\src\MessageSubscribersUnit.pas',
   MessagesUnit in '..\src\MessagesUnit.pas',
@@ -20,7 +22,8 @@ uses
   OutputDebugViewLoggerUnit in '..\..\..\..\bo.DebugView\OutputDebugViewLoggerUnit.pas',
   OutputDebugViewReporterUnit in '..\..\..\..\bo.DebugView\OutputDebugViewReporterUnit.pas',
   OutputDebugViewUnit in '..\..\..\..\bo.DebugView\OutputDebugViewUnit.pas',
-  DebuggingUnit in '..\..\..\..\bo.Debugging\DebuggingUnit.pas';
+  DebuggingUnit in '..\..\..\..\bo.Debugging\DebuggingUnit.pas',
+  RttiUnit in '..\..\..\..\bo.RTTI\RttiUnit.pas';
 
 {$R *.res}
 
