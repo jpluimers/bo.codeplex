@@ -7,7 +7,8 @@ uses
   XmlValidatorUnit in '..\..\..\..\bo.XML\XmlValidatorUnit.pas',
   XmlDumperUnit in '..\..\..\..\bo.XML\XmlDumperUnit.pas',
   XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas',
-  msxmlFactoryUnit in '..\..\..\..\bo.XML\msxmlFactoryUnit.pas';
+  msxmlFactoryUnit in '..\..\..\..\bo.XML\msxmlFactoryUnit.pas',
+  FileVersionUnit in '..\..\..\..\bo.System\FileVersionUnit.pas';
 
 begin
   try

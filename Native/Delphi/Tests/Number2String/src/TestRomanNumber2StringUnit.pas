@@ -6,146 +6,107 @@ uses
   TestFramework,
   Number2StringUnit,
   SysUtils,
-  ConcreteCollectionsUnit;
+  ConcreteCollectionsUnit,
+  AbstractTestNumber2StringUnit;
 
 type
-  // Test methods for class TRomanNumber2String
-  TestTRomanNumber2String = class(TTestCase)
-  strict private
-    FMatches: TInt64StringPairList;
+  TestTRomanNumber2String = class(TAbstractTestTNumber2String)
   strict protected
-    procedure AddRomanMatches; virtual;
-  public
-    procedure SetUp; override;
-    procedure TearDown; override;
+    procedure AddMatches; override;
+    function CreateNumber2String: INumber2String; override;
   published
-    procedure TestNumber2String;
     procedure TestString2Number;
   end;
 
 implementation
 
-procedure TestTRomanNumber2String.SetUp;
-begin
-  inherited SetUp();
-  FMatches := TInt64StringPairList.Create();
-end;
-
-procedure TestTRomanNumber2String.TearDown;
-begin
-  FMatches.Free;
-  FMatches := nil;
-  inherited TearDown();
-end;
-
-procedure TestTRomanNumber2String.TestNumber2String;
-var
-  Number2RomanString: TNumber2RomanString;
-
-  Match: TInt64StringPair;
-  Result: string;
-  Key: Int64;
-  Value: string;
-begin
-  Number2RomanString := TNumber2RomanString.Create();
-  try
-    for Match in FMatches do
-    begin
-      Key := Match.Key;
-      Result := Number2RomanString.ToString(Key);
-      Value := Match.Value;
-      if Result <> Value then // retry for debugging
-        Result := Number2RomanString.ToString(Key);
-      Self.CheckEquals(Value, Result, Format('Key=%d', [Key]));
-    end;
-
-  finally
-    Number2RomanString.Free;
-  end;
-end;
-
-procedure TestTRomanNumber2String.AddRomanMatches;
+procedure TestTRomanNumber2String.AddMatches;
 begin
   // http://mathworld.wolfram.com/RomanNumerals.html
   // http://en.wikipedia.org/wiki/Roman_numerals
-  FMatches.Add(TInt64StringPair.Create(0, 'none'));
-  FMatches.Add(TInt64StringPair.Create(1, 'I'));
-  FMatches.Add(TInt64StringPair.Create(2, 'II'));
-  FMatches.Add(TInt64StringPair.Create(3, 'III'));
-  FMatches.Add(TInt64StringPair.Create(4, 'IV'));
-  FMatches.Add(TInt64StringPair.Create(5, 'V'));
-  FMatches.Add(TInt64StringPair.Create(6, 'VI'));
-  FMatches.Add(TInt64StringPair.Create(7, 'VII'));
-  FMatches.Add(TInt64StringPair.Create(8, 'VIII'));
-  FMatches.Add(TInt64StringPair.Create(9, 'IX'));
-  FMatches.Add(TInt64StringPair.Create(10, 'X'));
-  FMatches.Add(TInt64StringPair.Create(11, 'XI'));
-  FMatches.Add(TInt64StringPair.Create(12, 'XII'));
-  FMatches.Add(TInt64StringPair.Create(13, 'XIII'));
-  FMatches.Add(TInt64StringPair.Create(14, 'XIV'));
-  FMatches.Add(TInt64StringPair.Create(15, 'XV'));
-  FMatches.Add(TInt64StringPair.Create(16, 'XVI'));
-  FMatches.Add(TInt64StringPair.Create(17, 'XVII'));
-  FMatches.Add(TInt64StringPair.Create(18, 'XVIII'));
-  FMatches.Add(TInt64StringPair.Create(19, 'XIX'));
-  FMatches.Add(TInt64StringPair.Create(20, 'XX'));
-  FMatches.Add(TInt64StringPair.Create(21, 'XXI'));
-  FMatches.Add(TInt64StringPair.Create(25, 'XXV'));
-  FMatches.Add(TInt64StringPair.Create(30, 'XXX'));
-  FMatches.Add(TInt64StringPair.Create(35, 'XXXV'));
-  FMatches.Add(TInt64StringPair.Create(40, 'XL'));
-  FMatches.Add(TInt64StringPair.Create(45, 'XLV'));
-  FMatches.Add(TInt64StringPair.Create(49, 'XLIX'));
-  FMatches.Add(TInt64StringPair.Create(50, 'L'));
-  FMatches.Add(TInt64StringPair.Create(60, 'LX'));
-  FMatches.Add(TInt64StringPair.Create(69, 'LXIX'));
-  FMatches.Add(TInt64StringPair.Create(70, 'LXX'));
-  FMatches.Add(TInt64StringPair.Create(76, 'LXXVI'));
-  FMatches.Add(TInt64StringPair.Create(80, 'LXXX'));
-  FMatches.Add(TInt64StringPair.Create(90, 'XC'));
-  FMatches.Add(TInt64StringPair.Create(99, 'XCIX'));
-  FMatches.Add(TInt64StringPair.Create(100, 'C'));
-  FMatches.Add(TInt64StringPair.Create(110, 'CX'));
-  FMatches.Add(TInt64StringPair.Create(150, 'CL'));
-  FMatches.Add(TInt64StringPair.Create(200, 'CC'));
-  FMatches.Add(TInt64StringPair.Create(300, 'CCC'));
-  FMatches.Add(TInt64StringPair.Create(400, 'CD'));
-  FMatches.Add(TInt64StringPair.Create(499, 'CDXCIX'));
-  FMatches.Add(TInt64StringPair.Create(500, 'D'));
-  FMatches.Add(TInt64StringPair.Create(600, 'DC'));
-  FMatches.Add(TInt64StringPair.Create(666, 'DCLXVI'));
-  FMatches.Add(TInt64StringPair.Create(700, 'DCC'));
-  FMatches.Add(TInt64StringPair.Create(800, 'DCCC'));
-  FMatches.Add(TInt64StringPair.Create(900, 'CM'));
-  FMatches.Add(TInt64StringPair.Create(999, 'CMXCIX'));
-  FMatches.Add(TInt64StringPair.Create(1000, 'M'));
-  FMatches.Add(TInt64StringPair.Create(1444, 'MCDXLIV'));
-  FMatches.Add(TInt64StringPair.Create(1666, 'MDCLXVI'));
-  FMatches.Add(TInt64StringPair.Create(1990, 'MCMXC'));
-  FMatches.Add(TInt64StringPair.Create(1999, 'MCMXCIX'));
-  FMatches.Add(TInt64StringPair.Create(2000, 'MM'));
-  FMatches.Add(TInt64StringPair.Create(2001, 'MMI'));
-  FMatches.Add(TInt64StringPair.Create(2010, 'MMX'));
-  FMatches.Add(TInt64StringPair.Create(2012, 'MMXII'));
-  FMatches.Add(TInt64StringPair.Create(2500, 'MMD'));
-  FMatches.Add(TInt64StringPair.Create(3000, 'MMM'));
-  FMatches.Add(TInt64StringPair.Create(3888, 'MMMDCCCLXXXVIII'));
-  FMatches.Add(TInt64StringPair.Create(3999, 'MMMCMXCIX'));
-  FMatches.Add(TInt64StringPair.Create(4000, '(I)(V)'));
-  FMatches.Add(TInt64StringPair.Create(5000, '(V)'));
-  FMatches.Add(TInt64StringPair.Create(6666, '(V)MDCLXVI'));
+  AddMatch(0, 'none');
+  AddMatch(1, 'I');
+  AddMatch(2, 'II');
+  AddMatch(3, 'III');
+  AddMatch(4, 'IV');
+  AddMatch(5, 'V');
+  AddMatch(6, 'VI');
+  AddMatch(7, 'VII');
+  AddMatch(8, 'VIII');
+  AddMatch(9, 'IX');
+  AddMatch(10, 'X');
+  AddMatch(11, 'XI');
+  AddMatch(12, 'XII');
+  AddMatch(13, 'XIII');
+  AddMatch(14, 'XIV');
+  AddMatch(15, 'XV');
+  AddMatch(16, 'XVI');
+  AddMatch(17, 'XVII');
+  AddMatch(18, 'XVIII');
+  AddMatch(19, 'XIX');
+  AddMatch(20, 'XX');
+  AddMatch(21, 'XXI');
+  AddMatch(25, 'XXV');
+  AddMatch(30, 'XXX');
+  AddMatch(35, 'XXXV');
+  AddMatch(40, 'XL');
+  AddMatch(45, 'XLV');
+  AddMatch(49, 'XLIX');
+  AddMatch(50, 'L');
+  AddMatch(60, 'LX');
+  AddMatch(69, 'LXIX');
+  AddMatch(70, 'LXX');
+  AddMatch(76, 'LXXVI');
+  AddMatch(80, 'LXXX');
+  AddMatch(90, 'XC');
+  AddMatch(99, 'XCIX');
+  AddMatch(100, 'C');
+  AddMatch(110, 'CX');
+  AddMatch(150, 'CL');
+  AddMatch(200, 'CC');
+  AddMatch(300, 'CCC');
+  AddMatch(400, 'CD');
+  AddMatch(499, 'CDXCIX');
+  AddMatch(500, 'D');
+  AddMatch(600, 'DC');
+  AddMatch(666, 'DCLXVI');
+  AddMatch(700, 'DCC');
+  AddMatch(800, 'DCCC');
+  AddMatch(900, 'CM');
+  AddMatch(999, 'CMXCIX');
+  AddMatch(1000, 'M');
+  AddMatch(1444, 'MCDXLIV');
+  AddMatch(1666, 'MDCLXVI');
+  AddMatch(1990, 'MCMXC');
+  AddMatch(1999, 'MCMXCIX');
+  AddMatch(2000, 'MM');
+  AddMatch(2001, 'MMI');
+  AddMatch(2010, 'MMX');
+  AddMatch(2012, 'MMXII');
+  AddMatch(2500, 'MMD');
+  AddMatch(3000, 'MMM');
+  AddMatch(3888, 'MMMDCCCLXXXVIII');
+  AddMatch(3999, 'MMMCMXCIX');
+  AddMatch(4000, '(I)(V)');
+  AddMatch(5000, '(V)');
+  AddMatch(6666, '(V)MDCLXVI');
   // 6666 uses M as thousand, not (I)
-  FMatches.Add(TInt64StringPair.Create(10000, '(X)'));
-  FMatches.Add(TInt64StringPair.Create(50000, '(L)'));
-  FMatches.Add(TInt64StringPair.Create(100000, '(C)'));
-  FMatches.Add(TInt64StringPair.Create(500000, '(D)'));
-  FMatches.Add(TInt64StringPair.Create(1000000, '(M)'));
-  FMatches.Add(TInt64StringPair.Create(1444000, '(M)(C)(D)(X)(L)(I)(V)'));
-  FMatches.Add(TInt64StringPair.Create(1666000, '(M)(D)(C)(L)(X)(V)M'));
+  AddMatch(10000, '(X)');
+  AddMatch(50000, '(L)');
+  AddMatch(100000, '(C)');
+  AddMatch(500000, '(D)');
+  AddMatch(1000000, '(M)');
+  AddMatch(1444000, '(M)(C)(D)(X)(L)(I)(V)');
+  AddMatch(1666000, '(M)(D)(C)(L)(X)(V)M');
   // note: wikipedia states (M)(D)(C)(L)(X)(V)(I), but (I) should be M to be consistent with 6666
-  FMatches.Add(TInt64StringPair.Create(2000000, '(M)(M)'));
-  FMatches.Add(TInt64StringPair.Create(3888000, '(M)(M)(M)(D)(C)(C)(C)(L)(X)(X)(X)(V)MMM'));
+  AddMatch(2000000, '(M)(M)');
+  AddMatch(3888000, '(M)(M)(M)(D)(C)(C)(C)(L)(X)(X)(X)(V)MMM');
   // note: (M)(M)(M)(D)(C)(C)(C)(L)(X)(X)(X)(V)(I)(I)(I), but (I) should be M to be consistent with 6666
+end;
+
+function TestTRomanNumber2String.CreateNumber2String: INumber2String;
+begin
+  Result := TNumber2RomanString.Create;
 end;
 
 procedure TestTRomanNumber2String.TestString2Number;
@@ -157,7 +118,7 @@ var
 begin
   Number2RomanString := TNumber2RomanString.Create();
   try
-    for Match in FMatches do
+    for Match in Matches do
     begin
       Value := Match.Value;
       Key := Number2RomanString.Parse(Value);

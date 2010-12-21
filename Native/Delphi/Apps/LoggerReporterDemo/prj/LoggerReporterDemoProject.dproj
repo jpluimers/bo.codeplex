@@ -2,7 +2,7 @@
 		<PropertyGroup>
 			<ProjectGuid>{DA9304A2-BB38-4958-A1AB-4CCE2D42FFCF}</ProjectGuid>
 			<MainSource>LoggerReporterDemoProject.dpr</MainSource>
-			<ProjectVersion>12.2</ProjectVersion>
+			<ProjectVersion>12.3</ProjectVersion>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform>Win32</Platform>
@@ -65,6 +65,8 @@
 			<DCCReference Include="..\..\..\bo.Logging\ReportingLoggerUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.Logging\ReportersUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.Debugging\DebuggingUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.Logging\LoggerInterfaceUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -78,7 +80,7 @@
 			</BuildConfiguration>
 		</ItemGroup>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
-		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj"/>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
 		<ProjectExtensions>
 			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
 			<Borland.ProjectType/>

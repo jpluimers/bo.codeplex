@@ -54,6 +54,15 @@
 			<Projects Include="Tests\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="Apps\VoertuigDemo\prj\VoertuigDemo.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Apps\Generics\GenericPublishSubscribe\prj\GenericPublicSubscribeVCLProject.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -215,14 +224,41 @@
 		<Target Name="FreeAndNilPointerUnitTestProject:Make">
 			<MSBuild Projects="Tests\FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="VoertuigDemo">
+			<MSBuild Projects="Apps\VoertuigDemo\prj\VoertuigDemo.dproj"/>
+		</Target>
+		<Target Name="VoertuigDemo:Clean">
+			<MSBuild Projects="Apps\VoertuigDemo\prj\VoertuigDemo.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="VoertuigDemo:Make">
+			<MSBuild Projects="Apps\VoertuigDemo\prj\VoertuigDemo.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="FastMMUsageTrackerProject">
+			<MSBuild Projects="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject.dproj"/>
+		</Target>
+		<Target Name="FastMMUsageTrackerProject:Clean">
+			<MSBuild Projects="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="FastMMUsageTrackerProject:Make">
+			<MSBuild Projects="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="GenericPublicSubscribeVCLProject">
+			<MSBuild Projects="Apps\Generics\GenericPublishSubscribe\prj\GenericPublicSubscribeVCLProject.dproj"/>
+		</Target>
+		<Target Name="GenericPublicSubscribeVCLProject:Clean">
+			<MSBuild Projects="Apps\Generics\GenericPublishSubscribe\prj\GenericPublicSubscribeVCLProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="GenericPublicSubscribeVCLProject:Make">
+			<MSBuild Projects="Apps\Generics\GenericPublishSubscribe\prj\GenericPublicSubscribeVCLProject.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject;VoertuigDemo;FastMMUsageTrackerProject;GenericPublicSubscribeVCLProject"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean;VoertuigDemo:Clean;FastMMUsageTrackerProject:Clean;GenericPublicSubscribeVCLProject:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make;VoertuigDemo:Make;FastMMUsageTrackerProject:Make;GenericPublicSubscribeVCLProject:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

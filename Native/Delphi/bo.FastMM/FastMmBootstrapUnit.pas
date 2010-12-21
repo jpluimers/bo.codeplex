@@ -1,7 +1,9 @@
+// FastMmBootstrapUnit does not do anything when the FASTMM conditional is undefined
+
 // if you want to enable FastMM, use this unit as the first one in your project
 
 // note you also need something like this in your postbuild event:
-// copy /y "..\..\FastMM\UnderConstruction\FullDebugMode DLL\Precompiled\FastMM_FullDebugMode.dll"  $(OUTPUTDIR)
+// copy /y "..\..\..\..\..\Forks\FastMM\FullDebugMode DLL\Precompiled\FastMM_FullDebugMode.dll"  $(OUTPUTDIR)
 
 unit FastMmBootstrapUnit;
 
@@ -23,8 +25,13 @@ procedure Main(const Method: TMethod);
 
 implementation
 
+{$IFDEF FastMM}
 uses
-  SysUtils, IdGlobal, Classes, Windows;
+  SysUtils,
+  IdGlobal,
+  Classes,
+  Windows;
+{$ENDIF FastMM}
 
 procedure Main(const Method: TMethod);
 begin
@@ -32,14 +39,17 @@ begin
   ReportMemoryLeaksOnShutdown := true;
   RegisterExpectedMemoryLeak(IdThread.GThreadCount);
 {$ENDIF FastMM}
-  Method();
+  if Assigned(Method) then
+    Method();
 end;
 
 {$IFDEF FastMM}
+{$if RTLVersion <= 20} // Delphi 2009
 var
   GSocketListClassPointer: Pointer;
   GStackCriticalSectionPointer: Pointer;
   GStackCriticalSection: ^TIdCriticalSection;
+{$ifend}
 
 {$IFDEF FullDebugMode}
 
@@ -168,8 +178,8 @@ end;
 const // TOracleAQPayload($7FEB5850); Pointer(Result) = $7FEB5868;
   InterfaceInstanceToTrack: Pointer = Pointer($0); // Pointer($7FEB5868); //Pointer($0); // $7FABB530
   // $7FB3E304, if you want to track an interface that is been used after it is freed 0x7FB3E304
-  MinAllocationNumberToTrack = 0; // 3400; // 135025; 128823; // 0 if none to check
-  MaxAllocationNumberToTrack = 0; // 3402; // 0 if only MinAllocationNumberToTrack is being checked as the only one to check
+  MinAllocationNumberToTrack = 0; // 3313; // 0 if none to check
+  MaxAllocationNumberToTrack = 0; // 3313; // 0 if only MinAllocationNumberToTrack is being checked as the only one to check
   BreakOnMyOnDebugGetMemFinish = True;
   BreakOnMyOnDebugFreeMemStart = False;
   BreakOnMyOnDebugFreeMemFinish = False;

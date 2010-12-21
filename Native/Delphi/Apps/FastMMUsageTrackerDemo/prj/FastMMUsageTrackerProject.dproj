@@ -2,7 +2,7 @@
 		<PropertyGroup>
 			<ProjectGuid>{F86BB87F-8F44-40C9-8537-A741187786CD}</ProjectGuid>
 			<MainSource>FastMMUsageTrackerProject.dpr</MainSource>
-			<ProjectVersion>12.2</ProjectVersion>
+			<ProjectVersion>12.3</ProjectVersion>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform>Win32</Platform>
@@ -77,7 +77,7 @@
 			</BuildConfiguration>
 		</ItemGroup>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
-		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj"/>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
 		<PropertyGroup>
 			<PostBuildEvent><![CDATA[copy /y "..\..\..\..\..\Forks\FastMM\FullDebugMode DLL\Precompiled\FastMM_FullDebugMode.dll"  $(OUTPUTDIR)]]></PostBuildEvent>
 		</PropertyGroup>

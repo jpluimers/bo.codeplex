@@ -2,7 +2,7 @@
 		<PropertyGroup>
 			<ProjectGuid>{AC8FFFB6-937D-4FC5-884C-0DECA8F98692}</ProjectGuid>
 			<MainSource>UseORMProject.dpr</MainSource>
-			<ProjectVersion>12.2</ProjectVersion>
+			<ProjectVersion>12.3</ProjectVersion>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform>Win32</Platform>
@@ -154,7 +154,7 @@
 			</BuildConfiguration>
 		</ItemGroup>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
-		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj"/>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
 		<PropertyGroup>
 			<PostBuildEvent><![CDATA[copy "C:\develop\codeplex\TFS05\bo\Forks\FastMM\Demos\Replacement borlndmm DLL\FastMM_FullDebugMode.dll" .\$(Config)\$(Platform)]]></PostBuildEvent>
 		</PropertyGroup>
