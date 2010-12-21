@@ -1,13 +1,13 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{9CD5978E-11F7-4D04-B52F-EEAF047D9245}</ProjectGuid>
-			<MainSource>GenericPublicSubscribeVCLProject.dpr</MainSource>
+			<ProjectGuid>{197FEBCB-D2DA-4EEB-AC75-E5891D9C2709}</ProjectGuid>
+			<MainSource>InterfaceConstParmetersAndPrematureFreeingProject.dpr</MainSource>
 			<ProjectVersion>12.3</ProjectVersion>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform>Win32</Platform>
-			<AppType>Application</AppType>
-			<FrameworkType>VCL</FrameworkType>
+			<AppType>Console</AppType>
+			<FrameworkType>None</FrameworkType>
 			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -35,7 +35,6 @@
 			<DCC_K>false</DCC_K>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
-			<DCC_DebugDCUs>true</DCC_DebugDCUs>
 			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
 			<DCC_Optimize>false</DCC_Optimize>
 			<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
@@ -47,33 +46,9 @@
 			<DCC_DebugInformation>false</DCC_DebugInformation>
 		</PropertyGroup>
 		<ItemGroup>
-			<DelphiCompile Include="GenericPublicSubscribeVCLProject.dpr">
+			<DelphiCompile Include="InterfaceConstParmetersAndPrematureFreeingProject.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="..\src\GenericPublishSubscribeMainFormUnit.pas">
-				<Form>GenericPublishSubscribeMainForm</Form>
-			</DCCReference>
-			<DCCReference Include="..\src\ClassicMessageSubscriberUnit.pas"/>
-			<DCCReference Include="..\src\GenericSubscriberOfUnit.pas"/>
-			<DCCReference Include="..\src\MessageServiceUnit.pas"/>
-			<DCCReference Include="..\src\MessageSubscribersUnit.pas"/>
-			<DCCReference Include="..\src\MessagesUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.Logging\LoggerUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.Logging\LoggersUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.Logging\ReporterUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.Logging\ReportProxyUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.TypeInfo\RecordTypeInfoUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.Logging\ReportingLoggerUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.Logging\ReportersUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.DebugView\OutputDebugViewLoggerUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.DebugView\OutputDebugViewReporterUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.DebugView\OutputDebugViewUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.Debugging\DebuggingUnit.pas"/>
-			<DCCReference Include="..\..\..\..\bo.RTTI\RttiUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -121,7 +96,7 @@
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 					<Source>
-						<Source Name="MainSource">GenericPublicSubscribeVCLProject.dpr</Source>
+						<Source Name="MainSource">InterfaceConstParmetersAndPrematureFreeingProject.dpr</Source>
 					</Source>
 				</Delphi.Personality>
 				<Platforms>

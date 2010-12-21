@@ -4,17 +4,17 @@ interface
 
 uses
   MessagesUnit,
-  MessageServiceUnit;
+  MessageServiceUnit,
+  GenericSubscriberOfUnit,
+  ClassicMessageSubscriberUnit;
 
 type
-  TMySubscriber = class(TInterfacedObject, ISubscriber, ISubscriberOf<IMyMessage>)
+  TMySubscriber = class(TSupporterOf<IMyMessage>, ISubscriber, ISubscriberOf<IMyMessage>)
     procedure Consume(const Message: IMyMessage);
-    function Supports(const Message: IMyMessage): Boolean;
   end;
 
-  TMyOtherSubscriber = class(TInterfacedObject, ISubscriber, ISubscriberOf<IMyOtherMessage>)
+  TMyOtherSubscriber = class(TSupporterOf<IMyOtherMessage>, ISubscriber, ISubscriberOf<IMyOtherMessage>)
     procedure Consume(const Message: IMyOtherMessage);
-    function Supports(const Message: IMyOtherMessage): Boolean;
   end;
 
 implementation
@@ -27,19 +27,9 @@ begin
   //
 end;
 
-function TMySubscriber.Supports(const Message: IMyMessage): Boolean;
-begin
-  Result := SysUtils.Supports(Message,  IMyMessage);
-end;
-
 procedure TMyOtherSubscriber.Consume(const Message: IMyOtherMessage);
 begin
   //
-end;
-
-function TMyOtherSubscriber.Supports(const Message: IMyOtherMessage): Boolean;
-begin
-  Result := SysUtils.Supports(Message,  IMyOtherMessage);
 end;
 
 end.

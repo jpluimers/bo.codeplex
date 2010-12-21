@@ -63,6 +63,9 @@
 			<Projects Include="Apps\Generics\GenericPublishSubscribe\prj\GenericPublicSubscribeVCLProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -251,14 +254,23 @@
 		<Target Name="GenericPublicSubscribeVCLProject:Make">
 			<MSBuild Projects="Apps\Generics\GenericPublishSubscribe\prj\GenericPublicSubscribeVCLProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject">
+			<MSBuild Projects="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject.dproj"/>
+		</Target>
+		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject:Clean">
+			<MSBuild Projects="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject:Make">
+			<MSBuild Projects="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject;VoertuigDemo;FastMMUsageTrackerProject;GenericPublicSubscribeVCLProject"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject;VoertuigDemo;FastMMUsageTrackerProject;GenericPublicSubscribeVCLProject;InterfaceConstParmetersAndPrematureFreeingProject"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean;VoertuigDemo:Clean;FastMMUsageTrackerProject:Clean;GenericPublicSubscribeVCLProject:Clean"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean;VoertuigDemo:Clean;FastMMUsageTrackerProject:Clean;GenericPublicSubscribeVCLProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make;VoertuigDemo:Make;FastMMUsageTrackerProject:Make;GenericPublicSubscribeVCLProject:Make"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make;VoertuigDemo:Make;FastMMUsageTrackerProject:Make;GenericPublicSubscribeVCLProject:Make;InterfaceConstParmetersAndPrematureFreeingProject:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

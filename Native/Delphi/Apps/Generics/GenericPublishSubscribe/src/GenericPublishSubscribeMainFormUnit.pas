@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, LoggerInterfaceUnit, MessageServiceUnit,
-  MessageSubscribersUnit;
+  MessageSubscribersUnit, ClassicMessageSubscriberUnit;
 
 type
   TGenericPublishSubscribeMainForm = class(TForm)
@@ -38,7 +38,10 @@ var
 implementation
 
 uses
-  LoggerUnit, OutputDebugViewLoggerUnit, LoggersUnit, MessagesUnit;
+  LoggerUnit,
+  OutputDebugViewLoggerUnit,
+  LoggersUnit,
+  MessagesUnit;
 
 {$R *.dfm}
 
