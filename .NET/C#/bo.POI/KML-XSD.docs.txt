@@ -1,0 +1,24 @@
+POI:
+http://en.wikipedia.org/wiki/Point_of_interest
+
+KML:
+http://earth.google.com/kml/2.0
+http://code.google.com/apis/kml/documentation/kmlreference.html
+http://schemas.opengis.net/kml/2.2.0/
+http://en.wikipedia.org/wiki/Keyhole_Markup_Language
+
+OV2:
+http://www.tomtom.com/lib/doc/ttnavsdk3_manual.pdf
+http://www.opentom.org/Ov2
+http://ttov2parser.codeplex.com/releases/view/30455
+http://www.dotnetmonster.com/Uwe/Forum.aspx/dotnet-csharp/90948/Generating-OV2-Files
+http://www.experts-exchange.com/Programming/Languages/C_Sharp/Q_24093937.html
+http://www.ureader.com/msg/144639979.aspx
+http://www.pcreview.co.uk/forums/thread-3750844.php
+
+http://github.com/bess/gis_masher/blob/master/kml2ov2.rb
+
+TomTom KML:
+https://portal.hotspotsvankpn.com/nl/1606-HotSpot_Locaties.html
+http://misc.hotspotsvankpn.com/?page=locations&output=KML
+
