@@ -35,8 +35,9 @@
 			<DCC_K>false</DCC_K>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
 			<DCC_DebugDCUs>true</DCC_DebugDCUs>
-			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+			<DCC_Define>DEBUG;FASTMM;$(DCC_Define)</DCC_Define>
 			<DCC_Optimize>false</DCC_Optimize>
 			<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
 		</PropertyGroup>
@@ -50,7 +51,19 @@
 			<DelphiCompile Include="InterfaceConstParmetersAndPrematureFreeingProject.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
+			<DCCReference Include="..\..\..\..\..\Forks\FastMM\FastMM4.pas"/>
+			<DCCReference Include="..\..\..\..\..\Forks\FastMM\FastMM4Messages.pas"/>
+			<DCCReference Include="C:\Program Files\Embarcadero\RAD Studio\8.0\source\dUnit\src\FastMMMemLeakMonitor.pas"/>
+			<DCCReference Include="C:\Program Files\Embarcadero\RAD Studio\8.0\source\dUnit\src\TestFramework.pas"/>
+			<DCCReference Include="C:\Program Files\Embarcadero\RAD Studio\8.0\source\dUnit\src\TextTestRunner.pas"/>
+			<DCCReference Include="..\src\DumpUnit.pas"/>
 			<DCCReference Include="..\src\MyInterfacedObjectUnit.pas"/>
+			<DCCReference Include="..\src\InterfaceConstParmetersAndMemoryLeakTestCaseUnit.pas"/>
+			<DCCReference Include="..\src\InterfaceConstParmetersAndPrematureFreeingUnit.pas"/>
+			<DCCReference Include="..\src\InterfaceConstParmetersAndPrematureFreeingTestCaseUnit.pas"/>
+			<DCCReference Include="..\src\InterfaceConstParmetersBaseTestCaseUnit.pas"/>
+			<DCCReference Include="..\src\WritelnInterfacedObjectUnit.pas"/>
+			<None Include="Debug\Win32\InterfaceConstParmetersAndPrematureFreeingProject_MemoryManager_EventLog.txt"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -65,6 +78,9 @@
 		</ItemGroup>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
 		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+		<PropertyGroup>
+			<PostBuildEvent><![CDATA[copy /y "..\..\..\..\..\Forks\FastMM\FullDebugMode DLL\Precompiled\FastMM_FullDebugMode.dll"  $(OUTPUTDIR)]]></PostBuildEvent>
+		</PropertyGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
 			<Borland.ProjectType/>
