@@ -1,13 +1,10 @@
-unit MyInterfacedObjectUnit;
+unit WritelnInterfacedObjectUnit;
 
 interface
 
 type
-{$ifdef plain}
-  TMyInterfacedObject = TInterfacedObject;
-{$else}
   // Adpoted copy of TInterfacedObject for debugging
-  TMyInterfacedObject = class(TObject, IInterface)
+  TWritelnInterfacedObject = class(TObject, IInterface)
   protected
     FRefCount: Integer;
     function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
@@ -19,52 +16,56 @@ type
     class function NewInstance: TObject; override;
     property RefCount: Integer read FRefCount;
   end;
-{$endif plain}
 
 implementation
 
 uses
   Windows;
 
-{$ifndef plain}
-
-procedure TMyInterfacedObject.AfterConstruction;
+procedure TWritelnInterfacedObject.AfterConstruction;
 begin
   InterlockedDecrement(FRefCount);
+  Writeln('     AfterConstruction ', FRefCount);
 end;
 
-procedure TMyInterfacedObject.BeforeDestruction;
+procedure TWritelnInterfacedObject.BeforeDestruction;
 begin
+  Writeln('     BeforeDestruction ', FRefCount);
   if RefCount <> 0 then
     System.Error(reInvalidPtr);
 end;
 
-class function TMyInterfacedObject.NewInstance: TObject;
+class function TWritelnInterfacedObject.NewInstance: TObject;
 begin
   Result := inherited NewInstance;
-  TMyInterfacedObject(Result).FRefCount := 1;
+  TWritelnInterfacedObject(Result).FRefCount := 1;
+  Writeln('     NewInstance ', TWritelnInterfacedObject(Result).FRefCount);
 end;
 
-function TMyInterfacedObject.QueryInterface(const IID: TGUID; out Obj): HResult;
+function TWritelnInterfacedObject.QueryInterface(const IID: TGUID; out Obj): HResult;
 begin
+  Writeln('     QueryInterface ', FRefCount);
   if GetInterface(IID, Obj) then
     Result := 0
   else
     Result := E_NOINTERFACE;
 end;
 
-function TMyInterfacedObject._AddRef: Integer;
+function TWritelnInterfacedObject._AddRef: Integer;
 begin
   Result := InterlockedIncrement(FRefCount);
+  Writeln('     _AddRef ', FRefCount);
 end;
 
-function TMyInterfacedObject._Release: Integer;
+function TWritelnInterfacedObject._Release: Integer;
 begin
   Result := InterlockedDecrement(FRefCount);
+  Writeln('     _Release ', FRefCount);
   if Result = 0 then
+  begin
+    Writeln('     _Release Destroy');
     Destroy;
+  end;
 end;
-
-{$endif plain}
 
 end.
