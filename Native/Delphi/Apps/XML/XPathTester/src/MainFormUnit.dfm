@@ -15,8 +15,8 @@ object MainForm: TMainForm
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 394
-    Top = 145
-    Height = 428
+    Top = 155
+    Height = 418
     ExplicitLeft = 328
     ExplicitTop = 136
     ExplicitHeight = 100
@@ -25,12 +25,12 @@ object MainForm: TMainForm
     Left = 0
     Top = 0
     Width = 792
-    Height = 145
+    Height = 155
     Align = alTop
     TabOrder = 0
     DesignSize = (
       792
-      145)
+      155)
     object XPathLabeledEdit: TLabeledEdit
       Left = 40
       Top = 7
@@ -59,7 +59,7 @@ object MainForm: TMainForm
       Width = 125
       Height = 25
       Caption = '&Load XML file'
-      TabOrder = 2
+      TabOrder = 5
       OnClick = LoadXmlButtonClick
     end
     object ShowNameSpacesButton: TButton
@@ -68,24 +68,24 @@ object MainForm: TMainForm
       Width = 125
       Height = 25
       Caption = 'Show &namespaces'
-      TabOrder = 3
+      TabOrder = 2
       OnClick = ShowNameSpacesButtonClick
     end
     object ShowXmlInResultCheckBox: TCheckBox
-      Left = 40
-      Top = 123
+      Left = 171
+      Top = 127
       Width = 139
       Height = 17
       Caption = '&Show XML in the results'
-      TabOrder = 4
+      TabOrder = 9
     end
     object ShowTextInResultCheckBox: TCheckBox
       Left = 40
-      Top = 100
-      Width = 139
+      Top = 127
+      Width = 125
       Height = 17
       Caption = 'Show &text in results'
-      TabOrder = 5
+      TabOrder = 4
     end
     object LoadXmlExample1Button: TButton
       Left = 171
@@ -109,7 +109,7 @@ object MainForm: TMainForm
       Left = 302
       Top = 34
       Width = 486
-      Height = 105
+      Height = 115
       Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = '&History'
       TabOrder = 8
@@ -117,19 +117,28 @@ object MainForm: TMainForm
         Left = 2
         Top = 15
         Width = 482
-        Height = 88
+        Height = 98
         Align = alClient
         ItemHeight = 13
         TabOrder = 0
         OnClick = HistoryListBoxClick
       end
     end
+    object ShowMsxml6Version: TButton
+      Left = 40
+      Top = 96
+      Width = 125
+      Height = 25
+      Caption = 'Show MSXML6 &version'
+      TabOrder = 3
+      OnClick = ShowMsxml6VersionClick
+    end
   end
   object ResultsGroupBox: TGroupBox
     Left = 397
-    Top = 145
+    Top = 155
     Width = 395
-    Height = 428
+    Height = 418
     Align = alClient
     Caption = '&Results'
     TabOrder = 1
@@ -137,7 +146,7 @@ object MainForm: TMainForm
       Left = 2
       Top = 15
       Width = 391
-      Height = 411
+      Height = 401
       Align = alClient
       ScrollBars = ssBoth
       TabOrder = 0
@@ -146,9 +155,9 @@ object MainForm: TMainForm
   end
   object XmlGroupBox: TGroupBox
     Left = 0
-    Top = 145
+    Top = 155
     Width = 394
-    Height = 428
+    Height = 418
     Align = alLeft
     Caption = 'Xml'
     TabOrder = 2
@@ -156,7 +165,7 @@ object MainForm: TMainForm
       Left = 2
       Top = 15
       Width = 390
-      Height = 411
+      Height = 401
       ActivePage = XmlMemoTabSheet
       Align = alClient
       TabOrder = 0
@@ -167,7 +176,7 @@ object MainForm: TMainForm
           Left = 0
           Top = 0
           Width = 382
-          Height = 383
+          Height = 373
           Align = alClient
           Lines.Strings = (
             '<?xml version="1.0"?>'
@@ -193,15 +202,11 @@ object MainForm: TMainForm
       object XmlViewTabSheet: TTabSheet
         Caption = '&View'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 277
-        ExplicitHeight = 238
         object XmlWebBrowser: TWebBrowser
           Left = 0
           Top = 0
           Width = 382
-          Height = 383
+          Height = 373
           Align = alClient
           TabOrder = 0
           ExplicitLeft = 112
@@ -209,7 +214,7 @@ object MainForm: TMainForm
           ExplicitWidth = 300
           ExplicitHeight = 150
           ControlData = {
-            4C0000007B270000962700000000000000000000000000000000000000000000
+            4C0000007B2700008D2600000000000000000000000000000000000000000000
             000000004C000000000000000000000001000000E0D057007335CF11AE690800
             2B2E126208000000000000004C0000000114020000000000C000000000000046
             8000000000000000000000000000000000000000000000000000000000000000
@@ -219,19 +224,13 @@ object MainForm: TMainForm
       object HistoryTabSheet: TTabSheet
         Caption = 'H&istory'
         ImageIndex = 2
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 277
-        ExplicitHeight = 238
         object HistoryMemo: TMemo
           Left = 0
           Top = 0
           Width = 382
-          Height = 383
+          Height = 373
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 277
-          ExplicitHeight = 238
         end
       end
     end
