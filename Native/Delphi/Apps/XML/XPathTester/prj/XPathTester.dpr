@@ -17,7 +17,12 @@ uses
   ComponentHelperUnit in '..\..\..\..\bo.Helpers\ComponentHelperUnit.pas',
   ReportingLoggerUnit in '..\..\..\..\bo.Logging\ReportingLoggerUnit.pas',
   MakeResourceUrlUnit in '..\..\..\..\bo.Helpers\MakeResourceUrlUnit.pas',
-  ReportersUnit in '..\..\..\..\bo.Logging\ReportersUnit.pas';
+  ReportersUnit in '..\..\..\..\bo.Logging\ReportersUnit.pas',
+  msxmlFactoryUnit in '..\..\..\..\bo.XML\msxmlFactoryUnit.pas',
+  ReportProxyInterfaceUnit in '..\..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas',
+  LoggerInterfaceUnit in '..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas',
+  FileVersionUnit in '..\..\..\..\bo.System\FileVersionUnit.pas',
+  XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas';
 
 {$R *.res}
 

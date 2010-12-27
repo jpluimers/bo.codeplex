@@ -34,7 +34,9 @@ uses
   ConcreteMethodReferencesUnit in '..\..\..\..\bo.Generics\ConcreteMethodReferencesUnit.pas',
   ReportingLoggerUnit in '..\..\..\..\bo.Logging\ReportingLoggerUnit.pas',
   ReportProxyUnit in '..\..\..\..\bo.Logging\ReportProxyUnit.pas',
-  McGyverUnit in '..\..\..\..\bo.System\McGyverUnit.pas';
+  McGyverUnit in '..\..\..\..\bo.System\McGyverUnit.pas',
+  ReportProxyInterfaceUnit in '..\..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas',
+  LoggerInterfaceUnit in '..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas';
 
 {$R *.res}
 

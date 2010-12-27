@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, ComCtrls, OleCtrls, SHDocVw, xmldom, XMLIntf, LoggerUnit, StringListWrapperUnit;
+  Dialogs, ExtCtrls, StdCtrls, ComCtrls, OleCtrls, SHDocVw, xmldom, XMLIntf, LoggerUnit, StringListWrapperUnit, LoggerInterfaceUnit;
 
 // example XML from
 // 1. http://support.microsoft.com/kb/280457
@@ -34,20 +34,22 @@ type
     LoadXmlExample2Button: TButton;
     HistoryListBox: TListBox;
     HistoryGroupBox: TGroupBox;
+    ShowMsxml6Version: TButton;
     procedure HistoryListBoxClick(Sender: TObject);
     procedure LoadXmlButtonClick(Sender: TObject);
     procedure LoadXmlExample1ButtonClick(Sender: TObject);
     procedure LoadXmlExample2ButtonClick(Sender: TObject);
     procedure RunButtonClick(Sender: TObject);
+    procedure ShowMsxml6VersionClick(Sender: TObject);
     procedure ShowNameSpacesButtonClick(Sender: TObject);
     procedure XmlPageControlChange(Sender: TObject);
   strict private
-    FLogger: TLogger { ILogger };
+    FLogger: ILogger;
   strict protected
     procedure AddXPathQueryToHistory; overload; virtual;
     procedure AddXPathQueryToHistory(const XPathQuery: string); overload; virtual;
     procedure ClearMemoAndShowXmlNamespaces; virtual;
-    function GetLogger: TLogger { ILogger }; virtual;
+    function GetLogger: ILogger; virtual;
     function GetXml: string; virtual;
     function GetXPathQuery: string; virtual;
     procedure LoadXmlAndShowNamespaces; virtual;
@@ -56,7 +58,7 @@ type
     procedure SetXml(const Value: string); virtual;
     procedure SetXPathQuery(const Value: string); virtual;
     procedure UpdateXPathLabeledEditTextFromHistoryListBox; virtual;
-    property Logger: TLogger { ILogger } read GetLogger;
+    property Logger: ILogger read GetLogger;
     property Xml: string read GetXml write SetXml;
     property XPathQuery: string read GetXPathQuery write SetXPathQuery;
   end;
@@ -67,7 +69,7 @@ var
 implementation
 
 uses
-  WebBrowserHelperUnit, XMLDoc, LoggersUnit, StringUtilsUnit, XmlHelperUnit, msxmldom, msxml;
+  WebBrowserHelperUnit, XMLDoc, LoggersUnit, StringUtilsUnit, XmlHelperUnit, msxmldom, msxml, msxmlFactoryUnit;
 
 {$R *.dfm}
 
@@ -118,11 +120,10 @@ begin
   end;
 end;
 
-function TMainForm.GetLogger: TLogger { ILogger };
+function TMainForm.GetLogger: ILogger;
 begin
   if not Assigned(FLogger) then begin
     FLogger := TTeeLogger.Create([TStringsLogger.Create(ResultsMemo.Lines)]);
-//    SetGlobalLogger(FLogger);
   end;
   Result := FLogger;
 end;
@@ -293,6 +294,17 @@ end;
 procedure TMainForm.HistoryListBoxClick(Sender: TObject);
 begin
   UpdateXPathLabeledEditTextFromHistoryListBox();
+end;
+
+procedure TMainForm.ShowMsxml6VersionClick(Sender: TObject);
+begin
+  Logger.Log(TmsxmlFactory.msxml6FileVersion.ToString());
+  try
+    TmsxmlFactory.AssertCompatibleMsxml6Version();
+  except
+    on E: Exception do
+      Logger.Log(E);
+  end;
 end;
 
 end.
