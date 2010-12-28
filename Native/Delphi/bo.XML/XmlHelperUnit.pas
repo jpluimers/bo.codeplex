@@ -3,79 +3,86 @@ unit XmlHelperUnit;
 interface
 
 uses
-  XMLIntf, Generics.Collections, Generics.Defaults, xmldom;
+  Generics.Collections,
+  Generics.Defaults,
+  xmldom,
+  msxml;
 
 type
-  TIXMLNodeArray = TArray<IXMLNode>;
-  TStringIXMLNodeDictionary = TDictionary<string,IXMLNode>;
-  TXMLNodeProc = reference to procedure(const XMLNode: IXMLNode);
-  IXMLNodeHelper= class(TObject)
+  IDOMNodeArray = TArray<IDOMNode>;
+  TStringIDOMNodeDictionary = TDictionary<string,IDOMNode>;
+  TDomNodeProc = reference to procedure(const DomNode: IDOMNode);
+  IDomNodeHelper = class(TObject)
   strict protected
-    class function GetDOMNodeSelect(const Document: IXMLDocument): IDOMNodeSelect; virtual;
-    class procedure GetNamespaceDeclsFromAttributes(const CurrentXMLNode: IXMLNode; const StringIXMLNodeDictionary: TStringIXMLNodeDictionary); virtual;
-    class procedure GetNamespaceDeclsFromAttributesAndParents(const CurrentXMLNode: IXMLNode; const StringIXMLNodeDictionary: TStringIXMLNodeDictionary); virtual;
-    class procedure ProcessNodeAndChildren(const ParentXMLNode: IXMLNode; const XMLNodeProc: TXMLNodeProc); virtual;
-    class procedure ProcessNodeAndSibblings(const FirstChildXMLNode: IXMLNode; const XMLNodeProc: TXMLNodeProc); virtual;
+    class function GetDOMNodeSelect(const DomDocument: IDOMDocument): IDOMNodeSelect; virtual;
+    class procedure GetNamespaceDeclsFromAttributes(const CurrentDomNode: IDOMNode; const StringIDomNodeDictionary: TStringIDOMNodeDictionary); virtual;
+    class procedure GetNamespaceDeclsFromAttributesAndParents(const CurrentDomNode: IDOMNode; const StringIDomNodeDictionary: TStringIDOMNodeDictionary); virtual;
+    class procedure ProcessNodeAndChildren(const ParentDomNode: IDOMNode; const DomNodeProc: TDomNodeProc); virtual;
+    class procedure ProcessNodeAndSibblings(const FirstChildDomNode: IDOMNode; const DomNodeProc: TDomNodeProc); virtual;
+    class procedure SetSelectionNamespaces(const DomDocument: IDOMDocument); overload; virtual;
   public
-    class procedure CreateDocumentAndDOMNodeSelect(const Xml: string; var Document: IXMLDocument; var DOMNodeSelect: IDOMNodeSelect); virtual;
-    class function FindNamespaceDecls(const XMLNode: IXMLNode): TIXMLNodeArray; virtual;
-    class function FindSpaceDelimitedNamespaceDecls(const XMLNode: IXMLNode): string; virtual;
-    class procedure Recurse(const XMLNode: IXMLNode; const XMLNodeProc: TXMLNodeProc); virtual;
-    class function RunXPathQuery(const XMLDocument: IXMLDocument; const XPath: string): IDOMNodeList; virtual;
-    class procedure SetSelectionNamespaces(const XMLDocument: IXMLDocument); virtual;
+    const SelectionLanguage = 'SelectionLanguage'; // http://msdn.microsoft.com/en-us/library/ms754679(VS.85).aspx
+    const SelectionNamespaces = 'SelectionNamespaces'; // http://msdn.microsoft.com/en-us/library/ms756048(VS.85).aspx
+    class procedure CreateDocumentAndDOMNodeSelect(const Xml: string; var Document: IDOMDocument; var DOMNodeSelect: IDOMNodeSelect); virtual;
+    class function FindNamespaceDecls(const DomNode: IDOMNode): IDOMNodeArray; virtual;
+    class function FindSpaceDelimitedNamespaceDecls(const DomNode: IDOMNode): string; virtual;
+    class function GetXmlDomDocument2(const DomDocument: IDOMDocument; out XmlDomDocument2: IXMLDOMDocument2): Boolean; overload; dynamic;
+    class procedure Recurse(const DomNode: IDOMNode; const DomNodeProc: TDomNodeProc); virtual;
+    class function RunXPathQuery(const XMLDocument: IDOMDocument; const XPath: string): IDOMNodeList; virtual;
   end;
 
 implementation
 
 uses
-  XMLDoc, SysUtils, msxml, msxmldom;
+  SysUtils,
+  msxmldom,
+  xmlutil;
 
-class procedure IXMLNodeHelper.CreateDocumentAndDOMNodeSelect(const Xml: string; var Document: IXMLDocument; var DOMNodeSelect: IDOMNodeSelect);
+class procedure IDomNodeHelper.CreateDocumentAndDOMNodeSelect(const Xml: string; var Document: IDOMDocument; var DOMNodeSelect: IDOMNodeSelect);
 begin
-  Document := TXMLDocument.Create(nil);
-  Document.LoadFromXML(Xml);
+  Document := LoadDocFromString(Xml);
   DOMNodeSelect := GetDOMNodeSelect(Document);
 end;
 
-class function IXMLNodeHelper.FindNamespaceDecls(const XMLNode: IXMLNode): TIXMLNodeArray;
+class function IDomNodeHelper.FindNamespaceDecls(const DomNode: IDOMNode): IDOMNodeArray;
 var
-  StringIXMLNodeDictionary: TStringIXMLNodeDictionary;
+  StringIDomNodeDictionary: TStringIDOMNodeDictionary;
 begin
-  StringIXMLNodeDictionary := TStringIXMLNodeDictionary.Create();
-  GetNamespaceDeclsFromAttributesAndParents(XMLNode, StringIXMLNodeDictionary);
+  StringIDomNodeDictionary := TStringIDOMNodeDictionary.Create();
+  GetNamespaceDeclsFromAttributesAndParents(DomNode, StringIDomNodeDictionary);
   try
-    Recurse(XMLNode,
-      procedure (const CurrentXMLNode: IXMLNode)
+    Recurse(DomNode,
+      procedure (const CurrentDomNode: IDOMNode)
       begin
-        GetNamespaceDeclsFromAttributes(CurrentXMLNode, StringIXMLNodeDictionary);
+        GetNamespaceDeclsFromAttributes(CurrentDomNode, StringIDomNodeDictionary);
       end
     );
-    Result :=  StringIXMLNodeDictionary.Values.ToArray;
+    Result :=  StringIDomNodeDictionary.Values.ToArray;
   finally
-    StringIXMLNodeDictionary.Free;
+    StringIDomNodeDictionary.Free;
   end;
 end;
 
-class function IXMLNodeHelper.FindSpaceDelimitedNamespaceDecls(const XMLNode: IXMLNode): string;
+class function IDomNodeHelper.FindSpaceDelimitedNamespaceDecls(const DomNode: IDOMNode): string;
 var
-  NamespaceIXMLNodeArray: TIXMLNodeArray;
-  NamespaceIXMLNode: IXMLNode;
+  NamespaceIDomNodeArray: IDOMNodeArray;
+  NamespaceIDomNode: IDOMNode;
   First: Boolean;
   StringBuilder: TStringBuilder;
   PrefixWithDoubleQuotedNamespaceURI: string;
 begin
-  NamespaceIXMLNodeArray := FindNamespaceDecls(XMLNode);
+  NamespaceIDomNodeArray := FindNamespaceDecls(DomNode);
   First := True;
   StringBuilder := TStringBuilder.Create();
   try
-    for NamespaceIXMLNode in NamespaceIXMLNodeArray do
+    for NamespaceIDomNode in NamespaceIDomNodeArray do
     begin
       if First then
         First := False
       else
         StringBuilder.Append(' ');
       PrefixWithDoubleQuotedNamespaceURI := Format('%s="%s"',
-        [NamespaceIXMLNode.NodeName, string(NamespaceIXMLNode.NodeValue)]);
+        [NamespaceIDomNode.NodeName, string(NamespaceIDomNode.NodeValue)]);
       StringBuilder.Append(PrefixWithDoubleQuotedNamespaceURI);
     end;
     Result := StringBuilder.ToString();
@@ -84,118 +91,131 @@ begin
   end;
 end;
 
-class procedure IXMLNodeHelper.ProcessNodeAndChildren(const ParentXMLNode: IXMLNode; const XMLNodeProc: TXMLNodeProc);
+class procedure IDomNodeHelper.ProcessNodeAndChildren(const ParentDomNode: IDOMNode; const DomNodeProc: TDomNodeProc);
 var
-  ChildXMLNode : IXMLNode;
+  ChildDomNode : IDOMNode;
 begin
-  if ParentXMLNode = nil then
+  if ParentDomNode = nil then
     Exit;
-  XMLNodeProc(ParentXMLNode);
-  ChildXMLNode := ParentXMLNode.ChildNodes.First;
-  ProcessNodeAndSibblings(ChildXMLNode, XMLNodeProc);
+  DomNodeProc(ParentDomNode);
+  ChildDomNode := ParentDomNode.firstChild;
+  ProcessNodeAndSibblings(ChildDomNode, DomNodeProc);
 end;
 
-class procedure IXMLNodeHelper.ProcessNodeAndSibblings(const FirstChildXMLNode: IXMLNode; const XMLNodeProc: TXMLNodeProc);
+class procedure IDomNodeHelper.ProcessNodeAndSibblings(const FirstChildDomNode: IDOMNode; const DomNodeProc: TDomNodeProc);
 var
-  ChildXMLNode: IXMLNode;
+  ChildDomNode: IDOMNode;
 begin
-  ChildXMLNode := FirstChildXMLNode;
-  while ChildXMLNode <> nil do
+  ChildDomNode := FirstChildDomNode;
+  while ChildDomNode <> nil do
   begin
-    ProcessNodeAndChildren(ChildXMLNode, XMLNodeProc);
-    ChildXMLNode := ChildXMLNode.NextSibling;
+    ProcessNodeAndChildren(ChildDomNode, DomNodeProc);
+    ChildDomNode := ChildDomNode.NextSibling;
   end;
 end;
 
-class procedure IXMLNodeHelper.Recurse(const XMLNode: IXMLNode; const XMLNodeProc: TXMLNodeProc);
+class procedure IDomNodeHelper.Recurse(const DomNode: IDOMNode; const DomNodeProc: TDomNodeProc);
 begin
-  ProcessNodeAndSibblings(XMLNode, XMLNodeProc);
+  ProcessNodeAndSibblings(DomNode, DomNodeProc);
 end;
 
-class procedure IXMLNodeHelper.GetNamespaceDeclsFromAttributesAndParents(const CurrentXMLNode: IXMLNode; const StringIXMLNodeDictionary:
-    TStringIXMLNodeDictionary);
+class procedure IDomNodeHelper.GetNamespaceDeclsFromAttributesAndParents(const CurrentDomNode: IDOMNode; const StringIDomNodeDictionary:
+    TStringIDOMNodeDictionary);
 var
-  ParentNode: IXMLNode;
+  ParentNode: IDOMNode;
 begin
-  // logic borrowed from TXMLNode.FindNamespaceDecl
-  GetNamespaceDeclsFromAttributes(CurrentXMLNode, StringIXMLNodeDictionary);
-  ParentNode := CurrentXMLNode.ParentNode;
+  // logic borrowed from TDomNode.FindNamespaceDecl
+  GetNamespaceDeclsFromAttributes(CurrentDomNode, StringIDomNodeDictionary);
+  ParentNode := CurrentDomNode.ParentNode;
   if Assigned(ParentNode) then
-    GetNamespaceDeclsFromAttributesAndParents(ParentNode, StringIXMLNodeDictionary);
+    GetNamespaceDeclsFromAttributesAndParents(ParentNode, StringIDomNodeDictionary);
 end;
 
-class procedure IXMLNodeHelper.GetNamespaceDeclsFromAttributes(const CurrentXMLNode: IXMLNode; const StringIXMLNodeDictionary: TStringIXMLNodeDictionary);
+class procedure IDomNodeHelper.GetNamespaceDeclsFromAttributes(const CurrentDomNode: IDOMNode; const StringIDomNodeDictionary: TStringIDOMNodeDictionary);
 var
   I: Integer;
-  AttributeNodes: XMLIntf.IXMLNodeList;
-  Attr: IXMLNode;
+  Attributes: IDOMNamedNodeMap;
+  Attr: IDOMNode;
   NamespaceURI: string;
 begin
-  // logic borrowed from TXMLNode.FindNamespaceDecl
-  AttributeNodes := CurrentXMLNode.AttributeNodes;
-  for I := 0 to AttributeNodes.Count - 1 do
+  // logic borrowed from TDomNode.FindNamespaceDecl
+  Attributes := CurrentDomNode.attributes;
+  if Assigned(Attributes) then
   begin
-    Attr := AttributeNodes[I];
-    if ((Attr.Prefix = SXMLNS) or (Attr.NodeName = SXMLNS)) then
+    for I := 0 to Attributes.length - 1 do
     begin
-      NamespaceURI := string(Attr.NodeValue);
-      // NamespaceURI must be unique
-      // (even though they can be used with different prefixed in the XML Document
-      // they cannot be added multiple times to a NamespaceDecl list)
-      if not StringIXMLNodeDictionary.ContainsKey(NamespaceURI) then
-        StringIXMLNodeDictionary.Add(NamespaceURI, Attr);
+      Attr := Attributes[I];
+      if ((Attr.Prefix = SXMLNS) or (Attr.NodeName = SXMLNS)) then
+      begin
+        NamespaceURI := string(Attr.NodeValue);
+        // NamespaceURI must be unique
+        // (even though they can be used with different prefixed in the XML Document
+        // they cannot be added multiple times to a NamespaceDecl list)
+        if not StringIDomNodeDictionary.ContainsKey(NamespaceURI) then
+          StringIDomNodeDictionary.Add(NamespaceURI, Attr);
+      end;
     end;
   end;
 end;
 
-class function IXMLNodeHelper.RunXPathQuery(const XMLDocument: IXMLDocument; const XPath: string): IDOMNodeList;
+class function IDomNodeHelper.RunXPathQuery(const XMLDocument: IDOMDocument; const XPath: string): IDOMNodeList;
 var
   DOMNodeSelect: IDOMNodeSelect;
 begin
   // First, set the SelectionNameSpaces: without them, some of the MS XML DOM won't search namespaces
-  IXMLNodeHelper.SetSelectionNamespaces(XMLDocument);
+  IDomNodeHelper.SetSelectionNamespaces(XMLDocument);
   DOMNodeSelect := GetDOMNodeSelect(XMLDocument);
   // Last, search using an XPath expression that can contain namespaces prefixes
   Result := DOMNodeSelect.selectNodes(XPath);
 end;
 
-class procedure IXMLNodeHelper.SetSelectionNamespaces(const XMLDocument: IXMLDocument);
+class procedure IDomNodeHelper.SetSelectionNamespaces(const DomDocument: IDOMDocument);
 var
-  DocumentXMLDOMNode: IXMLDOMNode;
-  DocumentXMLDOMNodeRef: IXMLDOMNodeRef;
-  DOMDocument: IDOMDocument;
   SpaceDelimitedNamespaceDecls: string;
-  XMLDOMDocument2: IXMLDOMDocument2;
+  XmlDomDocument2: IXMLDOMDocument2; // unit msxml
 begin
-  // Since we know that the DOM implementation is MS, we can make the transition
+  if GetXmlDomDocument2(DomDocument, XmlDomDocument2) then
+  begin
+    // Step 2: Get all the namespaces used in the XMLDocument
+    SpaceDelimitedNamespaceDecls := IDomNodeHelper.FindSpaceDelimitedNamespaceDecls(DomDocument.DocumentElement);
+    // Step 3: Now set the SelectionNameSpaces: without them, some of the MS XML DOM won't search namespaces
+    // (and you get error messages like this: "Reference to undeclared namespace prefix: ")
+    // SelectionNamespaces can contain one or more: http://msdn.microsoft.com/en-us/library/ms756048(VS.85).aspx
+    // XMLDOMDocument2.setProperty('SelectionNamespaces', 'xmlns:bk="http://myserver/myschemas/Books"');
+    XmlDomDocument2.setProperty(SelectionNamespaces, SpaceDelimitedNamespaceDecls);
+  end;
+end;
+
+class function IDomNodeHelper.GetDOMNodeSelect(const DomDocument: IDOMDocument): IDOMNodeSelect;
+begin
+  Result := DomDocument as IDOMNodeSelect;
+end;
+
+class function IDomNodeHelper.GetXmlDomDocument2(const DomDocument: IDOMDocument; out XmlDomDocument2: IXMLDOMDocument2): Boolean;
+var
+  DomDocumentXmlDomNode: IXMLDOMNode;
+  DomDocumentXmlDomNodeRef: IXMLDOMNodeRef; // unit msxmldom
+begin
+  // If we know that the DOM implementation is MS, we can make the transition
   // from the generic IDOMDocument into the MS specific IXMLDOMDocument2
   // The transition is done throught the MS specific IXMLDOMNodeRef
   // which is implemented by TMSDOMNode (the MS implementation of IDOMNode).
   // IXMLDOMNodeRef has one method (GetXMLDOMNode) which gets you an IXMLDOMNode.
   // Depending on which IDOMNode descendant you come from, you now can cast
   // the IXMLDOMNode to a similar IXMLDOMNode descendant
-  // Step 1: get an IDOMNode descendant:
-  DOMDocument := XMLDocument.DOMDocument;
-  // Step 2: get the XMLDOMNode equivalent
-  DocumentXMLDOMNodeRef := DOMDocument as IXMLDOMNodeRef;
-  DocumentXMLDOMNode := DocumentXMLDOMNodeRef.GetXMLDOMNode;
-  // Step 3: cast to the corresponding IXMLDOMNode descendant:
-  XMLDOMDocument2 := DocumentXMLDOMNode as IXMLDOMDocument2;
-  // Step 4: Get all the namespaces used in the XMLDocument
-  SpaceDelimitedNamespaceDecls := IXMLNodeHelper.FindSpaceDelimitedNamespaceDecls(XMLDocument.DocumentElement);
-  // Step 5: Now set the SelectionNameSpaces: without them, some of the MS XML DOM won't search namespaces
-  // (and you get error messages like this: "Reference to undeclared namespace prefix: ")
-  // SelectionNamespaces can contain one or more: http://msdn.microsoft.com/en-us/library/ms756048(VS.85).aspx
-  // XMLDOMDocument2.setProperty('SelectionNamespaces', 'xmlns:bk="http://myserver/myschemas/Books"');
-  XMLDOMDocument2.setProperty('SelectionNamespaces', SpaceDelimitedNamespaceDecls); // do not translate
-end;
 
-class function IXMLNodeHelper.GetDOMNodeSelect(const Document: IXMLDocument): IDOMNodeSelect;
-var
-  DOMDocument: IDOMDocument;
-begin
-  DOMDocument := Document.DOMDocument;
-  Result := DOMDocument as IDOMNodeSelect;
+  // Step 2: make sure it is the MSXML implementation, if so: get the IXMLDOMNodeRef reference
+  Result := Supports(DomDocument, IXMLDOMNodeRef, DomDocumentXmlDomNodeRef);
+  if Result then
+  begin
+    // Step 3: get the XMLDOMNode equivalent
+    DomDocumentXmlDomNodeRef := DomDocument as IXMLDOMNodeRef;
+    DomDocumentXmlDomNode := DomDocumentXmlDomNodeRef.GetXMLDOMNode;
+    // Step 4: cast to the corresponding IXMLDOMNode descendant:
+    XmlDomDocument2 := DomDocumentXmlDomNode as IXMLDOMDocument2;
+  end
+  else
+    XmlDomDocument2 := nil;
 end;
 
 end.

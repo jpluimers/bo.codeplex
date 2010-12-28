@@ -3,7 +3,9 @@ unit XMLDOMParseErrorToStringUnit;
 interface
 
 uses
-  msxml, Classes, ComObj;
+  msxml,
+  Classes,
+  ComObj;
 
 type
   TXMLDOMParseErrorToString = class(TObject)

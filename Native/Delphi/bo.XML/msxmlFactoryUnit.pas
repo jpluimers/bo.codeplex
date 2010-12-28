@@ -9,15 +9,25 @@ uses
 
 type
   TAddXsdToSchemaCollectionMethod = procedure (SchemaCollection: IXMLDOMSchemaCollection2; XsdFileName: string) of object;
+  TInnerCreateXMLDOMDocument2Method = function (): IXMLDOMDocument2 of object;
   TmsxmlFactory = class(TObject)
   strict private
     class var Fmsxml6FileVersion: TFileVersion;
+    class var FmsxmlBestFileVersion: TFileVersion;
     class var FRetreivedFmsxml6FileVersion: Boolean;
+    class var FRetreivedFmsxmlBestFileVersion: Boolean;
   strict protected
     class procedure AddValidatedXsdToSchemaCollection(SchemaCollection: IXMLDOMSchemaCollection2; XsdFileName: string); virtual;
     class procedure AddXsdToSchemaCollection(SchemaCollection: IXMLDOMSchemaCollection2; XsdFileName: string); virtual;
     class procedure AssertExistingFile(const XmlFileName: string); virtual;
     class function Getmsxml6FileVersion: TFileVersion; static;
+    class function GetmsxmlBestFileVersion: TFileVersion; static;
+    class function InnerCreateXMLDOMDocument2: IXMLDOMDocument2; virtual;
+    class function InnerCreateXMLDOMDocument2AndGetMsxmlVersion(const msxmlDllFileName: string; const InnerCreateXMLDOMDocument2Method:
+        TInnerCreateXMLDOMDocument2Method): TFileVersion; virtual;
+    class function InnerCreateXMLDOMDocument2_26: IXMLDOMDocument2; virtual;
+    class function InnerCreateXMLDOMDocument2_30: IXMLDOMDocument2; virtual;
+    class function InnerCreateXMLDOMDocument2_40: IXMLDOMDocument2; virtual;
     class function InnerCreateXMLDOMDocument3: IXMLDOMDocument3; virtual;
   public
     class procedure AssertCompatibleMsxml6Version; virtual;
@@ -37,6 +47,7 @@ type
     class function CreateXMLDOMSchemaCollection2(const XsdFileNames: array of string): IXMLDOMSchemaCollection2; overload; static;
     class function CreateXMLDOMSchemaCollection2(const XsdFileNames: TStrings): IXMLDOMSchemaCollection2; overload; static;
     class property msxml6FileVersion: TFileVersion read Getmsxml6FileVersion;
+    class property msxmlBestFileVersion: TFileVersion read GetmsxmlBestFileVersion;
   end;
 
 implementation
@@ -46,7 +57,16 @@ uses
   XMLDOMParseErrorToStringUnit,
   Variants,
   SysConst,
-  ShellAPI;
+  ShellAPI,
+  ComObj;
+
+const
+  STargetNamespace = 'targetNamespace';
+  SMsxmlDll = 'msxml.dll';
+  SMsxml2Dll = 'msxml2.dll';
+  SMsxml3Dll = 'msxml3.dll';
+  SMsxml4Dll = 'msxml4.dll';
+  SMsxml6Dll = 'msxml6.dll';
 
 class procedure TmsxmlFactory.AddValidatedXsdToSchemaCollection(SchemaCollection: IXMLDOMSchemaCollection2; XsdFileName: string);
 var
@@ -55,7 +75,7 @@ var
   namespaceURI: string;
 begin
   XsdDocument := TmsxmlFactory.CreateXMLDOMDocument3WithValidateOnParseFromFile(XsdFileName);
-  targetNamespaceNode := XsdDocument.documentElement.attributes.getNamedItem('targetNamespace');
+  targetNamespaceNode := XsdDocument.documentElement.attributes.getNamedItem(STargetNamespace);
   if Assigned(targetNamespaceNode) then
     namespaceURI := targetNamespaceNode.nodeValue
   else
@@ -70,7 +90,7 @@ var
   namespaceURI: string;
 begin
   XsdDocument := TmsxmlFactory.CreateXMLDOMDocument3FromFile(XsdFileName);
-  targetNamespaceNode := XsdDocument.documentElement.attributes.getNamedItem('targetNamespace');
+  targetNamespaceNode := XsdDocument.documentElement.attributes.getNamedItem(STargetNamespace);
   if Assigned(targetNamespaceNode) then
     namespaceURI := targetNamespaceNode.nodeValue
   else
@@ -97,12 +117,91 @@ begin
   if not FRetreivedFmsxml6FileVersion then
   begin
     XmlDocument := InnerCreateXMLDOMDocument3();
-    // now msxml6.dll is loaded for sure
+    // now msxml6.dll is loaded, if it is installed, otherwise you get this exception:
+    //   Class not registered, ClassID: {88D96A06-F192-11D4-A65F-0040963251E5}.
     // XmlDocument.loadXML('<root>text</root>');
-    Fmsxml6FileVersion := TFileVersion.Create('msxml6.dll');
+    Fmsxml6FileVersion := TFileVersion.Create(SMsxml6Dll);
     FRetreivedFmsxml6FileVersion := True;
   end;
   Result := Fmsxml6FileVersion;
+end;
+
+class function TmsxmlFactory.GetmsxmlBestFileVersion: TFileVersion;
+begin
+  // MSXML versions http://support.microsoft.com/kb/269238
+  // http://msdn.microsoft.com/en-us/data/bb291077
+  // avoid MSXML 2, MSXML 4, and MSXML 5.
+  // prefer MSXML 6 over MSXML 3 (as MSXML 3 defaults to SelectionLanguage=XSLPattern, and does not support namespaces in XPath)
+  if not FRetreivedFmsxmlBestFileVersion then
+  begin
+    try
+      FmsxmlBestFileVersion := Getmsxml6FileVersion;
+    except
+      on E: EOleSysError do
+      try
+        FmsxmlBestFileVersion := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(
+          SMsxml4Dll, InnerCreateXMLDOMDocument2_40);
+      except
+        on E: EOleSysError do
+        try
+          FmsxmlBestFileVersion  := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(
+            SMsxml3Dll, InnerCreateXMLDOMDocument2_30);
+        except
+          on E: EOleSysError do
+          try
+            FmsxmlBestFileVersion  := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(
+              SMsxml2Dll, InnerCreateXMLDOMDocument2_26);
+          except
+            on E: EOleSysError do
+            begin
+              FmsxmlBestFileVersion  := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(
+                SMsxmlDll, InnerCreateXMLDOMDocument2);
+            end;
+          end; // try
+        end; // try
+      end; // try
+    end; // try
+    FRetreivedFmsxmlBestFileVersion := True;
+  end;
+  Result := FmsxmlBestFileVersion;
+end;
+
+class function TmsxmlFactory.InnerCreateXMLDOMDocument2: IXMLDOMDocument2;
+begin
+  Result := CoFreeThreadedDOMDocument.Create;
+  if not Assigned(Result) then
+    raise ENotSupportedException.Create('CoFreeThreadedDOMDocument.Create()');
+end;
+
+class function TmsxmlFactory.InnerCreateXMLDOMDocument2AndGetMsxmlVersion(const msxmlDllFileName: string; const InnerCreateXMLDOMDocument2Method:
+    TInnerCreateXMLDOMDocument2Method): TFileVersion;
+var
+  XmlDocument: IXMLDOMDocument2;
+begin
+  XmlDocument := InnerCreateXMLDOMDocument2Method();
+  // now msxmlDllFileName is loaded, if it is installed
+  Result := TFileVersion.Create(msxmlDllFileName);
+end;
+
+class function TmsxmlFactory.InnerCreateXMLDOMDocument2_26: IXMLDOMDocument2;
+begin
+  Result := CoFreeThreadedDOMDocument26.Create;
+  if not Assigned(Result) then
+    raise ENotSupportedException.Create('CoFreeThreadedDOMDocument26.Create()');
+end;
+
+class function TmsxmlFactory.InnerCreateXMLDOMDocument2_30: IXMLDOMDocument2;
+begin
+  Result := CoFreeThreadedDOMDocument30.Create;
+  if not Assigned(Result) then
+    raise ENotSupportedException.Create('CoFreeThreadedDOMDocument30.Create()');
+end;
+
+class function TmsxmlFactory.InnerCreateXMLDOMDocument2_40: IXMLDOMDocument2;
+begin
+  Result := CoFreeThreadedDOMDocument40.Create;
+  if not Assigned(Result) then
+    raise ENotSupportedException.Create('CoFreeThreadedDOMDocument40.Create()');
 end;
 
 class function TmsxmlFactory.InnerCreateXMLDOMDocument3: IXMLDOMDocument3;
@@ -119,16 +218,20 @@ const
   LastBadMinimumFileBuildPart = 1099;
 var
   msxml6FileVersionTooLow: Boolean;
+  msxmlFileVersion: TFileVersion;
 begin
-  msxml6FileVersionTooLow := msxml6FileVersion.FileMajorPart < LastBadMinimimFileMajorPart;
+  msxmlFileVersion := msxmlBestFileVersion;
+  msxml6FileVersionTooLow := not AnsiSameText(SMsxml6Dll, msxmlFileVersion.FileName);
   msxml6FileVersionTooLow := msxml6FileVersionTooLow or
-    ((msxml6FileVersion.FileMajorPart = LastBadMinimimFileMajorPart) and (msxml6FileVersion.FileMinorPart < LastBadMinimumFileMinorPart));
+    (msxmlFileVersion.FileMajorPart < LastBadMinimimFileMajorPart);
   msxml6FileVersionTooLow := msxml6FileVersionTooLow or
-    ((msxml6FileVersion.FileMajorPart = LastBadMinimimFileMajorPart) and (msxml6FileVersion.FileMinorPart = LastBadMinimumFileMinorPart) and (msxml6FileVersion.FileBuildPart <= LastBadMinimumFileBuildPart));
+    ((msxmlFileVersion.FileMajorPart = LastBadMinimimFileMajorPart) and (msxmlFileVersion.FileMinorPart < LastBadMinimumFileMinorPart));
+  msxml6FileVersionTooLow := msxml6FileVersionTooLow or
+    ((msxmlFileVersion.FileMajorPart = LastBadMinimimFileMajorPart) and (msxmlFileVersion.FileMinorPart = LastBadMinimumFileMinorPart) and (msxmlFileVersion.FileBuildPart <= LastBadMinimumFileBuildPart));
   if msxml6FileVersionTooLow then
     raise ENotSupportedException.CreateFmt(
-      'msxml6.dll must be newer than version %d.%d.%d.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version %s',
-      [LastBadMinimimFileMajorPart, LastBadMinimumFileMinorPart, LastBadMinimumFileBuildPart, msxml6FileVersion.ToString()]);
+      '%s must be newer than version %d.%d.%d.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version %s',
+      [SMsxml6Dll, LastBadMinimimFileMajorPart, LastBadMinimumFileMinorPart, LastBadMinimumFileBuildPart, msxmlFileVersion.ToString()]);
 end;
 
 class function TmsxmlFactory.CreateValidatedXMLDOMSchemaCollection2(const XsdFileName: string): IXMLDOMSchemaCollection2;

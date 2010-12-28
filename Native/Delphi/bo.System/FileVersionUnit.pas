@@ -15,6 +15,7 @@ type
   /// The last 16 bits are the FilePrivatePart number.
   TFileVersion = record
   strict private
+    FFileName: string;
     FVSFixedFileInfo: TVSFixedFileInfo;
     function GetFileMajorPart: Integer;
     function GetFileMinorPart: Integer;
@@ -28,6 +29,7 @@ type
     property FileMajorPart: Integer read GetFileMajorPart;
     property FileMinorPart: Integer read GetFileMinorPart;
     property FileBuildPart: Integer read GetFileBuildPart;
+    property FileName: string read FFileName;
     property FilePrivatePart: Integer read GetFilePrivatePart;
     property VSFixedFileInfo: TVSFixedFileInfo read FVSFixedFileInfo;
 (*
@@ -62,7 +64,6 @@ end;
 
 constructor TFileVersion.Create(const AFileName: string);
 var
-  FileName: string;
   InfoSize, Wnd: DWORD;
   VerBuf: Pointer;
   FI: PVSFixedFileInfo;
@@ -72,14 +73,14 @@ begin
 
   // GetFileVersionInfo modifies the filename parameter data while parsing.
   // Copy the string const into a local variable to create a writeable copy.
-  FileName := AFileName;
-  UniqueString(FileName);
-  InfoSize := GetFileVersionInfoSize(PChar(FileName), Wnd);
+  FFileName := AFileName;
+  UniqueString(FFileName);
+  InfoSize := GetFileVersionInfoSize(PChar(FFileName), Wnd);
   if InfoSize <> 0 then
   begin
     GetMem(VerBuf, InfoSize);
     try
-      if GetFileVersionInfo(PChar(FileName), Wnd, InfoSize, VerBuf) then
+      if GetFileVersionInfo(PChar(FFileName), Wnd, InfoSize, VerBuf) then
         if VerQueryValue(VerBuf, '\', Pointer(FI), VerSize) then
           Create(FI^);
     finally
@@ -110,7 +111,7 @@ end;
 
 function TFileVersion.ToString: string;
 begin
-  Result := Format('%d.%d.%d.%d', [Self.FileMajorPart, Self.FileMinorPart, Self.FileBuildPart, self.FilePrivatePart]);
+  Result := Format('%s: %d.%d.%d.%d', [Self.FileName, Self.FileMajorPart, Self.FileMinorPart, Self.FileBuildPart, self.FilePrivatePart]);
 end;
 
 end.
