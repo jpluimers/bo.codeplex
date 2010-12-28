@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, ComCtrls, OleCtrls, SHDocVw, xmldom, XMLIntf, LoggerUnit, StringListWrapperUnit, LoggerInterfaceUnit;
+  Dialogs, ExtCtrls, StdCtrls, ComCtrls, OleCtrls, SHDocVw,
+  LoggerUnit, StringListWrapperUnit, LoggerInterfaceUnit, xmldom;
 
 // example XML from
 // 1. http://support.microsoft.com/kb/280457
@@ -35,6 +36,9 @@ type
     HistoryListBox: TListBox;
     HistoryGroupBox: TGroupBox;
     ShowMsxml6Version: TButton;
+    DomVendorComboBox: TComboBox;
+    Label1: TLabel;
+    procedure FormCreate(Sender: TObject);
     procedure HistoryListBoxClick(Sender: TObject);
     procedure LoadXmlButtonClick(Sender: TObject);
     procedure LoadXmlExample1ButtonClick(Sender: TObject);
@@ -45,6 +49,9 @@ type
     procedure XmlPageControlChange(Sender: TObject);
   strict private
     FLogger: ILogger;
+  private
+    procedure LogDomVendorFeatures(const CurrentDomVendor: TDOMVendor; const Versions, Features: array of string);
+    procedure AddSupportedVersion(Version: string; SupportedVersions: IStringListWrapper);
   strict protected
     procedure AddXPathQueryToHistory; overload; virtual;
     procedure AddXPathQueryToHistory(const XPathQuery: string); overload; virtual;
@@ -54,6 +61,7 @@ type
     function GetXPathQuery: string; virtual;
     procedure LoadXmlAndShowNamespaces; virtual;
     procedure LoadXmlExample(const XPathQueries, XmlLines: array of string); virtual;
+    procedure LogDomVendor(const CurrentDomVendor: TDOMVendor); virtual;
     procedure RunXPath; virtual;
     procedure SetXml(const Value: string); virtual;
     procedure SetXPathQuery(const Value: string); virtual;
@@ -69,9 +77,52 @@ var
 implementation
 
 uses
-  WebBrowserHelperUnit, XMLDoc, LoggersUnit, StringUtilsUnit, XmlHelperUnit, msxmldom, msxml, msxmlFactoryUnit;
+  adomxmldom,
+  msxml,
+  XmlHelperUnit,
+  XMLDoc,
+  XMLIntf,
+  StringUtilsUnit,
+  LoggersUnit,
+  msxmlFactoryUnit,
+  WebBrowserHelperUnit;
 
 {$R *.dfm}
+
+procedure TMainForm.FormCreate(Sender: TObject);
+const
+  NoSelection = -1;
+var
+  CurrentDomVendor: TDOMVendor;
+  CurrentDomVendorDescription: string;
+  Index: Integer;
+  DefaultDomVendorIndex: Integer;
+  DomVendorComboBoxItemsCount: Integer;
+begin
+  DomVendorComboBox.Clear();
+  DefaultDomVendorIndex := NoSelection;
+  for Index := 0 to DOMVendors.Count-1 do begin
+    CurrentDomVendor := DOMVendors.Vendors[Index];
+    LogDomVendor(CurrentDomVendor);
+    CurrentDomVendorDescription := CurrentDomVendor.Description;
+    DomVendorComboBox.Items.Add(CurrentDomVendorDescription);
+    if DefaultDOMVendor = CurrentDomVendorDescription then
+      DefaultDomVendorIndex := DomVendorComboBox.Items.Count-1;
+  end;
+
+  DomVendorComboBoxItemsCount := DomVendorComboBox.Items.Count;
+  if (DefaultDomVendorIndex = NoSelection) then
+  begin
+    if DefaultDOMVendor = NullAsStringValue then
+    begin
+      if DomVendorComboBoxItemsCount > 0 then
+        DefaultDomVendorIndex := 0;
+    end
+    else
+      DefaultDomVendorIndex := DomVendorComboBoxItemsCount - 1;
+  end;
+  DomVendorComboBox.ItemIndex := DefaultDomVendorIndex
+end;
 
 procedure TMainForm.LoadXmlButtonClick(Sender: TObject);
 begin
@@ -96,22 +147,22 @@ end;
 
 procedure TMainForm.ClearMemoAndShowXmlNamespaces;
 var
-  NamespaceIXMLNode: IXMLNode;
-  NamespaceIXMLNodeArray: TIXMLNodeArray;
+  DomDocument: IDOMDocument;
+  DomNodeSelect: IDOMNodeSelect;
+  NamespaceIDomNode: IDOMNode;
+  NamespaceIDomNodeArray: IDOMNodeArray;
   PrefixWithDoubleQuotedNamespaceURI: string;
-  DOMNodeSelect: IDOMNodeSelect;
-  Document: IXMLDocument;
 begin
   try
-    IXMLNodeHelper.CreateDocumentAndDOMNodeSelect(Xml, Document, DOMNodeSelect);
+    IDomNodeHelper.CreateDocumentAndDOMNodeSelect(Xml, DomDocument, DomNodeSelect);
     ResultsMemo.Clear;
-    NamespaceIXMLNodeArray := IXMLNodeHelper.FindNamespaceDecls(Document.DocumentElement);
-    for NamespaceIXMLNode in NamespaceIXMLNodeArray do
+    NamespaceIDomNodeArray := IDomNodeHelper.FindNamespaceDecls(DomDocument.documentElement);
+    for NamespaceIDomNode in NamespaceIDomNodeArray do
     begin
-      //      Logger.Log('Prefix', NamespaceIXMLNode.Prefix); // always xmlns
-      //      Logger.Log('LocalName', NamespaceIXMLNode.LocalName); // the prefix
-      //      Logger.Log('NodeValue', string(NamespaceIXMLNode.NodeValue)); // the URI
-      PrefixWithDoubleQuotedNamespaceURI := Format('%s="%s"', [NamespaceIXMLNode.NodeName, string(NamespaceIXMLNode.NodeValue)]);
+      //      Logger.Log('Prefix', NamespaceIDomNode.Prefix); // always xmlns
+      //      Logger.Log('LocalName', NamespaceIDomNode.LocalName); // the prefix
+      //      Logger.Log('NodeValue', string(NamespaceIDomNode.NodeValue)); // the URI
+      PrefixWithDoubleQuotedNamespaceURI := Format('%s="%s"', [NamespaceIDomNode.NodeName, string(NamespaceIDomNode.NodeValue)]);
       Logger.Log(PrefixWithDoubleQuotedNamespaceURI);
     end;
   except
@@ -219,39 +270,39 @@ end;
 
 procedure TMainForm.RunXPath;
 var
-  Length: Integer;
+  DomDocument: IDOMDocument;
+  DomNode: IDOMNode;
+  DomNodeEx: IDOMNodeEx;
+  DomNodeList: IDOMNodeList;
+  DomNodeSelect: IDOMNodeSelect;
   Index: Integer;
-  DOMNodeList: IDOMNodeList;
-  DOMNodeSelect: IDOMNodeSelect;
-  DOMNode: IDOMNode;
-  XMLDocument: IXMLDocument;
-  DOMNodeEx: IDOMNodeEx;
+  Length: Integer;
 begin
   ClearMemoAndShowXmlNamespaces();
   Logger.Log('');
   try
     // Step 1: Load the XML and get references to the right interfaces
-    IXMLNodeHelper.CreateDocumentAndDOMNodeSelect(Xml, XMLDocument, DOMNodeSelect);
+    IDomNodeHelper.CreateDocumentAndDOMNodeSelect(Xml, DomDocument, DomNodeSelect);
     // Step 2: Run the query with the helper (it will load perform the correct SelectionNamespaces first)
-    DOMNodeList := IXMLNodeHelper.RunXPathQuery(XMLDocument, XPathQuery);
+    DomNodeList := IDomNodeHelper.RunXPathQuery(DomDocument, XPathQuery);
 
-    Length := DOMNodeList.length;
+    Length := DomNodeList.length;
     if Length = 0 then
       Logger.Log('No nodes returned from the XPathQuery query')
     else
       for Index := 0 to Length - 1 do
       begin
-        DOMNode := DOMNodeList.item[Index];
-        Logger.Log('nodeName', Index, DOMNode.nodeName);
-        Logger.Log('nodeValue', Index, string(DOMNode.nodeValue));
-        DOMNodeEx := DOMNode as IDOMNodeEx;
+        DomNode := DomNodeList.item[Index];
+        Logger.Log('nodeName', Index, DomNode.nodeName);
+        Logger.Log('nodeValue', Index, string(DomNode.nodeValue));
+        DomNodeEx := DomNode as IDOMNodeEx;
         if ShowXmlInResultCheckBox.Checked then
         begin
           Logger.Log('xml', Index, '');
-          Logger.Log(DOMNodeEx.xml);
+          Logger.Log(DomNodeEx.xml);
         end;
         if ShowTextInResultCheckBox.Checked then
-          Logger.Log('text', Index, DOMNodeEx.text);
+          Logger.Log('text', Index, DomNodeEx.text);
       end;
     AddXPathQueryToHistory();
   except
@@ -279,6 +330,115 @@ begin
     XPathLabeledEdit.Text := HistoryListBox.Items[ItemIndex];
 end;
 
+procedure TMainForm.AddSupportedVersion(Version: string; SupportedVersions: IStringListWrapper);
+begin
+  if Version = NullAsStringValue then
+    SupportedVersions.Add('Any')
+  else
+    SupportedVersions.Add(Version);
+end;
+
+procedure TMainForm.LogDomVendorFeatures(const CurrentDomVendor: TDOMVendor; const Versions, Features: array of string);
+var
+  AllVersions: string;
+  Feature: string;
+  Line: string;
+  Supported: Boolean;
+  SupportedAll: Boolean;
+  SupportedNone: Boolean;
+  SupportedVersions: IStringListWrapper;
+  Version: string;
+begin
+  SupportedVersions := TStringListWrapper.Create();
+  for Version in Versions do
+    AddSupportedVersion(Version, SupportedVersions);
+  AllVersions := Format('All: %s', [SupportedVersions.CommaText]);
+  for Feature in Features do
+  begin
+    SupportedAll := True;
+    SupportedNone := True;
+    SupportedVersions.Clear();
+    for Version in Versions do
+    begin
+      Supported := CurrentDomVendor.DOMImplementation.hasFeature(Feature, Version);
+      if Supported then
+        AddSupportedVersion(Version, SupportedVersions);
+      SupportedAll := SupportedAll and Supported;
+      SupportedNone := SupportedNone and not Supported;
+    end;
+    if SupportedNone then
+      Line := Format('None', [])
+    else
+    if SupportedAll then
+      Line := Format('%s', [AllVersions])
+    else
+      Line := Format('%s', [SupportedVersions.CommaText]);
+    Logger.Log('  ' + Feature, Line);
+  end;
+end;
+
+procedure TMainForm.LogDomVendor(const CurrentDomVendor: TDOMVendor);
+var
+  CurrentDomVendorDescription: string;
+  DocumentElement: IDOMElement;
+  DomDocument: IDOMDocument; // xmldom.IDOMDocument is the plain XML DOM
+  XmlDocument: IXMLDocument; // XMLIntf.IXMLDocument is the enrichted XML interface to the TComponent wrapper, which has a DOMDocument: IDOMDocument poperty, and allows obtaining XML from different sources (text, file, stream, etc)
+  XmlDocumentInstance: TXMLDocument; // unit XMLDoc
+
+  DOMNodeEx: IDOMNodeEx;
+  XMLDOMDocument2: IXMLDOMDocument2;
+begin
+  CurrentDomVendorDescription := CurrentDomVendor.Description;
+  Logger.Log('DOMVendor', CurrentDomVendorDescription);
+
+  XmlDocumentInstance := TXMLDocument.Create(nil);
+  XmlDocumentInstance.DOMVendor := CurrentDomVendor;
+  XmlDocument := XmlDocumentInstance;
+
+  DomDocument := CurrentDomVendor.DOMImplementation.createDocument(NullAsStringValue, NullAsStringValue, nil);
+
+  XmlDocument.DOMDocument := DomDocument;
+  XmlDocument.LoadFromXML('<document/>');
+  DomDocument := XmlDocument.DOMDocument; // we get another reference here, since we loaded some XML now
+
+  DocumentElement := DomDocument.DocumentElement;
+  if Assigned(DocumentElement) then
+  begin
+    DOMNodeEx := DocumentElement as IDOMNodeEx;
+    Logger.Log(DOMNodeEx.xml);
+  end;
+
+  if IDomNodeHelper.GetXmlDomDocument2(DomDocument, XMLDOMDocument2) then
+  begin
+    // XSLPattern versus XPath
+    // see http://stackoverflow.com/questions/784745/accessing-comments-in-xml-using-xpath
+    // XSLPattern is 0 based, but XPath is 1 based.
+    Logger.Log(IDomNodeHelper.SelectionLanguage, string(XMLDOMDocument2.getProperty(IDomNodeHelper.SelectionLanguage)));
+    Logger.Log(IDomNodeHelper.SelectionNamespaces, string(XMLDOMDocument2.getProperty(IDomNodeHelper.SelectionNamespaces)));
+  end;
+
+
+  LogDomVendorFeatures(CurrentDomVendor,
+    ['','1.0','2.0', '3.0'],
+//http://www.w3.org/TR/DOM-Level-3-Core/introduction.html#ID-Conformance
+//http://reference.sitepoint.com/javascript/DOMImplementation/hasFeature
+['Core'
+,'XML'
+,'Events'
+,'UIEvents'
+,'MouseEvents'
+,'TextEvents'
+,'KeyboardEvents'
+,'MutationEvents'
+,'MutationNameEvents'
+,'HTMLEvents'
+,'LS'
+,'LS-Async'
+,'Validation'
+,'XPath'
+]);
+end;
+
 procedure TMainForm.AddXPathQueryToHistory(const XPathQuery: string);
 begin
   if HistoryListBox.Items.IndexOf(XPathQuery) = -1 then
@@ -298,12 +458,42 @@ end;
 
 procedure TMainForm.ShowMsxml6VersionClick(Sender: TObject);
 begin
-  Logger.Log(TmsxmlFactory.msxml6FileVersion.ToString());
+{
+Windows 2003 with MSXML 3:
+--------------------------
+msxml3.dll: 8.100.1050.0
+Error
+Exception "ENotSupportedException", at 0051351A: "msxml6.dll must be newer than version 6.20.1099.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version msxml3.dll: 8.100.1050.0"
+
+windows XP with MSXML 4:
+------------------------
+msxml4.dll: 4.20.9818.0
+Error
+Exception "ENotSupportedException", at 00513536: "msxml6.dll must be newer than version 6.20.1099.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version msxml4.dll: 4.20.9818.0"
+
+Windows XP with MSXML 6: SP1
+------------------------
+msxml6.dll: 6.10.1129.0
+Error
+Exception "ENotSupportedException", at 00513536: "msxml6.dll must be newer than version 6.20.1099.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version msxml6.dll: 6.10.1129.0"
+
+windows XP with MSXML 6 SP2 (latest):
+------------------------
+msxml6.dll: 6.20.1103.0
+
+Windows 7 with MSXML 6 SP3:
+--------------------------
+msxml6.dll: 6.30.7600.16385
+}
   try
+    Logger.Log(TmsxmlFactory.msxmlBestFileVersion.ToString());
     TmsxmlFactory.AssertCompatibleMsxml6Version();
   except
     on E: Exception do
+    begin
+      Logger.Log('Error');
       Logger.Log(E);
+    end;
   end;
 end;
 
