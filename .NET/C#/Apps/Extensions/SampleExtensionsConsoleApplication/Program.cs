@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
-using bo.Extensions.SampleExtensions;
-using bo.Extensions.DelegateExtensions;
+using bo.Extensions.SampleExtensions; // still needed, but CodeRush parser fails
+using bo.Extensions.DelegateExtensions; // still needed, but CodeRush parser fails
 using bo.Extensions.ObjectExtensions;
-using bo.Extensions.StringExtensions;
-using bo.Extensions.NullExtensions;
+using bo.Extensions.StringExtensions; // still needed, but CodeRush parser fails
+using bo.Extensions.Generic.NullExtensions;
+using bo.Extensions.RandomExtensions;
+using bo.Extensions.Generic.ICollectionExtensions;
 
 namespace SampleExtensionsConsoleApplication
 {
@@ -36,9 +38,31 @@ namespace SampleExtensionsConsoleApplication
 
             demoThrowArgumentNullExceptionIfNull();
 
+            demoRandomExtensions();
+
+            demoICollectionExtensions();
+
             ScopingDemo.Run();
 
             return base.logic(args);
+        }
+
+        private static void demoICollectionExtensions()
+        {
+            var list = new List<Int32>();
+            list.AddRange(5, 4, 8, 4, 2);
+            list.ToString().DebugLog();
+        }
+
+        private static void demoRandomExtensions()
+        {
+            Random rand = new Random();
+            
+            bool luckyDay = rand.CoinToss();
+            luckyDay.ToString().DebugLog();
+
+            string iLike = rand.OneOf("C#", "VB.NET", "BASTA!");
+            "I like {0}".With(iLike).DebugLog();
         }
 
         private static void runAndDebugLogExceptions(Action action)
