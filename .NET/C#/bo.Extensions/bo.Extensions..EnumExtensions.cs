@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace bo.Extensions
+namespace bo.Extensions.EnumExtensions
 {
-    public static class EnumExtension
+    public static class EnumExtensions
     {
 
         #region .NET 3.5: extension methods: In, typesafe In, IsEmpty and typesafe IsEmpty

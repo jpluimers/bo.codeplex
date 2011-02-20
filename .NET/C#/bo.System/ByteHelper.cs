@@ -3,6 +3,14 @@ using System;
 
 namespace bo.System
 {
+    /* Some interesting links on C++ sources doing bit fiddling like ctz clz cto clo
+     * http://www-graphics.stanford.edu/~seander/bithacks.html
+     * http://www.koders.com/c/fid48BA31C1DD231039FB20F72E6FCB17339E5C565A.aspx?s=%22Bob%22
+     * http://dotnetperls.com/precomputed-bitcount
+     * http://dotnetperls.com/trailing-bits
+     * http://en.wikipedia.org/wiki/Hamming_weight
+     * http://stackoverflow.com/questions/2709430/count-number-of-bits-in-a-64-bit-long-big-integer
+     */
     public static class ByteHelper
     {
         public const byte BitsPerByte = 8;
