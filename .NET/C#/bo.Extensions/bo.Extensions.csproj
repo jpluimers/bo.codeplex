@@ -47,10 +47,13 @@
     <Compile Include="bo.Extensions..EnumExtensions.cs" />
     <Compile Include="bo.Extensions..DelegateExtensions.cs" />
     <Compile Include="bo.Extensions..ObjectExtensions.cs" />
-    <Compile Include="bo.Extensions..NullExtensions.cs" />
+    <Compile Include="bo.Extensions.Generic..NullExtensions.cs" />
+    <Compile Include="bo.Extensions.Generic..ComparableExtensions.cs" />
+    <Compile Include="ICollectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="bo.Extensions..SampleExtensions.cs" />
     <Compile Include="bo.Extensions..StringExtensions.cs" />
+    <Compile Include="bo.Extensions..RandomExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bo.Generic\bo.Generic.csproj">

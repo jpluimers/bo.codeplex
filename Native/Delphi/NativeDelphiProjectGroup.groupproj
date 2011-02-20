@@ -69,6 +69,12 @@
 			<Projects Include="Apps\Internet\DownloadFromUrl\prj\DownloadFromUrlProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="Apps\Internet\ShowNetworkAdaptersTCPIP\prj\ShowNetworkAdaptersTCPIP.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Tests\BitHelperUnitTests\prj\BitHelperUnitTests.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -275,14 +281,32 @@
 		<Target Name="DownloadFromUrlProject:Make">
 			<MSBuild Projects="Apps\Internet\DownloadFromUrl\prj\DownloadFromUrlProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="ShowNetworkAdaptersTCPIP">
+			<MSBuild Projects="Apps\Internet\ShowNetworkAdaptersTCPIP\prj\ShowNetworkAdaptersTCPIP.dproj"/>
+		</Target>
+		<Target Name="ShowNetworkAdaptersTCPIP:Clean">
+			<MSBuild Projects="Apps\Internet\ShowNetworkAdaptersTCPIP\prj\ShowNetworkAdaptersTCPIP.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="ShowNetworkAdaptersTCPIP:Make">
+			<MSBuild Projects="Apps\Internet\ShowNetworkAdaptersTCPIP\prj\ShowNetworkAdaptersTCPIP.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="BitHelperUnitTests">
+			<MSBuild Projects="Tests\BitHelperUnitTests\prj\BitHelperUnitTests.dproj"/>
+		</Target>
+		<Target Name="BitHelperUnitTests:Clean">
+			<MSBuild Projects="Tests\BitHelperUnitTests\prj\BitHelperUnitTests.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="BitHelperUnitTests:Make">
+			<MSBuild Projects="Tests\BitHelperUnitTests\prj\BitHelperUnitTests.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject;VoertuigDemo;FastMMUsageTrackerProject;GenericPublicSubscribeVCLProject;InterfaceConstParmetersAndPrematureFreeingProject;DownloadFromUrlProject"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject;VoertuigDemo;FastMMUsageTrackerProject;GenericPublicSubscribeVCLProject;InterfaceConstParmetersAndPrematureFreeingProject;DownloadFromUrlProject;ShowNetworkAdaptersTCPIP;BitHelperUnitTests"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean;VoertuigDemo:Clean;FastMMUsageTrackerProject:Clean;GenericPublicSubscribeVCLProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject:Clean;DownloadFromUrlProject:Clean"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean;VoertuigDemo:Clean;FastMMUsageTrackerProject:Clean;GenericPublicSubscribeVCLProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject:Clean;DownloadFromUrlProject:Clean;ShowNetworkAdaptersTCPIP:Clean;BitHelperUnitTests:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make;VoertuigDemo:Make;FastMMUsageTrackerProject:Make;GenericPublicSubscribeVCLProject:Make;InterfaceConstParmetersAndPrematureFreeingProject:Make;DownloadFromUrlProject:Make"/>
+			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make;VoertuigDemo:Make;FastMMUsageTrackerProject:Make;GenericPublicSubscribeVCLProject:Make;InterfaceConstParmetersAndPrematureFreeingProject:Make;DownloadFromUrlProject:Make;ShowNetworkAdaptersTCPIP:Make;BitHelperUnitTests:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

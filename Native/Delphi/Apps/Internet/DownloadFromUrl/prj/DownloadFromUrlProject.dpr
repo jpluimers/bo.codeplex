@@ -3,7 +3,7 @@ program DownloadFromUrlProject;
 uses
   Forms,
   DownloadFromUrlMainFormUnit in '..\src\DownloadFromUrlMainFormUnit.pas' {DownloadFromUrlMainForm},
-  WinInetUnit in '..\..\..\..\bo.Internet\WinInetUnit.pas';
+  WinInetUnit in '..\..\..\..\bo.Net\WinInetUnit.pas';
 
 {$R *.res}
 
