@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E4153CFD-0E3E-4F21-83D9-2E6D5587379C}</ProjectGuid>
+    <ProjectGuid>{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>bo.Extensions</RootNamespace>
-    <AssemblyName>bo.Extensions</AssemblyName>
+    <RootNamespace>bo.Threading</RootNamespace>
+    <AssemblyName>bo.Threading</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -44,22 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bo.Extensions..EnumExtensions.cs" />
-    <Compile Include="bo.Extensions..DelegateExtensions.cs" />
-    <Compile Include="bo.Extensions..ObjectExtensions.cs" />
-    <Compile Include="bo.Extensions..NullExtensions.cs" />
+    <Compile Include="bo.Threading.AsyncDelegator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="bo.Extensions..SampleExtensions.cs" />
-    <Compile Include="bo.Extensions..StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bo.Generic\bo.Generic.csproj">
-      <Project>{0CC051DD-85AC-4C80-8386-89510B46445D}</Project>
-      <Name>bo.Generic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\bo\bo.csproj">
-      <Project>{50E7A8CF-31DE-4AF3-9ADF-F0CA40BF86E3}</Project>
-      <Name>bo</Name>
+    <ProjectReference Include="..\bo.Extensions\bo.Extensions.csproj">
+      <Project>{E4153CFD-0E3E-4F21-83D9-2E6D5587379C}</Project>
+      <Name>bo.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

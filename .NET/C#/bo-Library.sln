@@ -36,9 +36,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{1BF6B558-5114-489C-9A7F-367E75D45709}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleExtensionsConsoleApplication", "Apps\Extensions\SampleExtensionsConsoleApplication\SampleExtensionsConsoleApplication.csproj", "{89BA4904-AAEE-4260-A86E-884A35BA27C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumExtensionsConsoleApplication", "Apps\Extensions\EnumExtensionsConsoleApplication\EnumExtensionsConsoleApplication.csproj", "{8D2FB1C0-6117-4282-93A8-505CEE0946D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bo.Threading", "bo.Threading\bo.Threading.csproj", "{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
+		SccNumberOfProjects = 15
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -78,6 +86,17 @@ Global
 		SccProjectUniqueName11 = bo.System.TestProject\\bo.System.TestProject.csproj
 		SccProjectName11 = bo.System.TestProject
 		SccLocalPath11 = bo.System.TestProject
+		SccProjectUniqueName12 = Apps\\Extensions\\SampleExtensionsConsoleApplication\\SampleExtensionsConsoleApplication.csproj
+		SccProjectTopLevelParentUniqueName12 = bo-Library.sln
+		SccProjectName12 = Apps/Extensions/SampleExtensionsConsoleApplication
+		SccLocalPath12 = Apps\\Extensions\\SampleExtensionsConsoleApplication
+		SccProjectUniqueName13 = Apps\\Extensions\\EnumExtensionsConsoleApplication\\EnumExtensionsConsoleApplication.csproj
+		SccProjectTopLevelParentUniqueName13 = bo-Library.sln
+		SccProjectName13 = Apps/Extensions/EnumExtensionsConsoleApplication
+		SccLocalPath13 = Apps\\Extensions\\EnumExtensionsConsoleApplication
+		SccProjectUniqueName14 = bo.Threading\\bo.Threading.csproj
+		SccProjectName14 = bo.Threading
+		SccLocalPath14 = bo.Threading
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = bo-Library.vsmdi
@@ -201,6 +220,36 @@ Global
 		{BAD4F604-8E75-4F8C-B1BD-D39EEDD146A6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BAD4F604-8E75-4F8C-B1BD-D39EEDD146A6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BAD4F604-8E75-4F8C-B1BD-D39EEDD146A6}.Release|x86.ActiveCfg = Release|Any CPU
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Debug|x86.ActiveCfg = Debug|x86
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Debug|x86.Build.0 = Debug|x86
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Release|Any CPU.ActiveCfg = Release|x86
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Release|Mixed Platforms.Build.0 = Release|x86
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Release|x86.ActiveCfg = Release|x86
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5}.Release|x86.Build.0 = Release|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Debug|x86.ActiveCfg = Debug|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Debug|x86.Build.0 = Debug|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Release|Any CPU.ActiveCfg = Release|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Release|x86.ActiveCfg = Release|x86
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4}.Release|x86.Build.0 = Release|x86
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0DC66455-C29A-443A-BA42-F7C9CE5B39D4}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -209,7 +258,10 @@ Global
 		{76D2FD88-4FB8-4AF0-8042-B6D301907B11} = {8E1DEF7B-AAF5-4CE2-9947-DABF2C2298BD}
 		{07A9991C-1747-425F-ACA9-AB1DCEF0B1D3} = {8E1DEF7B-AAF5-4CE2-9947-DABF2C2298BD}
 		{A4D99649-F35D-4CE0-9224-656F13D536C4} = {8E1DEF7B-AAF5-4CE2-9947-DABF2C2298BD}
+		{1BF6B558-5114-489C-9A7F-367E75D45709} = {8E1DEF7B-AAF5-4CE2-9947-DABF2C2298BD}
 		{0E953A41-5DE3-4BEA-8480-81B294F392D7} = {76D2FD88-4FB8-4AF0-8042-B6D301907B11}
 		{1F14EE34-799C-4D97-85A7-4A0CED16D892} = {07A9991C-1747-425F-ACA9-AB1DCEF0B1D3}
+		{89BA4904-AAEE-4260-A86E-884A35BA27C5} = {1BF6B558-5114-489C-9A7F-367E75D45709}
+		{8D2FB1C0-6117-4282-93A8-505CEE0946D4} = {1BF6B558-5114-489C-9A7F-367E75D45709}
 	EndGlobalSection
 EndGlobal
