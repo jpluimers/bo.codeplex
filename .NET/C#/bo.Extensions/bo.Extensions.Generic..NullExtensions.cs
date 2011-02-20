@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace bo.Extensions.NullExtensions
+namespace bo.Extensions.Generic.NullExtensions
 {
     public static class NullExtensions
     {
