@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E4153CFD-0E3E-4F21-83D9-2E6D5587379C}</ProjectGuid>
+    <ProjectGuid>{1C94561A-92B3-46B3-8076-E3B0A719BD1C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>bo.Extensions</RootNamespace>
-    <AssemblyName>bo.Extensions</AssemblyName>
+    <RootNamespace>bo.Configuration</RootNamespace>
+    <AssemblyName>bo.Configuration</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -36,28 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bo.Extensions..EnumExtensions.cs" />
-    <Compile Include="bo.Extensions..DelegateExtensions.cs" />
-    <Compile Include="bo.Extensions..ObjectExtensions.cs" />
-    <Compile Include="bo.Extensions.Generic..NullExtensions.cs" />
-    <Compile Include="bo.Extensions.Generic..ComparableExtensions.cs" />
-    <Compile Include="ICollectionExtensions.cs" />
+    <Compile Include="bo.Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="bo.Extensions..SampleExtensions.cs" />
-    <Compile Include="bo.Extensions..StringExtensions.cs" />
-    <Compile Include="bo.Extensions..RandomExtensions.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\bo.Generic\bo.Generic.csproj">
-      <Project>{0CC051DD-85AC-4C80-8386-89510B46445D}</Project>
-      <Name>bo.Generic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\bo\bo.csproj">
-      <Project>{50E7A8CF-31DE-4AF3-9ADF-F0CA40BF86E3}</Project>
-      <Name>bo</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
