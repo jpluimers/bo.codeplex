@@ -12,17 +12,24 @@ uses
 // 2. http://msdn.microsoft.com/en-us/library/ms756048(VS.85).aspx
 type
   TMainForm = class(TForm)
-    HistoryMemo: TMemo;
-    LoadXmlButton: TButton;
     ActionPanel: TPanel;
+    DomVendorComboBox: TComboBox;
+    HistoryGroupBox: TGroupBox;
+    HistoryListBox: TListBox;
+    HistoryMemo: TMemo;
+    HistoryTabSheet: TTabSheet;
+    Label1: TLabel;
+    LoadXmlButton: TButton;
+    LoadXmlExample1Button: TButton;
+    LoadXmlExample2Button: TButton;
     ResultsGroupBox: TGroupBox;
     ResultsMemo: TMemo;
     RunButton: TButton;
+    ShowMsxml6Version: TButton;
     ShowNameSpacesButton: TButton;
     ShowTextInResultCheckBox: TCheckBox;
     ShowXmlInResultCheckBox: TCheckBox;
     Splitter1: TSplitter;
-    HistoryTabSheet: TTabSheet;
     XmlGroupBox: TGroupBox;
     XmlMemo: TMemo;
     XmlMemoTabSheet: TTabSheet;
@@ -31,13 +38,6 @@ type
     XmlViewTabSheet: TTabSheet;
     XmlWebBrowser: TWebBrowser;
     XPathLabeledEdit: TLabeledEdit;
-    LoadXmlExample1Button: TButton;
-    LoadXmlExample2Button: TButton;
-    HistoryListBox: TListBox;
-    HistoryGroupBox: TGroupBox;
-    ShowMsxml6Version: TButton;
-    DomVendorComboBox: TComboBox;
-    Label1: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure HistoryListBoxClick(Sender: TObject);
     procedure LoadXmlButtonClick(Sender: TObject);
@@ -50,8 +50,9 @@ type
   strict private
     FLogger: ILogger;
   private
-    procedure LogDomVendorFeatures(const CurrentDomVendor: TDOMVendor; const Versions, Features: array of string);
     procedure AddSupportedVersion(Version: string; SupportedVersions: IStringListWrapper);
+    procedure FillDomVendorComboBox;
+    procedure LogDomVendorFeatures(const CurrentDomVendor: TDOMVendor; const Versions, Features: array of string);
   strict protected
     procedure AddXPathQueryToHistory; overload; virtual;
     procedure AddXPathQueryToHistory(const XPathQuery: string); overload; virtual;
@@ -90,38 +91,13 @@ uses
 {$R *.dfm}
 
 procedure TMainForm.FormCreate(Sender: TObject);
-const
-  NoSelection = -1;
-var
-  CurrentDomVendor: TDOMVendor;
-  CurrentDomVendorDescription: string;
-  Index: Integer;
-  DefaultDomVendorIndex: Integer;
-  DomVendorComboBoxItemsCount: Integer;
 begin
-  DomVendorComboBox.Clear();
-  DefaultDomVendorIndex := NoSelection;
-  for Index := 0 to DOMVendors.Count-1 do begin
-    CurrentDomVendor := DOMVendors.Vendors[Index];
-    LogDomVendor(CurrentDomVendor);
-    CurrentDomVendorDescription := CurrentDomVendor.Description;
-    DomVendorComboBox.Items.Add(CurrentDomVendorDescription);
-    if DefaultDOMVendor = CurrentDomVendorDescription then
-      DefaultDomVendorIndex := DomVendorComboBox.Items.Count-1;
-  end;
+  FillDomVendorComboBox();
+end;
 
-  DomVendorComboBoxItemsCount := DomVendorComboBox.Items.Count;
-  if (DefaultDomVendorIndex = NoSelection) then
-  begin
-    if DefaultDOMVendor = NullAsStringValue then
-    begin
-      if DomVendorComboBoxItemsCount > 0 then
-        DefaultDomVendorIndex := 0;
-    end
-    else
-      DefaultDomVendorIndex := DomVendorComboBoxItemsCount - 1;
-  end;
-  DomVendorComboBox.ItemIndex := DefaultDomVendorIndex
+procedure TMainForm.HistoryListBoxClick(Sender: TObject);
+begin
+  UpdateXPathLabeledEditTextFromHistoryListBox();
 end;
 
 procedure TMainForm.LoadXmlButtonClick(Sender: TObject);
@@ -129,9 +105,97 @@ begin
   LoadXmlAndShowNamespaces();
 end;
 
+procedure TMainForm.LoadXmlExample1ButtonClick(Sender: TObject);
+begin
+  LoadXmlExample([
+    '//bk:Book[position()<=2]'
+  ],
+  [
+    '<?xml version="1.0"?>',
+    '<bk:Books xmlns:bk="http://myserver/myschemas/Books">',
+    '  <bk:Book>',
+    '      <bk:Title>Just XML</bk:Title>',
+    '  </bk:Book>',
+    '  <bk:Book>',
+    '      <bk:Title>Professional XML</bk:Title>',
+    '  </bk:Book>',
+    '  <bk:Book>',
+    '      <bk:Title>XML Step by Step</bk:Title>',
+    '  </bk:Book>',
+    '  <bk:Book>',
+    '      <bk:Title>XML By Example</bk:Title>',
+    '  </bk:Book>',
+    '</bk:Books>'
+  ]);
+end;
+
+procedure TMainForm.LoadXmlExample2ButtonClick(Sender: TObject);
+begin
+  LoadXmlExample([
+    '//root',
+    '//a:root',
+    '//branch',
+    '//a:branch',
+    '//b:branch'
+  ],
+  [
+    '<?xml version="1.0"?>',
+    '<root>',
+    '<branch>branch</branch>',
+    '<a:root xmlns:a="http://myserver.com">',
+    '<a:branch>a-branch</a:branch>',
+    '<b:branch xmlns:b="http://yourserver.com">',
+    'b-branch',
+    '</b:branch>',
+    '</a:root>',
+    '</root>'
+  ]);
+end;
+
 procedure TMainForm.RunButtonClick(Sender: TObject);
 begin
   RunXPath();
+end;
+
+procedure TMainForm.ShowMsxml6VersionClick(Sender: TObject);
+begin
+{
+Windows 2003 with MSXML 3:
+--------------------------
+msxml3.dll: 8.100.1050.0
+Error
+Exception "ENotSupportedException", at 0051351A: "msxml6.dll must be newer than version 6.20.1099.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version msxml3.dll: 8.100.1050.0"
+
+windows XP with MSXML 4:
+------------------------
+msxml4.dll: 4.20.9818.0
+Error
+Exception "ENotSupportedException", at 00513536: "msxml6.dll must be newer than version 6.20.1099.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version msxml4.dll: 4.20.9818.0"
+
+Windows XP with MSXML 6 SP1:
+------------------------
+msxml6.dll: 6.10.1129.0
+Error
+Exception "ENotSupportedException", at 00513536: "msxml6.dll must be newer than version 6.20.1099.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version msxml6.dll: 6.10.1129.0"
+
+windows XP with MSXML 6 SP2 (latest):
+------------------------
+msxml6.dll: 6.20.1103.0
+
+Windows 7 with MSXML 6 SP3:
+--------------------------
+msxml6.dll: 6.30.7600.16385
+}
+  try
+    Logger.Log(TmsxmlFactory.msxmlBestFileVersion.ToString());
+    TmsxmlFactory.AssertCompatibleMsxml6Version();
+  except
+    on E: Exception do
+    begin
+      Logger.Log('Error');
+      Logger.Log(E);
+    end;
+  end;
 end;
 
 procedure TMainForm.ShowNameSpacesButtonClick(Sender: TObject);
@@ -143,6 +207,100 @@ procedure TMainForm.XmlPageControlChange(Sender: TObject);
 begin
   if XmlPageControl.ActivePage = XmlViewTabSheet then
     XmlWebBrowser.LoadFromXmlString(Xml);
+end;
+
+procedure TMainForm.AddSupportedVersion(Version: string; SupportedVersions: IStringListWrapper);
+begin
+  if Version = NullAsStringValue then
+    SupportedVersions.Add('Any')
+  else
+    SupportedVersions.Add(Version);
+end;
+
+procedure TMainForm.FillDomVendorComboBox;
+var
+  DomVendorComboBoxItemsCount: Integer;
+  Index: Integer;
+  CurrentDomVendor: TDOMVendor;
+  DefaultDomVendorIndex: Integer;
+  CurrentDomVendorDescription: string;
+const
+  NoSelection = -1;
+begin
+  DomVendorComboBox.Clear;
+  DefaultDomVendorIndex := NoSelection;
+  for Index := 0 to DOMVendors.Count - 1 do
+  begin
+    CurrentDomVendor := DOMVendors.Vendors[Index];
+    LogDomVendor(CurrentDomVendor);
+    CurrentDomVendorDescription := CurrentDomVendor.Description;
+    DomVendorComboBox.Items.Add(CurrentDomVendorDescription);
+    if DefaultDOMVendor = CurrentDomVendorDescription then
+      DefaultDomVendorIndex := DomVendorComboBox.Items.Count - 1;
+  end;
+  DomVendorComboBoxItemsCount := DomVendorComboBox.Items.Count;
+  if (DefaultDomVendorIndex = NoSelection) then
+  begin
+    if DefaultDOMVendor = NullAsStringValue then
+    begin
+      if DomVendorComboBoxItemsCount > 0 then
+        DefaultDomVendorIndex := 0;
+    end
+    else
+      DefaultDomVendorIndex := DomVendorComboBoxItemsCount - 1;
+  end;
+  DomVendorComboBox.ItemIndex := DefaultDomVendorIndex;
+end;
+
+procedure TMainForm.LogDomVendorFeatures(const CurrentDomVendor: TDOMVendor; const Versions, Features: array of string);
+var
+  AllVersions: string;
+  Feature: string;
+  Line: string;
+  Supported: Boolean;
+  SupportedAll: Boolean;
+  SupportedNone: Boolean;
+  SupportedVersions: IStringListWrapper;
+  Version: string;
+begin
+  SupportedVersions := TStringListWrapper.Create();
+  for Version in Versions do
+    AddSupportedVersion(Version, SupportedVersions);
+  AllVersions := Format('All: %s', [SupportedVersions.CommaText]);
+  for Feature in Features do
+  begin
+    SupportedAll := True;
+    SupportedNone := True;
+    SupportedVersions.Clear();
+    for Version in Versions do
+    begin
+      Supported := CurrentDomVendor.DOMImplementation.hasFeature(Feature, Version);
+      if Supported then
+        AddSupportedVersion(Version, SupportedVersions);
+      SupportedAll := SupportedAll and Supported;
+      SupportedNone := SupportedNone and not Supported;
+    end;
+    if SupportedNone then
+      Line := Format('None', [])
+    else
+    if SupportedAll then
+      Line := Format('%s', [AllVersions])
+    else
+      Line := Format('%s', [SupportedVersions.CommaText]);
+    Logger.Log('  ' + Feature, Line);
+  end;
+end;
+
+procedure TMainForm.AddXPathQueryToHistory;
+begin
+  AddXPathQueryToHistory(XPathQuery);
+end;
+
+procedure TMainForm.AddXPathQueryToHistory(const XPathQuery: string);
+begin
+  if HistoryListBox.Items.IndexOf(XPathQuery) = -1 then
+    HistoryListBox.Items.Add(XPathQuery);
+  HistoryMemo.Lines.Add(XPathQuery);
 end;
 
 procedure TMainForm.ClearMemoAndShowXmlNamespaces;
@@ -221,162 +379,6 @@ begin
   end;
 end;
 
-procedure TMainForm.LoadXmlExample1ButtonClick(Sender: TObject);
-begin
-  LoadXmlExample([
-    '//bk:Book[position()<=2]'
-  ],
-  [
-    '<?xml version="1.0"?>',
-    '<bk:Books xmlns:bk="http://myserver/myschemas/Books">',
-    '  <bk:Book>',
-    '      <bk:Title>Just XML</bk:Title>',
-    '  </bk:Book>',
-    '  <bk:Book>',
-    '      <bk:Title>Professional XML</bk:Title>',
-    '  </bk:Book>',
-    '  <bk:Book>',
-    '      <bk:Title>XML Step by Step</bk:Title>',
-    '  </bk:Book>',
-    '  <bk:Book>',
-    '      <bk:Title>XML By Example</bk:Title>',
-    '  </bk:Book>',
-    '</bk:Books>'
-  ]);
-end;
-
-procedure TMainForm.LoadXmlExample2ButtonClick(Sender: TObject);
-begin
-  LoadXmlExample([
-    '//root',
-    '//a:root',
-    '//branch',
-    '//a:branch',
-    '//b:branch'
-  ],
-  [
-    '<?xml version="1.0"?>',
-    '<root>',
-    '<branch>branch</branch>',
-    '<a:root xmlns:a="http://myserver.com">',
-    '<a:branch>a-branch</a:branch>',
-    '<b:branch xmlns:b="http://yourserver.com">',
-    'b-branch',
-    '</b:branch>',
-    '</a:root>',
-    '</root>'
-  ]);
-end;
-
-procedure TMainForm.RunXPath;
-var
-  DomDocument: IDOMDocument;
-  DomNode: IDOMNode;
-  DomNodeEx: IDOMNodeEx;
-  DomNodeList: IDOMNodeList;
-  DomNodeSelect: IDOMNodeSelect;
-  Index: Integer;
-  Length: Integer;
-begin
-  ClearMemoAndShowXmlNamespaces();
-  Logger.Log('');
-  try
-    // Step 1: Load the XML and get references to the right interfaces
-    IDomNodeHelper.CreateDocumentAndDOMNodeSelect(Xml, DomDocument, DomNodeSelect);
-    // Step 2: Run the query with the helper (it will load perform the correct SelectionNamespaces first)
-    DomNodeList := IDomNodeHelper.RunXPathQuery(DomDocument, XPathQuery);
-
-    Length := DomNodeList.length;
-    if Length = 0 then
-      Logger.Log('No nodes returned from the XPathQuery query')
-    else
-      for Index := 0 to Length - 1 do
-      begin
-        DomNode := DomNodeList.item[Index];
-        Logger.Log('nodeName', Index, DomNode.nodeName);
-        Logger.Log('nodeValue', Index, string(DomNode.nodeValue));
-        DomNodeEx := DomNode as IDOMNodeEx;
-        if ShowXmlInResultCheckBox.Checked then
-        begin
-          Logger.Log('xml', Index, '');
-          Logger.Log(DomNodeEx.xml);
-        end;
-        if ShowTextInResultCheckBox.Checked then
-          Logger.Log('text', Index, DomNodeEx.text);
-      end;
-    AddXPathQueryToHistory();
-  except
-    on E: Exception do
-      Logger.Log(E);
-  end;
-end;
-
-procedure TMainForm.SetXml(const Value: string);
-begin
-  XmlMemo.Text := Value;
-end;
-
-procedure TMainForm.SetXPathQuery(const Value: string);
-begin
-  XPathLabeledEdit.Text := Value;
-end;
-
-procedure TMainForm.UpdateXPathLabeledEditTextFromHistoryListBox;
-var
-  ItemIndex: Integer;
-begin
-  ItemIndex := HistoryListBox.ItemIndex;
-  if ItemIndex <> -1 then
-    XPathLabeledEdit.Text := HistoryListBox.Items[ItemIndex];
-end;
-
-procedure TMainForm.AddSupportedVersion(Version: string; SupportedVersions: IStringListWrapper);
-begin
-  if Version = NullAsStringValue then
-    SupportedVersions.Add('Any')
-  else
-    SupportedVersions.Add(Version);
-end;
-
-procedure TMainForm.LogDomVendorFeatures(const CurrentDomVendor: TDOMVendor; const Versions, Features: array of string);
-var
-  AllVersions: string;
-  Feature: string;
-  Line: string;
-  Supported: Boolean;
-  SupportedAll: Boolean;
-  SupportedNone: Boolean;
-  SupportedVersions: IStringListWrapper;
-  Version: string;
-begin
-  SupportedVersions := TStringListWrapper.Create();
-  for Version in Versions do
-    AddSupportedVersion(Version, SupportedVersions);
-  AllVersions := Format('All: %s', [SupportedVersions.CommaText]);
-  for Feature in Features do
-  begin
-    SupportedAll := True;
-    SupportedNone := True;
-    SupportedVersions.Clear();
-    for Version in Versions do
-    begin
-      Supported := CurrentDomVendor.DOMImplementation.hasFeature(Feature, Version);
-      if Supported then
-        AddSupportedVersion(Version, SupportedVersions);
-      SupportedAll := SupportedAll and Supported;
-      SupportedNone := SupportedNone and not Supported;
-    end;
-    if SupportedNone then
-      Line := Format('None', [])
-    else
-    if SupportedAll then
-      Line := Format('%s', [AllVersions])
-    else
-      Line := Format('%s', [SupportedVersions.CommaText]);
-    Logger.Log('  ' + Feature, Line);
-  end;
-end;
-
 procedure TMainForm.LogDomVendor(const CurrentDomVendor: TDOMVendor);
 var
   CurrentDomVendorDescription: string;
@@ -439,62 +441,66 @@ begin
 ]);
 end;
 
-procedure TMainForm.AddXPathQueryToHistory(const XPathQuery: string);
+procedure TMainForm.RunXPath;
+var
+  DomDocument: IDOMDocument;
+  DomNode: IDOMNode;
+  DomNodeEx: IDOMNodeEx;
+  DomNodeList: IDOMNodeList;
+  DomNodeSelect: IDOMNodeSelect;
+  Index: Integer;
+  Length: Integer;
 begin
-  if HistoryListBox.Items.IndexOf(XPathQuery) = -1 then
-    HistoryListBox.Items.Add(XPathQuery);
-  HistoryMemo.Lines.Add(XPathQuery);
-end;
-
-procedure TMainForm.AddXPathQueryToHistory;
-begin
-  AddXPathQueryToHistory(XPathQuery);
-end;
-
-procedure TMainForm.HistoryListBoxClick(Sender: TObject);
-begin
-  UpdateXPathLabeledEditTextFromHistoryListBox();
-end;
-
-procedure TMainForm.ShowMsxml6VersionClick(Sender: TObject);
-begin
-{
-Windows 2003 with MSXML 3:
---------------------------
-msxml3.dll: 8.100.1050.0
-Error
-Exception "ENotSupportedException", at 0051351A: "msxml6.dll must be newer than version 6.20.1099.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version msxml3.dll: 8.100.1050.0"
-
-windows XP with MSXML 4:
-------------------------
-msxml4.dll: 4.20.9818.0
-Error
-Exception "ENotSupportedException", at 00513536: "msxml6.dll must be newer than version 6.20.1099.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version msxml4.dll: 4.20.9818.0"
-
-Windows XP with MSXML 6: SP1
-------------------------
-msxml6.dll: 6.10.1129.0
-Error
-Exception "ENotSupportedException", at 00513536: "msxml6.dll must be newer than version 6.20.1099.* (you need 6.30.*, 6.20.1103.*, 6.20.2003.0 or higher), but you have version msxml6.dll: 6.10.1129.0"
-
-windows XP with MSXML 6 SP2 (latest):
-------------------------
-msxml6.dll: 6.20.1103.0
-
-Windows 7 with MSXML 6 SP3:
---------------------------
-msxml6.dll: 6.30.7600.16385
-}
+  ClearMemoAndShowXmlNamespaces();
+  Logger.Log('');
   try
-    Logger.Log(TmsxmlFactory.msxmlBestFileVersion.ToString());
-    TmsxmlFactory.AssertCompatibleMsxml6Version();
+    // Step 1: Load the XML and get references to the right interfaces
+    IDomNodeHelper.CreateDocumentAndDOMNodeSelect(Xml, DomDocument, DomNodeSelect);
+    // Step 2: Run the query with the helper (it will load perform the correct SelectionNamespaces first)
+    DomNodeList := IDomNodeHelper.RunXPathQuery(DomDocument, XPathQuery);
+
+    Length := DomNodeList.length;
+    if Length = 0 then
+      Logger.Log('No nodes returned from the XPathQuery query')
+    else
+      for Index := 0 to Length - 1 do
+      begin
+        DomNode := DomNodeList.item[Index];
+        Logger.Log('nodeName', Index, DomNode.nodeName);
+        Logger.Log('nodeValue', Index, string(DomNode.nodeValue));
+        DomNodeEx := DomNode as IDOMNodeEx;
+        if ShowXmlInResultCheckBox.Checked then
+        begin
+          Logger.Log('xml', Index, '');
+          Logger.Log(DomNodeEx.xml);
+        end;
+        if ShowTextInResultCheckBox.Checked then
+          Logger.Log('text', Index, DomNodeEx.text);
+      end;
+    AddXPathQueryToHistory();
   except
     on E: Exception do
-    begin
-      Logger.Log('Error');
       Logger.Log(E);
-    end;
   end;
+end;
+
+procedure TMainForm.SetXml(const Value: string);
+begin
+  XmlMemo.Text := Value;
+end;
+
+procedure TMainForm.SetXPathQuery(const Value: string);
+begin
+  XPathLabeledEdit.Text := Value;
+end;
+
+procedure TMainForm.UpdateXPathLabeledEditTextFromHistoryListBox;
+var
+  ItemIndex: Integer;
+begin
+  ItemIndex := HistoryListBox.ItemIndex;
+  if ItemIndex <> -1 then
+    XPathLabeledEdit.Text := HistoryListBox.Items[ItemIndex];
 end;
 
 end.
