@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A4D99649-F35D-4CE0-9224-656F13D536C4}</ProjectGuid>
+    <ProjectGuid>{8D2FB1C0-6117-4282-93A8-505CEE0946D4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ShowNetworkAdaptersTcpIpConsoleApplication</RootNamespace>
-    <AssemblyName>ShowNetworkAdaptersTcpIpConsoleApplication</AssemblyName>
+    <RootNamespace>EnumExtensionsConsoleApplication</RootNamespace>
+    <AssemblyName>EnumExtensionsConsoleApplication</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -47,15 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardSuits.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\bo.Internet\bo.Internet.csproj">
-      <Project>{138A7A7E-53DB-4685-A6A8-6A6D8908CFC4}</Project>
-      <Name>bo.Internet</Name>
+    <ProjectReference Include="..\..\..\Library\bo.Extensions\bo.Extensions.csproj">
+      <Project>{E4153CFD-0E3E-4F21-83D9-2E6D5587379C}</Project>
+      <Name>bo.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\bo\bo.csproj">
+    <ProjectReference Include="..\..\..\Library\bo\bo.csproj">
       <Project>{50E7A8CF-31DE-4AF3-9ADF-F0CA40BF86E3}</Project>
       <Name>bo</Name>
     </ProjectReference>

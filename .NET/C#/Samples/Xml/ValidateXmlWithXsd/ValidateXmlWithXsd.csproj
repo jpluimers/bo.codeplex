@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8D2FB1C0-6117-4282-93A8-505CEE0946D4}</ProjectGuid>
+    <ProjectGuid>{1F14EE34-799C-4D97-85A7-4A0CED16D892}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EnumExtensionsConsoleApplication</RootNamespace>
-    <AssemblyName>EnumExtensionsConsoleApplication</AssemblyName>
+    <RootNamespace>ValidateXmlWithXsd</RootNamespace>
+    <AssemblyName>ValidateXmlWithXsd</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -47,18 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardSuits.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\bo.Extensions\bo.Extensions.csproj">
-      <Project>{E4153CFD-0E3E-4F21-83D9-2E6D5587379C}</Project>
-      <Name>bo.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\bo\bo.csproj">
-      <Project>{50E7A8CF-31DE-4AF3-9ADF-F0CA40BF86E3}</Project>
-      <Name>bo</Name>
+    <ProjectReference Include="..\..\..\Library\bo.Xml\bo.Xml.csproj">
+      <Project>{406AA316-2DF4-434F-8130-0DA88C8C42CD}</Project>
+      <Name>bo.Xml</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

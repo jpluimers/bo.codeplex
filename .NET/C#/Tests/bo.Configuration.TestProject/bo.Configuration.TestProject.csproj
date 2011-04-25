@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D8C9AE3F-04D0-4271-BDF5-708BB22E2B56}</ProjectGuid>
+    <ProjectGuid>{92E8F4CC-D831-4AD2-A25D-018A2C1E365C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>bo.Configuration.TestProject</RootNamespace>
@@ -51,6 +51,22 @@
   <ItemGroup>
     <Compile Include="bo.Configuration.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="AppSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\bo.Configuration\bo.Configuration.csproj">
+      <Project>{1C94561A-92B3-46B3-8076-E3B0A719BD1C}</Project>
+      <Name>bo.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\bo.Extensions\bo.Extensions.csproj">
+      <Project>{E4153CFD-0E3E-4F21-83D9-2E6D5587379C}</Project>
+      <Name>bo.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

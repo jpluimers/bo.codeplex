@@ -50,7 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bo.System\bo.System.csproj">
+    <ProjectReference Include="..\..\Library\bo.System\bo.System.csproj">
       <Project>{8B9AEE9B-AB1A-44C2-80C4-AD39D0A40EB6}</Project>
       <Name>bo.System</Name>
     </ProjectReference>
