@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{50E7A8CF-31DE-4AF3-9ADF-F0CA40BF86E3}</ProjectGuid>
+    <ProjectGuid>{406AA316-2DF4-434F-8130-0DA88C8C42CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>bo</RootNamespace>
-    <AssemblyName>bo</AssemblyName>
+    <RootNamespace>bo.Xml</RootNamespace>
+    <AssemblyName>bo.Xml</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -53,14 +53,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bo.AssemblyHelper.cs" />
-    <Compile Include="bo.ConsoleProgram.cs" />
-    <Compile Include="bo.DesignTime.cs" />
-    <Compile Include="bo.EnumHelper.cs" />
-    <Compile Include="bo.ExceptionCatcher.cs" />
-    <Compile Include="bo.ExceptionHelper.cs" />
+    <Compile Include="bo.Xml.Data.XmlDataExport.cs" />
+    <Compile Include="bo.Xml.InnerFromXmlProvider.cs" />
+    <Compile Include="bo.Xml.SqlClient.ExportXmlFromDb.cs" />
+    <Compile Include="bo.Xml.SqlClient.XmlDataExport.cs" />
+    <Compile Include="bo.Xml.XmlConvert.cs" />
+    <Compile Include="bo.Xml.XmlDataExport.cs" />
+    <Compile Include="bo.Xml.XmlDumper.cs" />
+    <Compile Include="bo.Xml.XmlNodeExtension.cs" />
+    <Compile Include="bo.Xml.XmlTranscoder.cs" />
+    <Compile Include="bo.Xml.XmlValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +90,16 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bo.Logging\bo.Logging.csproj">
+      <Project>{F544B159-7362-4670-AD09-88DEC1A2CC7A}</Project>
+      <Name>bo.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bo\bo.csproj">
+      <Project>{50E7A8CF-31DE-4AF3-9ADF-F0CA40BF86E3}</Project>
+      <Name>bo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

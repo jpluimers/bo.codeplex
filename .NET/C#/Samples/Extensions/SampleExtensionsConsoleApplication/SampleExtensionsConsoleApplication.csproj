@@ -54,11 +54,11 @@
     <Compile Include="ScopingExtension.Outer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\bo.Extensions\bo.Extensions.csproj">
+    <ProjectReference Include="..\..\..\Library\bo.Extensions\bo.Extensions.csproj">
       <Project>{E4153CFD-0E3E-4F21-83D9-2E6D5587379C}</Project>
       <Name>bo.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\bo\bo.csproj">
+    <ProjectReference Include="..\..\..\Library\bo\bo.csproj">
       <Project>{50E7A8CF-31DE-4AF3-9ADF-F0CA40BF86E3}</Project>
       <Name>bo</Name>
     </ProjectReference>
