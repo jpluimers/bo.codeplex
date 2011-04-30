@@ -58,9 +58,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Expressions", "Expressions"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasierLoggingWithExpressionsConsoleApplication", "Samples\Expressions\EasierLoggingWithExpressionsConsoleApplication\EasierLoggingWithExpressionsConsoleApplication.csproj", "{9664D1BD-051D-4533-9835-C04A790A96BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{EB6EA665-842D-4F24-B355-6FDA01DB70A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MijnAlbum.NL.Download.ConsoleApplication", "Apps\Internet\Web\MijnAlbum.NL.Download.ConsoleApplication\MijnAlbum.NL.Download.ConsoleApplication.csproj", "{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
+		SccNumberOfProjects = 19
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -132,6 +136,10 @@ Global
 		SccProjectTopLevelParentUniqueName17 = bo-Library.sln
 		SccProjectName17 = Samples/Expressions/EasierLoggingWithExpressionsConsoleApplication
 		SccLocalPath17 = Samples\\Expressions\\EasierLoggingWithExpressionsConsoleApplication
+		SccProjectUniqueName18 = Apps\\Internet\\Web\\MijnAlbum.NL.Download.ConsoleApplication\\MijnAlbum.NL.Download.ConsoleApplication.csproj
+		SccProjectTopLevelParentUniqueName18 = bo-Library.sln
+		SccProjectName18 = Apps/Internet/Web/MijnAlbum.NL.Download.ConsoleApplication
+		SccLocalPath18 = Apps\\Internet\\Web\\MijnAlbum.NL.Download.ConsoleApplication
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = bo-Library.vsmdi
@@ -315,6 +323,16 @@ Global
 		{9664D1BD-051D-4533-9835-C04A790A96BE}.Release|Mixed Platforms.Build.0 = Release|x86
 		{9664D1BD-051D-4533-9835-C04A790A96BE}.Release|x86.ActiveCfg = Release|x86
 		{9664D1BD-051D-4533-9835-C04A790A96BE}.Release|x86.Build.0 = Release|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Debug|x86.ActiveCfg = Debug|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Debug|x86.Build.0 = Debug|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Release|Any CPU.ActiveCfg = Release|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Release|Mixed Platforms.Build.0 = Release|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Release|x86.ActiveCfg = Release|x86
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -341,6 +359,8 @@ Global
 		{1C94561A-92B3-46B3-8076-E3B0A719BD1C} = {F259D853-C3B6-45E0-B117-19111AE0C497}
 		{50E7A8CF-31DE-4AF3-9ADF-F0CA40BF86E3} = {F259D853-C3B6-45E0-B117-19111AE0C497}
 		{A4D99649-F35D-4CE0-9224-656F13D536C4} = {BB3FC7C5-E3CE-45EE-89B8-3716B32E4169}
+		{EB6EA665-842D-4F24-B355-6FDA01DB70A6} = {BB3FC7C5-E3CE-45EE-89B8-3716B32E4169}
 		{9664D1BD-051D-4533-9835-C04A790A96BE} = {AB84A017-CA33-4C3D-B4CA-E9436375E942}
+		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8} = {EB6EA665-842D-4F24-B355-6FDA01DB70A6}
 	EndGlobalSection
 EndGlobal
