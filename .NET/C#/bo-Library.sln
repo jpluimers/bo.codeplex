@@ -62,9 +62,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{EB6EA665-842
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MijnAlbum.NL.Download.ConsoleApplication", "Apps\Internet\Web\MijnAlbum.NL.Download.ConsoleApplication\MijnAlbum.NL.Download.ConsoleApplication.csproj", "{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{55BDF28F-2579-4182-BAB2-E5D09B153649}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureStringConsoleApplication", "Samples\Security\SecureStringConsoleApplication\SecureStringConsoleApplication.csproj", "{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{06375ABB-30F3-4181-B228-356BC66BEBA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tee", "Apps\Console\Tee\Tee.csproj", "{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 19
+		SccNumberOfProjects = 21
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -140,6 +148,14 @@ Global
 		SccProjectTopLevelParentUniqueName18 = bo-Library.sln
 		SccProjectName18 = Apps/Internet/Web/MijnAlbum.NL.Download.ConsoleApplication
 		SccLocalPath18 = Apps\\Internet\\Web\\MijnAlbum.NL.Download.ConsoleApplication
+		SccProjectUniqueName19 = Samples\\Security\\SecureStringConsoleApplication\\SecureStringConsoleApplication.csproj
+		SccProjectTopLevelParentUniqueName19 = bo-Library.sln
+		SccProjectName19 = Samples/Security/SecureStringConsoleApplication
+		SccLocalPath19 = Samples\\Security\\SecureStringConsoleApplication
+		SccProjectUniqueName20 = Apps\\Console\\Tee\\Tee.csproj
+		SccProjectTopLevelParentUniqueName20 = bo-Library.sln
+		SccProjectName20 = Apps/Console/Tee
+		SccLocalPath20 = Apps\\Console\\Tee
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = bo-Library.vsmdi
@@ -333,6 +349,26 @@ Global
 		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Release|Mixed Platforms.Build.0 = Release|x86
 		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Release|x86.ActiveCfg = Release|x86
 		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8}.Release|x86.Build.0 = Release|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Debug|x86.ActiveCfg = Debug|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Debug|x86.Build.0 = Debug|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Release|Any CPU.ActiveCfg = Release|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Release|Mixed Platforms.Build.0 = Release|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Release|x86.ActiveCfg = Release|x86
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00}.Release|x86.Build.0 = Release|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Debug|x86.ActiveCfg = Debug|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Debug|x86.Build.0 = Debug|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Release|Any CPU.ActiveCfg = Release|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Release|Mixed Platforms.Build.0 = Release|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Release|x86.ActiveCfg = Release|x86
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -343,6 +379,8 @@ Global
 		{1BF6B558-5114-489C-9A7F-367E75D45709} = {8E1DEF7B-AAF5-4CE2-9947-DABF2C2298BD}
 		{BB3FC7C5-E3CE-45EE-89B8-3716B32E4169} = {8E1DEF7B-AAF5-4CE2-9947-DABF2C2298BD}
 		{AB84A017-CA33-4C3D-B4CA-E9436375E942} = {8E1DEF7B-AAF5-4CE2-9947-DABF2C2298BD}
+		{55BDF28F-2579-4182-BAB2-E5D09B153649} = {8E1DEF7B-AAF5-4CE2-9947-DABF2C2298BD}
+		{06375ABB-30F3-4181-B228-356BC66BEBA3} = {8E1DEF7B-AAF5-4CE2-9947-DABF2C2298BD}
 		{0E953A41-5DE3-4BEA-8480-81B294F392D7} = {76D2FD88-4FB8-4AF0-8042-B6D301907B11}
 		{1F14EE34-799C-4D97-85A7-4A0CED16D892} = {07A9991C-1747-425F-ACA9-AB1DCEF0B1D3}
 		{8D2FB1C0-6117-4282-93A8-505CEE0946D4} = {1BF6B558-5114-489C-9A7F-367E75D45709}
@@ -362,5 +400,7 @@ Global
 		{EB6EA665-842D-4F24-B355-6FDA01DB70A6} = {BB3FC7C5-E3CE-45EE-89B8-3716B32E4169}
 		{9664D1BD-051D-4533-9835-C04A790A96BE} = {AB84A017-CA33-4C3D-B4CA-E9436375E942}
 		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8} = {EB6EA665-842D-4F24-B355-6FDA01DB70A6}
+		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00} = {55BDF28F-2579-4182-BAB2-E5D09B153649}
+		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8} = {06375ABB-30F3-4181-B228-356BC66BEBA3}
 	EndGlobalSection
 EndGlobal
