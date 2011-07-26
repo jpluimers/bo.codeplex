@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+ <soapenv:Body>
+<SectorModel:synchroonAntwoordBericht xmlns:SectorModel="http://www.egem.nl/StUF/sector/bg/0204" xmlns:StUF="http://www.egem.nl/StUF/StUF0204" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<stuurgegevens xmlns="http://www.egem.nl/StUF/StUF0204">
+<berichtsoort>La01</berichtsoort>
+<entiteittype>PRS</entiteittype>
+<sectormodel>BG</sectormodel>
+<versieStUF>0204</versieStUF>
+<versieSectormodel>0204</versieSectormodel>
+<zender>
+<applicatie>BRS</applicatie></zender>
+<ontvanger>
+<applicatie>BRS</applicatie>
+<gebruiker>makelaar</gebruiker></ontvanger>
+<referentienummer>48</referentienummer>
+<tijdstipBericht>2009042914142468</tijdstipBericht>
+<antwoord>
+<indicatorVervolgvraag>true</indicatorVervolgvraag>
+<crossRefNummer>P12410070   </crossRefNummer></antwoord>
+</stuurgegevens>
+<body xmlns="http://www.egem.nl/StUF/sector/bg/0204">
+<PRS StUF:sleutelGegevensbeheer="P0000043150" StUF:sleutelVerzendend="P0000043150" soortEntiteit="F">
+<voornamen>Aart Izaäk</voornamen></PRS></body></SectorModel:synchroonAntwoordBericht> </soapenv:Body>
+</soapenv:Envelope>
