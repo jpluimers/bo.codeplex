@@ -1,0 +1,51 @@
+<XmlTransformation Version="1.0"><Transform Direction="ToXml"><SelectEach from="DATAPACKET\ROWDATA\ROW" dest="\xokum\record"><Select from="@achternaam" dest="\achternaam"/><Select from="@voorletters" dest="\voorletters"/><Select from="@straat" dest="\straat"/><Select from="@nummer" dest="\nummer"/><Select from="@abonneenummer" dest="\abonneenummer"/><Select from="@plaats" dest="\plaats"/><Select from="@netnummer" dest="\netnummer"/></SelectEach></Transform><XmlSchema RootName="xokum"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="achternaam" type="achternaamType"/>
+  <xs:simpleType name="achternaamType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="voorletters" type="voorlettersType"/>
+  <xs:simpleType name="voorlettersType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="straat" type="straatType"/>
+  <xs:simpleType name="straatType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="nummer" type="nummerType"/>
+  <xs:simpleType name="nummerType">
+    <xs:restriction base="xs:integer"/>
+  </xs:simpleType>
+  <xs:element name="abonneenummer" type="abonneenummerType"/>
+  <xs:simpleType name="abonneenummerType">
+    <xs:restriction base="xs:integer"/>
+  </xs:simpleType>
+  <xs:element name="plaats" type="plaatsType"/>
+  <xs:simpleType name="plaatsType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:element name="netnummer" type="netnummerType"/>
+  <xs:simpleType name="netnummerType">
+    <xs:restriction base="xs:integer"/>
+  </xs:simpleType>
+  <xs:element name="record" type="recordType"/>
+  <xs:complexType name="recordType">
+    <xs:sequence>
+      <xs:element name="achternaam" type="achternaamType"/>
+      <xs:element name="voorletters" type="voorlettersType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="straat" type="straatType"/>
+      <xs:element name="nummer" type="nummerType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="abonneenummer" type="abonneenummerType"/>
+      <xs:element name="plaats" type="plaatsType"/>
+      <xs:element name="netnummer" type="netnummerType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="xokum" type="xokumType"/>
+  <xs:complexType name="xokumType">
+    <xs:sequence>
+      <xs:element name="record" type="recordType"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></XmlSchema><CdsSkeleton><![CDATA[<DATAPACKET Version="2.0"><METADATA><FIELDS><FIELD attrname="achternaam" fieldtype="string" WIDTH="40"/><FIELD attrname="voorletters" fieldtype="string" WIDTH="10"/><FIELD attrname="straat" fieldtype="string" WIDTH="20"/><FIELD attrname="nummer" fieldtype="i4"/><FIELD attrname="abonneenummer" fieldtype="i4"/><FIELD attrname="plaats" fieldtype="string" WIDTH="20"/><FIELD attrname="netnummer" fieldtype="i4"/></FIELDS><PARAMS/></METADATA><ROWDATA/><METADATA><FIELDS><FIELD attrname="achternaam" fieldtype="string" WIDTH="40"/><FIELD attrname="voorletters" fieldtype="string" WIDTH="10"/><FIELD attrname="straat" fieldtype="string" WIDTH="20"/><FIELD attrname="nummer" fieldtype="i4"/><FIELD attrname="abonneenummer" fieldtype="i4"/><FIELD attrname="plaats" fieldtype="string" WIDTH="20"/><FIELD attrname="netnummer" fieldtype="i4"/></FIELDS><PARAMS/></METADATA><ROWDATA/><METADATA><FIELDS><FIELD attrname="achternaam" fieldtype="string" WIDTH="40"/><FIELD attrname="voorletters" fieldtype="string" WIDTH="10"/><FIELD attrname="straat" fieldtype="string" WIDTH="20"/><FIELD attrname="nummer" fieldtype="i4"/><FIELD attrname="abonneenummer" fieldtype="i4"/><FIELD attrname="plaats" fieldtype="string" WIDTH="20"/><FIELD attrname="netnummer" fieldtype="i4"/></FIELDS><PARAMS/></METADATA><ROWDATA/></DATAPACKET>
+]]></CdsSkeleton><XslTransform/><Skeleton><![CDATA[<?xml version="1.0"?>
+<xokum><record><achternaam></achternaam><voorletters></voorletters><straat></straat><nummer></nummer><abonneenummer></abonneenummer><plaats></plaats><netnummer></netnummer></record></xokum>
+]]></Skeleton></XmlTransformation>

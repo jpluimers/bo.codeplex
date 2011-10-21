@@ -50,7 +50,7 @@ procedure TXMLEOSErrorTestCase.TestAbnormal;
 var
   XmlFileName: string;
 begin
-  XmlFileName :=  TPath.Combine(TPath.GetDirectoryName(ParamStr(0)), '1-Abnormal.xml');
+  XmlFileName :=  TPath.Combine(TPath.GetDirectoryName(ParamStr(0)), '..\..\1-Abnormal.xml');
   if not XmlDocument.load(XmlFileName) then
     raise EXMLDOMParseError.Create(XmlDocument.parseError);
 end;
@@ -59,7 +59,7 @@ procedure TXMLEOSErrorTestCase.TestNormal;
 var
   XmlFileName: string;
 begin
-  XmlFileName :=  TPath.Combine(TPath.GetDirectoryName(ParamStr(0)), '1-Normal.xml');
+  XmlFileName :=  TPath.Combine(TPath.GetDirectoryName(ParamStr(0)), '..\..\1-Normal.xml');
   if not XmlDocument.load(XmlFileName) then
     raise EXMLDOMParseError.Create(XmlDocument.parseError);
 //    RaiseLastOSError();

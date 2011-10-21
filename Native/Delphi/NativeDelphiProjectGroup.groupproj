@@ -3,13 +3,10 @@
 			<ProjectGuid>{79368D92-396A-4683-91F2-4469DCCBDE11}</ProjectGuid>
 		</PropertyGroup>
 		<ItemGroup>
-			<Projects Include="Apps\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj">
-				<Dependencies/>
-			</Projects>
 			<Projects Include="Apps\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj">
+			<Projects Include="Apps\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="Apps\LoggerReporterDemo\prj\LoggerReporterDemoProject.dproj">
@@ -24,16 +21,28 @@
 			<Projects Include="Tests\DivMod\prj\DivModGuiTestProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj">
+				<Dependencies/>
+			</Projects>
 			<Projects Include="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="Apps\ORM\UseORM\prj\UseORMProject.dproj">
+			<Projects Include="Apps\ORM\UseORM\prj\UseORMProject_XE2.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="Apps\XML\DumpXml\prj\DumpXml.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="Apps\XML\ValidateXmlWithXsd\prj\ValidateXmlWithXsd.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Apps\XML\XokumXmlDemo\prj\XokumXmlDataBindingProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Apps\XML\XokumXmlDemo\prj\XokumXmlMapperProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Apps\ReEncode\Iso8859_12Utf8\prj\Iso8859_12Utf8.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="Apps\XML\XPathTester\prj\XPathTester.dproj">
@@ -57,13 +66,13 @@
 			<Projects Include="Apps\VoertuigDemo\prj\VoertuigDemo.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject.dproj">
+			<Projects Include="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject_XE2.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="Apps\Generics\GenericPublishSubscribe\prj\GenericPublicSubscribeVCLProject.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject.dproj">
+			<Projects Include="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj">
 				<Dependencies/>
 			</Projects>
 			<Projects Include="Apps\Internet\DownloadFromUrl\prj\DownloadFromUrlProject.dproj">
@@ -78,7 +87,16 @@
 			<Projects Include="Apps\Internet\Base64Tests\prj\Base64TestsProject.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="Apps\Internet\crc32\prj\crc32.dproj">
+			<Projects Include="Apps\TicTacToe\src\TicTacToeVclProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Apps\AnonymousMethods\CaptureFunctionParameters\prj\CaptureFunctionParametersWithAnonymousMethodProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Apps\Certification\00Language\prj\LanguageFeaturesProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Apps\XML\XokumXmlDemo\prj\XokumToExcelXml.dproj">
 				<Dependencies/>
 			</Projects>
 		</ItemGroup>
@@ -89,15 +107,6 @@
 				<Default.Personality/>
 			</BorlandProject>
 		</ProjectExtensions>
-		<Target Name="boComponentLibraryDesignTimePackage">
-			<MSBuild Projects="Apps\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj"/>
-		</Target>
-		<Target Name="boComponentLibraryDesignTimePackage:Clean">
-			<MSBuild Projects="Apps\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="boComponentLibraryDesignTimePackage:Make">
-			<MSBuild Projects="Apps\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj" Targets="Make"/>
-		</Target>
 		<Target Name="boComponentLibraryRunTimePackage">
 			<MSBuild Projects="Apps\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj"/>
 		</Target>
@@ -107,14 +116,14 @@
 		<Target Name="boComponentLibraryRunTimePackage:Make">
 			<MSBuild Projects="Apps\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj" Targets="Make"/>
 		</Target>
-		<Target Name="CodeGeneratorProject">
-			<MSBuild Projects="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj"/>
+		<Target Name="boComponentLibraryDesignTimePackage">
+			<MSBuild Projects="Apps\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj"/>
 		</Target>
-		<Target Name="CodeGeneratorProject:Clean">
-			<MSBuild Projects="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj" Targets="Clean"/>
+		<Target Name="boComponentLibraryDesignTimePackage:Clean">
+			<MSBuild Projects="Apps\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj" Targets="Clean"/>
 		</Target>
-		<Target Name="CodeGeneratorProject:Make">
-			<MSBuild Projects="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj" Targets="Make"/>
+		<Target Name="boComponentLibraryDesignTimePackage:Make">
+			<MSBuild Projects="Apps\boComponentLibrary\prj\boComponentLibraryDesignTimePackage.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="LoggerReporterDemoProject">
 			<MSBuild Projects="Apps\LoggerReporterDemo\prj\LoggerReporterDemoProject.dproj"/>
@@ -152,6 +161,15 @@
 		<Target Name="DivModGuiTestProject:Make">
 			<MSBuild Projects="Tests\DivMod\prj\DivModGuiTestProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="CodeGeneratorProject">
+			<MSBuild Projects="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj"/>
+		</Target>
+		<Target Name="CodeGeneratorProject:Clean">
+			<MSBuild Projects="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="CodeGeneratorProject:Make">
+			<MSBuild Projects="Apps\CodeGenerator\prj\CodeGeneratorProject.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="GenerateORMProject">
 			<MSBuild Projects="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj"/>
 		</Target>
@@ -161,14 +179,14 @@
 		<Target Name="GenerateORMProject:Make">
 			<MSBuild Projects="Apps\ORM\GenerateORM\src\GenerateORMProject.dproj" Targets="Make"/>
 		</Target>
-		<Target Name="UseORMProject">
-			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject.dproj"/>
+		<Target Name="UseORMProject_XE2">
+			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject_XE2.dproj"/>
 		</Target>
-		<Target Name="UseORMProject:Clean">
-			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject.dproj" Targets="Clean"/>
+		<Target Name="UseORMProject_XE2:Clean">
+			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject_XE2.dproj" Targets="Clean"/>
 		</Target>
-		<Target Name="UseORMProject:Make">
-			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject.dproj" Targets="Make"/>
+		<Target Name="UseORMProject_XE2:Make">
+			<MSBuild Projects="Apps\ORM\UseORM\prj\UseORMProject_XE2.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="DumpXml">
 			<MSBuild Projects="Apps\XML\DumpXml\prj\DumpXml.dproj"/>
@@ -187,6 +205,33 @@
 		</Target>
 		<Target Name="ValidateXmlWithXsd:Make">
 			<MSBuild Projects="Apps\XML\ValidateXmlWithXsd\prj\ValidateXmlWithXsd.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="XokumXmlDataBindingProject">
+			<MSBuild Projects="Apps\XML\XokumXmlDemo\prj\XokumXmlDataBindingProject.dproj"/>
+		</Target>
+		<Target Name="XokumXmlDataBindingProject:Clean">
+			<MSBuild Projects="Apps\XML\XokumXmlDemo\prj\XokumXmlDataBindingProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="XokumXmlDataBindingProject:Make">
+			<MSBuild Projects="Apps\XML\XokumXmlDemo\prj\XokumXmlDataBindingProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="XokumXmlMapperProject">
+			<MSBuild Projects="Apps\XML\XokumXmlDemo\prj\XokumXmlMapperProject.dproj"/>
+		</Target>
+		<Target Name="XokumXmlMapperProject:Clean">
+			<MSBuild Projects="Apps\XML\XokumXmlDemo\prj\XokumXmlMapperProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="XokumXmlMapperProject:Make">
+			<MSBuild Projects="Apps\XML\XokumXmlDemo\prj\XokumXmlMapperProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Iso8859_12Utf8">
+			<MSBuild Projects="Apps\ReEncode\Iso8859_12Utf8\prj\Iso8859_12Utf8.dproj"/>
+		</Target>
+		<Target Name="Iso8859_12Utf8:Clean">
+			<MSBuild Projects="Apps\ReEncode\Iso8859_12Utf8\prj\Iso8859_12Utf8.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="Iso8859_12Utf8:Make">
+			<MSBuild Projects="Apps\ReEncode\Iso8859_12Utf8\prj\Iso8859_12Utf8.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="XPathTester">
 			<MSBuild Projects="Apps\XML\XPathTester\prj\XPathTester.dproj"/>
@@ -251,14 +296,14 @@
 		<Target Name="VoertuigDemo:Make">
 			<MSBuild Projects="Apps\VoertuigDemo\prj\VoertuigDemo.dproj" Targets="Make"/>
 		</Target>
-		<Target Name="FastMMUsageTrackerProject">
-			<MSBuild Projects="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject.dproj"/>
+		<Target Name="FastMMUsageTrackerProject_XE2">
+			<MSBuild Projects="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject_XE2.dproj"/>
 		</Target>
-		<Target Name="FastMMUsageTrackerProject:Clean">
-			<MSBuild Projects="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject.dproj" Targets="Clean"/>
+		<Target Name="FastMMUsageTrackerProject_XE2:Clean">
+			<MSBuild Projects="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject_XE2.dproj" Targets="Clean"/>
 		</Target>
-		<Target Name="FastMMUsageTrackerProject:Make">
-			<MSBuild Projects="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject.dproj" Targets="Make"/>
+		<Target Name="FastMMUsageTrackerProject_XE2:Make">
+			<MSBuild Projects="Apps\FastMMUsageTrackerDemo\prj\FastMMUsageTrackerProject_XE2.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="GenericPublicSubscribeVCLProject">
 			<MSBuild Projects="Apps\Generics\GenericPublishSubscribe\prj\GenericPublicSubscribeVCLProject.dproj"/>
@@ -269,14 +314,14 @@
 		<Target Name="GenericPublicSubscribeVCLProject:Make">
 			<MSBuild Projects="Apps\Generics\GenericPublishSubscribe\prj\GenericPublicSubscribeVCLProject.dproj" Targets="Make"/>
 		</Target>
-		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject">
-			<MSBuild Projects="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject.dproj"/>
+		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject_XE2">
+			<MSBuild Projects="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj"/>
 		</Target>
-		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject:Clean">
-			<MSBuild Projects="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject.dproj" Targets="Clean"/>
+		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean">
+			<MSBuild Projects="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj" Targets="Clean"/>
 		</Target>
-		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject:Make">
-			<MSBuild Projects="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject.dproj" Targets="Make"/>
+		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make">
+			<MSBuild Projects="Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="DownloadFromUrlProject">
 			<MSBuild Projects="Apps\Internet\DownloadFromUrl\prj\DownloadFromUrlProject.dproj"/>
@@ -314,23 +359,50 @@
 		<Target Name="Base64TestsProject:Make">
 			<MSBuild Projects="Apps\Internet\Base64Tests\prj\Base64TestsProject.dproj" Targets="Make"/>
 		</Target>
-		<Target Name="crc32">
-			<MSBuild Projects="Apps\Internet\crc32\prj\crc32.dproj"/>
+		<Target Name="TicTacToeVclProject">
+			<MSBuild Projects="Apps\TicTacToe\src\TicTacToeVclProject.dproj"/>
 		</Target>
-		<Target Name="crc32:Clean">
-			<MSBuild Projects="Apps\Internet\crc32\prj\crc32.dproj" Targets="Clean"/>
+		<Target Name="TicTacToeVclProject:Clean">
+			<MSBuild Projects="Apps\TicTacToe\src\TicTacToeVclProject.dproj" Targets="Clean"/>
 		</Target>
-		<Target Name="crc32:Make">
-			<MSBuild Projects="Apps\Internet\crc32\prj\crc32.dproj" Targets="Make"/>
+		<Target Name="TicTacToeVclProject:Make">
+			<MSBuild Projects="Apps\TicTacToe\src\TicTacToeVclProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="CaptureFunctionParametersWithAnonymousMethodProject">
+			<MSBuild Projects="Apps\AnonymousMethods\CaptureFunctionParameters\prj\CaptureFunctionParametersWithAnonymousMethodProject.dproj"/>
+		</Target>
+		<Target Name="CaptureFunctionParametersWithAnonymousMethodProject:Clean">
+			<MSBuild Projects="Apps\AnonymousMethods\CaptureFunctionParameters\prj\CaptureFunctionParametersWithAnonymousMethodProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="CaptureFunctionParametersWithAnonymousMethodProject:Make">
+			<MSBuild Projects="Apps\AnonymousMethods\CaptureFunctionParameters\prj\CaptureFunctionParametersWithAnonymousMethodProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="LanguageFeaturesProject">
+			<MSBuild Projects="Apps\Certification\00Language\prj\LanguageFeaturesProject.dproj"/>
+		</Target>
+		<Target Name="LanguageFeaturesProject:Clean">
+			<MSBuild Projects="Apps\Certification\00Language\prj\LanguageFeaturesProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="LanguageFeaturesProject:Make">
+			<MSBuild Projects="Apps\Certification\00Language\prj\LanguageFeaturesProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="XokumToExcelXml">
+			<MSBuild Projects="Apps\XML\XokumXmlDemo\prj\XokumToExcelXml.dproj"/>
+		</Target>
+		<Target Name="XokumToExcelXml:Clean">
+			<MSBuild Projects="Apps\XML\XokumXmlDemo\prj\XokumToExcelXml.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="XokumToExcelXml:Make">
+			<MSBuild Projects="Apps\XML\XokumXmlDemo\prj\XokumToExcelXml.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage;boComponentLibraryRunTimePackage;CodeGeneratorProject;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;GenerateORMProject;UseORMProject;DumpXml;ValidateXmlWithXsd;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject;VoertuigDemo;FastMMUsageTrackerProject;GenericPublicSubscribeVCLProject;InterfaceConstParmetersAndPrematureFreeingProject;DownloadFromUrlProject;VariantRecordsWithCharactersAndStrings;Iso8601Project;Base64TestsProject;crc32"/>
+			<CallTarget Targets="boComponentLibraryRunTimePackage;boComponentLibraryDesignTimePackage;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;CodeGeneratorProject;GenerateORMProject;UseORMProject_XE2;DumpXml;ValidateXmlWithXsd;XokumXmlDataBindingProject;XokumXmlMapperProject;Iso8859_12Utf8;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject;VoertuigDemo;FastMMUsageTrackerProject_XE2;GenericPublicSubscribeVCLProject;InterfaceConstParmetersAndPrematureFreeingProject_XE2;DownloadFromUrlProject;VariantRecordsWithCharactersAndStrings;Iso8601Project;Base64TestsProject;TicTacToeVclProject;CaptureFunctionParametersWithAnonymousMethodProject;LanguageFeaturesProject;XokumToExcelXml"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Clean;boComponentLibraryRunTimePackage:Clean;CodeGeneratorProject:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;GenerateORMProject:Clean;UseORMProject:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean;VoertuigDemo:Clean;FastMMUsageTrackerProject:Clean;GenericPublicSubscribeVCLProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject:Clean;DownloadFromUrlProject:Clean;VariantRecordsWithCharactersAndStrings:Clean;Iso8601Project:Clean;Base64TestsProject:Clean;crc32:Clean"/>
+			<CallTarget Targets="boComponentLibraryRunTimePackage:Clean;boComponentLibraryDesignTimePackage:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;CodeGeneratorProject:Clean;GenerateORMProject:Clean;UseORMProject_XE2:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XokumXmlDataBindingProject:Clean;XokumXmlMapperProject:Clean;Iso8859_12Utf8:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean;VoertuigDemo:Clean;FastMMUsageTrackerProject_XE2:Clean;GenericPublicSubscribeVCLProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean;DownloadFromUrlProject:Clean;VariantRecordsWithCharactersAndStrings:Clean;Iso8601Project:Clean;Base64TestsProject:Clean;TicTacToeVclProject:Clean;CaptureFunctionParametersWithAnonymousMethodProject:Clean;LanguageFeaturesProject:Clean;XokumToExcelXml:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="boComponentLibraryDesignTimePackage:Make;boComponentLibraryRunTimePackage:Make;CodeGeneratorProject:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;GenerateORMProject:Make;UseORMProject:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make;VoertuigDemo:Make;FastMMUsageTrackerProject:Make;GenericPublicSubscribeVCLProject:Make;InterfaceConstParmetersAndPrematureFreeingProject:Make;DownloadFromUrlProject:Make;VariantRecordsWithCharactersAndStrings:Make;Iso8601Project:Make;Base64TestsProject:Make;crc32:Make"/>
+			<CallTarget Targets="boComponentLibraryRunTimePackage:Make;boComponentLibraryDesignTimePackage:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;CodeGeneratorProject:Make;GenerateORMProject:Make;UseORMProject_XE2:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XokumXmlDataBindingProject:Make;XokumXmlMapperProject:Make;Iso8859_12Utf8:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make;VoertuigDemo:Make;FastMMUsageTrackerProject_XE2:Make;GenericPublicSubscribeVCLProject:Make;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make;DownloadFromUrlProject:Make;VariantRecordsWithCharactersAndStrings:Make;Iso8601Project:Make;Base64TestsProject:Make;TicTacToeVclProject:Make;CaptureFunctionParametersWithAnonymousMethodProject:Make;LanguageFeaturesProject:Make;XokumToExcelXml:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

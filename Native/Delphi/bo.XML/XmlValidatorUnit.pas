@@ -41,7 +41,9 @@ implementation
 
 uses
   Variants,
-  SysUtils, ActiveX, ComObj,
+  SysUtils,
+  ActiveX,
+  ComObj,
   XMLDOMParseErrorToStringUnit,
   msxmlFactoryUnit;
 

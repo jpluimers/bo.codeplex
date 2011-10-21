@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{3DA30C58-B5B9-4226-AC8D-9F537E0CA6DD}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="XmlMapperProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="XmlDataBindingProject.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="XmlMapperProject">
+			<MSBuild Projects="XmlMapperProject.dproj"/>
+		</Target>
+		<Target Name="XmlMapperProject:Clean">
+			<MSBuild Targets="Clean" Projects="XmlMapperProject.dproj"/>
+		</Target>
+		<Target Name="XmlMapperProject:Make">
+			<MSBuild Targets="Make" Projects="XmlMapperProject.dproj"/>
+		</Target>
+		<Target Name="XmlDataBindingProject">
+			<MSBuild Projects="XmlDataBindingProject.dproj"/>
+		</Target>
+		<Target Name="XmlDataBindingProject:Clean">
+			<MSBuild Targets="Clean" Projects="XmlDataBindingProject.dproj"/>
+		</Target>
+		<Target Name="XmlDataBindingProject:Make">
+			<MSBuild Targets="Make" Projects="XmlDataBindingProject.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="XmlMapperProject;XmlDataBindingProject"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="XmlMapperProject:Clean;XmlDataBindingProject:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="XmlMapperProject:Make;XmlDataBindingProject:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>
