@@ -1,0 +1,27 @@
+<XmlTransformation Version="1.0"><Transform Direction="ToCds"><SelectEach dest="DATAPACKET\ROWDATA\ROW" from="\xokum\record"><Select dest="@achternaam" from="\achternaam"/><Select dest="@voorletters" Optional="1" from="\voorletters"/><Select dest="@straat" from="\straat"/><Select dest="@nummer" Optional="1" from="\nummer"/><Select dest="@abonneenummer" from="\abonneenummer"/><Select dest="@plaats" from="\plaats"/><Select dest="@netnummer" from="\netnummer"/></SelectEach></Transform><XmlSchema RootName="xokum"><![CDATA[<xs:schema id="xokum" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:simpleType name="non-empty-string">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="xokum" msdata:IsDataSet="true" msdata:Locale="en-US">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="record">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="achternaam" type="non-empty-string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="voorletters" type="xs:string" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="straat" type="non-empty-string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="nummer" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="abonneenummer" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="plaats" type="non-empty-string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="netnummer" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>]]></XmlSchema><CdsSkeleton/><XslTransform/><Skeleton><![CDATA[<?xml version="1.0"?><DATAPACKET Version="2.0"><METADATA><FIELDS><FIELD attrname="achternaam" fieldtype="string" WIDTH="40"/><FIELD attrname="voorletters" fieldtype="string" WIDTH="10"/><FIELD attrname="straat" fieldtype="string" WIDTH="20"/><FIELD attrname="nummer" fieldtype="i4"/><FIELD attrname="abonneenummer" fieldtype="i4"/><FIELD attrname="plaats" fieldtype="string" WIDTH="20"/><FIELD attrname="netnummer" fieldtype="i4"/></FIELDS><PARAMS/></METADATA><ROWDATA/><METADATA><FIELDS><FIELD attrname="achternaam" fieldtype="string" WIDTH="40"/><FIELD attrname="voorletters" fieldtype="string" WIDTH="10"/><FIELD attrname="straat" fieldtype="string" WIDTH="20"/><FIELD attrname="nummer" fieldtype="i4"/><FIELD attrname="abonneenummer" fieldtype="i4"/><FIELD attrname="plaats" fieldtype="string" WIDTH="20"/><FIELD attrname="netnummer" fieldtype="i4"/></FIELDS><PARAMS/></METADATA><ROWDATA/></DATAPACKET>
+]]></Skeleton></XmlTransformation>

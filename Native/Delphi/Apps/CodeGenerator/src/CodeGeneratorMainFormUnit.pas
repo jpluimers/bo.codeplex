@@ -140,13 +140,15 @@ begin
   TheConstant := TGeneratableConstant.Create(TheBaseClass, 'MyPi', '3.14', 'Double', vPublic);
   TheConstant := TGeneratableConstant.Create(TheBaseClass, 'MyE', '2.72', '', vPublic);
   //Generics: show the method CollectMembersWithVisibility and its usage
-  ForEach(PropertyNames, procedure (Name, Value: string)
-  begin
+  ForEach(PropertyNames,
+      procedure (Name, Value: string)
+      begin
         TheField := TGeneratableField.Create(
           TheBaseClass, 'F' + Name, Value, vStrictPrivate);
       end);
-  ForEach(PropertyNames, procedure (Name, Value: string)
-  begin
+  ForEach(PropertyNames,
+      procedure (Name, Value: string)
+      begin
         GetMethodName := 'Get' + Name;
         TheMethod := TGeneratableMethod.Create(TheBaseClass,
           GetMethodName, vStrictProtected, bkVirtual, True);

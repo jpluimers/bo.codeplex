@@ -224,9 +224,20 @@
   {$define vcl}
 {$endif ver220}
 
+{$ifdef ver230} { Delphi XE2 (16) / C++ Builder XE / 2011 }
+  {$define 32bit}
+  {$ifdef BCB}
+    {$define c16}
+  {$else}
+    {$define d16}
+  {$endif BCB}
+  {$define vcl}
+{$endif ver230}
+
 
 (* base versions *)
 
+{$ifdef d16} {$define d16up} {$endif d16}
 {$ifdef d15} {$define d15up} {$endif d15}
 {$ifdef d14} {$define d14up} {$endif d14}
 {.ifdef d13} {.define d13up} {.endif d13} { There is no Delphi 13 }
@@ -256,6 +267,7 @@
 
 (* back versions - C++ Builder *)
 
+{$ifdef c16up} {$define c15up} {$define d16up} {$endif c16up}
 {$ifdef c15up} {$define c14up} {$define d15up} {$endif c15up}
 {$ifdef c14up} {$define c12up} {$define d14up} {$endif c14up}
 {.ifdef c13up} {.define c12up} {.define d13up} {.endif c13up} { there is no C++ Builder 13 }
@@ -272,6 +284,7 @@
 
 (* back versions - Delphi *)
 
+{$ifdef d16up} {$define d15up} {$endif d16up}
 {$ifdef d15up} {$define d14up} {$endif d15up}
 {$ifdef d14up} {$define d12up} {$endif d14up}
 {.ifdef d13up} {.define d12up} {.endif d13up} { there is no Delphi 13 }
@@ -505,11 +518,13 @@
   {$ifndef DPMI}
     {$ifndef windows}
       {$ifndef win32}
-        {$ifdef d6up}
-          {$message fatal 'One of the target defines MSDOS, DPMI, windows or win32 must be active'}
-        {$else}
-          One of the target defines MSDOS, DPMI, windows or win32 must be active
-        {$endif d6up}
+        {$ifndef win64}
+          {$ifdef d6up}
+            {$message fatal 'One of the target defines MSDOS, DPMI, windows, win32, or win64 must be active'}
+          {$else}
+            One of the target defines MSDOS, DPMI, windows or win32 must be active
+          {$endif d6up}
+        {$endif win64}
       {$endif win32}
     {$endif windows}
   {$endif DPMI}

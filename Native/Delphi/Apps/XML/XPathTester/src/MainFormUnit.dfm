@@ -187,7 +187,7 @@ object MainForm: TMainForm
       Top = 15
       Width = 390
       Height = 397
-      ActivePage = XmlViewTabSheet
+      ActivePage = XmlMemoTabSheet
       Align = alClient
       TabOrder = 0
       OnChange = XmlPageControlChange
@@ -223,6 +223,10 @@ object MainForm: TMainForm
       object XmlViewTabSheet: TTabSheet
         Caption = '&View'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object XmlWebBrowser: TWebBrowser
           Left = 0
           Top = 0
@@ -245,6 +249,10 @@ object MainForm: TMainForm
       object HistoryTabSheet: TTabSheet
         Caption = 'H&istory'
         ImageIndex = 2
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object HistoryMemo: TMemo
           Left = 0
           Top = 0

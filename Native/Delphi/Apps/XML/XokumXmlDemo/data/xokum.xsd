@@ -1,0 +1,27 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="xokum" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:simpleType name='non-empty-string'>
+     <xs:restriction base='xs:string'>
+       <xs:minLength value='1'/>
+     </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="xokum" msdata:IsDataSet="true" msdata:Locale="en-US">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="record">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="achternaam" type="non-empty-string" minOccurs="1" maxOccurs="1" />
+              <xs:element name="voorletters" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="straat" type="non-empty-string" minOccurs="1" maxOccurs="1" />
+              <xs:element name="nummer" type="xs:integer" minOccurs="0"  maxOccurs="1"/>
+              <xs:element name="abonneenummer" type="xs:integer" minOccurs="1" maxOccurs="1" />
+              <xs:element name="plaats" type="non-empty-string" minOccurs="1" maxOccurs="1" />
+              <xs:element name="netnummer" type="xs:integer" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

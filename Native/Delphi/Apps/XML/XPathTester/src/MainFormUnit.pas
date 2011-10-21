@@ -108,7 +108,8 @@ end;
 procedure TMainForm.LoadXmlExample1ButtonClick(Sender: TObject);
 begin
   LoadXmlExample([
-    '//bk:Book[position()<=2]'
+    '//bk:Book[position()<=2]',
+    '//bk:Book[position()<=2]/*/text()'
   ],
   [
     '<?xml version="1.0"?>',

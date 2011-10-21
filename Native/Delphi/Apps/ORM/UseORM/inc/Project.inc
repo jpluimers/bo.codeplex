@@ -36,7 +36,7 @@
 {$endif include_prolog}
 { PROLOG - finish ======================================================== }
 
-{$define FastMM}
+{.$define FastMM} // not yet XE2 compatible
 {$define FullDebugMode}
   {$define CatchUseOfFreedInterfaces} // disables CheckUseOfFreedBlocksOnShutdown
   { $define NoRaiseExceptionsForInterfaceError} //##jpl
