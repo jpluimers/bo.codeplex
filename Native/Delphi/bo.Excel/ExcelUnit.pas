@@ -25,24 +25,19 @@ type
   TWorkbookProducer = class(TObject)
   private
     FProduct: IXMLWorkbookType;
-    procedure BoldifyIfNeeded(const Style: IXMLStyleType; const Bold: Boolean);
   strict protected
     constructor Create;
     class procedure AddAttribute(const XmlNode: IXMLNode; const namespacePrefix, namespaceUri: string); virtual;
-    procedure AddStyles(const Bold: Boolean); virtual;
     property Product: IXMLWorkbookType read FProduct;
   public
     class function CreateWorkbook: IXMLWorkbookType; static;
     class function CreateWorksheet(const Workbook: IXMLWorkbookType): IXMLWorksheetType; static;
     class procedure SaveXml(const xmlFileName: string; const Workbook: IXMLWorkbookType; const PrettyPrintXml: Boolean = True); static;
-    class function Boldify(const Cell: IXMLCellType): IXMLCellType; static;
-    class function SetCellData(const Cell: IXMLCellType; const Value: string): IXMLCellType; static;
+    class procedure SetCellData(const Cell: IXMLCellType; const Value: string); static;
     class procedure SetCellDataDateTime(const Cell: IXMLCellType; const Value: TDateTime); static;
   end;
 
 const
-  SBold_Style_ID_Suffix = 'Bold';
-  SDefault_Style_ID = 'Default';
   SDate_Style_ID = 'Date';
   SDateTime_Style_ID = 'DateTime';
   SEnglishWeekday_Style_ID = 'EnglishWeekday';
@@ -52,8 +47,7 @@ const
 implementation
 
 uses
-  XSBuiltIns, IdGlobal, SysUtils, IdGlobalProtocols, Classes, XMLDoc, Variants,
-  System.IOUtils;
+  XSBuiltIns, IdGlobal, SysUtils, IdGlobalProtocols, Classes, XMLDoc, Variants;
 
 const
   SF400_Style_NumberFormat_Format = '[$-F400]';
@@ -63,6 +57,7 @@ const
   SYyyyMmDd_Style_NumberFormat_Format = 'yyyy/mm/dd';
   SBottom_Style_Alignment = 'Bottom';
   SNormal_Style_Name = 'Normal';
+  SDefault_Style_ID = 'Default';
   STRUE = 'TRUE';
   SFALSE = 'FALSE';
   SString = 'String';
@@ -163,7 +158,6 @@ begin
 //  <ProtectWindows>False</ProtectWindows>
 // </ExcelWorkbook>
 
-(*TODO: extracted code
   Style := Product.Styles.Add();
   Style.ID := SDefault_Style_ID;
   Style.Name := SNormal_Style_Name;
@@ -209,9 +203,6 @@ begin
 //   <NumberFormat ss:Format="[ENG][$-409]ddd"/>
 //  </Style>
 // </Styles>
-*)
-  AddStyles(False);
-  AddStyles(True);
 end;
 
 class procedure TWorkbookProducer.AddAttribute(const XmlNode: IXMLNode; const namespacePrefix, namespaceUri: string);
@@ -223,84 +214,6 @@ begin
   namespaceXmlNode := XmlDocument.CreateNode(namespacePrefix, ntAttribute);
   namespaceXmlNode.Text := namespaceUri;
   XmlNode.AttributeNodes.Add(namespaceXmlNode);
-end;
-
-procedure TWorkbookProducer.AddStyles(const Bold: Boolean);
-var
-  Style: IXMLStyleType;
-begin
-  Style := Product.Styles.Add();
-  Style.ID := SDefault_Style_ID;
-  if not Bold then
-  begin
-    // only one style can have the "Normal" Name, or Excel will give your errors like these:
-    //XML ERROR in Style
-    //REASON:	Too many tags
-    //FILE:	C:\Users\developer\Documents\SVN\bo.codeplex.com\Native\Delphi\Apps\XML\XokumXmlDemo\data\xokum.Excel.xml
-    //GROUP:	Styles
-    //TAG:	Style
-    //ATTRIB:	Name
-    //VALUE:	Normal
-    Style.Name := SNormal_Style_Name;
-  end;
-  BoldifyIfNeeded(Style, Bold);
-  Style.Alignment.Vertical := SBottom_Style_Alignment;
-
-  Style := Product.Styles.Add();
-  Style.ID := SDate_Style_ID;
-  BoldifyIfNeeded(Style, Bold);
-  Style.NumberFormat.Format := SYyyyMmDd_Style_NumberFormat_Format;
-
-  Style := Product.Styles.Add();
-  Style.ID := SDateTime_Style_ID;
-  BoldifyIfNeeded(Style, Bold);
-  Style.NumberFormat.Format := SYyyyMmDdHMmSs_Style_NumberFormat_Format;
-
-  Style := Product.Styles.Add();
-  Style.ID := SEnglishWeekday_Style_ID;
-  BoldifyIfNeeded(Style, Bold);
-  Style.NumberFormat.Format := S409Ddd_Style_NumberFormat_Format;
-
-  Style := Product.Styles.Add();
-  Style.ID := SF800DefaultLongDate_Style_ID;
-  BoldifyIfNeeded(Style, Bold);
-  Style.NumberFormat.Format := SF800_Style_NumberFormat_Format;
-
-  Style := Product.Styles.Add();
-  Style.ID := SF400DefaultTime_Style_ID;
-  BoldifyIfNeeded(Style, Bold);
-  Style.NumberFormat.Format := SF400_Style_NumberFormat_Format;
-
-  //   <NumberFormat ss:Format="[ENG][$-409]ddd"/>
-  // <Styles>
-  //  <Style ss:ID="Default" ss:Name="Normal">
-  //   <Alignment ss:Vertical="Bottom"/>
-  //   <Borders/>
-  //   <Font/>
-  //   <Interior/>
-  //   <NumberFormat/>
-  //   <Protection/>
-  //  </Style>
-  //  <Style ss:ID="s22">
-  //   <NumberFormat ss:Format="yyyy/mm/dd"/>
-  //  </Style>
-  //  <Style ss:ID="s23">
-  //   <NumberFormat ss:Format="yyyy/mm/dd\ h:mm:ss"/>
-  //  </Style>
-  //  <Style ss:ID="s31">
-  //   <NumberFormat ss:Format="[ENG][$-409]ddd"/>
-  //  </Style>
-  // </Styles>;
-end;
-
-procedure TWorkbookProducer.BoldifyIfNeeded(const Style: IXMLStyleType; const
-    Bold: Boolean);
-begin
-  if Bold then
-  begin
-    Style.ID := Style.ID + SBold_Style_ID_Suffix;
-    Style.Font.Bold := '1';
-  end;
 end;
 
 class function TWorkbookProducer.CreateWorkbook: IXMLWorkbookType;
@@ -342,17 +255,17 @@ begin
         IndentedXml := PlainXml;
       end;
   end;
-  ExcelFileName := TPath.ChangeExtension(xmlFileName, '.Excel.xml');
-  TFile.WriteAllText(ExcelFileName, IndentedXml);
+  ExcelFileName := ChangeFileExt(xmlFileName, '.xml');
+  Stream := TFileStream.Create(ExcelFileName, fmCreate);
+  try
+    // mimic TStringStream.WriteString
+    Stream.Write(PChar(IndentedXml)^, Length(IndentedXml));
+  finally
+    Stream.Free;
+  end;
 end;
 
-class function TWorkbookProducer.Boldify(const Cell: IXMLCellType): IXMLCellType;
-begin
-  Result := Cell;
-  Cell.StyleID := SDefault_Style_ID + SBold_Style_ID_Suffix;
-end;
-
-class function TWorkbookProducer.SetCellData(const Cell: IXMLCellType; const Value: string): IXMLCellType;
+class procedure TWorkbookProducer.SetCellData(const Cell: IXMLCellType; const Value: string);
 var
   CurrencyValue: Currency;
   DateTimeValue: TDateTime;
@@ -364,12 +277,10 @@ var
   TimeValue: TDateTime;
   Character: Char;
 begin
-  Result := Cell;
-
   Cell.Data.Type_ := SString;
-  for Character in Value do // empirical: Excel doesn't like binary characters, so get rid of them
+  for Character in Value do
   begin
-    if (Character < CSpace) and (Character <> CR) and (Character <> LF) then
+    if Character < CSpace then
       StringValue := StringValue + '.'
     else
       StringValue := StringValue + Character;
@@ -377,8 +288,6 @@ begin
   Cell.Data.Text := StringValue;
   if Value <> NullAsStringValue then
   begin
-    // http://msdn.microsoft.com/en-us/library/aa140066(v=office.10).aspx#odc_xmlss_ss:data
-    // Tick (') is needed for all non-text values:
     NeedsTick := AnsiSameText(SFALSE, Value);
     NeedsTick := NeedsTick or AnsiSameText(STRUE, Value);
     NeedsTick := NeedsTick or TryStrToInt64(Value, Int64Value);

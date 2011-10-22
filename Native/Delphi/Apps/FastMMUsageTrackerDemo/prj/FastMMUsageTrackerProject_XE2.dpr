@@ -6,7 +6,7 @@ uses
   FastMMUsageTrackerMainFormUnit in '..\src\FastMMUsageTrackerMainFormUnit.pas' {FastMMUsageTrackerMainForm},
   FastMM4Messages in '..\..\..\..\..\Forks\FastMM\FastMM4Messages.pas',
   FastMM4 in '..\..\..\..\..\Forks\FastMM\FastMM4.pas',
-  FastMMUsageTracker in '..\..\..\..\..\Forks\FastMM\Demos\Usage Tracker\FastMMUsageTracker.pas' {fFastMMUsageTracker};
+  FastMMUsageTracker in 'C:\develop.backup\codeplex\TFS05\bo\Forks\FastMM\Demos\Usage Tracker\FastMMUsageTracker.pas' {fFastMMUsageTracker};
 
 {$R *.res}
 

@@ -3,7 +3,7 @@
 {                                                                                                                        }
 {                                                    XML Data Binding                                                    }
 {                                                                                                                        }
-{         Generated on: 10/18/2011 9:53:43 PM                                                                            }
+{         Generated on: 9/14/2011 1:12:03 AM                                                                             }
 {       Generated from: C:\Users\developer\Documents\SVN\bo.codeplex.com\Native\Delphi\bo.Excel\Excel-xsd\ExcelXml.xsd   }
 {   Settings stored in: C:\Users\developer\Documents\SVN\bo.codeplex.com\Native\Delphi\bo.Excel\Excel-xsd\ExcelXml.xdb   }
 {                                                                                                                        }
@@ -23,21 +23,17 @@ type
   IXMLDocumentPropertiesType = interface;
   IXMLExcelWorkbookType = interface;
   IXMLStylesType = interface;
+  IXMLStylesTypeList = interface;
   IXMLStyleType = interface;
   IXMLStyleTypeList = interface;
   IXMLAlignmentType = interface;
-  IXMLFontType = interface;
   IXMLNumberFormatType = interface;
   IXMLWorksheetType = interface;
   IXMLWorksheetTypeList = interface;
   IXMLTableType = interface;
-  IXMLTableTypeList = interface;
   IXMLColumnType = interface;
-  IXMLColumnTypeList = interface;
   IXMLRowType = interface;
-  IXMLRowTypeList = interface;
   IXMLCellType = interface;
-  IXMLCellTypeList = interface;
   IXMLDataType = interface;
   IXMLWorksheetOptionsType = interface;
   IXMLPageSetupType = interface;
@@ -51,23 +47,23 @@ type
 { IXMLWorkbookType }
 
   IXMLWorkbookType = interface(IXMLNode)
-    ['{85775117-B7B7-4ECD-847E-A36F1B28D0C3}']
+    ['{38C7A95D-4BA6-44F4-A28C-76E887DE0702}']
     { Property Accessors }
     function Get_DocumentProperties: IXMLDocumentPropertiesType;
     function Get_ExcelWorkbook: IXMLExcelWorkbookType;
-    function Get_Styles: IXMLStylesType;
+    function Get_Styles: IXMLStylesTypeList;
     function Get_Worksheet: IXMLWorksheetTypeList;
     { Methods & Properties }
     property DocumentProperties: IXMLDocumentPropertiesType read Get_DocumentProperties;
     property ExcelWorkbook: IXMLExcelWorkbookType read Get_ExcelWorkbook;
-    property Styles: IXMLStylesType read Get_Styles;
+    property Styles: IXMLStylesTypeList read Get_Styles;
     property Worksheet: IXMLWorksheetTypeList read Get_Worksheet;
   end;
 
 { IXMLDocumentPropertiesType }
 
   IXMLDocumentPropertiesType = interface(IXMLNode)
-    ['{387FBE77-263D-40A2-8887-67575FFF5998}']
+    ['{07C9255D-1F64-4918-9EA5-A5AAA74896FD}']
     { Property Accessors }
     function Get_LastAuthor: UnicodeString;
     function Get_Created: UnicodeString;
@@ -87,7 +83,7 @@ type
 { IXMLExcelWorkbookType }
 
   IXMLExcelWorkbookType = interface(IXMLNode)
-    ['{56F1C023-B48C-4AF8-A755-84D352499F94}']
+    ['{04163AB6-45BC-462C-AD67-2D2C49DF37C5}']
     { Property Accessors }
     function Get_WindowHeight: Integer;
     function Get_WindowWidth: Integer;
@@ -116,7 +112,7 @@ type
 { IXMLStylesType }
 
   IXMLStylesType = interface(IXMLNodeCollection)
-    ['{16251144-A5EE-4173-A7B0-268FC2D3F0C3}']
+    ['{A193A13C-4D65-459A-9375-0BFFB4857922}']
     { Property Accessors }
     function Get_Style(Index: Integer): IXMLStyleType;
     { Methods & Properties }
@@ -125,22 +121,35 @@ type
     property Style[Index: Integer]: IXMLStyleType read Get_Style; default;
   end;
 
+{ IXMLStylesTypeList }
+
+  IXMLStylesTypeList = interface(IXMLNodeCollection)
+    ['{07A33DA5-C9E4-4C40-B6A4-AA6A296296B6}']
+    { Methods & Properties }
+    function Add: IXMLStylesType;
+    function Insert(const Index: Integer): IXMLStylesType;
+
+    function Get_Item(Index: Integer): IXMLStylesType;
+    property Items[Index: Integer]: IXMLStylesType read Get_Item; default;
+  end;
+
 { IXMLStyleType }
 
   IXMLStyleType = interface(IXMLNode)
-    ['{CDB5B496-914F-4858-BCB0-1F3226A2234D}']
+    ['{3DDAF66F-0D0E-4DBB-A192-73DFCACF97E3}']
     { Property Accessors }
     function Get_ID: UnicodeString;
     function Get_Name: UnicodeString;
     function Get_Alignment: IXMLAlignmentType;
     function Get_Borders: UnicodeString;
-    function Get_Font: IXMLFontType;
+    function Get_Font: UnicodeString;
     function Get_Interior: UnicodeString;
     function Get_NumberFormat: IXMLNumberFormatType;
     function Get_Protection: UnicodeString;
     procedure Set_ID(Value: UnicodeString);
     procedure Set_Name(Value: UnicodeString);
     procedure Set_Borders(Value: UnicodeString);
+    procedure Set_Font(Value: UnicodeString);
     procedure Set_Interior(Value: UnicodeString);
     procedure Set_Protection(Value: UnicodeString);
     { Methods & Properties }
@@ -148,7 +157,7 @@ type
     property Name: UnicodeString read Get_Name write Set_Name;
     property Alignment: IXMLAlignmentType read Get_Alignment;
     property Borders: UnicodeString read Get_Borders write Set_Borders;
-    property Font: IXMLFontType read Get_Font;
+    property Font: UnicodeString read Get_Font write Set_Font;
     property Interior: UnicodeString read Get_Interior write Set_Interior;
     property NumberFormat: IXMLNumberFormatType read Get_NumberFormat;
     property Protection: UnicodeString read Get_Protection write Set_Protection;
@@ -157,7 +166,7 @@ type
 { IXMLStyleTypeList }
 
   IXMLStyleTypeList = interface(IXMLNodeCollection)
-    ['{2476D404-DE2B-4297-9F88-56834AA0A939}']
+    ['{2F33003A-601A-4C31-9469-6C4891BDAE9F}']
     { Methods & Properties }
     function Add: IXMLStyleType;
     function Insert(const Index: Integer): IXMLStyleType;
@@ -169,7 +178,7 @@ type
 { IXMLAlignmentType }
 
   IXMLAlignmentType = interface(IXMLNode)
-    ['{4AA59C2B-8ED2-43E6-86FD-5127A7B3AD11}']
+    ['{33AAB3E9-67AE-4E98-89FB-07CFC879A35B}']
     { Property Accessors }
     function Get_Vertical: UnicodeString;
     procedure Set_Vertical(Value: UnicodeString);
@@ -177,33 +186,10 @@ type
     property Vertical: UnicodeString read Get_Vertical write Set_Vertical;
   end;
 
-{ IXMLFontType }
-
-  IXMLFontType = interface(IXMLNode)
-    ['{84F912BD-1CB2-455D-B2EC-EB2F04ABC1A2}']
-    { Property Accessors }
-    function Get_FontName: UnicodeString;
-    function Get_Family: UnicodeString;
-    function Get_Size: UnicodeString;
-    function Get_Color: UnicodeString;
-    function Get_Bold: UnicodeString;
-    procedure Set_FontName(Value: UnicodeString);
-    procedure Set_Family(Value: UnicodeString);
-    procedure Set_Size(Value: UnicodeString);
-    procedure Set_Color(Value: UnicodeString);
-    procedure Set_Bold(Value: UnicodeString);
-    { Methods & Properties }
-    property FontName: UnicodeString read Get_FontName write Set_FontName;
-    property Family: UnicodeString read Get_Family write Set_Family;
-    property Size: UnicodeString read Get_Size write Set_Size;
-    property Color: UnicodeString read Get_Color write Set_Color;
-    property Bold: UnicodeString read Get_Bold write Set_Bold;
-  end;
-
 { IXMLNumberFormatType }
 
   IXMLNumberFormatType = interface(IXMLNode)
-    ['{C2516A8E-44B0-4937-A6F1-836DD5FD7959}']
+    ['{E2F894CE-A844-4080-8FFB-38F3ED75D239}']
     { Property Accessors }
     function Get_Format: UnicodeString;
     procedure Set_Format(Value: UnicodeString);
@@ -214,22 +200,22 @@ type
 { IXMLWorksheetType }
 
   IXMLWorksheetType = interface(IXMLNode)
-    ['{3775E2D0-F93C-4551-8628-0B62DD821D26}']
+    ['{610D02BE-A988-4D5A-A66C-28781A2FB5BB}']
     { Property Accessors }
     function Get_Name: UnicodeString;
-    function Get_Table: IXMLTableTypeList;
+    function Get_Table: IXMLTableType;
     function Get_WorksheetOptions: IXMLWorksheetOptionsType;
     procedure Set_Name(Value: UnicodeString);
     { Methods & Properties }
     property Name: UnicodeString read Get_Name write Set_Name;
-    property Table: IXMLTableTypeList read Get_Table;
+    property Table: IXMLTableType read Get_Table;
     property WorksheetOptions: IXMLWorksheetOptionsType read Get_WorksheetOptions;
   end;
 
 { IXMLWorksheetTypeList }
 
   IXMLWorksheetTypeList = interface(IXMLNodeCollection)
-    ['{9229FEA8-5131-443A-9F1C-E9C9DCCCD93E}']
+    ['{259D1743-44B6-47B2-BD7E-B152E1FD95C1}']
     { Methods & Properties }
     function Add: IXMLWorksheetType;
     function Insert(const Index: Integer): IXMLWorksheetType;
@@ -241,14 +227,14 @@ type
 { IXMLTableType }
 
   IXMLTableType = interface(IXMLNode)
-    ['{6DFC320C-8464-411B-8C7F-6F972D9C015D}']
+    ['{BF776F3B-30DD-4102-ADAF-B272DD129422}']
     { Property Accessors }
     function Get_ExpandedColumnCount: Integer;
     function Get_ExpandedRowCount: Integer;
     function Get_FullColumns: Integer;
     function Get_FullRows: Integer;
-    function Get_Column: IXMLColumnTypeList;
-    function Get_Row: IXMLRowTypeList;
+    function Get_Column: IXMLColumnType;
+    function Get_Row: IXMLRowType;
     procedure Set_ExpandedColumnCount(Value: Integer);
     procedure Set_ExpandedRowCount(Value: Integer);
     procedure Set_FullColumns(Value: Integer);
@@ -258,26 +244,14 @@ type
     property ExpandedRowCount: Integer read Get_ExpandedRowCount write Set_ExpandedRowCount;
     property FullColumns: Integer read Get_FullColumns write Set_FullColumns;
     property FullRows: Integer read Get_FullRows write Set_FullRows;
-    property Column: IXMLColumnTypeList read Get_Column;
-    property Row: IXMLRowTypeList read Get_Row;
-  end;
-
-{ IXMLTableTypeList }
-
-  IXMLTableTypeList = interface(IXMLNodeCollection)
-    ['{EF479856-D122-4BF2-9534-B2B5F8C7C79B}']
-    { Methods & Properties }
-    function Add: IXMLTableType;
-    function Insert(const Index: Integer): IXMLTableType;
-
-    function Get_Item(Index: Integer): IXMLTableType;
-    property Items[Index: Integer]: IXMLTableType read Get_Item; default;
+    property Column: IXMLColumnType read Get_Column;
+    property Row: IXMLRowType read Get_Row;
   end;
 
 { IXMLColumnType }
 
   IXMLColumnType = interface(IXMLNode)
-    ['{1AD65DAE-105C-4563-8D53-27D6D2AAC06F}']
+    ['{9BDB8BE4-EEE1-444C-A220-50B8549FD3C5}']
     { Property Accessors }
     function Get_Index: Integer;
     function Get_StyleID: UnicodeString;
@@ -294,74 +268,33 @@ type
     property Width: UnicodeString read Get_Width write Set_Width;
   end;
 
-{ IXMLColumnTypeList }
-
-  IXMLColumnTypeList = interface(IXMLNodeCollection)
-    ['{3B97B963-1B1D-4FF4-AF8A-7109582C6213}']
-    { Methods & Properties }
-    function Add: IXMLColumnType;
-    function Insert(const Index: Integer): IXMLColumnType;
-
-    function Get_Item(Index: Integer): IXMLColumnType;
-    property Items[Index: Integer]: IXMLColumnType read Get_Item; default;
-  end;
-
 { IXMLRowType }
 
-  IXMLRowType = interface(IXMLNodeCollection)
-    ['{DD163FAD-D3C7-4C5A-889B-2E8D6C103D2A}']
+  IXMLRowType = interface(IXMLNode)
+    ['{A36996A3-AB25-415C-8D2B-BDCD1A910F93}']
     { Property Accessors }
-    function Get_Cell(Index: Integer): IXMLCellType;
+    function Get_Cell: IXMLCellType;
     { Methods & Properties }
-    function Add: IXMLCellType;
-    function Insert(const Index: Integer): IXMLCellType;
-    property Cell[Index: Integer]: IXMLCellType read Get_Cell; default;
-  end;
-
-{ IXMLRowTypeList }
-
-  IXMLRowTypeList = interface(IXMLNodeCollection)
-    ['{50291E37-27E3-4DCF-B258-3095BC587A12}']
-    { Methods & Properties }
-    function Add: IXMLRowType;
-    function Insert(const Index: Integer): IXMLRowType;
-
-    function Get_Item(Index: Integer): IXMLRowType;
-    property Items[Index: Integer]: IXMLRowType read Get_Item; default;
+    property Cell: IXMLCellType read Get_Cell;
   end;
 
 { IXMLCellType }
 
   IXMLCellType = interface(IXMLNode)
-    ['{7C1CD2A6-6119-4479-BF4C-65825AE882C4}']
+    ['{BF5A06B5-8D68-4B7D-833A-DA0564CE2E2A}']
     { Property Accessors }
-    function Get_StyleID: UnicodeString;
     function Get_Formula: UnicodeString;
     function Get_Data: IXMLDataType;
-    procedure Set_StyleID(Value: UnicodeString);
     procedure Set_Formula(Value: UnicodeString);
     { Methods & Properties }
-    property StyleID: UnicodeString read Get_StyleID write Set_StyleID;
     property Formula: UnicodeString read Get_Formula write Set_Formula;
     property Data: IXMLDataType read Get_Data;
-  end;
-
-{ IXMLCellTypeList }
-
-  IXMLCellTypeList = interface(IXMLNodeCollection)
-    ['{49B46D23-D669-48FC-8B72-29BF5818808F}']
-    { Methods & Properties }
-    function Add: IXMLCellType;
-    function Insert(const Index: Integer): IXMLCellType;
-
-    function Get_Item(Index: Integer): IXMLCellType;
-    property Items[Index: Integer]: IXMLCellType read Get_Item; default;
   end;
 
 { IXMLDataType }
 
   IXMLDataType = interface(IXMLNode)
-    ['{BA9E1882-67EC-47BB-B7FB-E14E1BBDD19A}']
+    ['{8615B3C7-DA8A-4F4A-BC72-68834C2D511E}']
     { Property Accessors }
     function Get_Type_: UnicodeString;
     function Get_Ticked: Integer;
@@ -375,7 +308,7 @@ type
 { IXMLWorksheetOptionsType }
 
   IXMLWorksheetOptionsType = interface(IXMLNode)
-    ['{93A34659-92A7-4D13-B4F7-3D9E20D4AAA1}']
+    ['{B54B9355-3EA6-4EEC-9BF1-6D759B343BD7}']
     { Property Accessors }
     function Get_PageSetup: IXMLPageSetupType;
     function Get_Print: IXMLPrintType;
@@ -398,7 +331,7 @@ type
 { IXMLPageSetupType }
 
   IXMLPageSetupType = interface(IXMLNode)
-    ['{E03ED1EA-019F-44B7-888C-1D705A69197E}']
+    ['{6E18C040-2939-44F5-A315-E9FFB2EA8940}']
     { Property Accessors }
     function Get_Header: IXMLHeaderType;
     function Get_Footer: IXMLFooterType;
@@ -412,7 +345,7 @@ type
 { IXMLHeaderType }
 
   IXMLHeaderType = interface(IXMLNode)
-    ['{7C2DF978-44BC-40A3-9303-3D7E5B1A54EC}']
+    ['{6350B696-C2B6-4364-8828-AE2D052C5C83}']
     { Property Accessors }
     function Get_Margin: UnicodeString;
     function Get_Data: UnicodeString;
@@ -426,7 +359,7 @@ type
 { IXMLFooterType }
 
   IXMLFooterType = interface(IXMLNode)
-    ['{43D0F423-4EDF-4F38-8A74-314614316D6C}']
+    ['{7801D0B8-E6C5-4262-B783-7000A23DF0F7}']
     { Property Accessors }
     function Get_Margin: UnicodeString;
     function Get_Data: UnicodeString;
@@ -440,7 +373,7 @@ type
 { IXMLPageMarginsType }
 
   IXMLPageMarginsType = interface(IXMLNode)
-    ['{FF70479F-198C-4DC6-BD28-30129C1A0E7F}']
+    ['{94553906-3091-4176-893D-7C503A895C22}']
     { Property Accessors }
     function Get_Bottom: UnicodeString;
     function Get_Left: UnicodeString;
@@ -460,7 +393,7 @@ type
 { IXMLPrintType }
 
   IXMLPrintType = interface(IXMLNode)
-    ['{F296DB9C-A226-4800-9459-CB0C2B4C4591}']
+    ['{E88625F4-3BF8-4734-AD2D-891AAE3166D9}']
     { Property Accessors }
     function Get_ValidPrinterInfo: UnicodeString;
     function Get_HorizontalResolution: Integer;
@@ -477,7 +410,7 @@ type
 { IXMLPanesType }
 
   IXMLPanesType = interface(IXMLNode)
-    ['{73F587E8-C505-4CF0-A6E7-41686C0177F1}']
+    ['{9305FFC9-BBA9-422C-8C64-10C173C5788E}']
     { Property Accessors }
     function Get_Pane: IXMLPaneType;
     { Methods & Properties }
@@ -487,7 +420,7 @@ type
 { IXMLPaneType }
 
   IXMLPaneType = interface(IXMLNode)
-    ['{02F181D5-3BAC-4293-AD3A-AC764BBC7474}']
+    ['{1A4924B1-E328-466A-89AC-3A15643DEA65}']
     { Property Accessors }
     function Get_Number: Integer;
     function Get_ActiveCol: Integer;
@@ -507,21 +440,17 @@ type
   TXMLDocumentPropertiesType = class;
   TXMLExcelWorkbookType = class;
   TXMLStylesType = class;
+  TXMLStylesTypeList = class;
   TXMLStyleType = class;
   TXMLStyleTypeList = class;
   TXMLAlignmentType = class;
-  TXMLFontType = class;
   TXMLNumberFormatType = class;
   TXMLWorksheetType = class;
   TXMLWorksheetTypeList = class;
   TXMLTableType = class;
-  TXMLTableTypeList = class;
   TXMLColumnType = class;
-  TXMLColumnTypeList = class;
   TXMLRowType = class;
-  TXMLRowTypeList = class;
   TXMLCellType = class;
-  TXMLCellTypeList = class;
   TXMLDataType = class;
   TXMLWorksheetOptionsType = class;
   TXMLPageSetupType = class;
@@ -536,12 +465,13 @@ type
 
   TXMLWorkbookType = class(TXMLNode, IXMLWorkbookType)
   private
+    FStyles: IXMLStylesTypeList;
     FWorksheet: IXMLWorksheetTypeList;
   protected
     { IXMLWorkbookType }
     function Get_DocumentProperties: IXMLDocumentPropertiesType;
     function Get_ExcelWorkbook: IXMLExcelWorkbookType;
-    function Get_Styles: IXMLStylesType;
+    function Get_Styles: IXMLStylesTypeList;
     function Get_Worksheet: IXMLWorksheetTypeList;
   public
     procedure AfterConstruction; override;
@@ -595,6 +525,17 @@ type
     procedure AfterConstruction; override;
   end;
 
+{ TXMLStylesTypeList }
+
+  TXMLStylesTypeList = class(TXMLNodeCollection, IXMLStylesTypeList)
+  protected
+    { IXMLStylesTypeList }
+    function Add: IXMLStylesType;
+    function Insert(const Index: Integer): IXMLStylesType;
+
+    function Get_Item(Index: Integer): IXMLStylesType;
+  end;
+
 { TXMLStyleType }
 
   TXMLStyleType = class(TXMLNode, IXMLStyleType)
@@ -604,13 +545,14 @@ type
     function Get_Name: UnicodeString;
     function Get_Alignment: IXMLAlignmentType;
     function Get_Borders: UnicodeString;
-    function Get_Font: IXMLFontType;
+    function Get_Font: UnicodeString;
     function Get_Interior: UnicodeString;
     function Get_NumberFormat: IXMLNumberFormatType;
     function Get_Protection: UnicodeString;
     procedure Set_ID(Value: UnicodeString);
     procedure Set_Name(Value: UnicodeString);
     procedure Set_Borders(Value: UnicodeString);
+    procedure Set_Font(Value: UnicodeString);
     procedure Set_Interior(Value: UnicodeString);
     procedure Set_Protection(Value: UnicodeString);
   public
@@ -637,23 +579,6 @@ type
     procedure Set_Vertical(Value: UnicodeString);
   end;
 
-{ TXMLFontType }
-
-  TXMLFontType = class(TXMLNode, IXMLFontType)
-  protected
-    { IXMLFontType }
-    function Get_FontName: UnicodeString;
-    function Get_Family: UnicodeString;
-    function Get_Size: UnicodeString;
-    function Get_Color: UnicodeString;
-    function Get_Bold: UnicodeString;
-    procedure Set_FontName(Value: UnicodeString);
-    procedure Set_Family(Value: UnicodeString);
-    procedure Set_Size(Value: UnicodeString);
-    procedure Set_Color(Value: UnicodeString);
-    procedure Set_Bold(Value: UnicodeString);
-  end;
-
 { TXMLNumberFormatType }
 
   TXMLNumberFormatType = class(TXMLNode, IXMLNumberFormatType)
@@ -666,12 +591,10 @@ type
 { TXMLWorksheetType }
 
   TXMLWorksheetType = class(TXMLNode, IXMLWorksheetType)
-  private
-    FTable: IXMLTableTypeList;
   protected
     { IXMLWorksheetType }
     function Get_Name: UnicodeString;
-    function Get_Table: IXMLTableTypeList;
+    function Get_Table: IXMLTableType;
     function Get_WorksheetOptions: IXMLWorksheetOptionsType;
     procedure Set_Name(Value: UnicodeString);
   public
@@ -692,34 +615,20 @@ type
 { TXMLTableType }
 
   TXMLTableType = class(TXMLNode, IXMLTableType)
-  private
-    FColumn: IXMLColumnTypeList;
-    FRow: IXMLRowTypeList;
   protected
     { IXMLTableType }
     function Get_ExpandedColumnCount: Integer;
     function Get_ExpandedRowCount: Integer;
     function Get_FullColumns: Integer;
     function Get_FullRows: Integer;
-    function Get_Column: IXMLColumnTypeList;
-    function Get_Row: IXMLRowTypeList;
+    function Get_Column: IXMLColumnType;
+    function Get_Row: IXMLRowType;
     procedure Set_ExpandedColumnCount(Value: Integer);
     procedure Set_ExpandedRowCount(Value: Integer);
     procedure Set_FullColumns(Value: Integer);
     procedure Set_FullRows(Value: Integer);
   public
     procedure AfterConstruction; override;
-  end;
-
-{ TXMLTableTypeList }
-
-  TXMLTableTypeList = class(TXMLNodeCollection, IXMLTableTypeList)
-  protected
-    { IXMLTableTypeList }
-    function Add: IXMLTableType;
-    function Insert(const Index: Integer): IXMLTableType;
-
-    function Get_Item(Index: Integer): IXMLTableType;
   end;
 
 { TXMLColumnType }
@@ -737,38 +646,14 @@ type
     procedure Set_Width(Value: UnicodeString);
   end;
 
-{ TXMLColumnTypeList }
-
-  TXMLColumnTypeList = class(TXMLNodeCollection, IXMLColumnTypeList)
-  protected
-    { IXMLColumnTypeList }
-    function Add: IXMLColumnType;
-    function Insert(const Index: Integer): IXMLColumnType;
-
-    function Get_Item(Index: Integer): IXMLColumnType;
-  end;
-
 { TXMLRowType }
 
-  TXMLRowType = class(TXMLNodeCollection, IXMLRowType)
+  TXMLRowType = class(TXMLNode, IXMLRowType)
   protected
     { IXMLRowType }
-    function Get_Cell(Index: Integer): IXMLCellType;
-    function Add: IXMLCellType;
-    function Insert(const Index: Integer): IXMLCellType;
+    function Get_Cell: IXMLCellType;
   public
     procedure AfterConstruction; override;
-  end;
-
-{ TXMLRowTypeList }
-
-  TXMLRowTypeList = class(TXMLNodeCollection, IXMLRowTypeList)
-  protected
-    { IXMLRowTypeList }
-    function Add: IXMLRowType;
-    function Insert(const Index: Integer): IXMLRowType;
-
-    function Get_Item(Index: Integer): IXMLRowType;
   end;
 
 { TXMLCellType }
@@ -776,24 +661,11 @@ type
   TXMLCellType = class(TXMLNode, IXMLCellType)
   protected
     { IXMLCellType }
-    function Get_StyleID: UnicodeString;
     function Get_Formula: UnicodeString;
     function Get_Data: IXMLDataType;
-    procedure Set_StyleID(Value: UnicodeString);
     procedure Set_Formula(Value: UnicodeString);
   public
     procedure AfterConstruction; override;
-  end;
-
-{ TXMLCellTypeList }
-
-  TXMLCellTypeList = class(TXMLNodeCollection, IXMLCellTypeList)
-  protected
-    { IXMLCellTypeList }
-    function Add: IXMLCellType;
-    function Insert(const Index: Integer): IXMLCellType;
-
-    function Get_Item(Index: Integer): IXMLCellType;
   end;
 
 { TXMLDataType }
@@ -946,6 +818,7 @@ begin
   RegisterChildNode('ExcelWorkbook', TXMLExcelWorkbookType);
   RegisterChildNode('Styles', TXMLStylesType);
   RegisterChildNode('Worksheet', TXMLWorksheetType);
+  FStyles := CreateCollection(TXMLStylesTypeList, IXMLStylesType, 'Styles') as IXMLStylesTypeList;
   FWorksheet := CreateCollection(TXMLWorksheetTypeList, IXMLWorksheetType, 'Worksheet') as IXMLWorksheetTypeList;
   inherited;
 end;
@@ -960,9 +833,9 @@ begin
   Result := ChildNodes['ExcelWorkbook'] as IXMLExcelWorkbookType;
 end;
 
-function TXMLWorkbookType.Get_Styles: IXMLStylesType;
+function TXMLWorkbookType.Get_Styles: IXMLStylesTypeList;
 begin
-  Result := ChildNodes['Styles'] as IXMLStylesType;
+  Result := FStyles;
 end;
 
 function TXMLWorkbookType.Get_Worksheet: IXMLWorksheetTypeList;
@@ -1109,12 +982,28 @@ begin
   Result := AddItem(Index) as IXMLStyleType;
 end;
 
+{ TXMLStylesTypeList }
+
+function TXMLStylesTypeList.Add: IXMLStylesType;
+begin
+  Result := AddItem(-1) as IXMLStylesType;
+end;
+
+function TXMLStylesTypeList.Insert(const Index: Integer): IXMLStylesType;
+begin
+  Result := AddItem(Index) as IXMLStylesType;
+end;
+
+function TXMLStylesTypeList.Get_Item(Index: Integer): IXMLStylesType;
+begin
+  Result := List[Index] as IXMLStylesType;
+end;
+
 { TXMLStyleType }
 
 procedure TXMLStyleType.AfterConstruction;
 begin
   RegisterChildNode('Alignment', TXMLAlignmentType);
-  RegisterChildNode('Font', TXMLFontType);
   RegisterChildNode('NumberFormat', TXMLNumberFormatType);
   inherited;
 end;
@@ -1154,9 +1043,14 @@ begin
   ChildNodes['Borders'].NodeValue := Value;
 end;
 
-function TXMLStyleType.Get_Font: IXMLFontType;
+function TXMLStyleType.Get_Font: UnicodeString;
 begin
-  Result := ChildNodes['Font'] as IXMLFontType;
+  Result := ChildNodes['Font'].Text;
+end;
+
+procedure TXMLStyleType.Set_Font(Value: UnicodeString);
+begin
+  ChildNodes['Font'].NodeValue := Value;
 end;
 
 function TXMLStyleType.Get_Interior: UnicodeString;
@@ -1213,58 +1107,6 @@ begin
   SetAttribute('ss:Vertical', Value);
 end;
 
-{ TXMLFontType }
-
-function TXMLFontType.Get_FontName: UnicodeString;
-begin
-  Result := AttributeNodes['ss:FontName'].Text;
-end;
-
-procedure TXMLFontType.Set_FontName(Value: UnicodeString);
-begin
-  SetAttribute('ss:FontName', Value);
-end;
-
-function TXMLFontType.Get_Family: UnicodeString;
-begin
-  Result := AttributeNodes['x:Family'].Text;
-end;
-
-procedure TXMLFontType.Set_Family(Value: UnicodeString);
-begin
-  SetAttribute('x:Family', Value);
-end;
-
-function TXMLFontType.Get_Size: UnicodeString;
-begin
-  Result := AttributeNodes['ss:Size'].Text;
-end;
-
-procedure TXMLFontType.Set_Size(Value: UnicodeString);
-begin
-  SetAttribute('ss:Size', Value);
-end;
-
-function TXMLFontType.Get_Color: UnicodeString;
-begin
-  Result := AttributeNodes['ss:Color'].Text;
-end;
-
-procedure TXMLFontType.Set_Color(Value: UnicodeString);
-begin
-  SetAttribute('ss:Color', Value);
-end;
-
-function TXMLFontType.Get_Bold: UnicodeString;
-begin
-  Result := AttributeNodes['ss:Bold'].Text;
-end;
-
-procedure TXMLFontType.Set_Bold(Value: UnicodeString);
-begin
-  SetAttribute('ss:Bold', Value);
-end;
-
 { TXMLNumberFormatType }
 
 function TXMLNumberFormatType.Get_Format: UnicodeString;
@@ -1283,7 +1125,6 @@ procedure TXMLWorksheetType.AfterConstruction;
 begin
   RegisterChildNode('Table', TXMLTableType);
   RegisterChildNode('WorksheetOptions', TXMLWorksheetOptionsType);
-  FTable := CreateCollection(TXMLTableTypeList, IXMLTableType, 'Table') as IXMLTableTypeList;
   inherited;
 end;
 
@@ -1297,9 +1138,9 @@ begin
   SetAttribute('ss:Name', Value);
 end;
 
-function TXMLWorksheetType.Get_Table: IXMLTableTypeList;
+function TXMLWorksheetType.Get_Table: IXMLTableType;
 begin
-  Result := FTable;
+  Result := ChildNodes['Table'] as IXMLTableType;
 end;
 
 function TXMLWorksheetType.Get_WorksheetOptions: IXMLWorksheetOptionsType;
@@ -1330,8 +1171,6 @@ procedure TXMLTableType.AfterConstruction;
 begin
   RegisterChildNode('Column', TXMLColumnType);
   RegisterChildNode('Row', TXMLRowType);
-  FColumn := CreateCollection(TXMLColumnTypeList, IXMLColumnType, 'Column') as IXMLColumnTypeList;
-  FRow := CreateCollection(TXMLRowTypeList, IXMLRowType, 'Row') as IXMLRowTypeList;
   inherited;
 end;
 
@@ -1375,31 +1214,14 @@ begin
   SetAttribute('x:FullRows', Value);
 end;
 
-function TXMLTableType.Get_Column: IXMLColumnTypeList;
+function TXMLTableType.Get_Column: IXMLColumnType;
 begin
-  Result := FColumn;
+  Result := ChildNodes['Column'] as IXMLColumnType;
 end;
 
-function TXMLTableType.Get_Row: IXMLRowTypeList;
+function TXMLTableType.Get_Row: IXMLRowType;
 begin
-  Result := FRow;
-end;
-
-{ TXMLTableTypeList }
-
-function TXMLTableTypeList.Add: IXMLTableType;
-begin
-  Result := AddItem(-1) as IXMLTableType;
-end;
-
-function TXMLTableTypeList.Insert(const Index: Integer): IXMLTableType;
-begin
-  Result := AddItem(Index) as IXMLTableType;
-end;
-
-function TXMLTableTypeList.Get_Item(Index: Integer): IXMLTableType;
-begin
-  Result := List[Index] as IXMLTableType;
+  Result := ChildNodes['Row'] as IXMLRowType;
 end;
 
 { TXMLColumnType }
@@ -1444,63 +1266,17 @@ begin
   SetAttribute('ss:Width', Value);
 end;
 
-{ TXMLColumnTypeList }
-
-function TXMLColumnTypeList.Add: IXMLColumnType;
-begin
-  Result := AddItem(-1) as IXMLColumnType;
-end;
-
-function TXMLColumnTypeList.Insert(const Index: Integer): IXMLColumnType;
-begin
-  Result := AddItem(Index) as IXMLColumnType;
-end;
-
-function TXMLColumnTypeList.Get_Item(Index: Integer): IXMLColumnType;
-begin
-  Result := List[Index] as IXMLColumnType;
-end;
-
 { TXMLRowType }
 
 procedure TXMLRowType.AfterConstruction;
 begin
   RegisterChildNode('Cell', TXMLCellType);
-  ItemTag := 'Cell';
-  ItemInterface := IXMLCellType;
   inherited;
 end;
 
-function TXMLRowType.Get_Cell(Index: Integer): IXMLCellType;
+function TXMLRowType.Get_Cell: IXMLCellType;
 begin
-  Result := List[Index] as IXMLCellType;
-end;
-
-function TXMLRowType.Add: IXMLCellType;
-begin
-  Result := AddItem(-1) as IXMLCellType;
-end;
-
-function TXMLRowType.Insert(const Index: Integer): IXMLCellType;
-begin
-  Result := AddItem(Index) as IXMLCellType;
-end;
-
-{ TXMLRowTypeList }
-
-function TXMLRowTypeList.Add: IXMLRowType;
-begin
-  Result := AddItem(-1) as IXMLRowType;
-end;
-
-function TXMLRowTypeList.Insert(const Index: Integer): IXMLRowType;
-begin
-  Result := AddItem(Index) as IXMLRowType;
-end;
-
-function TXMLRowTypeList.Get_Item(Index: Integer): IXMLRowType;
-begin
-  Result := List[Index] as IXMLRowType;
+  Result := ChildNodes['Cell'] as IXMLCellType;
 end;
 
 { TXMLCellType }
@@ -1509,16 +1285,6 @@ procedure TXMLCellType.AfterConstruction;
 begin
   RegisterChildNode('Data', TXMLDataType);
   inherited;
-end;
-
-function TXMLCellType.Get_StyleID: UnicodeString;
-begin
-  Result := AttributeNodes['ss:StyleID'].Text;
-end;
-
-procedure TXMLCellType.Set_StyleID(Value: UnicodeString);
-begin
-  SetAttribute('ss:StyleID', Value);
 end;
 
 function TXMLCellType.Get_Formula: UnicodeString;
@@ -1534,23 +1300,6 @@ end;
 function TXMLCellType.Get_Data: IXMLDataType;
 begin
   Result := ChildNodes['Data'] as IXMLDataType;
-end;
-
-{ TXMLCellTypeList }
-
-function TXMLCellTypeList.Add: IXMLCellType;
-begin
-  Result := AddItem(-1) as IXMLCellType;
-end;
-
-function TXMLCellTypeList.Insert(const Index: Integer): IXMLCellType;
-begin
-  Result := AddItem(Index) as IXMLCellType;
-end;
-
-function TXMLCellTypeList.Get_Item(Index: Integer): IXMLCellType;
-begin
-  Result := List[Index] as IXMLCellType;
 end;
 
 { TXMLDataType }

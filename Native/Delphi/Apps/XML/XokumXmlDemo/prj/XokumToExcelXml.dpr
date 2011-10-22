@@ -8,13 +8,11 @@ uses
   System.SysUtils,
   XokumToExcelXmlUnit in '..\src\XokumToExcelXmlUnit.pas',
   ExcelUnit in '..\..\..\..\bo.Excel\ExcelUnit.pas',
-  ExcelXmlUnit in '..\..\..\..\bo.Excel\ExcelXmlUnit.pas',
-  xokumDataBindingUnit in '..\src\xokumDataBindingUnit.pas',
-  excelssUnit in '..\..\..\..\bo.Excel\excelssUnit.pas';
+  ExcelXmlUnit in '..\..\..\..\bo.Excel\ExcelXmlUnit.pas';
 
 begin
   try
-    TXokumToExcelXml.Main();
+    { TODO -oUser -cConsole Main : Insert code here }
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
