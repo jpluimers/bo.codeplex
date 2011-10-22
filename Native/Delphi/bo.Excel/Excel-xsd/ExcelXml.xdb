@@ -8,7 +8,7 @@
     <xsd:sequence>
 			<xsd:element name="DocumentProperties" type="DocumentPropertiesType"/>
 			<xsd:element name="ExcelWorkbook" type="ExcelWorkbookType"/>
-			<xsd:element name="Styles" type="StylesType"/>
+			<xsd:element name="Styles" type="StylesType" maxOccurs="unbounded"/>
 			<xsd:element name="Worksheet" type="WorksheetType" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
@@ -17,7 +17,7 @@
       <xsd:appinfo xdb:repeated="True"/>
     </xsd:annotation>
     <xsd:sequence>
-			<xsd:element name="Table" type="TableType" maxOccurs="unbounded"/>
+			<xsd:element name="Table" type="TableType"/>
 			<xsd:element name="WorksheetOptions" type="WorksheetOptionsType"/>
 		</xsd:sequence>
 		<xsd:attribute name="ss:Name" type="xsd:string"/>
@@ -73,12 +73,9 @@
 		<xsd:attribute name="x:Data" type="xsd:string"/>
 	</xsd:complexType>
 	<xsd:complexType name="TableType">
-		<xsd:annotation>
-      <xsd:appinfo xdb:repeated="True"/>
-    </xsd:annotation>
-    <xsd:sequence>
-			<xsd:element name="Column" type="ColumnType" maxOccurs="unbounded"/>
-			<xsd:element name="Row" type="RowType" maxOccurs="unbounded"/>
+		<xsd:sequence>
+			<xsd:element name="Column" type="ColumnType"/>
+			<xsd:element name="Row" type="RowType"/>
 		</xsd:sequence>
 		<xsd:attribute name="ss:ExpandedColumnCount" type="xsd:int"/>
 		<xsd:attribute name="ss:ExpandedRowCount" type="xsd:int"/>
@@ -86,21 +83,14 @@
 		<xsd:attribute name="x:FullRows" type="xsd:int"/>
 	</xsd:complexType>
 	<xsd:complexType name="RowType">
-		<xsd:annotation>
-      <xsd:appinfo xdb:repeated="True"/>
-    </xsd:annotation>
-    <xsd:sequence>
-			<xsd:element name="Cell" type="CellType" maxOccurs="unbounded"/>
+		<xsd:sequence>
+			<xsd:element name="Cell" type="CellType"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="CellType">
-		<xsd:annotation>
-      <xsd:appinfo xdb:repeated="True"/>
-    </xsd:annotation>
-    <xsd:sequence>
+		<xsd:sequence>
 			<xsd:element name="Data" type="DataType"/>
 		</xsd:sequence>
-		<xsd:attribute name="ss:StyleID" type="xsd:string"/>
 		<xsd:attribute name="ss:Formula" type="xsd:string"/>
 	</xsd:complexType>
 	<xsd:complexType name="DataType">
@@ -108,16 +98,16 @@
 		<xsd:attribute name="x:Ticked" type="xsd:int"/>
 	</xsd:complexType>
 	<xsd:complexType name="ColumnType">
-		<xsd:annotation>
-      <xsd:appinfo xdb:repeated="True"/>
-    </xsd:annotation>
-    <xsd:attribute name="ss:Index" type="xsd:int"/>
+		<xsd:attribute name="ss:Index" type="xsd:int"/>
 		<xsd:attribute name="ss:StyleID" type="xsd:string"/>
 		<xsd:attribute name="ss:AutoFitWidth" type="xsd:int"/>
 		<xsd:attribute name="ss:Width" type="xsd:decimal"/>
 	</xsd:complexType>
 	<xsd:complexType name="StylesType">
-		<xsd:sequence>
+		<xsd:annotation>
+      <xsd:appinfo xdb:repeated="True"/>
+    </xsd:annotation>
+    <xsd:sequence>
 			<xsd:element name="Style" type="StyleType" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
@@ -128,22 +118,13 @@
     <xsd:sequence>
 			<xsd:element name="Alignment" type="AlignmentType"/>
 			<xsd:element name="Borders" type="xsd:string"/>
-			<xsd:element name="Font" type="FontType"/>
+			<xsd:element name="Font" type="xsd:string"/>
 			<xsd:element name="Interior" type="xsd:string"/>
 			<xsd:element name="NumberFormat" type="NumberFormatType"/>
 			<xsd:element name="Protection" type="xsd:string"/>
 		</xsd:sequence>
 		<xsd:attribute name="ss:ID" type="xsd:string"/>
 		<xsd:attribute name="ss:Name" type="xsd:string"/>
-	</xsd:complexType>
-	<xsd:complexType name="FontType">
-		<xsd:attribute name="ss:FontName" type="xsd:string"/>
-		<xsd:attribute name="x:Family" type="xsd:string"/>
-		<xsd:attribute name="ss:Size" type="xsd:string"/>
-		<xsd:attribute name="ss:Color" type="xsd:string"/>
-		<!-- Color: "#000000" -->
-		<xsd:attribute name="ss:Bold" type="xsd:string"/>
-		<!-- Boolean: "0" or "1" -->
 	</xsd:complexType>
 	<xsd:complexType name="AlignmentType">
 		<xsd:attribute name="ss:Vertical" type="xsd:string"/>

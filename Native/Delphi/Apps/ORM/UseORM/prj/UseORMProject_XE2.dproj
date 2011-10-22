@@ -75,7 +75,7 @@
 			<Icon_MainIcon>UseORMProject_Icon.ico</Icon_MainIcon>
 			<DCC_Namespace>Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 			<VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-			<PostBuildEvent><![CDATA[copy "..\..\..\..\..\..\Forks\FastMM\Demos\Replacement borlndmm DLL\FastMM_FullDebugMode.dll" .\$(Config)\$(Platform)
+			<PostBuildEvent><![CDATA[copy "C:\develop\codeplex\TFS05\bo\Forks\FastMM\Demos\Replacement borlndmm DLL\FastMM_FullDebugMode.dll" .\$(Config)\$(Platform)
 $(PostBuildEvent)]]></PostBuildEvent>
 			<VerInfo_Locale>1033</VerInfo_Locale>
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
@@ -90,7 +90,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
 			<DCC_RemoteDebug>true</DCC_RemoteDebug>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
 			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -256,7 +255,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
 			<PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
 			<PreLinkEvent/>
 			<PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-			<PostBuildEvent>copy &quot;..\..\..\..\..\..\Forks\FastMM\Demos\Replacement borlndmm DLL\FastMM_FullDebugMode.dll&quot; .\$(Config)\$(Platform)</PostBuildEvent>
+			<PostBuildEvent>copy &quot;C:\develop\codeplex\TFS05\bo\Forks\FastMM\Demos\Replacement borlndmm DLL\FastMM_FullDebugMode.dll&quot; .\$(Config)\$(Platform)</PostBuildEvent>
 			<PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
@@ -264,7 +263,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
 			<PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
 			<PreLinkEvent/>
 			<PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-			<PostBuildEvent>copy &quot;..\..\..\..\..\..\Forks\FastMM\Demos\Replacement borlndmm DLL\FastMM_FullDebugMode.dll&quot; .\$(Config)\$(Platform)</PostBuildEvent>
+			<PostBuildEvent>copy &quot;C:\develop\codeplex\TFS05\bo\Forks\FastMM\Demos\Replacement borlndmm DLL\FastMM_FullDebugMode.dll&quot; .\$(Config)\$(Platform)</PostBuildEvent>
 			<PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
 		</PropertyGroup>
 	</Project>

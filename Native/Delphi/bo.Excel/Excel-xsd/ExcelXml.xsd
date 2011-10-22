@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- a full fledged set of schemas can be found here:
-http://www.microsoft.com/download/en/details.aspx?DisplayLang=en&id=101
-http://download.microsoft.com/download/1/8/c/18c474b6-b670-4c5c-a4a8-f847b639877c/Office2003XMLSchema.exe
--->
 <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <xsd:element name="Workbook" type="WorkbookType" />
   <xsd:complexType name="WorkbookType">
@@ -89,7 +85,6 @@ http://download.microsoft.com/download/1/8/c/18c474b6-b670-4c5c-a4a8-f847b639877
     <xsd:sequence>
       <xsd:element name="Data" type="DataType" />
     </xsd:sequence>
-	<xsd:attribute name="ss:StyleID" type="xsd:string" />
     <xsd:attribute name="ss:Formula" type="xsd:string" />
   </xsd:complexType>
   <xsd:complexType name="DataType">
@@ -100,7 +95,7 @@ http://download.microsoft.com/download/1/8/c/18c474b6-b670-4c5c-a4a8-f847b639877
 	<xsd:attribute name="ss:Index" type="xsd:int" />
 	<xsd:attribute name="ss:StyleID" type="xsd:string" />
 	<xsd:attribute name="ss:AutoFitWidth" type="xsd:int" />
-	<xsd:attribute name="ss:Width" type="xsd:decimal" /> <!-- Delphi does not properly translate this -->
+	<xsd:attribute name="ss:Width" type="xsd:decimal" />
   </xsd:complexType>
   <xsd:complexType name="StylesType">
     <xsd:sequence>
@@ -111,20 +106,13 @@ http://download.microsoft.com/download/1/8/c/18c474b6-b670-4c5c-a4a8-f847b639877
     <xsd:sequence>
       <xsd:element name="Alignment" type="AlignmentType" />
       <xsd:element name="Borders" type="xsd:string" />
-      <xsd:element name="Font" type="FontType" />
+      <xsd:element name="Font" type="xsd:string" />
 	  <xsd:element name="Interior" type="xsd:string" />
 	  <xsd:element name="NumberFormat" type="NumberFormatType" />
 	  <xsd:element name="Protection" type="xsd:string" />
 	</xsd:sequence>
 	<xsd:attribute name="ss:ID" type="xsd:string" />
 	<xsd:attribute name="ss:Name" type="xsd:string" />
-  </xsd:complexType>
-  <xsd:complexType name="FontType">
-	<xsd:attribute name="ss:FontName" type="xsd:string" />
-	<xsd:attribute name="x:Family" type="xsd:string" />
-	<xsd:attribute name="ss:Size" type="xsd:string" />
-	<xsd:attribute name="ss:Color" type="xsd:string" /> <!-- Color: "#000000" -->
-	<xsd:attribute name="ss:Bold" type="xsd:string" /> <!-- Boolean: "0" or "1" -->
   </xsd:complexType>
   <xsd:complexType name="AlignmentType">
 	<xsd:attribute name="ss:Vertical" type="xsd:string" />
