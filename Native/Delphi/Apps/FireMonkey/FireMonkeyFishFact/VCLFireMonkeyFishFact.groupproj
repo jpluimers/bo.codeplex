@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{BEF2254D-7354-4CAD-B850-CD7F50BBE2D5}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="..\..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\Database\IBX\FishFact\fishfact.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="XPlatformFireMonkeyFishFact\XPlatformFireMonkeyFishFactApp.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="fishfact">
+			<MSBuild Projects="..\..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\Database\IBX\FishFact\fishfact.dproj"/>
+		</Target>
+		<Target Name="fishfact:Clean">
+			<MSBuild Projects="..\..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\Database\IBX\FishFact\fishfact.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="fishfact:Make">
+			<MSBuild Projects="..\..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\Database\IBX\FishFact\fishfact.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="XPlatformFireMonkeyFishFactApp">
+			<MSBuild Projects="XPlatformFireMonkeyFishFact\XPlatformFireMonkeyFishFactApp.dproj"/>
+		</Target>
+		<Target Name="XPlatformFireMonkeyFishFactApp:Clean">
+			<MSBuild Projects="XPlatformFireMonkeyFishFact\XPlatformFireMonkeyFishFactApp.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="XPlatformFireMonkeyFishFactApp:Make">
+			<MSBuild Projects="XPlatformFireMonkeyFishFact\XPlatformFireMonkeyFishFactApp.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="fishfact;XPlatformFireMonkeyFishFactApp"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="fishfact:Clean;XPlatformFireMonkeyFishFactApp:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="fishfact:Make;XPlatformFireMonkeyFishFactApp:Make"/>
+		</Target>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+	</Project>

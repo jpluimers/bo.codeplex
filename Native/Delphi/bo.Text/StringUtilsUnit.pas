@@ -5,6 +5,8 @@ interface
 uses
   StdCtrls, Classes, SysUtils; // TEllipsisPosition
 
+procedure AddSplitted(const Strings: TStrings; const Delimiters, Line: string);
+
 function CommaSeparated(const Values: array of string): string; overload;
 
 //1 Mike_Heydon_UnCamelCase - http://delphi.about.com/od/delphichallengesexercises/qt/delphi-challenge-CaptionFromCamelCase.htm
@@ -57,7 +59,7 @@ const
 implementation
 
 uses
-  StrUtils, Character, Variants, ComObj;
+  StrUtils, Character, Variants, ComObj, System.Types;
 
 function CommaSeparated(const Values: array of string): string;
 var
@@ -334,6 +336,16 @@ begin
   CreateGuid(GUID);
   Result := GuidToString(GUID);
   Result := Copy(Result, 2, Length(Result) -2 );
+end;
+
+procedure AddSplitted(const Strings: TStrings; const Delimiters, Line: string);
+var
+  Splitted: TStringDynArray;
+  Element: string;
+begin
+  Splitted := SplitString(Line, Delimiters);
+  for Element in Splitted do
+    Strings.Add(Element);
 end;
 
 end.
