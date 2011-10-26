@@ -151,6 +151,9 @@
 					<Platform value="Win64">False</Platform>
 					<Platform value="Win32">True</Platform>
 				</Platforms>
+				<UnitTesting>
+					<TestProjectName>C:\Users\developer\Documents\SVN\bo.codeplex.com\Native\Delphi\Tests\ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj</TestProjectName>
+				</UnitTesting>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>
