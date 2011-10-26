@@ -85,7 +85,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
 			</DCCReference>
 			<DCCReference Include="..\..\..\..\..\Forks\FastMM\FastMM4Messages.pas"/>
 			<DCCReference Include="..\..\..\..\..\Forks\FastMM\FastMM4.pas"/>
-			<DCCReference Include="C:\develop.backup\codeplex\TFS05\bo\Forks\FastMM\Demos\Usage Tracker\FastMMUsageTracker.pas">
+			<DCCReference Include="..\..\..\..\..\Forks\FastMM\Demos\Usage Tracker\FastMMUsageTracker.pas">
 				<Form>fFastMMUsageTracker</Form>
 			</DCCReference>
 			<None Include="..\..\..\..\..\Forks\FastMM\FastMM4Options.inc"/>

@@ -1,4 +1,4 @@
-program Number2StringProjectTests;
+program FreeAndNilPointerGuiUnitTestProject;
 {
 
   Delphi DUnit Test Project
@@ -19,13 +19,8 @@ uses
   TestFramework,
   GUITestRunner,
   TextTestRunner,
-  ConcreteCollectionsUnit in '..\..\..\bo.Generics\ConcreteCollectionsUnit.pas',
-  Number2StringUnit in '..\..\..\bo.Text\Number2StringUnit.pas',
-  MathUnit in '..\..\..\bo.System\MathUnit.pas',
-  DivModUnit in '..\..\..\bo.System\DivModUnit.pas',
-  TestRomanNumber2StringUnit in '..\src\TestRomanNumber2StringUnit.pas',
-  TestNumber2StringUnit in '..\src\TestNumber2StringUnit.pas',
-  AbstractTestNumber2StringUnit in '..\src\AbstractTestNumber2StringUnit.pas';
+  FreeAndNilPointerUnit in '..\src\FreeAndNilPointerUnit.pas',
+  FreeAndNilPointerTestCaseUnit in '..\src\FreeAndNilPointerTestCaseUnit.pas';
 
 {$R *.RES}
 

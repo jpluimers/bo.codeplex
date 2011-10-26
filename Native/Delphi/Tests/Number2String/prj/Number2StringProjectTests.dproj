@@ -77,12 +77,12 @@
 			<DelphiCompile Include="$(MainSource)">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="..\src\TestRomanNumber2StringUnit.pas"/>
-			<DCCReference Include="..\src\TestNumber2StringUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.Text\Number2StringUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.Generics\ConcreteCollectionsUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.Text\Number2StringUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.System\MathUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.System\DivModUnit.pas"/>
+			<DCCReference Include="..\src\TestRomanNumber2StringUnit.pas"/>
+			<DCCReference Include="..\src\TestNumber2StringUnit.pas"/>
 			<DCCReference Include="..\src\AbstractTestNumber2StringUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>

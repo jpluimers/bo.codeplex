@@ -30,6 +30,12 @@ type
     procedure CalculateString(const Buffer:string; var MD5Hash: string); overload; override;
   end;
 
+  //1 Utility class to write out a bunch of files with various encodings of the Buffer
+  /// This allows you to test what values the unix/Linux md5 tool generates on the
+  /// binary content.
+  ///
+  /// Note: md5 runs on binary, not on strings, so the encoding of your string does
+  /// matter!
   TMD5AndWriterCalculator = class(TMD5Calculator)
     procedure CalculateString(const Buffer:string; var MD5Hash: string); overload; override;
   end;
