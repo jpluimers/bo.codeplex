@@ -4,9 +4,22 @@ interface
 
 uses
   Number2StringUnit,
-  AbstractTestNumber2StringUnit;
+  AbstractTestNumber2StringUnit,
+  TestFramework;
 
 type
+  TestTEnglishNumber2DecimalStringBoring = class(TTestCase)
+  strict private
+    FNumber2String: INumber2String;
+  strict protected
+    property Number2String: INumber2String read FNumber2String;
+  protected
+    procedure SetUp; override;
+    procedure TearDown; override;
+  published
+    procedure Test;
+  end;
+
   TestTEnglishNumber2DecimalString = class(TAbstractTestTNumber2String)
   strict protected
     procedure AddMatches; override;
@@ -28,7 +41,7 @@ type
 implementation
 
 uses
-  TestFramework;
+  System.SysUtils;
 
 procedure TestTEnglishNumber2DecimalString.AddMatches;
 begin
@@ -390,7 +403,6 @@ begin
   AddMatch(9000000, 'neunmillionen');
   AddMatch(9001000, 'neunmillioneneintausend');
 
-
   // list adapted from Roman.
   // spelling for some numbers: http://nl.wikipedia.org/wiki/Lijst_van_natuurlijke_getallen
   // http://nl.wikipedia.org/wiki/Hoofdtelwoord#Schrijfwijze
@@ -407,8 +419,41 @@ begin
   Result := TGermanNumber2DecimalString.Create;
 end;
 
+procedure TestTEnglishNumber2DecimalStringBoring.SetUp;
+begin
+  inherited Setup();
+  FNumber2String := TEnglishNumber2DecimalString.Create;
+end;
+
+procedure TestTEnglishNumber2DecimalStringBoring.TearDown;
+begin
+  inherited TearDown();
+  FNumber2String := nil;
+end;
+
+procedure TestTEnglishNumber2DecimalStringBoring.Test;
+var
+  ExpectedValue: string;
+  Number: Int64;
+  Value: string;
+begin
+  CheckTrue(Assigned(Number2String), 'Null Number2String; cannot test');
+
+  Number := 9001000;
+  Value := Number2String.ToString(Number);
+  ExpectedValue := 'nine millions one thousand';
+  Self.CheckEquals(ExpectedValue, Value, Format('Number=%d', [Number]));
+
+  Number := 123456789;
+  Value := Number2String.ToString(Number);
+  ExpectedValue := 'one hundred twenty three millions four hundred fifty six thousand seven hundred eighty nine';
+  Self.CheckEquals(ExpectedValue, Value, Format('Number=%d', [Number]));
+end;
+
 initialization
   // Register any test cases with the test runner
+  RegisterTest(TestTEnglishNumber2DecimalStringBoring.Suite);
+
   RegisterTest(TestTGermanNumber2DecimalString.Suite);
   RegisterTest(TestTDutchNumber2DecimalString.Suite);
   RegisterTest(TestTEnglishNumber2DecimalString.Suite);

@@ -105,7 +105,7 @@ var
   MD5Hash: string;
 begin
   Calculate(Value, MD5Hash);
-  MD5Hash := LowerCase(MD5Hash); //##jpl: bug - putting a breakpoint here only breaks for TMD5StringTestCase<TMD5BaseCalculator>
+  MD5Hash := LowerCase(MD5Hash); //##jpl: bug solved in XE2 - putting a breakpoint here only breaks for TMD5StringTestCase<TMD5BaseCalculator>
   VerifyTestResult(ExpectedMD5Hash, MD5Hash, Value);
 end;
 

@@ -3,7 +3,9 @@ unit DivModTestUnit;
 interface
 
 uses
-  Classes, SysUtils, TestFrameWork;
+  System.Classes,
+  System.SysUtils,
+  TestFrameWork;
 
 type
   TDivModTestCase = class(TTestCase)
@@ -26,7 +28,8 @@ type
 implementation
 
 uses
-  DivModUnit, Windows;
+  DivModUnit,
+  WinApi.Windows;
 
 //--------------------------------------------------------------------------------
 // This is the naive approach to IDivMod64, the ASM version should be much faster:
@@ -91,7 +94,7 @@ begin
   for i := 2 to $FFF do
   begin
     CheckIDivMod( i,  1, i, 0);   // Identity division
-    CheckIDivMod( i,i+1, 0, i); // Just-less-than-one
+    CheckIDivMod( i,i+1, 0, i);   // Just-less-than-one
     if i > 3 then
     begin
       CheckIDivMod(i, i-1, 1, 1); // this one fails for i<2

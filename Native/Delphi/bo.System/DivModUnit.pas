@@ -4,8 +4,10 @@ unit DivModUnit;
 
 interface
 
+// LongInt is an alias for Integer
 procedure IDivMod(const Dividend, Divisor: LongInt; var Result, Remainder:LongInt);
 
+// LongWord is an alias for Cardinal
 procedure UDivMod(const Dividend, Divisor: LongWord; var Result, Remainder:LongWord);
 
 procedure I64DivMod(const Dividend, Divisor: Int64; var Result, Remainder:Int64);

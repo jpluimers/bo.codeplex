@@ -6,7 +6,7 @@
 			<MainSource>XPlatformFireMonkeyFishFactApp.dpr</MainSource>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
-			<Platform Condition="'$(Platform)'==''">Win32</Platform>
+			<Platform Condition="'$(Platform)'==''">OSX32</Platform>
 			<TargetedPlatforms>7</TargetedPlatforms>
 			<AppType>Application</AppType>
 			<Profile Condition="'$(Platform)'=='OSX32'">mbair133jwp</Profile>
@@ -174,9 +174,6 @@
 					</Excluded_Packages>
 				</Delphi.Personality>
 				<Deployment>
-					<DeployFile Class="DependencyModule" LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib">
-						<Platform Name="OSX32"/>
-					</DeployFile>
 					<DeployFile Class="ProjectOutput" Configuration="Debug" LocalName="OSX32\Debug\XPlatformFireMonkeyFishFactApp">
 						<Platform Name="OSX32"/>
 					</DeployFile>
@@ -185,6 +182,9 @@
 							<RemoteDir>Contents\MacOS\</RemoteDir>
 							<RemoteName>XPlatformFireMonkeyFishFactApp.rsm</RemoteName>
 						</Platform>
+					</DeployFile>
+					<DeployFile Class="DependencyModule" LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib">
+						<Platform Name="OSX32"/>
 					</DeployFile>
 					<DeployFile Class="ProjectOSXInfoPList" Configuration="Debug" LocalName="OSX32\Debug\XPlatformFireMonkeyFishFactApp.info.plist">
 						<Platform Name="OSX32">

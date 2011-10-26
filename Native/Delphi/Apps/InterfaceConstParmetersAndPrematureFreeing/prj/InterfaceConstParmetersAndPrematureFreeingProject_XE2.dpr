@@ -38,7 +38,7 @@ begin
   try
     // do NOT forget to call Free, otherwise you will have memory leaks in DUnit (as not everything there is interface based)
     TextTestRunner.RunRegisteredTests.Free();
-//    Run(); // this will show you the create/destroy/addref/release order using WriteLn in InterfaceConstParmetersAndPrematureFreeingUnit
+//    Run(); // this will show you the create/destroy/addref/releaFastMMMemLeakMonitorpse order using WriteLn in InterfaceConstParmetersAndPrematureFreeingUnit
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
