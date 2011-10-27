@@ -20,6 +20,8 @@ https://radstudioverins.svn.sourceforge.net/svnroot/radstudioverins
 ..\fastmm.sourceforge.net
 https://fastmm.svn.sourceforge.net/svnroot/fastmm 
 
+../Delphi-Mocks
+https://github.com/VSoftTechnologies/Delphi-Mocks.git
 
 Note that we try to make our Trunk always compile.
 Drop us a line when it doesn't.
