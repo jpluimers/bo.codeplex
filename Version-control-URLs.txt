@@ -1,0 +1,28 @@
+This the list of version control URLs of our repository and the repositories we depend on.
+
+Each first line is the name of the directory we use.
+
+..\bo.codeplex.com
+https://bo.svn.codeplex.com/svn
+
+..\dnpextensions.codeplex.com
+https://dnpextensions.svn.codeplex.com/svn
+
+..\extensionmethod.codeplex.com
+https://extensionmethod.svn.codeplex.com/svn
+
+..\radstudiodemos.sourceforge.net
+https://radstudiodemos.svn.sourceforge.net/svnroot/radstudiodemos
+
+..\radstudioverins.sourceforge.net
+https://radstudioverins.svn.sourceforge.net/svnroot/radstudioverins
+
+..\fastmm.sourceforge.net
+https://fastmm.svn.sourceforge.net/svnroot/fastmm 
+
+
+Note that we try to make our Trunk always compile.
+Drop us a line when it doesn't.
+
+We're working to get a Continuous Integration system setup to make sure it always builds, tests, etc.
+
