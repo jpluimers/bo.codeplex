@@ -12,6 +12,12 @@
 			<Projects Include="MemoryDebuggingDemo\prj\MemoryDemoVCLProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="FishFactToJSONDemo\prj\FishFactToJSONDemoVclProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\RTL\Threads\thrddemo.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +53,32 @@
 		<Target Name="MemoryDemoVCLProject:Make">
 			<MSBuild Projects="MemoryDebuggingDemo\prj\MemoryDemoVCLProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="FishFactToJSONDemoVclProject">
+			<MSBuild Projects="FishFactToJSONDemo\prj\FishFactToJSONDemoVclProject.dproj"/>
+		</Target>
+		<Target Name="FishFactToJSONDemoVclProject:Clean">
+			<MSBuild Projects="FishFactToJSONDemo\prj\FishFactToJSONDemoVclProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="FishFactToJSONDemoVclProject:Make">
+			<MSBuild Projects="FishFactToJSONDemo\prj\FishFactToJSONDemoVclProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="thrddemo">
+			<MSBuild Projects="..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\RTL\Threads\thrddemo.dproj"/>
+		</Target>
+		<Target Name="thrddemo:Clean">
+			<MSBuild Projects="..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\RTL\Threads\thrddemo.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="thrddemo:Make">
+			<MSBuild Projects="..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\RTL\Threads\thrddemo.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="XPlatformFireMonkeyFishFactApp;DebuggerVisualizersVCLDemo;MemoryDemoVCLProject"/>
+			<CallTarget Targets="XPlatformFireMonkeyFishFactApp;DebuggerVisualizersVCLDemo;MemoryDemoVCLProject;FishFactToJSONDemoVclProject;thrddemo"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="XPlatformFireMonkeyFishFactApp:Clean;DebuggerVisualizersVCLDemo:Clean;MemoryDemoVCLProject:Clean"/>
+			<CallTarget Targets="XPlatformFireMonkeyFishFactApp:Clean;DebuggerVisualizersVCLDemo:Clean;MemoryDemoVCLProject:Clean;FishFactToJSONDemoVclProject:Clean;thrddemo:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="XPlatformFireMonkeyFishFactApp:Make;DebuggerVisualizersVCLDemo:Make;MemoryDemoVCLProject:Make"/>
+			<CallTarget Targets="XPlatformFireMonkeyFishFactApp:Make;DebuggerVisualizersVCLDemo:Make;MemoryDemoVCLProject:Make;FishFactToJSONDemoVclProject:Make;thrddemo:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>

@@ -8,8 +8,8 @@ uses
 
 type
   TForm1 = class(TForm)
-    Button1: TButton;
-    procedure Button1Click(Sender: TObject);
+    MemoryIssuesButton: TButton;
+    procedure MemoryIssuesButtonClick(Sender: TObject);
   strict private
     FLastPoint: TMyPoint;
     FPoints: TMyPoints;
@@ -22,7 +22,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.MemoryIssuesButtonClick(Sender: TObject);
 var
   I: Integer;
   Count: Integer;
@@ -41,7 +41,10 @@ begin
 
   // Clear the points
   I := 0;
-  while (FPoints[I] <> nil) and (I < Count) do // SafeMM only
+  while // SafeMM only
+        (FPoints[I] <> nil)
+    and (I < Count)
+  do
   begin
     FreeAndNil(FPoints[I]);
     Inc(I);

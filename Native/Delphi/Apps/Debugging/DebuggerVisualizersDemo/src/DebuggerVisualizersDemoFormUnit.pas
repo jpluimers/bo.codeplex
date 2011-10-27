@@ -15,7 +15,8 @@ type
     procedure HighFrequencyWordsButtonClick(Sender: TObject);
     procedure DateTime_Time_Date_ButtonClick(Sender: TObject);
   private
-    { Private declarations }
+  var
+    Words: TStrings;
   public
     procedure Log(const Line: string);
     { Public declarations }
@@ -31,22 +32,38 @@ uses
 
 {$R *.dfm}
 
+//procedure InlineBreak; inline;
+//asm
+//  int 3
+//end;
+
 procedure TDebuggerVisualizersDemoForm.HighFrequencyWordsButtonClick(Sender: TObject);
 const
   Delimiters = #9' ';
-var
-  Words: TStrings;
+  procedure AddSplittedInternal(Strings: TStrings; Delimiters: string; Words: string);
+  begin
+    AddSplitted(Strings, Delimiters, Words);
+    OutputDebugString(PChar(Words));
+    if Strings.Count > 10 then
+    begin
+      Strings := Strings; // break here
+      asm
+        int 3; // does not work in X64
+      end;
+      DebugBreak();
+    end;
+  end;
 begin
 // http://www.love2read.co.uk/expert-guides-on-helping-children-learn-to-read/high-frequency-words.html
 
   Words := TStringList.Create();
   try
-    AddSplitted(Words, Delimiters, 'I	go	come	went	up	you	day	was');
-    AddSplitted(Words, Delimiters, 'look	are	the	of	we	this	dog	me');
-    AddSplitted(Words, Delimiters, 'like	going	big	she	and	they	my	see');
-    AddSplitted(Words, Delimiters, 'on	away	mum	it	at	play	no	yes');
-    AddSplitted(Words, Delimiters, 'for	a	dad	can	he	am	all');
-    AddSplitted(Words, Delimiters, 'is	cat	get	said	to	in');
+    AddSplittedInternal(Words, Delimiters, 'I	go	come	went	up	you	day	was');
+    AddSplittedInternal(Words, Delimiters, 'look	are	the	of	we	this	dog	me');
+    AddSplittedInternal(Words, Delimiters, 'like	going	big	she	and	they	my	see');
+    AddSplittedInternal(Words, Delimiters, 'on	away	mum	it	at	play	no	yes');
+    AddSplittedInternal(Words, Delimiters, 'for	a	dad	can	he	am	all');
+    AddSplittedInternal(Words, Delimiters, 'is	cat	get	said	to	in');
     Memo1.Lines := Words;
   finally
     Words.Free;

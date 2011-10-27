@@ -6,10 +6,11 @@
 			<MainSource>XPlatformFireMonkeyFishFactApp.dpr</MainSource>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
-			<Platform Condition="'$(Platform)'==''">OSX32</Platform>
+			<Platform Condition="'$(Platform)'==''">Win64</Platform>
 			<TargetedPlatforms>7</TargetedPlatforms>
 			<AppType>Application</AppType>
 			<Profile Condition="'$(Platform)'=='OSX32'">mbair133jwp</Profile>
+			<Profile Condition="'$(Platform)'=='Win64'">W701UJPL</Profile>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
 			<Base>true</Base>
@@ -174,8 +175,16 @@
 					</Excluded_Packages>
 				</Delphi.Personality>
 				<Deployment>
-					<DeployFile Class="ProjectOutput" Configuration="Debug" LocalName="OSX32\Debug\XPlatformFireMonkeyFishFactApp">
+					<DeployFile Class="DebugSymbols" Configuration="Debug" LocalName="Win64\Debug\XPlatformFireMonkeyFishFactApp.rsm">
+						<Platform Name="Win64">
+							<RemoteName>XPlatformFireMonkeyFishFactApp.rsm</RemoteName>
+						</Platform>
+					</DeployFile>
+					<DeployFile Class="ProjectOSXResource" Configuration="Debug" LocalName="OSX32\Debug\XPlatformFireMonkeyFishFactApp.icns">
 						<Platform Name="OSX32"/>
+					</DeployFile>
+					<DeployFile Class="ProjectOutput" Configuration="Debug" LocalName="Win64\Debug\XPlatformFireMonkeyFishFactApp.exe">
+						<Platform Name="Win64"/>
 					</DeployFile>
 					<DeployFile Class="DebugSymbols" Configuration="Debug" LocalName="OSX32\Debug\XPlatformFireMonkeyFishFactApp.rsm">
 						<Platform Name="OSX32">
@@ -186,13 +195,13 @@
 					<DeployFile Class="DependencyModule" LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib">
 						<Platform Name="OSX32"/>
 					</DeployFile>
+					<DeployFile Class="ProjectOutput" Configuration="Debug" LocalName="OSX32\Debug\XPlatformFireMonkeyFishFactApp">
+						<Platform Name="OSX32"/>
+					</DeployFile>
 					<DeployFile Class="ProjectOSXInfoPList" Configuration="Debug" LocalName="OSX32\Debug\XPlatformFireMonkeyFishFactApp.info.plist">
 						<Platform Name="OSX32">
 							<RemoteName>Info.plist</RemoteName>
 						</Platform>
-					</DeployFile>
-					<DeployFile Class="ProjectOSXResource" Configuration="Debug" LocalName="OSX32\Debug\XPlatformFireMonkeyFishFactApp.icns">
-						<Platform Name="OSX32"/>
 					</DeployFile>
 					<DeployClass Name="ProjectOutput" Required="true">
 						<Platform Name="OSX32">
@@ -279,7 +288,7 @@
 					<ProjectRoot Name="$(PROJECTNAME)" Platform="Win32"/>
 				</Deployment>
 				<Platforms>
-					<Platform value="Win64">True</Platform>
+					<Platform value="Win64" Profile="W701UJPL">True</Platform>
 					<Platform value="OSX32" Profile="mbair133jwp">True</Platform>
 					<Platform value="Win32">True</Platform>
 				</Platforms>
