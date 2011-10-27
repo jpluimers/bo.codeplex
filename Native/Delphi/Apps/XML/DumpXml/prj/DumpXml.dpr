@@ -14,6 +14,7 @@ procedure Run();
 var
   Filename: string;
   Index: Integer;
+  XmlDumper: TXmlDumper;
   // sample parameters:
   // ..\..\..\..\XokumXmlDemo\data\xokum.xml
   // ..\..\..\..\XokumXmlDemo\data\xokum.xsd
@@ -23,17 +24,17 @@ begin
     Writeln('use parameters: [XmlFile]...')
   else
     for Index := 1 to ParamCount do
-    with TXmlDumper.Create() do
-      try
-        Filename := ParamStr(Index);
-        if TFile.Exists(Filename) then
-          Dump(Filename) // otherwise you get an "OS Error" exception from the DOM
-        else
-          Writeln('non existing file: ', Filename);
-        Writeln(DumpResult);
-      finally
-        Free;
-      end;
+    XmlDumper := TXmlDumper.Create();
+    try
+      Filename := ParamStr(Index);
+      if TFile.Exists(Filename) then
+        XmlDumper.Dump(Filename) // otherwise you get an "OS Error" exception from the DOM
+      else
+        Writeln('non existing file: ', Filename);
+      Writeln(XmlDumper.DumpResult);
+    finally
+      XmlDumper.Free;
+    end;
 end;
 
 begin

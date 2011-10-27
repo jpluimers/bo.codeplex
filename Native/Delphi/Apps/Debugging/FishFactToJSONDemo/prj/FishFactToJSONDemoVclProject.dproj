@@ -1,9 +1,9 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{34306BC4-0416-4AD6-8EF7-3D2D33AF49B9}</ProjectGuid>
+			<ProjectGuid>{8773B8AD-2961-494F-840B-FF431EF5B939}</ProjectGuid>
 			<ProjectVersion>13.4</ProjectVersion>
 			<FrameworkType>VCL</FrameworkType>
-			<MainSource>MemoryDemoVCLProject.dpr</MainSource>
+			<MainSource>FishFactToJSONDemoVclProject.dpr</MainSource>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -82,11 +82,9 @@
 			<DelphiCompile Include="$(MainSource)">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="..\src\MemoryDemoFormUnit.pas">
-				<Form>Form1</Form>
-			</DCCReference>
-			<DCCReference Include="..\src\MyPointUnit.pas">
-				<Form>$R *.res</Form>
+			<DCCReference Include="..\src\FishFactToJSONDemoFormUnit.pas">
+				<Form>Form2</Form>
+				<FormType>dfm</FormType>
 			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
@@ -133,7 +131,7 @@
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 					<Source>
-						<Source Name="MainSource">MemoryDemoVCLProject.dpr</Source>
+						<Source Name="MainSource">FishFactToJSONDemoVclProject.dpr</Source>
 					</Source>
 				</Delphi.Personality>
 				<Deployment/>
