@@ -1,0 +1,125 @@
+object frmAbout: TfrmAbout
+  BiDiMode = bdLeftToRight
+  Caption = 'About Box'
+  BorderStyle = bsNone
+  ClientHeight = 629
+  ClientWidth = 419
+  Left = 497
+  Top = 148
+  Position = poScreenCenter
+  Transparency = True
+  Visible = False
+  StyleLookup = 'backgroundstyle'
+  Left = 497
+  Top = 148
+  object Rectangle1: TRectangle
+    Align = alClient
+    Position.Point = '(9,9)'
+    Width = 395.000000000000000000
+    Height = 605.000000000000000000
+    Padding.Rect = '(9,9,15,15)'
+    HitTest = False
+    Fill.Color = xDC065B79
+    Stroke.Color = claWhite
+    StrokeThickness = 3.000000000000000000
+    XRadius = 9.000000000000000000
+    YRadius = 9.000000000000000000
+    object ShadowEffect1: TShadowEffect
+      Distance = 3.000000000000000000
+      Direction = 45.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+    object Button1: TButton
+      Position.Point = '(294,552)'
+      Width = 80.000000000000000000
+      Height = 22.000000000000000000
+      OnClick = Button1Click
+      TabOrder = 0
+      StaysPressed = False
+      IsPressed = False
+      Text = 'Close'
+    end
+    object Text1: TText
+      Position.Point = '(16,16)'
+      Width = 353.000000000000000000
+      Height = 50.000000000000000000
+      HitTest = False
+      Fill.Color = xFFDDDDDD
+      Font.Size = 33.000000000000000000
+      Font.Style = [fsBold]
+      Text = 'FireMonkey'
+    end
+    object Viewport3D1: TViewport3D
+      Position.Point = '(40,112)'
+      Width = 313.000000000000000000
+      Height = 233.000000000000000000
+      HitTest = False
+      Color = claNull
+      object Light1: TLight
+        Position.Point = '(-4.97273540496826,-8.62106513977051,1.33928119794291E-6)'
+        RotationAngle.Point = '(24.6606597900391,0,22.2680358886719)'
+        Width = 1.000000000000000000
+        Height = 1.000000000000000000
+        Depth = 1.000000000000000000
+        Opacity = 1.000000000000000000
+        LightType = ltDirectional
+        Quanternion = 
+          '(-0.209528207778931,-0.0412370041012764,-0.188650131225586,0.958' +
+          '544969558716)'
+      end
+      object Cube1: TCube
+        Position.Point = '(-0.38654413819313,1.01010632514954,1.63686900123139E-6)'
+        RotationAngle.Point = '(0,0,-26.8275527954102)'
+        Width = 7.609084606170655000
+        Height = 6.270119190216064000
+        Depth = 5.854271888732910000
+        Opacity = 1.000000000000000000
+        Material.Diffuse = xFFD49B0B
+        Quanternion = '(0,0,0.23198176920414,0.97271990776062)'
+        object FloatAnimation1: TFloatAnimation
+          AnimationType = atInOut
+          AutoReverse = True
+          Enabled = True
+          Duration = 4.000000000000000000
+          Interpolation = itBack
+          Loop = True
+          StopValue = 360.000000000000000000
+          PropertyName = 'RotationAngle.Y'
+        end
+        object ColorAnimation1: TColorAnimation
+          Duration = 0.200000002980232200
+          Trigger = 'IsMouseOver=true'
+          TriggerInverse = 'IsMouseOver=false'
+          StartValue = xFFD49B0B
+          StopValue = claRed
+          PropertyName = 'Material.Diffuse'
+        end
+        object Text3D1: TText3D
+          Position.Point = '(0.316741466522217,0.540490031242371,-3.23085641860962)'
+          RotationAngle.Point = '(45,0,0)'
+          Width = 15.722661972045900000
+          Height = 2.997238159179688000
+          Depth = 0.997689545154571500
+          Opacity = 1.000000000000000000
+          HitTest = False
+          Material.Diffuse = xFF20F89D
+          Flatness = 1.000000000000000000
+          Sides = [esFront, esBack, esShaft]
+          MaterialBack.Diffuse = xFF0059DA
+          MaterialShaft.Diffuse = xFF0059DA
+          Font.Size = 19.000000000000000000
+          Font.Style = [fsBold]
+          Text = 'FireMonkey'
+          Quanternion = '(0.382683634757996,0,0,-0.92387992143631)'
+        end
+      end
+      object GlowEffect1: TGlowEffect
+        Softness = 0.400000005960464400
+        GlowColor = claGold
+        Opacity = 0.899999976158142100
+      end
+    end
+  end
+end
