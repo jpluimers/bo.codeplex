@@ -10,7 +10,6 @@
 			<TargetedPlatforms>7</TargetedPlatforms>
 			<AppType>Application</AppType>
 			<Profile Condition="'$(Platform)'=='OSX32'">mbair133jwp</Profile>
-			<Profile Condition="'$(Platform)'=='Win64'">W701UJPL</Profile>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
 			<Base>true</Base>
@@ -120,6 +119,14 @@
 			<DCCReference Include="..\..\..\..\bo.DB\DataSetToJsonUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DB\DataSetInformationUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DB\ClientDataSetUnit.pas"/>
+			<DCCReference Include="..\..\..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\DataSnapXE\DelphiDSServer\Classes\BaseObject.pas"/>
+			<DCCReference Include="FishFactEntryUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DB\bo.DB.Helpers\DataSetHelperUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Helpers\ComponentHelperUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DB\DataSetEnumeratorUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Text\StringUtilsUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DB\bo.DB.Helpers\FieldNameHelperUnit.pas"/>
+			<DCCReference Include="..\iOSFireMonkeyFishFact\superobject.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -288,7 +295,7 @@
 					<ProjectRoot Name="$(PROJECTNAME)" Platform="Win32"/>
 				</Deployment>
 				<Platforms>
-					<Platform value="Win64" Profile="W701UJPL">True</Platform>
+					<Platform value="Win64">True</Platform>
 					<Platform value="OSX32" Profile="mbair133jwp">True</Platform>
 					<Platform value="Win32">True</Platform>
 				</Platforms>

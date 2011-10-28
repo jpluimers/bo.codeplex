@@ -9,6 +9,12 @@
 			<Projects Include="XPlatformFireMonkeyFishFact\XPlatformFireMonkeyFishFactApp.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="..\..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\DataSnap\JSONViewer\apps\djsonview.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="iOSFireMonkeyFishFact\iOSFireMonkeyFishFactProject.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +41,32 @@
 		<Target Name="XPlatformFireMonkeyFishFactApp:Make">
 			<MSBuild Projects="XPlatformFireMonkeyFishFact\XPlatformFireMonkeyFishFactApp.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="djsonview">
+			<MSBuild Projects="..\..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\DataSnap\JSONViewer\apps\djsonview.dproj"/>
+		</Target>
+		<Target Name="djsonview:Clean">
+			<MSBuild Projects="..\..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\DataSnap\JSONViewer\apps\djsonview.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="djsonview:Make">
+			<MSBuild Projects="..\..\..\..\..\..\radstudiodemos.sourceforge.net\branches\RadStudio_XE2\Delphi\DataSnap\JSONViewer\apps\djsonview.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="iOSFireMonkeyFishFactProject">
+			<MSBuild Projects="iOSFireMonkeyFishFact\iOSFireMonkeyFishFactProject.dproj"/>
+		</Target>
+		<Target Name="iOSFireMonkeyFishFactProject:Clean">
+			<MSBuild Projects="iOSFireMonkeyFishFact\iOSFireMonkeyFishFactProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="iOSFireMonkeyFishFactProject:Make">
+			<MSBuild Projects="iOSFireMonkeyFishFact\iOSFireMonkeyFishFactProject.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="fishfact;XPlatformFireMonkeyFishFactApp"/>
+			<CallTarget Targets="fishfact;XPlatformFireMonkeyFishFactApp;djsonview;iOSFireMonkeyFishFactProject"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="fishfact:Clean;XPlatformFireMonkeyFishFactApp:Clean"/>
+			<CallTarget Targets="fishfact:Clean;XPlatformFireMonkeyFishFactApp:Clean;djsonview:Clean;iOSFireMonkeyFishFactProject:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="fishfact:Make;XPlatformFireMonkeyFishFactApp:Make"/>
+			<CallTarget Targets="fishfact:Make;XPlatformFireMonkeyFishFactApp:Make;djsonview:Make;iOSFireMonkeyFishFactProject:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>
