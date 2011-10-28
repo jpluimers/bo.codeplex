@@ -1,0 +1,28 @@
+object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
+  Left = 0
+  Top = 0
+  BiDiMode = bdLeftToRight
+  Caption = 'Form2'
+  ClientHeight = 480
+  ClientWidth = 320
+  Transparency = False
+  Visible = False
+  StyleLookup = 'backgroundstyle'
+  object Button1: TButton
+    Position.Point = '(8,8)'
+    Width = 80.000000000000000000
+    Height = 22.000000000000000000
+    OnClick = Button1Click
+    TabOrder = 0
+    StaysPressed = False
+    IsPressed = False
+    Text = 'Button1'
+  end
+  object Memo1: TMemo
+    Position.Point = '(8,40)'
+    Width = 305.000000000000000000
+    Height = 433.000000000000000000
+    TabOrder = 2
+    WordWrap = False
+  end
+end
