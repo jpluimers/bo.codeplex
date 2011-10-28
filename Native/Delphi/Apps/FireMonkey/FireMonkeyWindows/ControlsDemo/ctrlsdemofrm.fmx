@@ -1,0 +1,3554 @@
+object frmCtrlsDemo: TfrmCtrlsDemo
+  Left = 497
+  Top = 171
+  BiDiMode = bdLeftToRight
+  Caption = 'FireMonkey Controls'
+  ClientHeight = 622
+  ClientWidth = 851
+  Transparency = False
+  Visible = False
+  OnCreate = FormCreate
+  OnActivate = FormActivate
+  StyleBook = StyleBook1
+  StyleLookup = 'backgroundstyle'
+  Left = 497
+  Top = 171
+  object ScaleRoot: TLayout
+    Align = alClient
+    Position.Point = '(0,25)'
+    Width = 851.000000000000000000
+    Height = 569.000000000000000000
+    ClipChildren = True
+    object ControlRoot: TLayout
+      Align = alClient
+      Position.Point = '(5,5)'
+      Width = 841.000000000000000000
+      Height = 559.000000000000000000
+      Margins.Rect = '(5,5,5,5)'
+      Padding.Rect = '(5,5,5,5)'
+      ClipChildren = True
+      object TabControl1: TTabControl
+        Align = alClient
+        Position.Point = '(9,9)'
+        Width = 823.000000000000000000
+        Height = 541.000000000000000000
+        Padding.Rect = '(4,4,4,4)'
+        HelpType = htKeyword
+        TabOrder = 0
+        TabIndex = 0
+        TabHeight = 20.000000000000000000
+        object TabItem1: TTabItem
+          Width = 83.000000000000000000
+          Height = 20.000000000000000000
+          HelpType = htKeyword
+          TabOrder = 0
+          Font.Size = 11.000000953674320000
+          Index = 0
+          Text = 'Standard'
+          WordWrap = False
+          object Text2: TLabel
+            Position.Point = '(265,18)'
+            Width = 127.000000000000000000
+            Height = 17.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 0
+            Font.Size = 11.000000953674320000
+            TextAlign = taCenter
+            Text = 'ListBox & ListBoxItem'
+          end
+          object Text3: TLabel
+            Position.Point = '(20,16)'
+            Width = 52.000000000000000000
+            Height = 17.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 1
+            Font.Size = 11.000000953674320000
+            Text = 'Edit'
+          end
+          object TextBox1: TEdit
+            Position.Point = '(15,32)'
+            Width = 118.000000000000000000
+            Height = 24.000000000000000000
+            OnMouseDown = TextBox1MouseDown
+            HelpType = htKeyword
+            TabOrder = 2
+            Font.Size = 11.000000953674320000
+            ReadOnly = False
+            Password = False
+            Text = 'some text'
+          end
+          object ScrollBar1: TScrollBar
+            Position.Point = '(15,211)'
+            Width = 179.000000000000000000
+            Height = 18.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 3
+            Max = 120.000000000000000000
+            Orientation = orHorizontal
+            Value = 33.000000000000000000
+            ViewportSize = 20.000000000000000000
+            SmallChange = 0.050000000745058060
+          end
+          object Text4: TLabel
+            Position.Point = '(15,157)'
+            Width = 39.000000000000000000
+            Height = 16.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 4
+            Font.Size = 11.000000953674320000
+            TextAlign = taCenter
+            Text = 'Track'
+          end
+          object Track1: TTrack
+            Position.Point = '(15,173)'
+            Width = 179.000000000000000000
+            Height = 17.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 5
+            Max = 1.000000000000000000
+            Orientation = orHorizontal
+            ViewportSize = 0.200000002980232200
+          end
+          object ScrollBar2: TScrollBar
+            Position.Point = '(218,77)'
+            Width = 18.000000000000000000
+            Height = 154.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 6
+            Max = 1.000000000000000000
+            Orientation = orVertical
+            ViewportSize = 0.200000002980232200
+            SmallChange = 0.050000000745058060
+          end
+          object CheckBox1: TCheckBox
+            Position.Point = '(15,71)'
+            Width = 119.999992370605500000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 7
+            IsChecked = True
+            Font.Size = 11.000000953674320000
+            Text = 'CheckBox'
+          end
+          object RadioButton1: TRadioButton
+            Position.Point = '(15,95)'
+            Width = 94.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 8
+            IsChecked = False
+            Font.Size = 11.000000953674320000
+            Text = 'RadioButton'
+          end
+          object RadioButton2: TRadioButton
+            Position.Point = '(113,95)'
+            Width = 98.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 9
+            IsChecked = False
+            Font.Size = 11.000000953674320000
+            Text = 'RadioButton'
+          end
+          object ProgressBar1: TProgressBar
+            Position.Point = '(15,251)'
+            Width = 384.000000000000000000
+            Height = 18.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 10
+            BindingSource = ScrollBar1
+            Max = 100.000000000000000000
+            Orientation = orHorizontal
+            Value = 33.000000000000000000
+          end
+          object AniIndicator1: TAniIndicator
+            Enabled = True
+            Position.Point = '(146,32)'
+            Width = 23.000000000000000000
+            Height = 24.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 11
+            Style = aiLinear
+          end
+          object Label1: TLabel
+            Position.Point = '(171,37)'
+            Width = 80.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 12
+            Font.Size = 11.000000953674320000
+            TextAlign = taCenter
+            Text = 'Ani indicator'
+          end
+          object StringListBox1: TListBox
+            Cursor = crHandPoint
+            Position.Point = '(272,39)'
+            Width = 127.000000000000000000
+            Height = 166.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'listboxstyle'
+            TabOrder = 13
+            ItemHeight = 19.000000000000000000
+            object TListBoxItem
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 0
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,19)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 1
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,38)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 2
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,57)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 3
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,76)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 4
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,95)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 5
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,114)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 6
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,133)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 7
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,152)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 8
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,171)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 9
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,190)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 10
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,209)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 11
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,228)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 12
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,247)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 13
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,266)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 14
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,285)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 15
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,304)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 16
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,323)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 17
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,342)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 18
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,361)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 19
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,380)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 20
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,399)'
+              Width = 109.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 21
+              Text = 'ListBoxItem'
+            end
+          end
+          object StringComboBox1: TComboBox
+            Position.Point = '(15,126)'
+            Width = 179.000000000000000000
+            Height = 23.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'comboboxstyle'
+            TabOrder = 14
+            ItemIndex = 0
+            ItemHeight = 19.000000000000000000
+            object TListBoxItem
+              Width = 154.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 0
+              IsSelected = True
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,19)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 1
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,38)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 2
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,57)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 3
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,76)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 4
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,95)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 5
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,114)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 6
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,133)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 7
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,152)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 8
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,171)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 9
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,190)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 10
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,209)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 11
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,228)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 12
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,247)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 13
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,266)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 14
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,285)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 15
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,304)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 16
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,323)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 17
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,342)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 18
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,361)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 19
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,380)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 20
+              Text = 'ListBoxItem'
+            end
+            object TListBoxItem
+              Position.Point = '(0,399)'
+              Width = 159.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              TabOrder = 21
+              Text = 'ListBoxItem'
+            end
+          end
+          object Button4: TButton
+            Position.Point = '(118,282)'
+            Width = 100.000000000000000000
+            Height = 26.000000000000000000
+            OnClick = Button4Click
+            HelpType = htKeyword
+            TabOrder = 15
+            StaysPressed = False
+            IsPressed = False
+            Font.Size = 11.000000953674320000
+            Text = 'Glyph'
+          end
+          object Panel1: TPanel
+            Position.Point = '(412,16)'
+            Width = 138.000000000000000000
+            Height = 145.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 16
+            object Label19: TLabel
+              Position.Point = '(21,7)'
+              Width = 94.000000000000000000
+              Height = 22.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 0
+              Font.Size = 11.000000953674320000
+              TextAlign = taCenter
+              Text = 'Panel'
+            end
+            object SpeedButton2: TButton
+              Position.Point = '(26,43)'
+              Width = 85.000000000000000000
+              Height = 25.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 1
+              StaysPressed = False
+              IsPressed = False
+              Font.Size = 11.000000953674320000
+              Text = 'SpeedButton'
+            end
+            object SpeedButton3: TButton
+              Position.Point = '(26,75)'
+              Width = 85.000000000000000000
+              Height = 25.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 2
+              StaysPressed = False
+              IsPressed = False
+              Font.Size = 11.000000953674320000
+              Text = 'SpeedButton'
+            end
+          end
+          object SmallScrollBar1: TSmallScrollBar
+            Position.Point = '(243,79)'
+            Width = 8.000000000000000000
+            Height = 150.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 17
+            Max = 100.000000000000000000
+            Orientation = orVertical
+            ViewportSize = 33.000000000000000000
+            SmallChange = 1.000000000000000000
+          end
+          object CheckBox2: TCheckBox
+            Position.Point = '(272,212)'
+            Width = 120.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 18
+            IsChecked = False
+            Text = 'MultiSelect'
+            OnChange = CheckBox2Change
+          end
+          object CalloutPanel1: TCalloutPanel
+            Position.Point = '(496,219)'
+            Width = 169.000000000000000000
+            Height = 124.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 19
+            CalloutWidth = 23.000000000000000000
+            CalloutLength = 11.000000000000000000
+            CalloutPosition = cpRight
+            object Label29: TLabel
+              Align = alCenter
+              Position.Point = '(36,51)'
+              Width = 97.000000000000000000
+              Height = 22.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 0
+              TextAlign = taCenter
+              Text = 'CalloutPanel'
+            end
+            object calloutTop: TRadioButton
+              Position.Point = '(74,18)'
+              Width = 19.000000000000000000
+              Height = 19.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 1
+              IsChecked = False
+              OnChange = calloutBottomChange
+            end
+            object calloutLeft: TRadioButton
+              Position.Point = '(15,52)'
+              Width = 19.000000000000000000
+              Height = 19.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 2
+              IsChecked = False
+              OnChange = calloutBottomChange
+            end
+            object calloutBottom: TRadioButton
+              Position.Point = '(74,86)'
+              Width = 19.000000000000000000
+              Height = 19.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 3
+              IsChecked = False
+              OnChange = calloutBottomChange
+            end
+            object calloutRight: TRadioButton
+              Position.Point = '(127,52)'
+              Width = 19.000000000000000000
+              Height = 19.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 4
+              IsChecked = True
+              OnChange = calloutBottomChange
+            end
+          end
+        end
+        object TabItem4: TTabItem
+          Position.Point = '(83,0)'
+          Width = 90.000000000000000000
+          Height = 20.000000000000000000
+          HelpType = htKeyword
+          TabOrder = 1
+          Font.Size = 11.000000953674320000
+          Index = 1
+          Text = 'Additional'
+          WordWrap = False
+          object Expander1: TExpander
+            Position.Point = '(11,13)'
+            Width = 137.000000000000000000
+            Height = 137.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 0
+            Font.Size = 11.000000953674320000
+            TextAlign = taCenter
+            Text = 'Expander'
+            ShowCheck = False
+            ContentSize = '112'
+            object Label8: TLabel
+              Position.Point = '(16,13)'
+              Width = 38.000000000000000000
+              Height = 18.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 0
+              Font.Size = 11.000000953674320000
+              TextAlign = taCenter
+              Text = 'Label'
+            end
+            object Button3: TButton
+              Position.Point = '(18,31)'
+              Width = 59.000000000000000000
+              Height = 24.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 1
+              StaysPressed = False
+              IsPressed = False
+              Font.Size = 11.000000953674320000
+              Text = 'Button'
+            end
+          end
+          object GroupBox1: TGroupBox
+            Position.Point = '(151,7)'
+            Width = 151.000000000000000000
+            Height = 143.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 1
+            Font.Size = 11.000000953674320000
+            Text = 'GroupBox'
+            object Button6: TButton
+              Position.Point = '(26,98)'
+              Width = 100.000000000000000000
+              Height = 26.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 0
+              StaysPressed = False
+              IsPressed = False
+              Font.Size = 11.000000953674320000
+              Text = 'Button'
+            end
+            object Label13: TLabel
+              Position.Point = '(10,24)'
+              Width = 132.000000000000000000
+              Height = 61.999996185302730000
+              HelpType = htKeyword
+              TabOrder = 1
+              Font.Size = 10.000000000000000000
+              TextAlign = taCenter
+              Text = 
+                'Control with TGlowEffect. Effect have trigger property set to "I' +
+                'sFocused=true"'
+            end
+          end
+          object Button5: TButton
+            Position.Point = '(310,13)'
+            Width = 99.000000000000000000
+            Height = 46.000000000000000000
+            Margins.Rect = '(3,3,3,3)'
+            HelpType = htKeyword
+            TabOrder = 2
+            StaysPressed = False
+            IsPressed = False
+            Font.Size = 11.000000953674320000
+            object Label9: TLabel
+              Align = alRight
+              Position.Point = '(34.0000038146973,3)'
+              Width = 61.999996185302730000
+              Height = 40.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 0
+              Font.Size = 9.000000000000000000
+              TextAlign = taCenter
+              Text = 'Button with Label and Image'
+            end
+            object Image3: TImage
+              Align = alLeft
+              Position.Point = '(7,3)'
+              Width = 31.000000000000000000
+              Height = 40.000000000000000000
+              Padding.Rect = '(4,0,0,0)'
+              HitTest = False
+              Bitmap.PNG = {
+                89504E470D0A1A0A0000000D4948445200000024000000240806000000E10098
+                98000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                00097048597300000EC300000EC301C76FA86400000D32494441545847C59879
+                5C535716C7994EDB994E3B33B58E5AAB58B5553BA355515171B756514411DC15
+                44417163714128A24504B12E2C6A04911D12F67D0D849D10D6B0EF1010348425
+                8B21246CC6DFDC3C47669C763AB5F3C7BCCFE77CF248EEBBE7FBCE76CF414DED
+                EDAF77BEDA7C7181A9DD23C32B77431D5C68D1B43BDE09B4EB1E91F72E3A07DA
+                EEB7B8A7A7367BEF8CB7DFF62D9FF87AD3D9AF6FD0627FA0271434E414D5A1B5
+                4B881EB10222D908A48A17104A87C1EF1F445DAB0069CC4A856F4426DBCA31C0
+                524D6DC594B754F5F3CB67AE329977CB3B3E242E234759C7EB417D1B1FDCDA36
+                70B88D2828AD435E712D25052575282CAB47716513AA1ADAD1D82E00B7F119E8
+                F1F9C2F34E01D788960FFF6730333BCFB301D1B9B274763DC293F2E11F9101BF
+                F0743C62A4C23324058FE8A9F00963C2372C1D8F43D3E015920A2F7A0AF59D5F
+                443A02A3329194558E7C6E1B68C1298D2B75CFAFFFD550363F8478A7E4D5C22F
+                320BCEF723E0E61B8FFB010994B294DC72943777A1A9470C9E488676C9205AFB
+                A5A879DA87BCAA168411785A50121E0426529F9EC1C9482FA841705C8E72D771
+                E7536F0D65EDE41F515CFD044999A5088CCE82273D0DFE919928AA69035F368C
+                A7FC3EB4B14BD1C48841C3031FD4BB79A1F9A11F7851897856514B626B8082CC
+                2B6F401C934349547201F24B1B109E528CEDC6DF5FFCC550C617EE3DAC24BEE7
+                750A50DFD2899AC60E1456348355C543413E1715EEDE6832B302FFE051F4EF37
+                8278DF6148761F84486F1FFA74F4D1A5638096A3A7D1E2C740778F08FCC161B4
+                B4F3D1D4F6140DAD5D78F2AC0FF782D2A0B1F5B4E17F85DAB8FF3BA3D4BC6A28
+                952F31A818C6D0D008C4B22194B6F2C174F705CFE40C068E98426A7A0A62D3D3
+                101D3B09A10A6CE75EF4E91AA06FDB2E08C9BD6883367A576D44CBDE23A88D67
+                E209C944D93FF61B1919459F680067ADDC87D4350FCCFF8F501F2E3830C5F626
+                43F24289F1AB5F2A07ABAC116CFB9B901A1FC780D95988CCCC213C6A0621B14E
+                FF3E43486CAF401E130F79542CE4F14990D8D863C0E32124E76C20D6DE81674B
+                56A3F0FBDB28E9E8C31879D1D7572D7949FDE30E1C02F4CE4F42E91F77F6AC23
+                8B5E5FFD1219E8E9A5C8B17684FC981924A72D213A498458466C7911727A38E4
+                91315024A78D3FF3E2191FF2D884F1BFC75A79180A8F42DFE2154836B7477225
+                EF9F6F4BEE7CC2B3B072FB29E31F012DDA7E7E9AB37BD8D04BD50B1091CB87F0
+                288983709B9B1834390989F90588CF9E83D0D004CF1D9CA11C90511B0FE71762
+                B4BE91BA7F393C027968049483836F281D0CA243F8CD56744F9D85FBB6AE6055
+                B78FFFFE842F84E119977A02F4BB37A00E5ADCB155A5A574400EF1F301C4E654
+                E2EA9587101C3A06D9F94B105B5D82C8E41464FE415010B79020A3361DCACCC1
+                CBA1E1577045A5186B691B57A61489F1DCFE1A89ADDD94F4FC6932CA3537C2FA
+                4E281A3BBA21144B29B9E5158D456BF76C7F03E89C8367717A7E150A499AE670
+                AA61E91E8524230B0C1D3084D8F62A71913506C3A25E292E2E85523A40DD8F70
+                2BF15221C3587B1B86399C7F71551B4467ACA86017199F80800479DB9F3F057F
+                EAE7703D7A093F305828E236A0B8A2092171F9D035B4F11B073A71F9D1542B17
+                F7A1C7A1AA8ACBC41DFF6458DAD1D0B5DD0012830390D839406C618D17FC6E4A
+                E118AF034AA108A34D55902732A060464191A692480C15A462289B85FE8326E8
+                276540E5E23E2313F0BE5C80864F3E43CB8429C8DCAC8F53378248454FA32ABC
+                67481A8E5ADD6C1C3F5A2C1D1F6DB2BF13826BEE0C38DF0B83955B38DCCE5CC3
+                C0862DE8FD661B9555D21FDCA0484AA580941231E4C9E1042002C325D9508AFA
+                5EC5D08B318C75B5114B3E86D4C90ECF9D1DD16B688A8E95EB5137612AAA27AB
+                83FBF114546AAC84B58D076C5C43E148743A7A84C1D4C64D3179FABCAF292B5D
+                74F233BD4A7EB4BEE18BCBB70261762B1491469690ADDA809ED59BD0B3F65B8C
+                363613B774409535C3A559C42A9118AD2D2381AC782380290B76D463A4A518D2
+                7806781A5AA821301593A6A39408870055CF9D8F9B164E38E512041B173F22FE
+                386B4FC3C2959B775040362EBE17BE772796B9E60DDB9BFE38798B818C3DC720
+                5DBE1A02CDB5102C5D8D91F28A57F1939F45DC1482918AC21F81BC1C1063A486
+                8DE18E06A8D25510EE8D2AE2A232123BC5C45DEC099F215715D8B3E7E2C1493B
+                9C206EBBE0F498880FCCAF7A41434BC78802B276F2BDE0782F02E7AF3FC677C4
+                42966E91C8D133C4F3C5CBD1B36A1D7AB575A8C237D6DA0279520864C1F7A014
+                F7BF0134D65603457936147DDD908D8C413C3C864E560CB88B1780334D1D0533
+                67219748C6E4A9289C3907B413B638E9124CBCE2838BCEBE14D0A2155B8E5140
+                960EDEE6CEB468CA5D0E6E0C5CF54946F64E2348BE5E0291F93E3C77B1A494BF
+                E81340EA6687012F67BC1C7995EA4A6215393B1103157990916346428E879E6E
+                3E9E36D7A325250C5CF33DE0EC5E8D827DEB9173700398EB16216FF657F03879
+                19E6B719B8722708F6B783607EC513F396AC3F4A011D39EFAA7F8316050FBF04
+                789016E3414221988667219EF51584A70C20FECE08C36C2615B0039ED721F5B8
+                02A54C0A55259232E91097B0207AD28A6EB2A63DDC0B8DEE9751656B8CD2D3FA
+                601B6E46CE9EB5C8DCBD0EE9042A71C57C64CFD7C0ADF32E7078140F779F38DC
+                7D1C4BD2DE5D3971EA5C3D0A484BDF6EC1D5BBC148CBE12291558CE4F216A45C
+                738760A23AFAF66A43784687D41816C92E2106BC5D2072B2C04011710F011256
+                71D049BB8AE64B8751737433CA0F6F44F19ED560EB6B21779716320DD6209D48
+                CAAED5482460D17FFD024C72E8BADE0E40447A09696F4A10965880FDE60E4235
+                B57797FFA316ED7DFF8C3DADB399B4081D5D3D68ED16228FC541D3D439E85DBA
+                18C2D3DBF0FCD6458C7434431CE685EE9B17D1E5721E22851CAA486A8B0944B5
+                8305CA4EED015B7709F2F6AE4396CA22AF4176AE42DC4E2D446DD344D4E73391
+                70C814B1AC32B492F646D58A30F3ABB179BF55298199365E1C779BDD08A8697E
+                0A25C90E0589852EF908CAF48DC0FFDDC7E839F42DF8C6EB21CA888398D702DE
+                25637404DC072F3A92346821A871774589B5292A386CE49D3346BACE32A4EAAF
+                41A21E01D9A18568DD9588DCB50AC18BE62066DE42B068FEE8922830323A8697
+                445F504C2EFEAAA9432330BF1F07D2D86AB9E97168C678E6A8E2A329B718B5EF
+                4F44FB5773D171421BAD66BA683977087547BE41C5B68DE0CCFD02B9532681F5
+                D127602D980D76341DEC322E528EE8226EEB520A24426705C2745720E89BC508
+                9C3E034C2353747609A8F8535DAA9EEBF02587E1DF7EF0C9EE7F3FF17F73C4EA
+                76552FE98F5F5FA3E4866B7B0D556AEFA27E9506EA4DB6A0EAF07A94E9AD41DE
+                9F2723F3A349607E3809C91FFC05091F4F44AAD93E6495552099E68A886F1721
+                94B82844673902B62C85F70C7544928ADD46BA837F7644401A690617AE3DC022
+                309FFFA80559AA7346EF7118095ED2448D1273BE209D9A820847EF203804AA74
+                C542941EDB0CF6164D642F5B80CC8D4B91B666311216CC45ECDF883BB6682031
+                D007094949A0EB6A2168DB32F810CB787DAE0EC6224D3490BE4805A37295EAEA
+                154A71F89CC3F07B7F98A44AF7F77F04A4FA62AF99535251651B7AFB25E8248D
+                BC44A68082F43945874CC0527B0FD933D5914DE222D3681398A4AE24ED5B87F8
+                DD6B104DE2259C00851FDF0B86F911F8110B792D99032FF5196068AE41895F30
+                A4634AF07BC5E0F79001B34F82BBBEC9F842439BFE93D6794DF781FAAACFAC1C
+                BD0505654D60E557203D8F8BAAE64E72149098A2792375DA97887BEF43C4CF52
+                47ACD67C447FBB0411DACBC0D05E8AA04D1AF05D4E20E64D27569901DF59F390
+                7AC818DCA474E456F39090590626D94F3554D2133958BBD3AC9AE8DD40E4DD9F
+                B4CEEB2FE7681AACBB4EBAC7B88C523C0848C43DFF043012F2D041E24BD4FE04
+                55D75C90B26C0D22C8611932613202277D0ABF2953E1F3E934F84C9F8590859A
+                24784DD01A495A57BE00C99C3A383F88C40D5A2435A34531CB70F08443979ADA
+                7B0789CE3FFE2CCCEB1FE7AD34D8E1F0306A302EA31CB7BDA270DD23940C8BE1
+                88CE2841B3408CBEEE5E741795A0951E866AB7FBE0DE7647CD436FF0E21321A8
+                AAC6B3A70270EA3A4023BD8E832B9D1C0FC114143DB10847CFDD6C577BE70FAA
+                736BD22F8279BDE8E3995AEB2EDF0AE0A517D62332998D87E4ED5C499977F78D
+                4330B1188BB8B582D78DFAA7FD687A26445D672F8A1A3B919057092FD2ECDDF5
+                8EA18E06D5D41A955A8480D8021898D85792FD55A7FADBC1FC0BB9BA81A91D5D
+                35B5AA86476E5D3BF24A6AC124A3B4EA98894F2FA22421A31809E433917CA664
+                9721B3A092D4A40654D43F01BB8207175A9864A1965E20D9772B914FDECA323F
+                B5F8FD89F376185B5C4FF56130E5DC862E0844729281C3784E864809190C2464
+                7E93927B29995245D22174F648915DDC801B1EE1BDEB771E8B217BAA469D39FF
+                31BD7F25A1AAB46F58B466B7CB110BC72CC7BB7E9D8F0292640101C1630101F4
+                B1A0A8C4D1FB5E61121B275ACB4EC373A99F7EB9C285ACDF45642E918F7EA5CE
+                5FFCD804B252D5036B936CD94FFEF573980CA0AAAC518D332B89CC26A25AF3F3
+                29FD8BD5FD1F17FE1DA86B9C48031FADC30000000049454E44AE426082}
+            end
+          end
+          object Label10: TLabel
+            Position.Point = '(154,162)'
+            Width = 83.000000000000000000
+            Height = 13.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 3
+            Font.Size = 11.000000953674320000
+            Text = 'NumberBox'
+          end
+          object NumberBox1: TNumberBox
+            Position.Point = '(154,177)'
+            Width = 100.000000000000000000
+            Height = 21.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 4
+            Font.Size = 11.000000953674320000
+            ReadOnly = False
+            Max = 200.000000000000000000
+            Value = 100.000000000000000000
+            ValueType = vtInteger
+            HorzIncrement = 1.000000000000000000
+            VertIncrement = 5.000000000000000000
+            object GlowEffect2: TGlowEffect
+              Trigger = 'IsMouseOver=true'
+              Enabled = False
+              Softness = 0.400000005960464500
+              GlowColor = xFF2080E0
+              Opacity = 0.899999976158142100
+            end
+          end
+          object TrackBar1: TTrackBar
+            Position.Point = '(11,181)'
+            Width = 137.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 5
+            Max = 1.000000000000000000
+            Orientation = orHorizontal
+          end
+          object Label12: TLabel
+            Position.Point = '(13,162)'
+            Width = 90.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 6
+            Font.Size = 11.000000953674320000
+            Text = 'TTrackBar:'
+          end
+          object Label14: TLabel
+            Position.Point = '(145,202)'
+            Width = 177.000000000000000000
+            Height = 42.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 7
+            Font.Size = 10.000000000000000000
+            TextAlign = taCenter
+            Text = 
+              'NumberBox with TGlowEffect. Effect have trigger property set to ' +
+              '"IsMouseOver=true"'
+          end
+          object Memo1: TMemo
+            Position.Point = '(326,271)'
+            Width = 203.000000000000000000
+            Height = 170.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 8
+            WordWrap = False
+            Font.Size = 11.000000953674320000
+            Text = 
+              'Cross-platform solution available on Windows and Mac OS X'#13#10'Alpha' +
+              ' blending'#13#10'Gradient and special visual filling'#13#10'Fast realtime an' +
+              'ti-alised 2D GUI engine'#13#10'Resolution independed'#13#10'Vector graphics ' +
+              'and fast image processing'#13#10'WYSIWYG design-time designer '#13#10'Proper' +
+              'ty editors'
+          end
+          object Label15: TLabel
+            Position.Point = '(310,63)'
+            Width = 84.000000000000000000
+            Height = 16.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 9
+            Font.Size = 11.000000953674320000
+            Text = 'TMemo:'
+          end
+          object AngleButton1: TArcDial
+            Position.Point = '(11,228)'
+            Width = 25.000000000000000000
+            Height = 21.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 10
+            Frequency = 5.000000000000000000
+            OnChange = AngleButton1Change
+          end
+          object Label16: TLabel
+            Position.Point = '(11,202)'
+            Width = 107.000000000000000000
+            Height = 17.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 11
+            Font.Size = 11.000000953674320000
+            Text = 'TAngleButton:'
+          end
+          object AngleButton2: TArcDial
+            Position.Point = '(69,223)'
+            Width = 30.000000000000000000
+            Height = 30.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 12
+            Frequency = 5.000000000000000000
+            OnChange = AngleButton2Change
+          end
+          object AngleButton3: TArcDial
+            Position.Point = '(39,225)'
+            Width = 26.000000000000000000
+            Height = 27.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 13
+            Frequency = 5.000000000000000000
+            OnChange = AngleButton3Change
+          end
+          object Label17: TLabel
+            Position.Point = '(103,223)'
+            Width = 35.000000000000000000
+            Height = 29.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 14
+            Font.Size = 11.000000953674320000
+            TextAlign = taCenter
+            Text = '0'
+          end
+          object PopupBox1: TPopupBox
+            Position.Point = '(415,13)'
+            Width = 100.000000000000000000
+            Height = 21.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 15
+            StaysPressed = False
+            IsPressed = False
+            Font.Size = 11.000000953674320000
+            Items.Strings = (
+              'item 1'
+              'item 2'
+              'item 3'
+              'item 4'
+              'item 5'
+              'item 6')
+            ItemIndex = 0
+          end
+          object TextBox3: TEdit
+            Position.Point = '(415,38)'
+            Width = 100.000000000000000000
+            Height = 21.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 16
+            Font.Size = 11.000000953674320000
+            ReadOnly = False
+            Password = True
+            Text = 'Text'
+          end
+          object Calendar1: TCalendar
+            Position.Point = '(525,13)'
+            Width = 180.000000000000000000
+            Height = 164.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 17
+            Date = 40477.000000000000000000
+          end
+          object CalendarBox1: TCalendarBox
+            Position.Point = '(351,216)'
+            Width = 118.000000000000000000
+            Height = 22.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'comboeditstyle'
+            TabOrder = 18
+            Date = 40478.000000000000000000
+          end
+          object CalendarTextBox1: TCalendarEdit
+            Position.Point = '(488,216)'
+            Width = 118.000000000000000000
+            Height = 22.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'comboeditstyle'
+            TabOrder = 19
+            ReadOnly = False
+            Date = 40478.000000000000000000
+          end
+        end
+        object TabItem5: TTabItem
+          Position.Point = '(173,0)'
+          Width = 90.000000000000000000
+          Height = 20.000000000000000000
+          HelpType = htKeyword
+          TabOrder = 2
+          Font.Size = 11.000000953674320000
+          Index = 2
+          Text = 'Ext Controls'
+          WordWrap = False
+          object DropTarget1: TDropTarget
+            EnableDragHighlight = False
+            Position.Point = '(23,19)'
+            Width = 120.000000000000000000
+            Height = 124.000000000000000000
+            OnDragOver = DropTarget1DragOver
+            HelpType = htKeyword
+            TabOrder = 0
+            Font.Size = 16.000000000000000000
+            Text = 'DropTarget'
+          end
+          object ClearingEdit1: TClearingEdit
+            Position.Point = '(192,72)'
+            Width = 201.000000000000000000
+            Height = 22.000000000000000000
+            TabOrder = 1
+            ReadOnly = False
+            Password = False
+          end
+        end
+        object TabItem6: TTabItem
+          Position.Point = '(263,0)'
+          Width = 119.000000000000000000
+          Height = 20.000000000000000000
+          HelpType = htKeyword
+          TabOrder = 3
+          Font.Size = 11.000000953674320000
+          Index = 3
+          Text = 'Transformations'
+          WordWrap = False
+          object Ellipse2: TEllipse
+            Position.Point = '(197,55)'
+            Width = 148.999984741210900000
+            Height = 185.000000000000000000
+            Fill.Kind = bkGradient
+            Fill.Gradient.Points = <
+              item
+                Color = xFFF78585
+              end
+              item
+                Color = claWhite
+                Offset = 1.000000000000000000
+              end>
+            Stroke.Color = xFFE8E8E8
+            StrokeThickness = 3.000000000000000000
+          end
+          object ListTransform: TListBox
+            Position.Point = '(263,123)'
+            Width = 132.000000000000000000
+            Height = 138.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'listboxstyle'
+            TabOrder = 1
+            ItemHeight = 19.000000000000000000
+          end
+          object TrackBar2: TTrackBar
+            Position.Point = '(88,19)'
+            Width = 100.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 2
+            Min = -180.000000000000000000
+            Max = 180.000000000000000000
+            Orientation = orHorizontal
+            OnChange = TrackBar2Change
+          end
+          object Label21: TLabel
+            Position.Point = '(12,19)'
+            Width = 70.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 3
+            Font.Size = 11.000000953674320000
+            TextAlign = taCenter
+            Text = 'Rotate:'
+          end
+          object Label22: TLabel
+            Position.Point = '(206,19)'
+            Width = 82.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 4
+            Font.Size = 11.000000953674320000
+            TextAlign = taCenter
+            Text = 'Opacity:'
+          end
+          object TrackBar3: TTrackBar
+            Position.Point = '(286,19)'
+            Width = 100.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 5
+            Max = 1.000000000000000000
+            Orientation = orHorizontal
+            Value = 1.000000000000000000
+            OnChange = TrackBar3Change
+          end
+          object TextBox4: TEdit
+            Position.Point = '(213,66)'
+            Width = 255.000015258789100000
+            Height = 41.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 6
+            Font.Size = 23.000000000000000000
+            ReadOnly = False
+            Password = False
+            Text = 'EditBox'
+          end
+        end
+        object TabItem3: TTabItem
+          Position.Point = '(382,0)'
+          Width = 126.000000000000000000
+          Height = 20.000000000000000000
+          HelpType = htKeyword
+          TabOrder = 4
+          Font.Size = 11.000000953674320000
+          Index = 4
+          Text = 'TreeView and ListBox'
+          WordWrap = False
+          object ListBox1: TListBox
+            Position.Point = '(10,35)'
+            Width = 166.000000000000000000
+            Height = 270.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 0
+            ItemIndex = 0
+            object ListBoxItem1: TListBoxItem
+              Width = 148.000000000000000000
+              Height = 34.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 0
+              IsSelected = True
+              object Label3: TLabel
+                Position.Point = '(48,9)'
+                Width = 63.000003814697270000
+                Height = 17.000000000000000000
+                HelpType = htKeyword
+                TabOrder = 0
+                Font.Size = 11.000000953674320000
+                TextAlign = taCenter
+                Text = 'Just a text'
+              end
+            end
+            object ListBoxItem2: TListBoxItem
+              Position.Point = '(0,34)'
+              Width = 148.000000000000000000
+              Height = 82.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 1
+              object Label4: TLabel
+                Align = alTop
+                Width = 148.000000000000000000
+                Height = 14.000000953674320000
+                HelpType = htKeyword
+                TabOrder = 0
+                Font.Size = 11.000000953674320000
+                TextAlign = taCenter
+                Text = 'Text and Image'
+              end
+              object Image1: TImage
+                Position.Point = '(49,20)'
+                Width = 51.000000000000000000
+                Height = 50.000000000000000000
+                ClipChildren = True
+                HitTest = False
+                Bitmap.PNG = {
+                  89504E470D0A1A0A0000000D4948445200000046000000460806000000712EE2
+                  84000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                  00097048597300000EC300000EC301C76FA8640000287A49444154785EDD7C07
+                  5854D7DAB5FF4DBB8929C6966A4CD4A829D6D87B43C5DE3B2AF62ED86B10C48A
+                  1D2C14A9222A52A5770544054541B081284A67E8456CEB5BEF190625EABDB95F
+                  929BEFF98FCF7ACE9933C399BDD7BCFBEDDB1A35FE9EE3BDCF5A4EF9EEDBAE73
+                  5B7DD176DA2F757ED6695797E76F3ACD6EDBA0EBAC9F6A7C31A42E87F5D6DF33
+                  B4FFDEB7BEF559BB193FB71FB662B6F674232B9DA57BA3161B1CB9B7CEC0B26C
+                  EB2157EC39EA05337B3FECB7F5C14E73771818EC7EBE68B375CECC5566B747CE
+                  DBE1D97BD2AF5B7EECBB78608D2663EAFDF786FC177ED3B7DD1674EC37D970CF
+                  AC358712B71E728167C8355CBB9D81D4CC02149454A0B0A41C45A5E528AF788C
+                  67CF9FE3F193A728297BA4BE5F56814C55316EDDCF4158F46D589C08C132038B
+                  DC917377F808C175DB4EFEE22F1CFA9FF6E8FFA779D2270D87D7EA3072EDC229
+                  7AFB63F6D978E342DC3DA4E71421BFA814AAFC22A467A970EF611692EF6720E9
+                  7E3AEEDC4BC39D94EA48BA978EBB7C3FE54126D2327391AD2AE0DF9720B7A014
+                  3753B271D2371A0B8CAC555A930DED5B0E5CD6ED4F9BC55FF2A0CFB46A7619B5
+                  7ED9ACD587EF9DF28B414A5A1EB2720B709B938E89BB830B576E2AB8187B4BC1
+                  8558F56B05BFB9BEC8D79ACF557D9E9FBB74F516AEDFBA878719B994A62244C4
+                  DEC5BA5D4E1838CDD8A395B65ED7BF645EFF8B875649498761ABC64CD5334D70
+                  F6BF8CE4073948BC938AC0F058780444E14CD045780747C32BF85235C8FD3341
+                  BC5709F5F5C5AACFBCFC3772ED1D42543EC323F082F25A08BF9F968B4BF1F7B1
+                  6AFB31F41AFFAB65F3EEB3FFFE25D6A8F3BCFA0375373B9A587923EE761A2EF0
+                  1775700D81A5931F6C4F0729D7C75C438910E5FA65D8BB84C0DE25B80A76A7D5
+                  D70E82CABFD37CFE757F2FF76C4E05C2D639086117E2F1205305BF88044C5ABA
+                  37A3FD10FD49FF8B1FFACFF993165A0B7AE82C3F90ECCBC144C725910C7F6C3D
+                  780AFB8EBAE3A0BD178E1CF3C111471F98BF04796D667706076C3CB1CFDA1DFB
+                  AD3D94D766F66794BF11C8EBFD361ECA7BF23979EFC8316FF5738EAB9F590DFC
+                  1E535B4FBEEF8B4BD76E51076562D30117F418B7FE708D863DFFF9E7CCF6773E
+                  A5DD90E5BACB0DEC1E5FBDF5107E6197B1D5EC14B6989EC28EC32ED86DE1C649
+                  79E2A09D170E3978135ECAC035848914C83288BC9CA8E80B51C4A290B3A98F32
+                  B2F394D7B214A3AEDC509EEDE81EAA3C47FEDE9444C9F561127558CE2F5DCBF7
+                  EDB174C329AF7354EA19B0758B84F634C3F0EFFB4CFDEA774EEB8F7DACDBE8B5
+                  EB8C0FBAE1C6DD74B8FA9D5706B38F44ECB674C72E92B2D74AA48012C35F50A4
+                  C682CB4A3E1713779BCA381FCFF1EAF198B71E1115C4B3D7BC9F4B6B7635F12E
+                  75D605589DF057A4E3E8497F589F0A80F5C9005EABCF02F94E1BE740C49374B7
+                  A02B183167FB9DD67DE6FEF8C766FD6FFEBAE7E875863B2CBC90C05FD4930AF0
+                  985B288E7B9CA53E092601FEFC357D14981FF7A3BE085114F0FDB4ECAAA9CAA4
+                  1F1495E152C25D040746C1F7F819781D7480A78939DCB61F82E78EC3F0DB7714
+                  01562711E2118C4B94AABBB985287B892CB17491318970F18DC4C933E770DA27
+                  022E3E91849C2394D7A7BCC295F7A2F96338FB4563D49C9D69EDB4E6FDFC9790
+                  D37DECFA1546666EB8762305E72EC62328221621E7AF29679FD0184A4514C59E
+                  249190D3BE5188894F567C179186E4DC220490A4D3871CE1B37A0BA266E9E1E6
+                  9439489DA48BEC89D39037612AF2C7EB206FEC14A8464D44C6C80948193101F1
+                  63A6E13C3F1BB4792FC23C83712B3D57799E1CAAFC62C42624239463088D8A43
+                  18A1392BD7E7E310127995AEC00D989F08C608DDCDF75B749BD4E84F25A7CBA8
+                  35E3976FB5C7455A9D84DBF715DD70FD16CF37EF218E445DB99E449D71034191
+                  71443C0773077177D210167F174E27B994D6EDC095198B913D75164A7467A378
+                  C61C14CC980795EE5C620E72A7CD46AECE2CA8A6CC442EC9524D9C8EBCF15351
+                  3066128A468C43DEA09148D11E850B3AF31174C006B1FCDE5292F394EB52F4D2
+                  8DA4D4CA31558E8B6353C64988BE12A236EE75C6B099C6571BB61A5EEB4F21A7
+                  D3F0552D74579A95F99DBD4CC72A0799D9F98AB254401329CED603DE4F4ECDE4
+                  00D310772B15BE976EC29C6BFDF4AAADB83363014A66CC45F1EC05C89BB310AA
+                  590B903B733E728518DE574D9F0D158951E99094C93388E9C8A514E592985C4A
+                  50CE98C9C8193D09AA91E351386414B2B586E0CAE8A9083E688744FA30C52447
+                  5550CCF1E42924C998AAC6C73166F25E6E5E219CB9BC66AFB784F6945F5DFF30
+                  310D7B4EFBE7E8F9DBE3AD4E06D135CF41F9A3C7282A2E455149198A89A2629E
+                  19EB88727C9841579F708B8883E596C34898AB87B2D9F3513877115402851462
+                  E60212329FA894986973A0A224E54E1152745F2246073955C44C440E97583697
+                  58CE083541997D07237CEA0284FA452095715706754F0E0928E178646CCAF82A
+                  C758565EA1DCDF65EE82C9FA66E83B66F9CA3F44CEE0699BF76CD87392CB2559
+                  59D78F1F3F51E3891ACF9E3D475E4109EEA6662189BFDE319FF3705DB119F994
+                  8A529291376F31F2E42CC4CC564B8B8AD2A29AA9911692426272A85FB2B964B2
+                  871343C7207B302583CB274B7B84F25A2426BBFF3064F3750E3F934382728520
+                  EDE1B8D167087C7659E00A43903BF7339530E43903D2270C48ABC6CB31CB9191
+                  AD82BE9115262E3178F47397D1EDFE57E4F49D6CD87EDA7283E7A7CE9C55BE48
+                  8E67CF9E2951B0408EBCC212C4DDBC8F582E21735AA5E0F9AB514E2929104214
+                  5288398B490A891169D11023D2227A65D274E450F1161818A3F4E469941E3F45
+                  9C448923E1E084521737141FB250C829363B82FCD51B903D6C2CB2282D0A4924
+                  A760C4583C68DB05DE7ABF22243195E1C15D6559C921E356C65C396EB9177E31
+                  0EF3D69B63DCBC2DE124E6DDFF989C31F3B7476CDAE784AC9CCA2FA9FC220D49
+                  22A691976FE2ECD524C55B8D9CB30C8FE62C40FEFC2524450D1589510931735E
+                  484CAE2C9B713ACA52CA5FB31139E3A6A022F6DA6BBC17F5AD824D5B50B86B7F
+                  D5FB4FEE24A1F48433F257ACA3E48C4756FFA1505172321AFF04DF79ABE17AF1
+                  26FCC2AF213327BF8A1CCD98350FD96BE982F91B2CD167E482B9FF1131C3E7EC
+                  183167DD119C093C5F6DC09A2F90BC4948543CCE9CBB867DF63E081352E62E44
+                  DE7C3DA8E62F856A9E80C45491B39056472CCE74E42F5B8D926327F034F5011E
+                  455D542CD3B3E2E2D71253EE17805CBEFFBCACFCB5EF3FB99B8252570F14186D
+                  454EB7BE48FFF23BB82F37C4D1801838FB5E50748C467244C635CEE55DA63BF4
+                  365962BABE494A8D1A35EBFF6E72A6EAEFBD6CB0E718F547917A09552E1FD129
+                  8A3846DF84BD7B38F63805C193BFD2232E9FBC85FA502D20310A488C1044E911
+                  A911E92932D9874711E7F1BCF485BB5662770C85C6DB5F3BE967F9058A543D8E
+                  BBFE4669D2BC516C698B2CEAA48C6FBE475AE39F616F64861D4E6A7FEA2997D1
+                  73FE53CF81D7956AC0D2D11B0B0DACA0356AC1EF53C45396996A2DD8600EE733
+                  61CAF75650716920AF6FDD4D83A9BD2F761C0F82C5F2AD28A2252958B202798B
+                  F45F60A11E8922488E484AA1D1EB275F68BC0365DE7EAF9D78D15E5394D81EFB
+                  97A43C2B2854F453D620EA1B9AF7B4E6AD9155F72B2475EA8D1DBB1DB0CECC15
+                  E7B9DCABCDA3E209C90192521E2A8A78AADECE9B94987F9F325DB8C1DC7DED0E
+                  3BDCBEFB4031CF8534CF02317FF954B6479C026064EE01A36D479132660A8AE7
+                  D1EAE8AD44DE92E56A2CAE844810754BFE4643EA0963D1DCD597E5E3C728D860
+                  88A70F1EBE32F98A2B5751B0D1881EDCD33712F324E51E548B9629D62B970A3C
+                  974E61DA4FBF20B5CED7507149858E9B89A5BB4EE2D7FDCE8AAF5556CE94A9CC
+                  85DEB8B81CF263EFB570C6FCF547D0B6FBE869FF72394D5EB5FFEB991B8F94ED
+                  B538ADA413E581E2D43DE0599CA4402AB5D53B8F6319BFCC6FA63ECAC42BD55B
+                  857C7D82E428584A92488E386FA5A7DDF0342313F9EB37E159A17A596A0E21A4
+                  C864AF988EEA843DE2048CB64126FEA6A3E2520C44898B79579C411293C3B348
+                  CCFD3A0D70AFF657C86AD51EFBF4B7629A911D6C4E872A3E8E7A3E6AE4D129F4
+                  0DBD88A586473166D6064F12F3E61485FE66EBB92BB6D8C2C99D710997CC3546
+                  B40271FB255ADDC28CFEC2ED8ED8BA7E3F72868C56629BFC156BA950D7208F4A
+                  5501C9119FA5D4D55D3D2F4A4AE1D69D0A412F1F15172EA1D4D9F595B997BAB8
+                  BF7179C987CBBC7CE9F8D11BA6472CE1831023A4883398DAB01952EA364032A5
+                  E6618326B8386212E66CB4C022631B4444272A6182C47A321F0969A219E2ACD9
+                  660DDDE5DBF2DFF9E093366F941A3D63EB33B28CDCFC221980314064E02738C7
+                  0C99339DB7059B8E62CE360704E82E45C98021CA00F357AD47FECA756A829693
+                  204A4B99BB57B509175B58E34992DA49D41CE5BE81787C2BA9DABD27F7EE2BFE
+                  CB6B0F2EAB624B1B7ABFE3D552225E32974FEE045ED36BCEA49EB95B8FA4D46B
+                  88DBF51BE226A5E661A7EE30596888891BAC70C0D6BB32F8BDAA9E57C455BEBE
+                  8E2DFB8F61B18125DAF61AB990C454A56BAB489ABC78FFC7FA0687B337ECB481
+                  135309C73DC2949482248ADC994FD97AD815BA1B2DB16EA3191ED2C9520DA427
+                  4A51CE5F4962566F540812052C0EDA6F8F72FECA8F7FE3AB949D398347D11128
+                  3FE78352CF632871398A2273132E3F1BFA3591789A9D5EF59867F9F928D8B283
+                  DE314991D041133E544A8B04A7A96D3AE1CEA75FE21649B951FF1B247CFA05EE
+                  376F898009B3A0B3DE027A5C09C7DDC394B9A9E77716CEDE11D86DEE8CE55BED
+                  3074CA324792F1E12B52B3C8D0B2EB8A2DD610620E330034B365CA5140E74D12
+                  407AC6B6D0D96403DB851B51A23508D90387237BC0304542F2D76E22311B9147
+                  FD22CED8F3DF28CD8ACBB110BDA0AC2C5516CA833D5064B91DC536BB50E26C89
+                  522F4794F939A3CC979E2F5F171DDE8CC2FDFC1E775B927491CFA6C72B61002D
+                  5C8E4888488B78CD93A631629F89F4E1637147A484129328A410F175BFC6F5AF
+                  1A2191CEDF327D13E8FE6AC5629E2BB37E4CA132917690F3926CA0C91167AC30
+                  B686CE922D7124A5F12BC42C37B65BB0DEE418D66DB7C68E43CE4C579E54B0F3
+                  B033F6302B377B8305661A5A238ABF40519F818C5D8622BBB7B622CE05EB8DD4
+                  52B37283E2BF3C8A88AA26344FD33250117D05153763D584389AA1E26A141EC7
+                  5FC2A34B6178565450EDF3CF0AF350117709C5C74C516042C56EB08221043D66
+                  C9DDE82F430E89C926295953749149E9496ADA1289941621E53A71AD7E035C21
+                  626A7F89BBDDFBE0C0AC35986C608D353BEC95B96D632A761BF3D3DB892D074E
+                  6099A13989D95BF0D67B357B9398EA65612ADEC342CC9AADD6F875F7316CDCE5
+                  808D26F6FC4327181E388969EBCCB162C341DC635E44D5475B8957B2E44C2852
+                  C32555B8FB002ACE5FA06FB105CFCB5F78ABCF691A4B9D6DB9548CE9ED06E249
+                  6A32CAC3CEA0FCAC379EA6D1FA3C7B83597EFA048F2E87A3C86A1B25F157943A
+                  5AA22CC019D93AD42994980CC65BC96D3B23A1D6178A94C4918C58E2B29052EF
+                  6B5CFCA43E6EB7EB0CB749F3A0C31060B1D15118706EBF726E0AE49A58FAEB21
+                  2CDC70180D9BB59F4E62DEAB26352BB6D878AEDB698F955BACB09A9A5AB08A24
+                  19ED73C45A1236850FDEB16C1B54BDFA53520620ABF74064F522BAF553023A15
+                  C381F2E050E5972FB17140B9B76F951408194596DBF0F8069714A5A4E4A4B972
+                  FD7B8FC7D72FA13CC809E531FE2809F744D6A2A548A7454A6ED755D125F15C42
+                  1A29B9CCEB682185385FEB335CFBB90DCE8DD1C1EC55A698B7C90A6BB6DB6235
+                  5785668E6B77D86231F5A61E496BDD65F03A92F27175628CADAFAEDB698BE5C6
+                  9658417204CB365B62D35E4745394DD9648DA3F3D6A1A84B2F64F5E84F68A9D1
+                  5D0B19EDBB296903F144E5785E5C8262D3C38C711ED11FB981C243860A218F2E
+                  84A2E484399EE5E7FE3E4E28494FEEC6A33CC203E57154D4F76EA1383A0019AB
+                  56E2D6F72D70FDD3CFAB49891072898822228970BE7FA9C98FB84CA5BD74E94E
+                  CCA2555D6EAC9E9B062BF9E32FDA608A155B6DD1A5FF94832445BA2C2A8F9E06
+                  6F535292D69BD861999185428840CFD002867B8F439FC44C35B285CB54C63C34
+                  8199DDFB2193415B66B73EC8ECDA1BE93FB77D25E6799C70036567BC5172EA08
+                  CA82DCA844CF339D6046B24A7E1729CF0B55A8880942698833CAEF5C53F23F8F
+                  CAE87D9FF740CAB4F1887BAFD60B5D5249C805911222A2DE570867687096C444
+                  7CDB1471C34661ED0223E81ADA705EEA1F5C03216AD106331265879E43746DC9
+                  C8972FCCF68F63DF5DBED93265E32E7BC60F1655D0A35212891153A76B6C07BF
+                  F1B350D8BE0B3229350A3AF74466A79EC868DD4971B81EDFB8556DD265FE9E28
+                  3A6AC2FB57516CB70F4FB3D2FE3D29F4849FDEBF491DE482D2285F54E4507133
+                  9A287BC4EE88A22264F83920597F06AE7CFC192E9384AA65A34849252124258C
+                  08F9F4338435FC9EC48C86E1ECF5986EC81541CB2B3FBE669E42D0A2F5669424
+                  5BF41A32C381A47C4BFC432D32BFCC794788D9B4C7A11A9BF2C786FB18026CB3
+                  C76CD68603C7CC4061DB4EC8ECD803991D7A20A34D5792D205E9CDDAD2B798A9
+                  0474E57E81EAC9D3E32DA65E29F53A8EF2104F94F99FFEB7A43C2F2BA6B53A87
+                  D2E09328BB118D8AB252943F7E8A2212924F5F4655588CB43077DCD9B20C3134
+                  C7173FFE1C51D4311154BEE1C45922ACD6E708F9E47304515AFC494C3023EE6B
+                  24C668D63A126343C9B001E7FA8AC42C23313D874C3F46369ABC64997E518831
+                  A4A255AFBDA3CA59F4CD669AB335264E58B0EB040246D1343306C968D78DE88A
+                  AC7EFD9035903AA6637B941CB5C273FEAA45FBCDA828FDE9A0A52177E108BAF0
+                  4EC8DFAA878A84CBFF929827A937511A701CC5412425ED2ECA68C98A4B4BD584
+                  A854C8C9C941567E21522F84E0B6E9065CEED40E179A34C6F9E64D11D9AC29CE
+                  35FB1E6789D0664D10CC73408386F0F9B83E02494CEC704A4C25312BB7D960E5
+                  D697740CE7BA78E3210831DD064F1527EFFB974DF65B7A0616496281D66CB7A9
+                  825825F1658C4C5DB08CF01762A84F325A7464E64C0B79BFCE44DE861950E98D
+                  A645AA8C8D387D21A1D86637542B26294E9B6AE9183C4DBFFF5A629E1517A08C
+                  CBA6C08E99BAD0D328C9CD4609A3FA82C242E4E549863F0FD979F96CFBC8471A
+                  2B9929572EE2A6F966C4EA8FC7C5893D71714A1F444DEE83C849BD113EB117CE
+                  4EE885505E070DED02AFDA9FC1FFBB66B83C721C369198190C28D7D29759B3C3
+                  86964940DF866731D7FA9B6DD079C06491986AC4D458B4E170AC11978D01F318
+                  92A41288ADDF7984F568AB33D8C88E068FF17390DFBC15327E68C744753F92A2
+                  8BBC552C922D1C4E4579AEBA7EF17642DECA296A62968CC6B3DCEA41A444D58F
+                  53125078721FF21C4D5094108D1276561509294C71A8D828949DAB4246EA3D3C
+                  88BF82BBE7FC7187A1C38D63079060BD0397D7CCC0F9D15D1139BE27C2C7F5C0
+                  D9B13D103AA6078247F74010CFFEC3BBC2A3EEE708E0782F8E1A8F75F337610E
+                  F5A4F82D9B647E95FE8CC11E47E86F3AAC44D96D7B8EB67A859899ABF77BC887
+                  B65142C43B148867B8D7CA1D478E07C0E41463A7594C4835F9993AA50D2D5277
+                  E4AD26292B262B125174D85889719E97AB33746581AE6A6278CE993590799717
+                  41A4241ACAE3A39067638CFCC09328CECF4331156C4141017253EF22935EEFC3
+                  B35EB8E7698764C7FDB865618CC4FDEB10B74D0FB11BE7207AD9149C9FAE8DF0
+                  B1DDAB1332BA3B977B37F88DE90EEF011DE1F2511D04D3589C1B3D112BF47762
+                  C98E639CD38BB9693CE0E546E64A5EA649AB9E5B2A89A954BE7C3565E9DE836B
+                  773A609F95ABD27221F192C41216C77D718CA5576BD680ADD7EC64D2F947A437
+                  A5D4B46A4742C6919889C8A544E4AD9F81520F3BFA2947F0E87C209D380B2EB1
+                  B18A779B33B5171E45AA95F253C6518FC94C71620CB26DB6209FCE9B8AA14266
+                  883BD2DC8FE2FEB1BD48B6D88CDBFBD7E2C6B6A5885F3713B18BC7217AC6205C
+                  E03289A494848FECCCC9764318252384085208E90EBF91DDE033A22BBC498C67
+                  F7D670FEA036CEF61D089FD193A57F0F1BF69F52CF4B5A4E182F492C281D142B
+                  365B60C60A83E7F5BE6EB6A2325E7A11658F9D6F324F8FE274C8CE53E94E90C2
+                  F8A933E18C40C3E1C96EA7332CBD1E3D7C12779A327DC88C7C3A73AB39D399A1
+                  5F319E99B411C8A33E795E5A8CE74F1E2B2E7FE91947E4CCD022214C685309E7
+                  9B6D8254771E311155CA6C5A117549A6E36EA4596E42AAE566DCDDBD02778C17
+                  E1C6EAE9885F380A57A70D40CC04EA9031DD708188A2744472C99CE39209235E
+                  4B08493933BC0B3C498C4B8BA63845CF376AF828384D988935FB9CD915EA8DD3
+                  8CA84F789E839327236C46DBD27CB482566AD22283827FBCF34F1D12D3B09AE7
+                  3B44C7B0F3CC9507606AEDC63CE90DA5282E457241F8A504445CB98D93413138
+                  DFB12F72BE6982070D9A52CFF42421949AC5A390A3DB17E591FE557AE6794539
+                  B267F647919B1D5466467838B5378A1EA4A098395751ACF95C36D954D2A92ED6
+                  B8A13B00897A93706D7C0FC48EED8ACBD41BD1420A25244AA4A4528F6808113D
+                  12A89190919410EA1321C4635817B8136EBC76FAE24BB835FA917A681CAC16AD
+                  C3768740764844E12C1B128259EC977C8CE49C9C9856D133B4C4C8E96B1349C8
+                  20A27AAB5A9381933F9EBCC4247B8BA9136BD00FAA8AE24A61FC762AAEDEB887
+                  F03BE9F09CB6045974A61E7CF53DD25BB4A26265CE951293A3DB8FA9820D789C
+                  9CC828FA1A2A529390B57E163288BC506F762FB441BAF90E14D02FA932BFE297
+                  A4A6229ECBE4BAC16224D89AE1D2880EB848E99065739E8444FC46B10A21FED4
+                  23BE5C36DE1A092111EEC3182C0EED0C575E3BF7690B879A9FC2AF673F048D1C
+                  0BAB7D76B0F7BE80CBF1494A913F9E4D0192999479DA39FB63D1AF96E8397496
+                  A437A503F4D36A12232F262EDEEDB1DCF8A8D2399093A76E3D1548613CE56136
+                  92B20BE161E58CDBCC92A57FD9080F3E6F84EC71FD48CE08E4CE1B82AC697DA0
+                  DAC3788A0E5DF155D68C7C4F3361DE01D93ECEB86FCCD68F413F212DD407D925
+                  A5C8A05FF23033130F48CE0DFB43B834EC17244484E1EA716B9CE7D2091FD111
+                  E7488A48892221D423AF10A24808C910428674C269C279441738366F846375BE
+                  44D8A871F0983C0BCEFE177136FA86BAE8CFF9488BACE47DA59CBB8789AAD96B
+                  0EE1DB9FBA6C230552B67DFF156246CDD936473EE4C724B1D45F34C57BA91014
+                  1496228B2DA49792D311DA8911363DCCD43ADF20AD750BE42C1E86CCB9839136
+                  8DF1D3A6F928A5C72A6D1A5246BBBF751992E68DC0431F17A4589AE061422C1E
+                  3E640FEFB5EB4866562FE97A226EC55EA63FD217D19BA86C1F6622C6C71D6767
+                  0C43F0E0760A292F2B5665C9BC24212E42C8E08E38459CE4B593563B1CFDF053
+                  B8B5EB82207ABCDE3B0F223C21952D6CD91C17755B65A15FAE1FA4672B39DFF1
+                  73B7E5FFE39DF77449C84F2FC28197E8E93070F1D71397EC2ADDC32A41950591
+                  02BE52C87F8A02961E72993AF1353982E4F76B239559B31466E51F8EEA89B485
+                  43F160F620A44CE88A873B985CCAA5A71A731EC99BF59038E217DCD9BC14A9D1
+                  3148600DEACAE001881ED003177B77C1F90EED11C11023BC7F173A68D42D817E
+                  88612EF8C2B9B3089A3B16BE83DAC187CBC68BCBC6F31542282142C8A08E70D2
+                  EE00274A8F6DD3EF605BFB0B5AAAF1F0624E3A9ADD57B753B3955290BAD04F70
+                  4E7204875FC6422E23EDF14BC348C300A2C12BD2A2B9316EC14E8FA52C5FDEBD
+                  AF0EF8940A5E65515C082A2712D9D914D2BE0F1E7E581749B51B20A94953DC9F
+                  AD8D9459DA489E3100B775FAE0CEE2B1B831A92712267447C2B4FE88E3F5C5C6
+                  8D70A165635CE8D60291AD9A21FC872608FBBE11026BD543C0175F2364D02F38
+                  B76D1DDB62AFB19DEC0ACEFAF9C07B7C5F780E6EFF4287542E19454206910C12
+                  729C70E47DBB6EAD60FE7E2DB853B7F80C19818823D6482D2857EA61EAB9A89B
+                  1234251B93432730639519BEF9BE9D2C23D12FD573312FB33470E28641BA2B4D
+                  614FA5A439C4219307CA3F295409DF674F7A21B6667D2431984BACF5156E756A
+                  83E47983705BB73F6E4ED342E2A45EB8AED317713AFD7095F7A2B53A20F2AB6F
+                  10C9D8268C415E08A3E3A04FE8B2F3DA8FBFB08F5C776E81009DFE3817E087B3
+                  919108BB180DBF3D5BE0AAD5AA4A875411425284906303DBC381D77603DAC3BC
+                  4E3D3834F9890EDE04F8B0D5440AFBF9ECE179CAD2B252BB56E6A03E6E26DDC7
+                  BC75073178FA7AD6AF6B4C205A116FBF5162F8C65BE3176D8B5DC9F03C838A4A
+                  0EA59DA2F2A1EAD60AF6C5F01BBC672C45E2DB1F219159B378962B12B43AE206
+                  252761AA16E28510EA8D2B440C098AFCBE8912FD86321A0EAEF30502A91CFD09
+                  5F5E7B139E24C6F39B6FE135A035024C36B169E022028343E0E7E303D709FDE1
+                  3CA06DD592D110624F32EC488C2D8931FFE66B58D4F98ACEDC78B8B294921415
+                  AD343556B0E2A999C3CB5D0F078EBA426799297E683FC09C73D622FE7DDB6BBF
+                  092B27CE5E7BB84A6A8408298E0B842039CB71971D54BEED7B23E19F1FE30A4D
+                  F8654ACF35EDCE889B3900B10CEE6226F541F4D47E88EAD71EA194AE604E3E90
+                  C42884F0EC2D643002F6E0D99DF959D77A5FC2A37F5B784CD1863F09F1F50F80
+                  4F48185C0D57C3A94F8B2A09B1271976FDDBC196C4D89094238D1BE21097B5C7
+                  E0E170D31E8ACBAC79CB081F9194AA9E9ECAF1CBB8AFDF4AC1ECD566183A7DE3
+                  43A65EA692944EAFB546AF119FB7C7CCDD766915D37D2272723C62805741E74C
+                  019793869C6B5712E0F7DDCF88FDE0535CA2D448162DBA6F07C44CD7C2451273
+                  8111EFB9163F20B43953025D5B239824050DEC88009E7DF9FA4CAB1FE0FEDDB7
+                  7061FEC4B55573B8D1613BDDAF253C776FE1DE82109CF1F3879B832D1C65C990
+                  0CBB012484676BBE3E3AB01D0E7FD700073FAC03B70183E141BD728E8D0242CA
+                  631221DB7DAA9A1238EEA74F9F29F330DAEBC096B3FD68D2BAB719E7AE4D7CFB
+                  AF9650B5F73AF49FDD5B149378C2F9ACF3AA4D76896299045220D79013137601
+                  FE0D7FC0253A55112C5984B39411D9A125D301BD1129C4D0213B3BB137428920
+                  3A6D01F44DFC081FC6395E74DF3D4886DB800E5C020CFC8676C2A9FE6D704A67
+                  083C7CFD58EC0B80D3AA85B0EBDB4A4D88805262D9BB35CC3EFF1C87E836B80D
+                  1A068FA12311C88EAB0A5A1CD1239A02BE14F1E5BA80D1BA10E3EA138EE92B4C
+                  D17FBC7E3C273C9EE8F27BA5A58AA00153565BAC6644EAE11FA928B207E92CF0
+                  5722953E80384BF265725C8D88814FABCE88F8A016B3689F29CA358489A4B041
+                  9D10C67C49F0B89E8A1B2F4E9A047A5E74E3AB995F9A5A71D034A6D7914BEAA4
+                  E13A1C5F321336BD5BC246EB171CD56E0F2B4ACC91D64DB1FFA34F61C9FAB427
+                  3D5BF721C3E1CDBA968ACDD58FB9ECA5D52C958DD7D290A0342570CC39AA426E
+                  EBB989F954B8A3271B3CAAF359A35595D2F26613FD2631FAF0C3A67547CED97C
+                  67C71137C615B18A2B2DADEB9A627FECF564C5C52E67E64E8EDB6C62F463215D
+                  72AD419FD483EF870415AB5F8BE6F0D7EEA49612C28B12224E9AE2C2BF647E4F
+                  545A1A475A1B0751AC94129B3E2D615D498879FB1F615ABF3E4C3FAA0BC7F624
+                  77EC0438535A3C37EFC24D6E077A9053C09EE364A523FC2ABBCF35E39471CB16
+                  1EC9694FD637458B2EC3EC39E7E1C42FC47FDE87278435EB38BC97CE82BD15D2
+                  AF1FC05EDF8073B14A2BBC408AE3FEBC27DB62F2D8A92D878AE6319403F5FBF1
+                  170452997A9120F77FD6863B758847D3C6F0E8DA0AEEDA1D9540CF9592739A2E
+                  FC294ACB89619D709CCBE81889B21FD251B134D6FD7F8155F79638F2536398D6
+                  ADA71062CB7AB43BB3FEAE5C3A2E137410EE7C0609692A4471078C341E38B37D
+                  DE27349AE3BCA21E233BD7058758929DC33EDFEEC3E647552EA1BE3CBF1A17FD
+                  6E65C30FB6EE3565C93C96685DD9BF2F6908D941A214C719BA0B64EFD009F6EE
+                  4B50A6396E465C82BFEE02F8FCD816BE5F3782072DD1A9F73FC5897FD682D3A7
+                  F571A2410338356F8CE3AD9BE358BB1F61DFE127D851226CDA3487E50F8D7184
+                  E6D7AC4E5D987D581B4768ED1C986B76A3D511429C99C38DDC7300AA2CF6ED3C
+                  7A8A4046C9076CBD94CD1E471CFD944D16B24FCA51F63A30B570C223146B99B3
+                  EE3D61F5DD77DEFB6026A734A452E1BEDADDF09F10239F6DA3357DD7F2AD0EF0
+                  0FBFC2CD5381CA7E22D916A36C9321D4FB903C94CD17D264244739D5CF35EF40
+                  04CED787176B515E3FB58167931FE0D2A0319C58DE70F8B81E6C6AD6C151C28A
+                  96C59226D78266DB927E910D7B5D8EB7EE00973EFD15424E73C9B88E9D84889D
+                  CC2527DF559E9FC74DA5B2D962BB526B3FC5FD52CCCEC9D620EE8891CCA3EC77
+                  F2E4668EBD363ED09EBC31FBA3DA5F2CAD5C42B2E1E29DFF9483377DFE9D5FB4
+                  742D56EF74627362223B20FC61CC0AC26E765BEFB67065D7B5C045499EEFE5C0
+                  64F383EC88559C2B2225F63AA20E5A2188A55CEF6163E0C952AF076B531E9D7B
+                  7079F5821BE1DAAD37DC7AF7876BBF817061FF8DEBD051F09C3C0D416C7B4D60
+                  77663913E37288CB16197343D9C364C496DB2DA64CD8EF3F0103160737ED7562
+                  5ED751B9E71716C3D6B860684FFD35F753B5B21D49BC3E82FE832CD56CD56BF2
+                  617D637BC63377946D309BF73B299D033B0F9FAE82E48A0D59A8DB6BE5067F6E
+                  C64AAB6C48D62C33D5833424854520DEE934A2F61D547C8F5036300ACE6DDD85
+                  68F3A348743F83F46BF1785CF2A27299C32E74D9F122E9C84DCC4FCBE4E5BB8D
+                  4D4FB0FE4542784F7CAFAD66CEF0A78E31750842DF716B1E7C52E7EBE595A474
+                  E6F9A33FC8C11BFFBC66D34E238DA72E33781ECA6663C9F689D8EE38744AD9D4
+                  F5324C586190360B21CD9E7B9AC2A313709FA6B35CB68DFC8E4362B2745A1AD9
+                  652BBAC2841229522ACF132995E79B1C39CDE5739A3FD009AC377180E5890036
+                  405F859199077A8DD1BF5DF3A3BA4B3893518490F2E620F14F62EBFDAF9AF798
+                  3350676D96E3990BDC429CAEEC7E153D235BFD6407DACB905D679AED7FA64C40
+                  8B853B45252EA22EA953D99875815B8E8564D94223964E7487E832495AEF956D
+                  7FDC3E285BFE24512FCF3BCC0D631ADDB6DB5212F87E0AF13E67AF61DE462B74
+                  1A3433FCFD9A35A57D6C2C63C3F63CBFDA2DF52791F1DBC7BC57F393CFFAB41B
+                  382B6425CBB797E253B8B93C5D593A62B16487996C855192EA2F41EECBFB6231
+                  64C7AC48926607AD5CAB77D286A8AD092D9EE66FAB9EC504BD3C43DE136B2809
+                  7BD9249A989C86C34EA118A26350D0AC9DB6D53FFE5163C65BEFBE35F69D0F3E
+                  90A6C30FFE220EDEF858718E1A37FCA9F7A6FE13573D34730C5276B18AB77939
+                  FE8EA20F24F1AC24D665271A21F7AA40332B096981E6FDAAF34BBBD65EBCA7DE
+                  B526FE8924E865B37B2A53945E67E3309DA99236FD74433FAAFDB93EC734E1DD
+                  773F18F2EE471F4955B17A23D07F9121C961D4AEF1D65B7DBF6F3FDC5A7BA641
+                  EE41C760FE1F0E694A2A3483A184FC370509CC238B07AADE1DA786B4C8CABDDF
+                  DE975653693DD540F379F1932414919EDDBB0F73E1C1FF2B623EBBD8DB6BCFBB
+                  FCD977AD8C380E897D46BCFDF6DB5D6AD454F608BC289CFD170979F9ABC451AA
+                  497CF3D6BB1F8E68D466A865DF09CB53566FE746D0D06BFC8F2BB2B98587DDE5
+                  A58F50C0804EFE8F07D9512BC9694D825A9378973D4512976511F239C9BEC926
+                  AC22FA2C0F33F3117E3909FBEDFC3171D1CEE2D65A33C3EB7DD77233BF772221
+                  2E7E1F42F63DBE9AD0FE9B88D17CAD34F6D592E54568D5FAEAE7B53FF59CEC33
+                  78EAC6F4A5ACDD989F0845E0F91B884FCAC0FD8C3CE431E8930917308C504322
+                  61DE2381693985B84D4223639371C2E7128CB8C97CC2C25D455D862DBAF64D4B
+                  2DEB77D5D6868AB5C6B04A429AF32C56E78F7BB37F2189B2BC240EF99690406D
+                  C40775BE5DD1E0C77E475BF59D7EB6EF68BDA4B1B30C72672CD857B184F9E5D5
+                  3B1CB076271B2389E5EC5F99B3C6E0F98485264583A76D4CEF387461EC0F9DC7
+                  78D66BD46ED7DBEFD75ACC67491A52C818484882497E84FFF384FC966BF9F5C4
+                  227C4E88226C4DF410A2089D773FAAAFFF61DD461B3EAEDFD4E0A3CF9A6D127C
+                  58BF89C187B51BAEFFC77B3517F133B2F941A462682511B2543A12CD08D931F2
+                  B729D63F53A84411CA4686DAC4D7445342621631A71D0871C0E4BF3A11C8B548
+                  83F81F2D2B4995DEB84F08B184FFA797CB1F254D26273A49262ACA5294B70622
+                  6542A2047A7FBB65F9A313FDFFEEEFFF075B25AB193AC6F3600000000049454E
+                  44AE426082}
+              end
+            end
+            object ListBoxItem3: TListBoxItem
+              Position.Point = '(0,116)'
+              Width = 148.000000000000000000
+              Height = 80.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 2
+              object Label5: TLabel
+                Align = alBottom
+                Position.Point = '(0,66)'
+                Width = 148.000000000000000000
+                Height = 14.000000953674320000
+                HelpType = htKeyword
+                TabOrder = 0
+                Font.Size = 11.000000953674320000
+                TextAlign = taCenter
+                Text = 'Text and Path'
+              end
+              object Path1: TPath
+                Position.Point = '(40,16)'
+                Width = 65.000000000000000000
+                Height = 46.000000000000000000
+                HitTest = False
+                Data.Path = {
+                  0B02000000000000089C8543D152874302000000F82384439A09864302000000
+                  CD8C7C43BAC9864302000000877678435298884302000000E570734306D18A43
+                  0200000046567443B25D9043020000005AE46F4317699343020000001BCF6A43
+                  FEE49643020000001F2562438B0C994302000000C5E05B43B82E9C4302000000
+                  25864E4308DCA243020000004C7743439AF9AA4302000000310835432BD7B043
+                  0200000048E12C43A826B443020000005A4422430E2DB64302000000B21D1843
+                  04B6B74302000000A84606437368BA43020000001243E442DB19BA4302000000
+                  351EC2421789BD43020000001DDAA6420A47C04302000000A2C58C42A02AC543
+                  02000000FAFE6F42913DCA43020000008B6C5B4227C1CC4302000000560E4742
+                  75F3D043020000004EE249426A4CD44302000000A2454E421D7AD94302000000
+                  120373425493DE4302000000F8D3824289D1E343020000003B9F87425A84E643
+                  02000000175986429A89EA4302000000C14A8F423B1FEC430200000079E9A342
+                  A8C6EF43020000004CF7C0425278F243020000002B87DB429388F34302000000
+                  9CE40343774EF54302000000508D1B4312C3F54302000000C5E031436FA2F443
+                  020000001F054243ECD1F34302000000711D5343D3ADEC4302000000852B6143
+                  81B5ED4302000000B8FE6A43D36DEE4302000000A0FA6F439AD9F64302000000
+                  A2857943D1E2F94302000000B26D844375C3FE4302000000298C8E43D5580044
+                  02000000A8E69543DBB9024402000000C78B97432D42034402000000DBB99843
+                  89590544020000008FC2974381AD054402000000935896433128064402000000
+                  B0C291433353054402000000D1C28E43F42505440200000096D3834327810444
+                  02000000C3157543356E0044020000006A1C6043D91EFE4302000000E9065643
+                  71CDFC4302000000DFEF4A43D91EFE43020000009A594043D91EFE4302000000
+                  79E92F43D91EFE43020000004A8C1D438949004402000000F8B310438B3C0244
+                  020000004EC20A4375230344020000001F25074375030544020000008D770C43
+                  81AD054402000000D1C21343669606440200000052583043B21D044402000000
+                  08EC314360150544020000006666334391FD054402000000B2DD1B439CB40744
+                  02000000980E17432D62094402000000D90E1543EE140A4402000000D7E31843
+                  83380C440200000058591C43854B0C4402000000713D25434A7C0C4402000000
+                  2FBD3C43E122094402000000DD243E43BAF1094402000000D7833F43C7BB0A44
+                  020000003934274362480D440200000012C3234317F10E440200000096432243
+                  2DAA0F4402000000AA712943DB711144020000003D4A2D432353114402000000
+                  21903743F60011440200000083C0484350ED0C44020000002F1D4E43669E0D44
+                  020000006A5C5143AA090E4402000000C7EB3E43856B114402000000643B3E43
+                  9AE9124402000000ACDC3D43C9B6134402000000CB41444339FC144402000000
+                  DFEF4A434280144402000000C10A5A43CF671344020000003FF564430C1A0F44
+                  0200000031687743F4250E440200000021F088438DC70C4402000000AA219743
+                  8DDF0C4402000000DFEFA3436A3C0B44020000001203A743DFD70A4402000000
+                  0456AA4317690944020000003759AB434C0F084402000000F873AC4335960644
+                  02000000FC59AB4331680444020000001D4AAA4329C4024402000000D568A943
+                  5268014402000000855BA4439A49FF43020000002586A543D91EFE4302000000
+                  645BA7439A49FC4302000000B2DDAE434CB7FD4302000000DB49B3433188FC43
+                  020000007DBFB8438911FB43020000000E0DBF43D1B2F94302000000A62BC343
+                  F42DF643020000008185C7438776F243020000001F05CB431F65EC4302000000
+                  54B3CC4396D3E643020000007D5FCE434C47E143020000005218CC43C19ADA43
+                  02000000E13ACD43F8D3D443020000001709CE43F6B8D04302000000A410D043
+                  EE8CCC43020000000486D243772EC9430200000039D4D4433F05C64302000000
+                  B418D843DF1FC34302000000A285DB43913DC143020000008D27DF43F43DBF43
+                  02000000B673E7438B8CBC430200000012B3E7431789BD430200000044FBE743
+                  C1AABE430200000087D6DF439AA9C343020000004A1CDD43CF97C74302000000
+                  C9D6D9431B4FCC43020000002180D6432DF2D14302000000F2B2D543BA79D743
+                  02000000DBE9D44312E3DC43020000004E52D6435E6AE34302000000B458D843
+                  3D6AE843020000008F52D943B6D3EA43020000002F1DDC43FE54ED4302000000
+                  F2B2DE4381B5ED4302000000ECD1E54398BEEE4302000000F843EE4329BCEB43
+                  02000000A876F543C9A6EC4302000000B4F8F743B4F8EC43020000008D77F943
+                  08DCF04302000000E5D0FB435E6AF14302000000EE0CFE43ECF1F14302000000
+                  790101446881F14302000000449B0144CFE7EF43020000005A540244FCF9ED43
+                  020000000C1A01442D22E74302000000F6E0014496D3E643020000000EF50244
+                  E966E64302000000565605447BA4EC4302000000192C074481B5ED4302000000
+                  6F120844233BEE43020000000AA70944DB19ED430200000071150A44AE97EB43
+                  02000000F4B50A443F65E94302000000469609447DCFE2430200000037590A44
+                  8D97E2430200000083700B44F047E2430200000042D00D448F82E84302000000
+                  6AA40F44E500EA4302000000043E1044777EEA4302000000FE7C114412B3E943
+                  020000008FA21144298CE84302000000F80312442791E5430200000081851044
+                  1018DE430200000089391144C79BDD430200000073081244CD0CDD4302000000
+                  F8A31444E335E54302000000232B1644FC69E54302000000353E1744D98EE543
+                  020000007DFF1844A03AE14302000000DF07194466A6DE4302000000D3151944
+                  3D4ADA430200000056D61744B072D44302000000D36D16445899D04302000000
+                  4A3C15440456CD430200000039841044146ECC4302000000893911446250C943
+                  02000000BEFF1344711DBD430200000050051C445A04B0430200000031E02044
+                  C9A6A2430200000002B3224489A19D4302000000AA41244458C9974302000000
+                  6F4225444C27924302000000448B2544B28D904302000000F43D254431188D43
+                  020000001FBD244454F38C43020000000A0724447DBF8C4302000000F2722244
+                  8D478F4302000000F49D21440E1D914302000000F6101F44CDBC964302000000
+                  F8F31A44FA5EA443020000006D971A449653A34302000000082C1A44501DA243
+                  02000000251E1E445CDF92430200000066461F4417598A430200000087062044
+                  4ED2844302000000F2822044AA117D4302000000D5502044DB59724302000000
+                  BA41204419246F430200000083D81E44C7CB684302000000E1821E4437E96A43
+                  02000000A0321D44F8337343020000004EBA1C442DA28243020000003B5F1B44
+                  79C98843020000009E771A44BCE48C4302000000E90618441B8F954302000000
+                  C1BA17444A3C9443020000001B3F1744E916924302000000DF071944EEAC8543
+                  02000000DF0719448FC27C4302000000DF0719449C646A430200000031E81844
+                  2DF2554302000000C1BA17445899454302000000C96E1744A07A414302000000
+                  3D6A1544F2123D4302000000460E1444D1E23D4302000000C7CB124496A33E43
+                  02000000DD54154487567443020000002F8513440EFD80430200000068391344
+                  3D1A824302000000EE1C1244B45881430200000064FB114468917F4302000000
+                  17C1114479297A4302000000F83311448175534302000000964B0F44A2A54043
+                  020000009CCC0E44C5C03B4302000000AC8C0C44C3F5224302000000BE470A44
+                  6A9C1F430200000062180944ACDC1D43020000009A9108448B8C1E4302000000
+                  DF3F08449E0F22430200000083D0074410D82643020000001DCA0C4439145C43
+                  02000000547B0C441B6F63430200000014360C440EED674302000000BAD90B44
+                  4881684302000000D9AE0A4468F163430200000098960744AE074B4302000000
+                  B46804440E2D2543020000009AC9F84346360943020000005809F64314AE0543
+                  020000005A94F343E73B0443020000006801F2438D57094302000000B88EF143
+                  60C50D430200000010B8F143F47D1243020000002711F443CF77184302000000
+                  FC99F54342601C430200000023130044F833344302000000509D00449ECF4143
+                  020000006DEF00446065464302000000C325004483404543020000001008FE43
+                  852B404302000000714DF443A0FA2C43020000007999E84398AE124302000000
+                  AE67DA437F4A034302000000503DD543D538FF420200000017A9D443FC690743
+                  020000005C9FD44321500C430200000056EEDF431B4F2443020000004811EC43
+                  5A442D430200000050EDED43F0873A4302000000D35DED4337293D4302000000
+                  1273EB43D3ED3D430200000042B0E8437F2A3B4302000000569EDD43DDA42843
+                  020000004881C8432F3D0743020000006AECC443C76B06430200000042A0C343
+                  002006430200000060D5BD43E3250943020000003158C243FAFE0F4302000000
+                  CDACC84342801C4302000000CDDCD94329BC3043020000001BEFDB439AD93843
+                  0200000091BDDB43444B3C43020000001DDAD9430C623E430200000066C6D743
+                  10F83B4302000000987ED2431078324302000000DBB9CD43235B284302000000
+                  7BE4C543B092224302000000C5A0BB43BEFF1A4302000000C12AB24302AB0C43
+                  02000000CD2CAC439AD90B43020000005AF4A84368F10E430200000025B6A843
+                  5CCF134302000000E580AA4377DE1A4302000000F077B143C7EB214302000000
+                  5278BA43AE072743020000007F6AC4432F9D344302000000FC89C54329BC3A43
+                  02000000C7DBC3432FBD3B4302000000231BC243F8333A430200000048E1B143
+                  35FE2B4302000000D112A7434C7720430200000031189A4310D81C4302000000
+                  27819643AAF11D4302000000D5C8954393582343020000009E0F984300002643
+                  020000005A049D43DDC42B43020000006D27A8436F323343020000008B2CB043
+                  8340374302000000856BB24366663A4302000000856BB24391CD3F4302000000
+                  B0A2AF43F4DD3F4302000000C79B9E4304D6324302000000B2BD9043B0122D43
+                  02000000CB11814304362B43020000003D5A8043AE272E4302000000D9CE7E43
+                  8B2C3443020000002DD280434A8C3543020000002F2D894319A43D4302000000
+                  31E89B4327713F43020000006D97A24398AE474302000000F863A2437B544B43
+                  0200000004569F4381354D4302000000777E9D4317794C43020000002BD78F43
+                  CB01474302000000A6FB7F43BC34454302000000C3D547437573464302000000
+                  87964043BA4946430200000054E34043F43D4E43020000000AF745433D2A5343
+                  02000000E1BA6A4358F953430200000060057C4358F953430200000027418A43
+                  D7A3574302000000FA0E8C43502D5B4302000000F6A88D437D5F5C4302000000
+                  4CF78A437D3F5F43020000009A197943D1C25D43020000006F12424346766143
+                  02000000FADE36432D72634302000000C1AA2B43D96E654302000000D7032443
+                  D578674302000000BE5F1E431BCF6A43020000006ABC184325266E4302000000
+                  239B1643231B724302000000E13A234371FD754302000000ACBC3343FEF47343
+                  0200000077BE5E432DF26D4302000000FC29674379696F43020000003F956F43
+                  C5E070430200000083A07243F007734302000000F2D26B431F65774302000000
+                  AAF14F430C827943020000005A641F432D6284430200000037C90E4385BB8743
+                  020000007FAA0A4352288A430200000085AB0F431FB58C43020000004EA21543
+                  54F38C4302000000BAA934431078894302000000E19A66432D62844302000000
+                  9A6984437368804302000000C385954371DD7843020000004C87B343A8E66143
+                  02000000E13ABF43CB215C430200000077EECA43AC5C564302000000444BE843
+                  42804E43020000006801F7436871584302000000C3FD0644F6C8694302000000
+                  DFA70C44FAFE8243020000006F0A0F44A0CA8A43020000005065114458199143
+                  020000007DBF14446D97A04302000000FAE613447D8FAC430200000096031344
+                  CBB1AE430200000083A011444200AE4302000000CDDC0F4423EBAA4302000000
+                  25460E44E5D09D430200000033BB0B44BA298A43020000004EDA0344F2D27F43
+                  020000006DD7FC43DFAF71430200000056EEF2433FB56A4302000000C986E243
+                  7308674302000000B042D1433729634302000000FA5EBF43FADE6E4302000000
+                  2190B643A2C5754302000000EC51AA436A5C7F430200000062009F43A68B8843
+                  020000001D4A9843DF2F8E430200000083E091439AD9954302000000E5808C43
+                  D1329C4302000000F2428643BA49A64302000000CB818443C1AAA74302000000
+                  46B68043E936A54302000000560E824352A89F4302000000F6888143E9A69A43
+                  020000001BEF8343E550954302000000B6B38443AA01904302000000351E8543
+                  C5208D4302000000C9F686434E82884302000000089C8543D152874303000000
+                  00000000000000000000000048216C437D4FD1430200000048216C4331B8DA43
+                  020000005A445E43C5D0E143020000009CE43C43C5D0E143020000001F851B43
+                  C5D0E14302000000C375F34264CBD64302000000FCE9F3422741D24302000000
+                  355EF44242C0CD4302000000FC0910433D3AC34302000000B85E3243F688C043
+                  0200000077BE5743E19ABD430200000048216C43C9E6C7430200000048216C43
+                  7D4FD143030000000000000000000000000000002B074C43AC9CCE4302000000
+                  17F948435493D54302000000E5F04B43028BD84302000000043630430E6DD743
+                  02000000C9562143F8D3D64302000000D30D1743C72BD5430200000042401943
+                  B0A2D04302000000EE7C1B435A04CC43020000004C5719435E0AC94302000000
+                  7F4A3143C16AC74302000000564E4343EC31C6430200000027114E43E9F6C943
+                  020000002B074C43AC9CCE4303000000000000000000000000000000ACDCBB42
+                  0EBDD34302000000F0E7BF427949D643020000003B5FB8425879D74302000000
+                  3B9FA4426636D64302000000564E9442C72BD54302000000A4308C427308D543
+                  020000008FC28B4244CBD2430200000048218B42E580CF430200000027F19C42
+                  7BD4CE4302000000E365A84254B3CE43020000001F45BB420E7DCE4302000000
+                  8BECB7420C42D14302000000ACDCBB420EBDD343030000000000000000000000
+                  0000000006E10B432F9DE943020000008BEC0D4354C3EA430200000054430C43
+                  4811ED4302000000B673E94279E9E943020000000E6DC8421924E94302000000
+                  CD4CB6421223E94302000000852BBB42AEA7E64302000000564EBE42500DE543
+                  02000000D5B8D042EC11E443020000003934EB4258E9E54302000000C3550443
+                  E510E84302000000F8530A43CBC1E8430200000006E10B432F9DE94303000000
+                  000000000000000000000000CFE70944D568A04302000000790109443188A243
+                  0200000096CB0344E5B0984302000000F415014468219243020000009C54F843
+                  6D37864302000000CDECE243C10A8443020000007F0ACF43CFA7894302000000
+                  2536BC43F6F88E4302000000C15AA6433749A043020000001FE59C43D182AA43
+                  02000000E51092438D37B64302000000AEC79543E1BABB4302000000AED78E43
+                  ECD1B74302000000DF4F8B43DDD4B5430200000021C08F431018A94302000000
+                  29CC9743E5709F430200000019D4A0434A9C944302000000B6E3B943562E7F43
+                  02000000983ECD4379097A43020000008796E8435AC47243020000001769F643
+                  7F2A7F430200000023F300447F9A884302000000BC0C0544C10A8F4302000000
+                  8FBA0944E3659E4302000000CFE70944D568A043030000000000000000000000
+                  0000000066F60B44B6C3C34302000000C73B0844914DCF430200000029C40444
+                  1BCFCD4302000000CB610244B6F3CF430200000077FEFF433118D24302000000
+                  0030F743B24DDA43020000006FB2F443A275D74302000000B6C3F3437929D643
+                  0200000062E0F343CDCCD443020000001F75F843EC61D24302000000568EFD43
+                  A4B0CF4302000000E1520244357EC94302000000567E0544F4EDC44302000000
+                  CBA90844B25DC043020000002FDD07444A8CB743020000008D3F0A44AE67B543
+                  02000000ECA10C443343B3430200000089710D44FA2EBF430200000066F60B44
+                  B6C3C343030000000000000000000000000000003974EB436FB2A84302000000
+                  087CF443A8E6B34302000000D96EE543A00AB043020000003168DB431DEAB743
+                  020000005473D7438105BB43020000004891CD430E2DBB43020000003D0AC743
+                  CB01C943020000002B27C1435E7AD543020000001203C5437F7AE04302000000
+                  2D92B943A856F1430200000079E9B643CB41F543020000004C27A043B448F643
+                  0200000089319A430C22F143020000006FD29843DB99ED4302000000D558AB43
+                  A420EA4302000000CF77B4431BEFDB43020000008706B743D7F3D74302000000
+                  E72BBB43E1EACE43020000008941BD433128C24302000000F638BF4302EBB843
+                  0200000054B3CE438F92AC43020000009E5FD443509DAA4302000000F202DB43
+                  4E52A84302000000A0DAE443D99EA543020000003974EB436FB2A84303000000
+                  0000000000000000}
+              end
+            end
+            object ListBoxItem4: TListBoxItem
+              Position.Point = '(0,196)'
+              Width = 148.000000000000000000
+              Height = 65.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 3
+              object Label6: TLabel
+                Align = alBottom
+                Position.Point = '(0,50)'
+                Width = 148.000000000000000000
+                Height = 15.000000000000000000
+                HelpType = htKeyword
+                TabOrder = 0
+                Font.Size = 11.000000953674320000
+                TextAlign = taCenter
+                Text = 'Text and Controls'
+              end
+              object Button2: TButton
+                Position.Point = '(9,22)'
+                Width = 26.000000000000000000
+                Height = 23.000000000000000000
+                HelpType = htKeyword
+                TabOrder = 1
+                StaysPressed = False
+                IsPressed = False
+                Font.Size = 11.000000953674320000
+                Text = '...'
+              end
+              object TextBox2: TEdit
+                Position.Point = '(39,22)'
+                Width = 100.000000000000000000
+                Height = 21.000000000000000000
+                HelpType = htKeyword
+                TabOrder = 2
+                Font.Size = 11.000000953674320000
+                ReadOnly = False
+                Password = False
+                Text = 'Text'
+              end
+            end
+            object ListBoxItem6: TListBoxItem
+              Position.Point = '(0,261)'
+              Width = 148.000000000000000000
+              Height = 57.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 4
+              object Rectangle1: TRectangle
+                Align = alClient
+                Position.Point = '(5,5)'
+                Width = 138.000000000000000000
+                Height = 47.000000000000000000
+                Padding.Rect = '(5,5,5,5)'
+                HitTest = False
+                XRadius = 6.000000000000000000
+                YRadius = 6.000000000000000000
+                object Text6: TLabel
+                  Position.Point = '(54,13)'
+                  Width = 50.000000000000000000
+                  Height = 16.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 0
+                  Font.Size = 11.000000953674320000
+                  TextAlign = taCenter
+                  Text = 'shapes'
+                end
+                object Ellipse1: TEllipse
+                  Position.Point = '(5,3)'
+                  Width = 34.000000000000000000
+                  Height = 42.000000000000000000
+                  HitTest = False
+                  Fill.Kind = bkGradient
+                  Fill.Gradient.Points = <
+                    item
+                      Color = xFFEC4949
+                    end
+                    item
+                      Color = claWhite
+                      Offset = 1.000000000000000000
+                    end>
+                  Stroke.Kind = bkNone
+                end
+              end
+            end
+          end
+          object Label2: TLabel
+            Position.Point = '(10,12)'
+            Width = 147.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 1
+            Font.Size = 11.000000953674320000
+            Text = 'ListBoxItem with children'
+          end
+          object Label7: TLabel
+            Position.Point = '(186,12)'
+            Width = 99.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 2
+            Font.Size = 11.000000953674320000
+            Text = 'TreeView'
+          end
+          object TreeView1: TTreeView
+            Position.Point = '(185,33)'
+            Width = 303.000000000000000000
+            Height = 270.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 3
+            ItemHeight = 19.000000000000000000
+            object TreeViewItem1: TTreeViewItem
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 0
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem2: TTreeViewItem
+              Position.Point = '(0,19)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 1
+              IsChecked = False
+              IsExpanded = True
+              IsSelected = False
+              Text = 'TreeViewItem'
+              object TreeViewItem15: TTreeViewItem
+                Position.Point = '(19,19)'
+                Width = 264.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                HelpType = htKeyword
+                TabOrder = 0
+                IsChecked = False
+                IsExpanded = True
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+              object TreeViewItem16: TTreeViewItem
+                Position.Point = '(19,38)'
+                Width = 264.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                HelpType = htKeyword
+                TabOrder = 1
+                IsChecked = False
+                IsExpanded = True
+                IsSelected = False
+                Text = 'TreeViewItem'
+                object TreeViewItem20: TTreeViewItem
+                  Position.Point = '(19,19)'
+                  Width = 245.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  HelpType = htKeyword
+                  TabOrder = 0
+                  IsChecked = False
+                  IsExpanded = True
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+                object TreeViewItem21: TTreeViewItem
+                  Position.Point = '(19,38)'
+                  Width = 245.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  HelpType = htKeyword
+                  TabOrder = 1
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+                object TreeViewItem22: TTreeViewItem
+                  Position.Point = '(19,57)'
+                  Width = 245.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  HelpType = htKeyword
+                  TabOrder = 2
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+                object TreeViewItem23: TTreeViewItem
+                  Position.Point = '(19,76)'
+                  Width = 245.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  HelpType = htKeyword
+                  TabOrder = 3
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+                object TreeViewItem24: TTreeViewItem
+                  Position.Point = '(19,95)'
+                  Width = 245.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  HelpType = htKeyword
+                  TabOrder = 4
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+              end
+              object TreeViewItem17: TTreeViewItem
+                Position.Point = '(19,152)'
+                Width = 264.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                HelpType = htKeyword
+                TabOrder = 2
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+              object TreeViewItem18: TTreeViewItem
+                Position.Point = '(19,171)'
+                Width = 264.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                HelpType = htKeyword
+                TabOrder = 3
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+                object TreeViewItem25: TTreeViewItem
+                  Position.Point = '(12,0)'
+                  Width = 259.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  Visible = False
+                  HelpType = htKeyword
+                  TabOrder = 0
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+                object TreeViewItem26: TTreeViewItem
+                  Position.Point = '(12,19)'
+                  Width = 259.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  Visible = False
+                  HelpType = htKeyword
+                  TabOrder = 1
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+              end
+              object TreeViewItem19: TTreeViewItem
+                Position.Point = '(19,190)'
+                Width = 264.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                HelpType = htKeyword
+                TabOrder = 4
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+            end
+            object TreeViewItem3: TTreeViewItem
+              Position.Point = '(0,228)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 2
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem4: TTreeViewItem
+              Position.Point = '(0,247)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 3
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+              object TreeViewItem27: TTreeViewItem
+                Position.Point = '(12,0)'
+                Width = 272.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                Visible = False
+                HelpType = htKeyword
+                TabOrder = 0
+                IsChecked = False
+                IsExpanded = True
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+              object TreeViewItem28: TTreeViewItem
+                Position.Point = '(12,19)'
+                Width = 272.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                Visible = False
+                HelpType = htKeyword
+                TabOrder = 1
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+              object TreeViewItem29: TTreeViewItem
+                Position.Point = '(12,38)'
+                Width = 272.000000000000000000
+                Height = 95.000000000000000000
+                HitTest = False
+                Visible = False
+                HelpType = htKeyword
+                TabOrder = 2
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+                object TreeViewItem34: TTreeViewItem
+                  Position.Point = '(12,0)'
+                  Width = 260.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  Visible = False
+                  HelpType = htKeyword
+                  TabOrder = 0
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+                object TreeViewItem35: TTreeViewItem
+                  Position.Point = '(12,19)'
+                  Width = 260.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  Visible = False
+                  HelpType = htKeyword
+                  TabOrder = 1
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+                object TreeViewItem36: TTreeViewItem
+                  Position.Point = '(12,38)'
+                  Width = 260.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  Visible = False
+                  HelpType = htKeyword
+                  TabOrder = 2
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+                object TreeViewItem37: TTreeViewItem
+                  Position.Point = '(12,57)'
+                  Width = 260.000000000000000000
+                  Height = 19.000000000000000000
+                  HitTest = False
+                  Visible = False
+                  HelpType = htKeyword
+                  TabOrder = 3
+                  IsChecked = False
+                  IsExpanded = False
+                  IsSelected = False
+                  Text = 'TreeViewItem'
+                end
+              end
+              object TreeViewItem30: TTreeViewItem
+                Position.Point = '(12,133)'
+                Width = 272.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                Visible = False
+                HelpType = htKeyword
+                TabOrder = 3
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+              object TreeViewItem31: TTreeViewItem
+                Position.Point = '(12,152)'
+                Width = 272.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                Visible = False
+                HelpType = htKeyword
+                TabOrder = 4
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+              object TreeViewItem32: TTreeViewItem
+                Position.Point = '(12,171)'
+                Width = 272.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                Visible = False
+                HelpType = htKeyword
+                TabOrder = 5
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+              object TreeViewItem33: TTreeViewItem
+                Position.Point = '(12,190)'
+                Width = 272.000000000000000000
+                Height = 19.000000000000000000
+                HitTest = False
+                Visible = False
+                HelpType = htKeyword
+                TabOrder = 6
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+            end
+            object TreeViewItem5: TTreeViewItem
+              Position.Point = '(0,266)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 4
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem6: TTreeViewItem
+              Position.Point = '(0,285)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 5
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem7: TTreeViewItem
+              Position.Point = '(0,304)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 6
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem8: TTreeViewItem
+              Position.Point = '(0,323)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 7
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem9: TTreeViewItem
+              Position.Point = '(0,342)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 8
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem10: TTreeViewItem
+              Position.Point = '(0,361)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 9
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem11: TTreeViewItem
+              Position.Point = '(0,380)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 10
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem12: TTreeViewItem
+              Position.Point = '(0,399)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 11
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem13: TTreeViewItem
+              Position.Point = '(0,418)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 12
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TreeViewItem14: TTreeViewItem
+              Position.Point = '(0,437)'
+              Width = 283.000000000000000000
+              Height = 19.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 13
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+          end
+          object CheckBox7: TCheckBox
+            Position.Point = '(294,12)'
+            Width = 194.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 4
+            IsChecked = False
+            Text = 'UseSmallScrollBars'
+            OnChange = CheckBox7Change
+          end
+        end
+        object TabItem2: TTabItem
+          Position.Point = '(508,0)'
+          Width = 90.000000000000000000
+          Height = 20.000000000000000000
+          HelpType = htKeyword
+          TabOrder = 5
+          Font.Size = 11.000000953674320000
+          Index = 5
+          Text = 'ScrollBox'
+          WordWrap = False
+          object Rectangle2: TPanel
+            Align = alLeft
+            Position.Point = '(4,4)'
+            Width = 170.000000000000000000
+            Height = 513.000000000000000000
+            Padding.Rect = '(4,4,0,4)'
+            HelpType = htKeyword
+            TabOrder = 0
+            object Label23: TLabel
+              Align = alTop
+              Width = 170.000000000000000000
+              Height = 15.000000000000000000
+              HelpType = htKeyword
+              TabOrder = 0
+              TextAlign = taCenter
+              Text = 'VertScrollBox & Expander'
+            end
+            object VertScrollBox1: TVertScrollBox
+              Align = alClient
+              Position.Point = '(2,17)'
+              Width = 166.000000000000000000
+              Height = 494.000000000000000000
+              Padding.Rect = '(2,2,2,2)'
+              HelpType = htKeyword
+              StyleLookup = 'scrollboxstyle'
+              TabOrder = 1
+              object Expander2: TExpander
+                Align = alTop
+                Position.Point = '(3,3)'
+                Width = 144.000000000000000000
+                Height = 164.000000000000000000
+                Padding.Rect = '(3,3,3,3)'
+                ClipParent = True
+                HelpType = htKeyword
+                TabOrder = 0
+                TextAlign = taCenter
+                Text = 'Expander'
+                ShowCheck = True
+                ContentSize = '139'
+                object Button7: TButton
+                  Position.Point = '(44,19)'
+                  Width = 80.000000000000000000
+                  Height = 22.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 0
+                  StaysPressed = False
+                  IsPressed = False
+                  Text = 'Button'
+                end
+                object TrackBar5: TTrackBar
+                  Position.Point = '(32,56)'
+                  Width = 100.000000000000000000
+                  Height = 15.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 1
+                  Max = 100.000000000000000000
+                  Orientation = orHorizontal
+                end
+                object TextBox5: TEdit
+                  Position.Point = '(32,88)'
+                  Width = 100.000000000000000000
+                  Height = 21.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 2
+                  ReadOnly = False
+                  Password = False
+                  Text = 'Edit'
+                end
+              end
+              object Expander3: TExpander
+                Align = alTop
+                Position.Point = '(3,343)'
+                Width = 144.000000000000000000
+                Height = 164.000000000000000000
+                Padding.Rect = '(3,3,3,3)'
+                ClipParent = True
+                HelpType = htKeyword
+                TabOrder = 1
+                TextAlign = taCenter
+                Text = 'Expander'
+                ShowCheck = True
+                ContentSize = '139'
+                object TButton
+                  Position.Point = '(44,19)'
+                  Width = 80.000000000000000000
+                  Height = 22.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 0
+                  StaysPressed = False
+                  IsPressed = False
+                  Text = 'Button'
+                end
+                object TTrackBar
+                  Position.Point = '(32,56)'
+                  Width = 100.000000000000000000
+                  Height = 15.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 1
+                  Max = 100.000000000000000000
+                  Orientation = orHorizontal
+                end
+                object TEdit
+                  Position.Point = '(32,88)'
+                  Width = 100.000000000000000000
+                  Height = 21.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 2
+                  ReadOnly = False
+                  Password = False
+                  Text = 'Text'
+                end
+              end
+              object Expander4: TExpander
+                Align = alTop
+                Position.Point = '(3,173)'
+                Width = 144.000000000000000000
+                Height = 164.000000000000000000
+                Padding.Rect = '(3,3,3,3)'
+                ClipParent = True
+                HelpType = htKeyword
+                TabOrder = 2
+                TextAlign = taCenter
+                Text = 'Expander'
+                ShowCheck = True
+                ContentSize = '139'
+                object TButton
+                  Position.Point = '(44,19)'
+                  Width = 80.000000000000000000
+                  Height = 22.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 0
+                  StaysPressed = False
+                  IsPressed = False
+                  Text = 'Button'
+                end
+                object TTrackBar
+                  Position.Point = '(32,56)'
+                  Width = 100.000000000000000000
+                  Height = 15.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 1
+                  Max = 100.000000000000000000
+                  Orientation = orHorizontal
+                end
+                object TEdit
+                  Position.Point = '(32,88)'
+                  Width = 100.000000000000000000
+                  Height = 21.000000000000000000
+                  HelpType = htKeyword
+                  TabOrder = 2
+                  ReadOnly = False
+                  Password = False
+                  Text = 'Text'
+                end
+              end
+            end
+          end
+          object Splitter1: TSplitter
+            Align = alLeft
+            Cursor = crSizeWE
+            Position.Point = '(174,4)'
+            Width = 7.000000000000000000
+            Height = 513.000000000000000000
+            Padding.Rect = '(0,4,0,4)'
+            HelpType = htKeyword
+            TabOrder = 1
+            MinSize = 100.000000000000000000
+          end
+          object Panel2: TPanel
+            Align = alClient
+            Position.Point = '(181,4)'
+            Width = 638.000000000000000000
+            Height = 513.000000000000000000
+            Padding.Rect = '(0,4,4,4)'
+            HelpType = htKeyword
+            TabOrder = 2
+            object ScrollBox1: TScrollBox
+              Align = alClient
+              Cursor = crHandPoint
+              Position.Point = '(2,2)'
+              Width = 634.000000000000000000
+              Height = 509.000000000000000000
+              Padding.Rect = '(2,2,2,2)'
+              ClipChildren = True
+              HelpType = htKeyword
+              TabOrder = 0
+              MouseTracking = True
+            end
+          end
+        end
+        object TabItem8: TTabItem
+          Position.Point = '(598,0)'
+          Width = 90.000000000000000000
+          Height = 20.000000000000000000
+          HelpType = htKeyword
+          TabOrder = 6
+          Index = 6
+          Text = 'Memo'
+          WordWrap = False
+          object Memo2: TMemo
+            Align = alClient
+            Position.Point = '(8,8)'
+            Width = 807.000000000000000000
+            Height = 505.000000000000000000
+            Padding.Rect = '(8,8,8,8)'
+            HelpType = htKeyword
+            TabOrder = 0
+            WordWrap = True
+          end
+        end
+        object TabItem7: TTabItem
+          Position.Point = '(688,0)'
+          Width = 90.000000000000000000
+          Height = 20.000000000000000000
+          HelpType = htKeyword
+          TabOrder = 7
+          Index = 7
+          Text = 'New !'
+          WordWrap = False
+          object CornerButton1: TCornerButton
+            Position.Point = '(30,27)'
+            Width = 109.000000000000000000
+            Height = 37.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 0
+            StaysPressed = False
+            IsPressed = False
+            Text = 'CornerButton'
+            XRadius = 4.000000000000000000
+            YRadius = 4.000000000000000000
+            Sides = [sdTop, sdLeft, sdBottom, sdRight]
+          end
+          object TrackBar4: TTrackBar
+            Position.Point = '(37,88)'
+            Width = 100.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 1
+            Max = 15.000000000000000000
+            Orientation = orHorizontal
+            Value = 4.000000000000000000
+            OnChange = TrackBar4Change
+          end
+          object CheckBox3: TCheckBox
+            Position.Point = '(142,62)'
+            Width = 23.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 2
+            IsChecked = True
+            OnChange = CheckBox3Change
+          end
+          object CheckBox4: TCheckBox
+            Position.Point = '(142,14)'
+            Width = 23.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 3
+            IsChecked = True
+            OnChange = CheckBox4Change
+          end
+          object CheckBox5: TCheckBox
+            Position.Point = '(7,62)'
+            Width = 23.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 4
+            IsChecked = True
+            OnChange = CheckBox5Change
+          end
+          object CheckBox6: TCheckBox
+            Position.Point = '(7,14)'
+            Width = 23.000000000000000000
+            Height = 19.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 5
+            IsChecked = True
+            OnChange = CheckBox6Change
+          end
+          object CornerButton2: TCornerButton
+            Position.Point = '(14,165)'
+            Width = 45.000000000000000000
+            Height = 26.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 6
+            StaysPressed = True
+            IsPressed = False
+            Text = '1'
+            XRadius = 4.000000000000000000
+            YRadius = 4.000000000000000000
+            Corners = [crTopLeft, crBottomLeft]
+            Sides = [sdTop, sdLeft, sdBottom, sdRight]
+          end
+          object CornerButton3: TCornerButton
+            Position.Point = '(59,165)'
+            Width = 39.000000000000000000
+            Height = 26.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 7
+            StaysPressed = True
+            IsPressed = False
+            Text = '2'
+            XRadius = 4.000000000000000000
+            YRadius = 4.000000000000000000
+            Corners = []
+            Sides = [sdTop, sdLeft, sdBottom, sdRight]
+          end
+          object CornerButton4: TCornerButton
+            Position.Point = '(98,165)'
+            Width = 50.999969482421880000
+            Height = 26.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 8
+            StaysPressed = True
+            IsPressed = False
+            Text = '3'
+            XRadius = 4.000000000000000000
+            YRadius = 4.000000000000000000
+            Corners = [crTopRight, crBottomRight]
+            Sides = [sdTop, sdLeft, sdBottom, sdRight]
+          end
+          object CornerButton5: TCornerButton
+            Position.Point = '(14,205)'
+            Width = 37.000000000000000000
+            Height = 33.912261962890630000
+            HelpType = htKeyword
+            TabOrder = 9
+            StaysPressed = False
+            IsPressed = False
+            XRadius = 3.000000000000000000
+            YRadius = 3.000000000000000000
+            Corners = [crTopLeft]
+            Sides = [sdTop, sdLeft, sdBottom, sdRight]
+            object Path2: TPath
+              Align = alClient
+              Position.Point = '(3,3)'
+              Width = 31.000000000000000000
+              Height = 27.912261962890630000
+              Padding.Rect = '(3,3,3,3)'
+              HitTest = False
+              Fill.Color = xFF0D3FF3
+              Stroke.Color = claWhite
+              Data.Path = {
+                3B000000000000003DAAB4430CB29D4301000000028BB0430CB29D4302000000
+                B84EAF4327819F4302000000F057AD435819A14302000000C9A6AA43BA79A243
+                01000000C9A6AA43BA79A24302000000F0A7A943B89EA243020000000A67A843
+                27B1A24302000000D7E3A643C5B0A24301000000D7E3A643C5B0A24302000000
+                98FEA34327B1A24302000000F007A2434280A243020000009EFFA043501DA243
+                010000009EFFA043501DA243020000006DF79F4302BBA1430200000012739F43
+                0000A1430200000012739F43ACEC9F430100000012739F43ACEC9F4302000000
+                12739F43D7C39F4302000000CF779F43FA8E9F430200000027819F43774E9F43
+                0100000027819F43774E9F4302000000A4709D4333139F430200000010689C43
+                58F99D430200000010689C43E5009C430100000010689C43E5009C4301000000
+                10689C438F029B430200000021E09A43BC749A4302000000291C9A4373389943
+                02000000291C9A43B24D974301000000291C9A43B24D974301000000291C9A43
+                FABE954301000000EE2C9143C39595430100000062A08F43AC9C954302000000
+                1FF58B430E9D9543020000005C1F8A4398AE9443020000005C1F8A43AAD19243
+                010000005C1F8A43AAD19243020000005C1F8A43D1C29043020000009E1F8C43
+                64BB8F43020000000020904302BB8F43010000000020904302BB8F4301000000
+                DD24924302BB8F4301000000D3BD9B43F8838F4301000000C3C5A143EC518C43
+                02000000AC6CA5438D578D43020000007FAAA9439EFF8E43020000003B7FAE43
+                BA499143010000003B7FAE43BA499143010000008971B443BA49914302000000
+                A66BB543F618934302000000B4E8B5438941954302000000B4E8B543B0C29743
+                01000000B4E8B543B0C2974302000000B4E8B54385FB994302000000987EB543
+                C3F59B43020000003DAAB4430CB29D43010000003DAAB4430CB29D4303000000
+                0000000000000000}
+              WrapMode = pwFit
+            end
+          end
+          object CornerButton6: TCornerButton
+            Position.Point = '(52,205)'
+            Width = 37.000000000000000000
+            Height = 33.912261962890630000
+            HelpType = htKeyword
+            TabOrder = 10
+            StaysPressed = False
+            IsPressed = False
+            XRadius = 4.000000000000000000
+            YRadius = 4.000000000000000000
+            Corners = [crBottomRight]
+            Sides = [sdTop, sdLeft, sdBottom, sdRight]
+            object Path3: TPath
+              Align = alClient
+              Position.Point = '(3,3)'
+              Width = 31.000000000000000000
+              Height = 27.912261962890630000
+              Padding.Rect = '(3,3,3,3)'
+              HitTest = False
+              Fill.Color = xFFF91C1C
+              Stroke.Color = xFFECECEC
+              Data.Path = {
+                3A00000000000000D35D8B430CB29D43020000009A898A43C3F59B4302000000
+                5C1F8A4385FB9943020000005C1F8A43B0C29743010000005C1F8A43B0C29743
+                020000005C1F8A4389419543020000006A9C8A43F61893430200000087968B43
+                BA4991430100000087968B43BA499143010000000C829143BA49914302000000
+                C75B96439EFF8E4302000000C79B9A438D578D43020000006F429E43EC518C43
+                010000006F429E43EC518C4301000000F242A443F8838F430100000033E3AD43
+                02BB8F430100000010E8AF4302BB8F430200000073E8B34364BB8F4302000000
+                B4E8B543D1C2904302000000B4E8B543AAD1924301000000B4E8B543AAD19243
+                02000000B4E8B54398AE944302000000CF17B4430E9D954302000000E375B043
+                AC9C954301000000E375B043AC9C95430100000039D4AE43C395954301000000
+                E7EBA543FABE954301000000E7EBA543B24D974302000000E7EBA54373389943
+                02000000F027A543BC749A430200000021A0A3438F029B430100000021A0A343
+                8F029B430100000021A0A343E5009C430200000021A0A34358F99D4302000000
+                CF97A24333139F4302000000E986A043774E9F4301000000E986A043774E9F43
+                020000006290A043FA8E9F43020000001F95A043D7C39F43020000001F95A043
+                ACEC9F43010000001F95A043ACEC9F43020000001F95A0430000A14302000000
+                DF0FA04302BBA14302000000FE049F43501DA24301000000FE049F43501DA243
+                02000000A0FA9D434280A24302000000BC049C4327B1A2430200000039249943
+                C5B0A2430100000039249943C5B0A2430200000089A1974327B1A24302000000
+                83609643B89EA2430200000048619543BA79A2430100000048619543BA79A243
+                0200000021B092435819A143020000002BB7904327819F4302000000E3758F43
+                0CB29D4301000000E3758F430CB29D43030000000000000000000000}
+              WrapMode = pwFit
+            end
+          end
+          object ListBox2: TListBox
+            Position.Point = '(630,32)'
+            Width = 163.000000000000000000
+            Height = 257.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 11
+            ItemIndex = 0
+            ItemHeight = 21.000000000000000000
+            ShowCheckboxes = True
+            object ListBoxItem5: TListBoxItem
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 0
+              IsSelected = True
+              Text = 'ListBoxItem'
+            end
+            object ListBoxItem7: TListBoxItem
+              Position.Point = '(0,21)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 1
+              Text = 'ListBoxItem'
+            end
+            object ListBoxItem8: TListBoxItem
+              Position.Point = '(0,42)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 2
+              Text = 'ListBoxItem'
+            end
+            object ListBoxItem9: TListBoxItem
+              Position.Point = '(0,63)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 3
+              Text = 'ListBoxItem'
+            end
+            object ListBoxItem10: TListBoxItem
+              Position.Point = '(0,84)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 4
+              Text = 'ListBoxItem'
+            end
+            object ListBoxItem11: TListBoxItem
+              Position.Point = '(0,105)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 5
+              Text = 'ListBoxItem'
+            end
+            object ListBoxItem12: TListBoxItem
+              Position.Point = '(0,126)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 6
+              Text = 'ListBoxItem'
+            end
+            object ListBoxItem13: TListBoxItem
+              Position.Point = '(0,147)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              TabOrder = 7
+              Text = 'ListBoxItem13'
+            end
+            object ListBoxItem14: TListBoxItem
+              Position.Point = '(0,168)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              TabOrder = 8
+              Text = 'ListBoxItem14'
+            end
+            object ListBoxItem15: TListBoxItem
+              Position.Point = '(0,189)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              TabOrder = 9
+              Text = 'ListBoxItem15'
+            end
+            object ListBoxItem16: TListBoxItem
+              Position.Point = '(0,210)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              TabOrder = 10
+              Text = 'ListBoxItem16'
+            end
+            object ListBoxItem17: TListBoxItem
+              Position.Point = '(0,231)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              TabOrder = 11
+              Text = 'ListBoxItem17'
+            end
+            object ListBoxItem18: TListBoxItem
+              Position.Point = '(0,252)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              TabOrder = 12
+              Text = 'ListBoxItem18'
+            end
+            object ListBoxItem19: TListBoxItem
+              Position.Point = '(0,273)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              TabOrder = 13
+              Text = 'ListBoxItem19'
+            end
+            object ListBoxItem20: TListBoxItem
+              Position.Point = '(0,294)'
+              Width = 145.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              TabOrder = 14
+              Text = 'ListBoxItem20'
+            end
+          end
+          object TreeView2: TTreeView
+            Position.Point = '(445,24)'
+            Width = 175.000000000000000000
+            Height = 130.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 12
+            ItemHeight = 21.000000000000000000
+            ShowCheckboxes = True
+            object TTreeViewItem
+              Width = 155.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 0
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TTreeViewItem
+              Position.Point = '(0,21)'
+              Width = 155.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 1
+              IsChecked = False
+              IsExpanded = True
+              IsSelected = False
+              Text = 'TreeViewItem'
+              object TTreeViewItem
+                Position.Point = '(19,21)'
+                Width = 136.000000000000000000
+                Height = 21.000000000000000000
+                HitTest = False
+                HelpType = htKeyword
+                TabOrder = 0
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+              object TTreeViewItem
+                Position.Point = '(19,42)'
+                Width = 136.000000000000000000
+                Height = 21.000000000000000000
+                HitTest = False
+                HelpType = htKeyword
+                TabOrder = 1
+                IsChecked = False
+                IsExpanded = True
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+              object TreeViewItem38: TTreeViewItem
+                Position.Point = '(19,63)'
+                Width = 136.000000000000000000
+                Height = 21.000000000000000000
+                HitTest = False
+                HelpType = htKeyword
+                TabOrder = 2
+                IsChecked = False
+                IsExpanded = False
+                IsSelected = False
+                Text = 'TreeViewItem'
+              end
+            end
+            object TTreeViewItem
+              Position.Point = '(0,105)'
+              Width = 155.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 2
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+            object TTreeViewItem
+              Position.Point = '(0,126)'
+              Width = 155.000000000000000000
+              Height = 21.000000000000000000
+              HitTest = False
+              HelpType = htKeyword
+              TabOrder = 3
+              IsChecked = False
+              IsExpanded = False
+              IsSelected = False
+              Text = 'TreeViewItem'
+            end
+          end
+          object CircleButton1: TButton
+            Position.Point = '(206,72)'
+            Width = 81.000000000000000000
+            Height = 82.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 13
+            StaysPressed = False
+            IsPressed = False
+            Text = 'Circle Btn'
+          end
+          object SpinBox1: TSpinBox
+            Position.Point = '(193,228)'
+            Width = 106.000000000000000000
+            Height = 21.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 14
+            ReadOnly = False
+            Max = 10.000000000000000000
+            Increment = 1.000000000000000000
+            Value = 5.000000000000000000
+            ValueType = vtInteger
+          end
+          object Label26: TLabel
+            Position.Point = '(193,210)'
+            Width = 106.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 15
+            TextAlign = taCenter
+            Text = 'SpinBox'
+          end
+          object comboedit1: TComboEdit
+            Position.Point = '(14,255)'
+            Width = 134.999969482421900000
+            Height = 22.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'comboeditstyle'
+            TabOrder = 16
+            ReadOnly = False
+            ItemHeight = 19.000000000000000000
+            ItemIndex = -1
+            Items.Strings = (
+              'sh'
+              'fdh'
+              'dfhdfh'
+              'dfh'
+              'fdh'
+              'fd'
+              'hdf'
+              'hdf'
+              'hd'
+              'fhdf'
+              'h')
+            ListBoxResource = 'combolistboxstyle'
+            Text = 'comboedit'
+          end
+          object Label27: TLabel
+            Position.Point = '(500,171)'
+            Width = 120.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 17
+            Text = 'TComboTrackBar:'
+          end
+          object ComboTrackBar1: TComboTrackBar
+            Position.Point = '(500,192)'
+            Width = 79.000000000000000000
+            Height = 22.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'comboeditstyle'
+            TabOrder = 19
+            ReadOnly = False
+            Max = 300.000000000000000000
+            Text = '0.000'
+          end
+          object AlphaTrackBar1: TAlphaTrackBar
+            Position.Point = '(477,264)'
+            Width = 128.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'trackbarstyle'
+            TabOrder = 20
+            Max = 1.000000000000000000
+            Orientation = orHorizontal
+            Value = 0.500000000000000000
+          end
+          object BWTrackBar1: TBWTrackBar
+            Position.Point = '(477,286)'
+            Width = 128.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'trackbarstyle'
+            TabOrder = 21
+            Max = 1.000000000000000000
+            Orientation = orHorizontal
+          end
+          object HueTrackBar1: THueTrackBar
+            Position.Point = '(477,310)'
+            Width = 128.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'trackbarstyle'
+            TabOrder = 22
+            Max = 1.000000000000000000
+            Orientation = orHorizontal
+          end
+          object Label28: TLabel
+            Position.Point = '(459,240)'
+            Width = 163.000000000000000000
+            Height = 15.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 23
+            TextAlign = taCenter
+            Text = 'Alpha, BW, Hue trackbars'
+          end
+          object ComboColorBox1: TComboColorBox
+            Position.Point = '(14,286)'
+            Width = 60.000000000000000000
+            Height = 22.000000000000000000
+            HelpType = htKeyword
+            StyleLookup = 'comboboxstyle'
+            TabOrder = 24
+            Color = claWhite
+          end
+          object TextBoxClearBtn1: TClearingEdit
+            Position.Point = '(318,207)'
+            Width = 159.000000000000000000
+            Height = 22.000000000000000000
+            HelpType = htKeyword
+            TabOrder = 25
+            ReadOnly = False
+            Password = False
+            Text = 'TextBoxClearBtn'
+          end
+        end
+      end
+    end
+  end
+  object StatusBar1: TStatusBar
+    Position.Point = '(0,594)'
+    Width = 851.000000000000000000
+    Height = 28.000000000000000000
+    Margins.Rect = '(2,6,30,6)'
+    HelpType = htKeyword
+    TabOrder = 1
+    ShowSizeGrip = True
+    object Label20: TLabel
+      Align = alLeft
+      Position.Point = '(2,6)'
+      Width = 157.000000000000000000
+      Height = 16.000000000000000000
+      HelpType = htKeyword
+      TabOrder = 0
+      Font.Size = 11.000000953674320000
+      Text = 'TStatusBar'
+    end
+    object ScaleTrack: TTrackBar
+      Align = alRight
+      Position.Point = '(667,6)'
+      Width = 116.000000000000000000
+      Height = 16.000000000000000000
+      HelpType = htKeyword
+      StyleLookup = 'trackbarstyle'
+      TabOrder = 1
+      Min = 0.500000000000000000
+      Max = 2.000000000000000000
+      Frequency = 0.100000001490116100
+      Orientation = orHorizontal
+      Value = 1.000000000000000000
+      OnChange = ScaleTrackChange
+    end
+    object TextScale: TLabel
+      Align = alRight
+      Position.Point = '(783,6)'
+      Width = 38.000000000000000000
+      Height = 16.000000000000000000
+      HelpType = htKeyword
+      TabOrder = 2
+      Font.Size = 11.000000953674320000
+      TextAlign = taCenter
+      Text = '100%'
+    end
+    object Text1: TLabel
+      Align = alRight
+      Position.Point = '(610,6)'
+      Width = 57.000000000000000000
+      Height = 16.000000000000000000
+      HelpType = htKeyword
+      TabOrder = 3
+      Font.Size = 11.000000953674320000
+      TextAlign = taCenter
+      Text = 'Scale:'
+    end
+    object Button1: TButton
+      Align = alLeft
+      Position.Point = '(159,6)'
+      Width = 226.000000000000000000
+      Height = 16.000000000000000000
+      OnClick = Button1Click
+      HelpType = htKeyword
+      TabOrder = 4
+      StaysPressed = False
+      IsPressed = False
+      Font.Size = 11.000000953674320000
+      Text = 'Switch to 3D and Back'
+    end
+  end
+  object MenuBar1: TMenuBar
+    Align = alTop
+    Width = 851.000000000000000000
+    Height = 25.000000000000000000
+    StyleLookup = 'menubarstyle'
+    TabOrder = 2
+    object MenuItem1: TMenuItem
+      Position.Point = '(2,2)'
+      Width = 36.500000000000000000
+      Height = 20.000000000000000000
+      TabOrder = 0
+      ShortCut = 0
+      Text = 'File'
+      object MenuItem7: TMenuItem
+        Locked = True
+        Width = 50.000000000000000000
+        Height = 50.000000000000000000
+        OnClick = MenuItem7Click
+        TabOrder = 0
+        ShortCut = 0
+        Text = 'Load Style...'
+      end
+      object MenuItem3: TMenuItem
+        Locked = True
+        Width = 50.000000000000000000
+        Height = 50.000000000000000000
+        OnClick = MenuItem3Click
+        TabOrder = 1
+        ShortCut = 0
+        Text = 'Exit'
+      end
+    end
+    object MenuItem2: TMenuItem
+      Position.Point = '(38.5,2)'
+      Width = 41.500000000000000000
+      Height = 20.000000000000000000
+      TabOrder = 1
+      ShortCut = 0
+      Text = 'Help'
+      object MenuItem4: TMenuItem
+        Locked = True
+        Width = 50.000000000000000000
+        Height = 50.000000000000000000
+        TabOrder = 0
+        ShortCut = 0
+        Text = 'Home'
+      end
+      object MenuItem5: TMenuItem
+        Locked = True
+        Width = 50.000000000000000000
+        Height = 50.000000000000000000
+        TabOrder = 1
+        ShortCut = 0
+        Text = '-'
+      end
+      object MenuItem6: TMenuItem
+        Locked = True
+        Width = 50.000000000000000000
+        Height = 50.000000000000000000
+        OnClick = MenuItem6Click
+        TabOrder = 2
+        ShortCut = 0
+        Text = 'About...'
+      end
+    end
+    object MenuItem8: TMenuItem
+      Position.Point = '(80,2)'
+      Width = 74.500000000000000000
+      Height = 20.000000000000000000
+      TabOrder = 3
+      ShortCut = 0
+      Text = 'MenuItem8'
+      object MenuItem9: TMenuItem
+        Locked = True
+        Width = 50.000000000000000000
+        Height = 50.000000000000000000
+        TabOrder = 0
+        ShortCut = 0
+        Text = 'MenuItem9'
+        object MenuItem10: TMenuItem
+          Locked = True
+          Width = 50.000000000000000000
+          Height = 50.000000000000000000
+          TabOrder = 0
+          ShortCut = 0
+          Text = 'MenuItem10'
+          object MenuItem11: TMenuItem
+            Locked = True
+            Width = 50.000000000000000000
+            Height = 50.000000000000000000
+            TabOrder = 0
+            ShortCut = 0
+            Text = 'MenuItem11'
+          end
+        end
+      end
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 774
+    Top = 79
+  end
+  object StyleBook1: TStyleBook
+    Resource.Strings = (
+      'object _1: TLayout'
+      '  Align = alClient'
+      '  Position.Point = '#39'(0,33)'#39
+      '  Width = 518.000000000000000000'
+      '  Height = 579.000000000000000000'
+      '  object TLayout'
+      '    StyleName = '#39'editstyle'#39
+      '    Position.Point = '#39'(213,277)'#39
+      '    Width = 91.000000000000000000'
+      '    Height = 24.000000000000000000'
+      '    DesignVisible = False'
+      '    object TRectangle'
+      '      StyleName = '#39'background'#39
+      '      Align = alContents'
+      '      Locked = True'
+      '      Width = 91.000000000000000000'
+      '      Height = 24.000000000000000000'
+      '      HitTest = False'
+      '      Fill.Color = xFFFEFEFE'
+      '      Stroke.Color = claSilver'
+      '      XRadius = 1.000000000000000000'
+      '      YRadius = 1.000000000000000000'
+      '      object TColorAnimation'
+      '        Duration = 0.200000002980232200'
+      '        Trigger = '#39'IsMouseOver = true'#39
+      '        StartValue = claSilver'
+      '        StopValue = xFFA5D9FF'
+      '        PropertyName = '#39'Stroke.Color'#39
+      '      end'
+      '      object TColorAnimation'
+      '        Duration = 0.200000002980232200'
+      '        Inverse = True'
+      '        Trigger = '#39'IsMouseOver = false'#39
+      '        StartValue = claSilver'
+      '        StopValue = xFFA5D9FF'
+      '        PropertyName = '#39'Stroke.Color'#39
+      '      end'
+      '    end'
+      '    object TLayout'
+      '      StyleName = '#39'content'#39
+      '      Align = alContents'
+      '      Position.Point = '#39'(4,4)'#39
+      '      Locked = True'
+      '      Width = 83.000000000000000000'
+      '      Height = 16.000000000000000000'
+      '      Padding.Rect = '#39'(4,4,4,4)'#39
+      '    end'
+      '    object TBrushObject'
+      '      StyleName = '#39'foreground'#39
+      '      Brush.Color = claBlack'
+      '    end'
+      '    object TBrushObject'
+      '      StyleName = '#39'selection'#39
+      '      Brush.Color = x802A8ADF'
+      '    end'
+      '    object TGlowEffect'
+      '      Trigger = '#39'IsFocused=true'#39
+      '      Enabled = False'
+      '      Softness = 0.200000002980232200'
+      '      GlowColor = x82005ACC'
+      '      Opacity = 0.899999976158142100'
+      '    end'
+      '  end'
+      '  object TLayout'
+      '    StyleName = '#39'buttonstyle'#39
+      '    Position.Point = '#39'(214,278)'#39
+      '    Width = 91.000000000000000000'
+      '    Height = 24.000000000000000000'
+      '    object TRectangle'
+      '      StyleName = '#39'background'#39
+      '      Align = alContents'
+      '      Width = 91.000000000000000000'
+      '      Height = 24.000000000000000000'
+      '      HitTest = False'
+      '      Fill.Color = xFFEFEFEF'
+      '      Stroke.Kind = bkNone'
+      '      XRadius = 3.000000000000000000'
+      '      YRadius = 3.000000000000000000'
+      '      object TRectangle'
+      '        Align = alContents'
+      '        Width = 91.000000000000000000'
+      '        Height = 24.000000000000000000'
+      '        HitTest = False'
+      '        Fill.Kind = bkGradient'
+      '        Fill.Gradient.Points = <'
+      '          item'
+      '            Color = x24F4F4F4'
+      '          end'
+      '          item'
+      '            Color = x24EAEAEA'
+      '            Offset = 0.499000012874603300'
+      '          end'
+      '          item'
+      '            Color = x4E868686'
+      '            Offset = 0.500000000000000000'
+      '          end>'
+      '        Stroke.Color = xC84F4F4F'
+      '        XRadius = 3.000000000000000000'
+      '        YRadius = 3.000000000000000000'
+      '      end'
+      '      object TColorAnimation'
+      '        Duration = 0.200000002980232200'
+      '        Trigger = '#39'IsMouseOver=true'#39
+      '        StartValue = xFFEFEFEF'
+      '        StopValue = xFFA5D9FF'
+      '        PropertyName = '#39'Fill.Color'#39
+      '      end'
+      '      object TColorAnimation'
+      '        Duration = 0.200000002980232200'
+      '        Trigger = '#39'IsMouseOver=false'#39
+      '        StartValue = xFFA5D9FF'
+      '        StopValue = xFFEFEFEF'
+      '        PropertyName = '#39'Fill.Color'#39
+      '      end'
+      '      object TInnerGlowEffect'
+      '        Trigger = '#39'IsPressed=true'#39
+      '        Enabled = False'
+      '        Softness = 0.400000005960464500'
+      '        GlowColor = xFF4F4848'
+      '        Opacity = 0.899999976158142100'
+      '      end'
+      '      object TRectangle'
+      '        Align = alClient'
+      '        Position.Point = '#39'(1,1)'#39
+      '        Locked = True'
+      '        Width = 89.000000000000000000'
+      '        Height = 22.000000000000000000'
+      '        Padding.Rect = '#39'(1,1,1,1)'#39
+      '        HitTest = False'
+      '        Fill.Kind = bkNone'
+      '        Stroke.Color = x96FCFCFC'
+      '        XRadius = 2.000000000000000000'
+      '        YRadius = 2.000000000000000000'
+      '      end'
+      '    end'
+      '    object TText'
+      '      StyleName = '#39'text'#39
+      '      Align = alClient'
+      '      Position.Point = '#39'(5,3)'#39
+      '      Locked = True'
+      '      Width = 81.000000000000000000'
+      '      Height = 18.000000000000000000'
+      '      Padding.Rect = '#39'(5,3,5,3)'#39
+      '      HitTest = False'
+      '      Font.Style = [fsBold]'
+      '      Text = '#39'button'#39
+      '    end'
+      '    object TGlowEffect'
+      '      Trigger = '#39'IsFocused=true'#39
+      '      Enabled = False'
+      '      Softness = 0.200000002980232200'
+      '      GlowColor = x82005ACC'
+      '      Opacity = 0.899999976158142100'
+      '    end'
+      '  end'
+      'end')
+    Left = 208
+    Top = 20
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 400
+    Top = 362
+    object MenuItem12: TMenuItem
+      Width = 50.000000000000000000
+      Height = 50.000000000000000000
+      TabOrder = 0
+      ShortCut = 0
+      Text = 'MenuItem12'
+      object MenuItem13: TMenuItem
+        Locked = True
+        Width = 50.000000000000000000
+        Height = 50.000000000000000000
+        TabOrder = 0
+        ShortCut = 0
+        Text = 'MenuItem13'
+      end
+      object MenuItem14: TMenuItem
+        Locked = True
+        Width = 50.000000000000000000
+        Height = 50.000000000000000000
+        TabOrder = 1
+        ShortCut = 0
+        Text = 'MenuItem14'
+      end
+    end
+    object MenuItem15: TMenuItem
+      Width = 50.000000000000000000
+      Height = 50.000000000000000000
+      TabOrder = 1
+      ShortCut = 0
+      Text = 'MenuItem15'
+    end
+  end
+end

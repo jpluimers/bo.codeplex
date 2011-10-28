@@ -1,0 +1,55 @@
+object TwitcherMessageListForm: TTwitcherMessageListForm
+  Left = 0
+  Top = 0
+  BiDiMode = bdLeftToRight
+  Caption = 'Form2'
+  ClientHeight = 400
+  ClientWidth = 600
+  Transparency = False
+  Visible = False
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  StyleLookup = 'backgroundstyle'
+  object ParentRectangle: TRectangle
+    Position.Point = '(10,6)'
+    Width = 321.000000000000000000
+    Height = 169.000000000000000000
+  end
+  object Button1: TButton
+    Position.Point = '(12,186)'
+    Width = 80.000000000000000000
+    Height = 22.000000000000000000
+    OnClick = Button1Click
+    TabOrder = 1
+    StaysPressed = False
+    IsPressed = False
+    Text = 'Button1'
+  end
+  object ListBox1: TListBox
+    Align = alRight
+    Position.Point = '(344,0)'
+    Width = 256.000000000000000000
+    Height = 400.000000000000000000
+    TabOrder = 2
+  end
+  object AddButton: TButton
+    Position.Point = '(260,190)'
+    Width = 80.000000000000000000
+    Height = 22.000000000000000000
+    OnClick = AddButtonClick
+    TabOrder = 3
+    StaysPressed = False
+    IsPressed = False
+    Text = 'AddButton'
+  end
+  object ClearButton: TButton
+    Position.Point = '(260,228)'
+    Width = 80.000000000000000000
+    Height = 22.000000000000000000
+    OnClick = ClearButtonClick
+    TabOrder = 4
+    StaysPressed = False
+    IsPressed = False
+    Text = 'ClearButton'
+  end
+end

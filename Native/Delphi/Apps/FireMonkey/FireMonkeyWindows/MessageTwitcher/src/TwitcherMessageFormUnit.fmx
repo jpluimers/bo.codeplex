@@ -1,0 +1,49 @@
+object TwitcherMessageForm: TTwitcherMessageForm
+  Left = 0
+  Top = 0
+  BiDiMode = bdLeftToRight
+  Caption = 'Form1'
+  ClientHeight = 188
+  ClientWidth = 443
+  Transparency = False
+  Visible = False
+  StyleLookup = 'backgroundstyle'
+  object MessageRectangle: TRectangle
+    Align = alClient
+    Width = 443.000000000000000000
+    Height = 188.000000000000000000
+    object Rectangle2: TRectangle
+      Align = alTop
+      Width = 443.000000000000000000
+      Height = 20.000000000000000000
+      object Text1: TText
+        BindingName = 'Time'
+        Align = alRight
+        Position.Point = '(283,0)'
+        Width = 160.000000000000000000
+        Height = 20.000000000000000000
+      end
+      object Text2: TText
+        BindingName = 'Title'
+        Align = alClient
+        Width = 283.000000000000000000
+        Height = 20.000000000000000000
+        Font.Style = [fsBold]
+      end
+      object ShadowEffect1: TShadowEffect
+        Distance = 3.000000000000000000
+        Direction = 45.000000000000000000
+        Softness = 0.300000011920929000
+        Opacity = 0.600000023841857900
+        ShadowColor = claBlack
+      end
+    end
+    object Text3: TText
+      BindingName = 'Body'
+      Align = alClient
+      Position.Point = '(0,20)'
+      Width = 443.000000000000000000
+      Height = 168.000000000000000000
+    end
+  end
+end
