@@ -180,6 +180,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
 			</DCCReference>
 			<DCCReference Include="..\..\..\..\bo.ORM\ORMDetailBaseFormUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.ORM\ORMListBaseFormUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.VCL\EllipsisTextUnit.pas"/>
 			<None Include="Debug\Win32\UseORMProject.ini"/>
 			<None Include="..\..\..\..\Include\Defines.inc"/>
 			<None Include="..\..\..\..\..\..\Forks\FastMM\FastMM4Options.inc"/>

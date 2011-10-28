@@ -3,7 +3,8 @@ unit StringUtilsUnit;
 interface
 
 uses
-  StdCtrls, Classes, SysUtils; // TEllipsisPosition
+  Classes,
+  SysUtils; // TEllipsisPosition
 
 procedure AddSplitted(const Strings: TStrings; const Delimiters, Line: string);
 
@@ -17,9 +18,6 @@ function RemoveWhiteSpace(const Original: string): string;
 function AnsiStartsAnyText(const ASubTexts: array of string; const AText: string): Boolean;
 
 function CaptionFromCamelCase(const CamelCaseString: string; const SuffixClassToStrip: TClass = nil): string;
-
-function EllipsisText(const Value: string; const MaxLength: Integer; const FWordWrap: Boolean = True; const FEllipsisPosition: TEllipsisPosition =
-    epWordEllipsis): string;
 
 function StripClassPrefixT(const ClassName: string): string;
 
@@ -59,7 +57,11 @@ const
 implementation
 
 uses
-  StrUtils, Character, Variants, ComObj, System.Types;
+  StrUtils,
+  Character,
+  Variants,
+  ComObj,
+  System.Types;
 
 function CommaSeparated(const Values: array of string): string;
 var
@@ -176,50 +178,6 @@ begin
       else
         Inc(ResultIndex);
     end;
-  end;
-end;
-
-function EllipsisText(const Value: string; const MaxLength: Integer; const FWordWrap: Boolean = True; const FEllipsisPosition: TEllipsisPosition =
-    epWordEllipsis): string;
-// code partially borrowed from TCustomLabel.DoDrawText
-const
-  EllipsisStr = '...';
-  EllipsisCharacterWidthDivisor = 2; // count a '.' as half a character for display
-var
-  NettoMaxLength: Integer;
-  Text: string;
-  DelimitedText: string;
-  DelimiterPosition: Integer;
-begin
-  Result := NullAsStringValue;
-  Text := Value;
-  if (FEllipsisPosition <> epNone) then
-  begin
-    if FWordWrap and (FEllipsisPosition in [epEndEllipsis, epWordEllipsis]) then
-    begin
-      NettoMaxLength := MaxLength - Length(EllipsisStr) div EllipsisCharacterWidthDivisor;
-      repeat
-        if (Length(Text) > NettoMaxLength) then
-        begin
-          DelimiterPosition := LastDelimiter(' '+sTab+sLineBreak, Text);
-          if DelimiterPosition = 0 then
-            DelimiterPosition := Length(Text);
-          Dec(DelimiterPosition);
-{$IF NOT DEFINED(CLR)}
-          if ByteType(Text, DelimiterPosition) = mbLeadByte then
-            Dec(DelimiterPosition);
-{$IFEND}
-          Text := Copy(Text, 1, DelimiterPosition);
-          DelimitedText := Text + EllipsisStr;
-          if Text = NullAsStringValue then
-            Break;
-        end
-        else
-          Break;
-      until False;
-    end;
-    if Text <> NullAsStringValue then
-      Result := DelimitedText;
   end;
 end;
 

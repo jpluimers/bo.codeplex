@@ -79,6 +79,7 @@
 				<FormType>lfm</FormType>
 			</DCCReference>
 			<DCCReference Include="superobject.pas"/>
+			<DCCReference Include="FishFactEntryUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

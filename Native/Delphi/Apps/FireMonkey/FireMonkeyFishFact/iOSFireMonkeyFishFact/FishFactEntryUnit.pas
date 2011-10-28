@@ -2,11 +2,18 @@ unit FishFactEntryUnit;
 
 interface
 
-uses
-  BaseObject;
+const
+  SFLengthInch = 'FLengthInch';
+  SFLengthCm = 'FLengthCm';
+  SFSpeciesNo = 'FSpeciesNo';
+  SFNotes = 'FNotes';
+  SFSpeciesName = 'FSpeciesName';
+  SFCommonName = 'FCommonName';
+  SFCategory = 'FCategory';
+  FishFactEntryFieldCount = 7;
 
 type
-  TFishFactEntry = class(TBaseObject)
+  TFishFactEntry = class(TObject)
   strict private
     FCategory: string;
     FCommonName: string;

@@ -4,7 +4,8 @@ interface
 
 uses
   DB,
-  ComponentHelperUnit, DataSetEnumeratorUnit;
+  ComponentHelperUnit,
+  DataSetEnumeratorUnit;
 
 type
   //1 helaas een kopie van TFieldsEnumerator, want die heeft geen virtual MoveNext
@@ -43,7 +44,11 @@ type
 implementation
 
 uses
-  DBConsts, StringUtilsUnit, Variants, FieldNameHelperUnit, SysUtils;
+  DBConsts,
+  StringUtilsUnit,
+  Variants,
+  FieldNameHelperUnit,
+  SysUtils;
 
 procedure TDataSetHelper.ClearEmptyStringFields;
 var

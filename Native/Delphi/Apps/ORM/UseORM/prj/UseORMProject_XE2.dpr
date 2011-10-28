@@ -1,7 +1,6 @@
 program UseORMProject_XE2;
 
 uses
-//  FastMM4BootstrapUnit in '..\src\FastMM4BootstrapUnit.pas',
   Forms,
   UseORMMainFormUnit in '..\src\UseORMMainFormUnit.pas' {UseORMMainForm},
   ClientFormUnit in '..\src\ClientFormUnit.pas' {ClientForm},
@@ -34,8 +33,6 @@ uses
   SetTypeInfoUnit in '..\..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas',
   DataAwareControlHelperUnit in '..\..\..\..\bo.DB\DataAwareControlHelperUnit.pas',
   GenericExceptionUnit in '..\..\..\..\bo.Generics\GenericExceptionUnit.pas',
-//  FastMM4 in '..\..\..\..\..\..\Forks\FastMM\FastMM4.pas',
-//  FastMM4Messages in '..\..\..\..\..\..\Forks\FastMM\FastMM4Messages.pas',
   ConcreteCollectionsUnit in '..\..\..\..\bo.Generics\ConcreteCollectionsUnit.pas',
   JoinedColumnPairUnit in '..\..\..\..\bo.DB\JoinedColumnPairUnit.pas',
   NullablesUnit in '..\..\..\..\bo.System\NullablesUnit.pas',
@@ -64,7 +61,8 @@ uses
   GenderListFormUnit in '..\src\GenderListFormUnit.pas' {GenderListForm},
   ClientListFormUnit in '..\src\ClientListFormUnit.pas' {ClientListForm},
   ORMDetailBaseFormUnit in '..\..\..\..\bo.ORM\ORMDetailBaseFormUnit.pas',
-  ORMListBaseFormUnit in '..\..\..\..\bo.ORM\ORMListBaseFormUnit.pas';
+  ORMListBaseFormUnit in '..\..\..\..\bo.ORM\ORMListBaseFormUnit.pas',
+  EllipsisTextUnit in '..\..\..\..\bo.VCL\EllipsisTextUnit.pas';
 
 {$R *.res}
 

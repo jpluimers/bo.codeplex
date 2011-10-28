@@ -3,7 +3,8 @@ program iOSFireMonkeyFishFactProject;
 uses
   FMX_Forms,
   iOSFireMonkeyFishFactFormUnit in 'iOSFireMonkeyFishFactFormUnit.pas' {iOSFireMonkeyFishFactForm},
-  superobject in 'superobject.pas';
+  superobject in 'superobject.pas',
+  FishFactEntryUnit in 'FishFactEntryUnit.pas';
 
 {$R *.res}
 

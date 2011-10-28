@@ -57,6 +57,7 @@ procedure TAbstractTestTNumber2String.TearDown;
 begin
   FMatches.Free;
   FMatches := nil;
+  FNumber2String := nil;
   inherited;
 end;
 
@@ -65,7 +66,7 @@ var
   Match: TInt64StringPair;
   Result: string;
   Key: Int64;
-  Value: string;
+  ExpectedValue: string;
 begin
   CheckTrue(Assigned(Number2String), 'Null Number2String; cannot test');
   CheckTrue(FMatches.Count > 0, 'Matches.Count must be larger than zero');
@@ -73,10 +74,10 @@ begin
   begin
     Key := Match.Key;
     Result := Number2String.ToString(Key);
-    Value := Match.Value;
-    if Result <> Value then // retry for debugging
+    ExpectedValue := Match.Value;
+    if Result <> ExpectedValue then // retry for debugging
       Result := Number2String.ToString(Key);
-    Self.CheckEquals(Value, Result, Format('Key=%d', [Key]));
+    Self.CheckEquals(ExpectedValue, Result, Format('Key=%d', [Key]));
   end;
 end;
 

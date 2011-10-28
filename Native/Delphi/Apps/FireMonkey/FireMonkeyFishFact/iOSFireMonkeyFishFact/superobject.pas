@@ -631,9 +631,13 @@ type
     function GetDataPtr: Pointer;
     procedure SetDataPtr(const Value: Pointer);
   protected
-    function QueryInterface(const IID: TGUID; out Obj): HResult; virtual; stdcall;
-    function _AddRef: Integer; virtual; stdcall;
-    function _Release: Integer; virtual; stdcall;
+    function QueryInterface({$IFDEF FPC_HAS_CONSTREF}constref{$ELSE}const{$ENDIF} IID: TGUID; out Obj): HResult; virtual;{$IF (not defined(MSWINDOWS)) AND (FPC_FULLVERSION>=20501)}cdecl{$ELSE}stdcall{$IFEND};
+    function _AddRef: Integer;virtual; {$IF (not defined(MSWINDOWS)) AND (FPC_FULLVERSION >= 20501)}cdecl{$ELSE}stdcall{$IFEND};
+    function _Release: Integer;virtual; {$IF (not defined(MSWINDOWS)) AND (FPC_FULLVERSION>=20501)}cdecl{$ELSE}stdcall{$IFEND};
+
+//    function QueryInterface(const IID: TGUID; out Obj): HResult; virtual; stdcall;
+//    function _AddRef: Integer; virtual; stdcall;
+//    function _Release: Integer; virtual; stdcall;
 
     function GetO(const path: SOString): ISuperObject;
     procedure PutO(const path: SOString; const Value: ISuperObject);
@@ -817,10 +821,11 @@ function TryObjectToDate(const obj: ISuperObject; var dt: TDateTime): Boolean;
 function ISO8601DateToJavaDateTime(const str: SOString; var ms: Int64): Boolean;
 function ISO8601DateToDelphiDateTime(const str: SOString; var dt: TDateTime): Boolean;
 function DelphiDateTimeToISO8601Date(dt: TDateTime): SOString;
-function UUIDToString(const g: TGUID): string;
-function StringToUUID(const str: string; var g: TGUID): Boolean;
 
 {$IFDEF HAVE_RTTI}
+
+function UUIDToString(const g: TGUID): string;
+function StringToUUID(const str: string; var g: TGUID): Boolean;
 
 type
   TSuperInvokeResult = (
@@ -2078,7 +2083,8 @@ begin
     varInt64:    Result := TSuperObject.Create(VInt64);
     varString:   Result := TSuperObject.Create(SOString(AnsiString(VString)));
 {$if declared(varUString)}
-    varUString:  Result := TSuperObject.Create(SOString(string(VUString)));
+    varUString:  Result := TSuperObject.Create(SOString(string({$IF (not defined(MSWINDOWS)) AND (FPC_FULLVERSION>=20501)}VString{$ELSE}VUString{$IFEND})));
+//    varUString:  Result := TSuperObject.Create(SOString(string(VUString)));
 {$ifend}
   else
     raise Exception.CreateFmt('Unsuported variant data type: %d', [VType]);
@@ -4182,7 +4188,8 @@ begin
   ParseString(PSOChar(path), true, False, self, [foCreatePath, foPutValue], TSuperObject.Create(Value));
 end;
 
-function TSuperObject.QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
+function TSuperObject.QueryInterface({$IFDEF FPC_HAS_CONSTREF}constref{$ELSE}const{$ENDIF} IID: TGUID; out Obj): HResult; {$IF (not defined(MSWINDOWS)) AND (FPC_FULLVERSION>=20501)}cdecl{$ELSE}stdcall{$IFEND};
+//function TSuperObject.QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
 begin
   if GetInterface(IID, Obj) then
     Result := 0
@@ -5142,12 +5149,14 @@ begin
   end;
 end;
 
-function TSuperObject._AddRef: Integer; stdcall;
+function TSuperObject._AddRef: Integer;{$IF (not defined(MSWINDOWS)) AND (FPC_FULLVERSION >= 20501)}cdecl{$ELSE}stdcall{$IFEND};
+//function TSuperObject._AddRef: Integer; stdcall;
 begin
   Result := InterlockedIncrement(FRefCount);
 end;
 
-function TSuperObject._Release: Integer; stdcall;
+function TSuperObject._Release: Integer; {$IF (not defined(MSWINDOWS)) AND (FPC_FULLVERSION >= 20501)}cdecl{$ELSE}stdcall{$IFEND};
+//function TSuperObject._Release: Integer; stdcall;
 begin
   Result := InterlockedDecrement(FRefCount);
   if Result = 0 then

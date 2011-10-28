@@ -52,7 +52,7 @@ var
 begin
   GetMem(Memory, MemorySize);
   Self.CheckTrue(Memory <> nil, 'Memory should not nil after a memory allocation');
-  FreeMemAndNil(Memory, MemorySize);
+  FreeMemAndNil(Memory);
   Self.CheckTrue(Memory = nil, 'Memory should be nil after a call to "FreeMemAndNil"');
 end;
 
@@ -62,7 +62,7 @@ var
 begin
   GetMem(Memory, MemorySize);
   Self.CheckTrue(Memory <> nil, 'Memory should not nil after a memory allocation');
-  FreeMemAndNil(Memory);
+  FreeMemAndNil(Memory, MemorySize);
   Self.CheckTrue(Memory = nil, 'Memory should be nil after a call to "FreeMemAndNil"');
 end;
 
