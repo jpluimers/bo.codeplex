@@ -1,0 +1,48 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  BiDiMode = bdLeftToRight
+  Caption = 'Form1'
+  ClientHeight = 400
+  ClientWidth = 600
+  Transparency = False
+  Visible = False
+  object ParentLayer3D: TLayer3D
+    Position.Point = '(1.2997921705246,2.2945773601532,0)'
+    Width = 6.000000000000000000
+    Height = 4.000000000000000000
+    Depth = 0.009999999776482582
+    Opacity = 1.000000000000000000
+    StyleLookup = 'backgroundstyle'
+    Quanternion = '(0,0,0,1)'
+  end
+  object ButtonLayer3D: TLayer3D
+    Position.Point = '(-4.39670515060425,-0.443021535873413,0)'
+    RotationAngle.Point = '(0,-25.5836315155029,0)'
+    Width = 10.926707267761230000
+    Height = 7.513236999511719000
+    Depth = 0.009999999776482582
+    Opacity = 1.000000000000000000
+    StyleLookup = 'backgroundstyle'
+    Quanternion = '(0,-0.221409201622009,0,0.975181043148041)'
+    object Button1: TButton
+      Position.Point = '(46,58)'
+      Width = 137.000000000000000000
+      Height = 37.000000000000000000
+      OnClick = Button1Click
+      TabOrder = 0
+      StaysPressed = False
+      IsPressed = False
+      Text = 'Button1'
+      object FloatAnimation1: TFloatAnimation
+        AutoReverse = True
+        Duration = 4.000000000000000000
+        Interpolation = itBounce
+        Inverse = True
+        Loop = True
+        StopValue = 360.000000000000000000
+        PropertyName = 'RotationAngle'
+      end
+    end
+  end
+end
