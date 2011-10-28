@@ -36,7 +36,8 @@ type
 implementation
 
 uses
-  SysUtils, Variants, FieldNameHelperUnit, DbCrackerUnit, StringUtilsUnit;
+  SysUtils, Variants, FieldNameHelperUnit, DbCrackerUnit, StringUtilsUnit,
+  EllipsisTextUnit;
 
 procedure TClientDataSetSupportingCalculatedAndLookupFields.CalculateDefaultWidths(const DefaultWidthStringFieldList: TFieldList);
 begin

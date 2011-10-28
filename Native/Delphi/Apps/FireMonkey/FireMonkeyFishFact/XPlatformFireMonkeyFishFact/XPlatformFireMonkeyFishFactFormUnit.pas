@@ -68,6 +68,7 @@ type
     procedure SaveDelphiJSON;
     procedure ShowDataSetInformation;
     procedure SaveJSONText(JSONString: string);
+    procedure SaveSuperObjectJSON;
     { Private declarations }
   public
     { Public declarations }
@@ -175,43 +176,13 @@ begin
 end;
 
 procedure TXPlatformFireMonkeyFishFactForm.SaveJSONButtonClick(Sender: TObject);
-var
-  ArrayIndex: Integer;
-  Context: TSuperRttiContext;
-  FishFactEntries: array of TFishFactEntry;
-  FishFactEntry: TFishFactEntry;
-  FishFactEntryJSONValue: TSuperObject;
-  Index: TDataSetEnumerationRecord;
-  JSONText: string;
-  SuperObject: ISuperObject;
 begin
 //  ShowDataSetInformation();
   if SaveDialog1.Execute then
   try
-//    SaveDataAsClientDataSetJSON;
-//    SaveDelphiJSON;
-    SetLength(FishFactEntries, IBTable1.RecordCount);
-    ArrayIndex := Low(FishFactEntries);
-    try
-      Context := TSuperRttiContext.Create();
-      try
-        for Index in IBTable1 do
-        begin
-          FishFactEntry := CreateFishFactEntry();
-          FishFactEntries[ArrayIndex] := FishFactEntry;
-          Inc(ArrayIndex);
-        end;
-        SuperObject := Context.AsJson(FishFactEntries);
-        JSONText := SuperObject.AsJSon();
-        SaveJSONText(JSONText);
-      finally
-        Context.Free;
-      end;
-    finally
-      for ArrayIndex := Low(FishFactEntries) to High(FishFactEntries) do
-        FreeAndNil(FishFactEntries[ArrayIndex]);
-      SetLength(FishFactEntries, 0);
-    end;
+//    SaveDataAsClientDataSetJSON();
+//    SaveDelphiJSON();
+    SaveSuperObjectJSON();
   finally
     IBTable1.Active := True;
   end;
@@ -231,6 +202,40 @@ end;
 procedure TXPlatformFireMonkeyFishFactForm.SaveJSONText(JSONString: string);
 begin
   TFile.WriteAllText(SaveDialog1.FileName, JSONString);
+end;
+
+procedure TXPlatformFireMonkeyFishFactForm.SaveSuperObjectJSON;
+var
+  ArrayIndex: Integer;
+  Context: TSuperRttiContext;
+  FishFactEntries: TFishFactEntries;
+  FishFactEntry: TFishFactEntry;
+  Index: TDataSetEnumerationRecord;
+  JSONText: string;
+  SuperObject: ISuperObject;
+begin
+  SetLength(FishFactEntries, IBTable1.RecordCount);
+  ArrayIndex := Low(FishFactEntries);
+  try
+    Context := TSuperRttiContext.Create();
+    try
+      for Index in IBTable1 do
+      begin
+        FishFactEntry := CreateFishFactEntry();
+        FishFactEntries[ArrayIndex] := FishFactEntry;
+        Inc(ArrayIndex);
+      end;
+      SuperObject := Context.AsJson(FishFactEntries);
+      JSONText := SuperObject.AsJSon();
+      SaveJSONText(JSONText);
+    finally
+      Context.Free;
+    end;
+  finally
+    for ArrayIndex := Low(FishFactEntries) to High(FishFactEntries) do
+      FreeAndNil(FishFactEntries[ArrayIndex]);
+    SetLength(FishFactEntries, 0);
+  end;
 end;
 
 {$R *.fmx}

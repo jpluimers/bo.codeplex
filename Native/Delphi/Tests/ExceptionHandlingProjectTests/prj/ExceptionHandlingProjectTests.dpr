@@ -15,16 +15,14 @@ program ExceptionHandlingProjectTests;
 {$ENDIF}
 
 uses
-  ExceptionRaiseerUnit in '..\src\ExceptionRaiseerUnit.pas';
-
-ususes
   Forms,
   TestFramework,
   GUITestRunner,
   TextTestRunner,
-  Unit1 in 'Unit1.pas';
+  ExceptionRaiserUnit in '..\src\ExceptionRaiserUnit.pas',
+  ExceptionRaiserTestCaseUnit in '..\src\ExceptionRaiserTestCaseUnit.pas';
 
-R *.RES}
+{$R *.RES}
 
 begin
   Application.Initialize;

@@ -8,21 +8,54 @@ object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
   Transparency = False
   Visible = False
   StyleLookup = 'backgroundstyle'
-  object Button1: TButton
+  object LoadJSONButton: TButton
     Position.Point = '(8,8)'
-    Width = 80.000000000000000000
+    Width = 113.000000000000000000
     Height = 22.000000000000000000
-    OnClick = Button1Click
+    OnClick = LoadJSONButtonClick
     TabOrder = 0
     StaysPressed = False
     IsPressed = False
-    Text = 'Button1'
+    Text = 'LoadJSONButton'
   end
-  object Memo1: TMemo
+  object JsonFileNameMemo: TMemo
     Position.Point = '(8,40)'
     Width = 305.000000000000000000
-    Height = 433.000000000000000000
+    Height = 65.000000000000000000
     TabOrder = 2
+    ReadOnly = True
     WordWrap = False
+  end
+  object JsonTextMemo: TMemo
+    Position.Point = '(8,112)'
+    Width = 305.000000000000000000
+    Height = 105.000000000000000000
+    TabOrder = 3
+    ReadOnly = True
+    WordWrap = False
+  end
+  object StringGrid1: TStringGrid
+    Position.Point = '(8,224)'
+    Width = 305.000000000000000000
+    Height = 249.000000000000000000
+    StyleLookup = 'gridstyle'
+    TabOrder = 4
+    RowHeight = 21.000000000000000000
+    RowCount = 100
+    object StringColumn1: TStringColumn
+      Align = alLeft
+      Width = 100.000000000000000000
+      Height = 2100.000000000000000000
+      HitTest = False
+      TabOrder = 0
+    end
+    object StringColumn2: TStringColumn
+      Position.Point = '(100,0)'
+      Width = 195.000000000000000000
+      Height = 226.000000000000000000
+      HitTest = False
+      TabOrder = 1
+      ReadOnly = True
+    end
   end
 end

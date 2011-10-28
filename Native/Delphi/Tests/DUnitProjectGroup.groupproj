@@ -27,6 +27,9 @@
 			<Projects Include="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="..\..\..\..\Delphi-Mocks\Sample1.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -107,14 +110,23 @@
 		<Target Name="ExceptionHandlingProjectTests:Make">
 			<MSBuild Projects="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="Sample1">
+			<MSBuild Projects="..\..\..\..\Delphi-Mocks\Sample1.dproj"/>
+		</Target>
+		<Target Name="Sample1:Clean">
+			<MSBuild Projects="..\..\..\..\Delphi-Mocks\Sample1.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="Sample1:Make">
+			<MSBuild Projects="..\..\..\..\Delphi-Mocks\Sample1.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="FreeAndNilPointerUnitTestProject;FreeAndNilPointerGuiUnitTestProject;FreeAndNilPointerConsoleUnitTestProject;DivModGuiTestProject;Number2StringProjectTests;MD5DUnitGUIProject;InterfaceConstParmetersAndPrematureFreeingProject_XE2;ExceptionHandlingProjectTests"/>
+			<CallTarget Targets="FreeAndNilPointerUnitTestProject;FreeAndNilPointerGuiUnitTestProject;FreeAndNilPointerConsoleUnitTestProject;DivModGuiTestProject;Number2StringProjectTests;MD5DUnitGUIProject;InterfaceConstParmetersAndPrematureFreeingProject_XE2;ExceptionHandlingProjectTests;Sample1"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="FreeAndNilPointerUnitTestProject:Clean;FreeAndNilPointerGuiUnitTestProject:Clean;FreeAndNilPointerConsoleUnitTestProject:Clean;DivModGuiTestProject:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean;ExceptionHandlingProjectTests:Clean"/>
+			<CallTarget Targets="FreeAndNilPointerUnitTestProject:Clean;FreeAndNilPointerGuiUnitTestProject:Clean;FreeAndNilPointerConsoleUnitTestProject:Clean;DivModGuiTestProject:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean;ExceptionHandlingProjectTests:Clean;Sample1:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="FreeAndNilPointerUnitTestProject:Make;FreeAndNilPointerGuiUnitTestProject:Make;FreeAndNilPointerConsoleUnitTestProject:Make;DivModGuiTestProject:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make;ExceptionHandlingProjectTests:Make"/>
+			<CallTarget Targets="FreeAndNilPointerUnitTestProject:Make;FreeAndNilPointerGuiUnitTestProject:Make;FreeAndNilPointerConsoleUnitTestProject:Make;DivModGuiTestProject:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make;ExceptionHandlingProjectTests:Make;Sample1:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>
