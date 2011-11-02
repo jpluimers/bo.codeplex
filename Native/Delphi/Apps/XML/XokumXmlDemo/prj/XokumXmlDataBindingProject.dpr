@@ -4,13 +4,16 @@ uses
   Forms,
   XmlDataBindingFormUnit in '..\src\XmlDataBindingFormUnit.pas' {XokumDataBindingForm},
   xokumDataBindingUnit in '..\src\xokumDataBindingUnit.pas',
-  ReporterUnit in '..\src\ReporterUnit.pas',
-  LoggersUnit in '..\src\LoggersUnit.pas',
-  LoggerUnit in '..\src\LoggerUnit.pas',
+  LoggerUnit in '..\..\..\..\bo.Logging\LoggerUnit.pas',
+  ReporterUnit in '..\..\..\..\bo.Logging\ReporterUnit.pas',
+  ReportProxyUnit in '..\..\..\..\bo.Logging\ReportProxyUnit.pas',
+  ReportProxyInterfaceUnit in '..\..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas',
+  LoggerInterfaceUnit in '..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas',
+  RecordTypeInfoUnit in '..\..\..\..\bo.TypeInfo\RecordTypeInfoUnit.pas',
+  SetTypeInfoUnit in '..\..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas',
+  EnumTypeInfoUnit in '..\..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas',
   ReportersUnit in '..\src\ReportersUnit.pas',
-  SetTypeInfoUnit in '..\src\SetTypeInfoUnit.pas',
-  RecordTypeInfoUnit in '..\src\RecordTypeInfoUnit.pas',
-  EnumTypeInfoUnit in '..\src\EnumTypeInfoUnit.pas';
+  ReportingLoggerUnit in '..\..\..\..\bo.Logging\ReportingLoggerUnit.pas';
 
 {$R *.res}
 
