@@ -122,42 +122,47 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
     RowCount = 0
     object TStringColumn
       Width = 64.000000000000000000
-      Height = 50.000000000000000000
+      Height = 226.000000000000000000
       HitTest = False
       TabOrder = 0
       Header = 'Category'
     end
     object TStringColumn
+      Position.Point = '(64,0)'
       Width = 64.000000000000000000
-      Height = 50.000000000000000000
+      Height = 226.000000000000000000
       HitTest = False
       TabOrder = 1
       Header = 'Species Name'
     end
     object TStringColumn
+      Position.Point = '(128,0)'
       Width = 64.000000000000000000
-      Height = 50.000000000000000000
+      Height = 226.000000000000000000
       HitTest = False
       TabOrder = 2
       Header = 'Length (cm)'
     end
     object TStringColumn
+      Position.Point = '(192,0)'
       Width = 64.000000000000000000
-      Height = 50.000000000000000000
+      Height = 226.000000000000000000
       HitTest = False
       TabOrder = 3
       Header = 'Length_In'
     end
     object TStringColumn
+      Position.Point = '(256,0)'
       Width = 64.000000000000000000
-      Height = 50.000000000000000000
+      Height = 226.000000000000000000
       HitTest = False
       TabOrder = 4
       Header = 'Common Name'
     end
     object TStringColumn
+      Position.Point = '(320,0)'
       Width = 64.000000000000000000
-      Height = 50.000000000000000000
+      Height = 226.000000000000000000
       HitTest = False
       TabOrder = 5
       Header = '#'
@@ -410,7 +415,7 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
     Methods = <>
     OutputConverters = <>
     UseAppManager = True
-    Left = 388
+    Left = 308
     Top = 5
     object DBLinkImageControl1GRAPHIC1: TBindDBImageLink
       Category = 'DB Links'

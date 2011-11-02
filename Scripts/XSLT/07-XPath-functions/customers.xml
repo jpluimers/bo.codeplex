@@ -1,0 +1,15 @@
+<?xml version ="1.0" ?>
+<customers>
+  <customer id="10">
+    <name>Acme Coorporation</name>
+  </customer>
+  <customer id="12">
+    <name>My own business</name>
+  </customer>
+  <customer id="11">
+    <name>ACME</name>
+  </customer>
+  <customer id="13">
+    <name>IBM</name>
+  </customer>
+</customers>

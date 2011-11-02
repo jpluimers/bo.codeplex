@@ -1,0 +1,9 @@
+<?xml version ="1.0" ?>
+<customers>
+  <customer id="10">
+    <name>Acme Corporation</name>
+  </customer>
+  <customer id="11">
+    <name>ACME</name>
+  </customer>
+</customers>
