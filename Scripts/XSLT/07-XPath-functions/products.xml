@@ -1,0 +1,12 @@
+<?xml version ="1.0" ?>
+<products>
+ <product>MP3 Player
+  <price>50</price>
+ </product>
+ <product>iPod 40Gb
+  <price>200</price>
+ </product>
+ <product>Zune MP3
+  <price>10</price>
+ </product>
+</products>

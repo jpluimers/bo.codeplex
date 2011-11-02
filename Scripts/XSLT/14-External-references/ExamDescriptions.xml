@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Exams>
+  <Exam Code="70-315">
+    <Name>Developing and Implementing Web Applications with Microsoft Visual C# .NET</Name>
+    <Url>http://www.microsoft.com/learning/exams/70-315.asp</Url>
+  </Exam>
+  <Exam Code="70-316">
+    <Name>Developing and Implementing Windows-based Applications with Microsoft Visual C# .NET</Name>
+    <Url>http://www.microsoft.com/learning/exams/70-316.asp</Url>
+  </Exam>
+  <Exam Code="70-320">
+    <Name>Developing XML Web Services and Server Components with Microsoft Visual C# .NET</Name>
+    <Url>http://www.microsoft.com/learning/exams/70-320.asp</Url>
+  </Exam>
+  <Exam Code="70-305">
+    <Name>Developing and Implementing Web Applications with Microsoft Visual Basic .NET</Name>
+    <Url>http://www.microsoft.com/learning/exams/70-305.asp</Url>
+  </Exam>
+  <Exam Code="70-306">
+    <Name> Developing and Implementing Windows-based Applications with Microsoft Visual Basic .NET</Name>
+    <Url>http://www.microsoft.com/learning/exams/70-306.asp</Url>
+  </Exam>
+  <Exam Code="70-310">
+    <Name>Developing XML Web Services and Server Components with Microsoft Visual Basic .NET</Name>
+    <Url>http://www.microsoft.com/learning/exams/70-310.asp</Url>
+  </Exam>
+</Exams>
