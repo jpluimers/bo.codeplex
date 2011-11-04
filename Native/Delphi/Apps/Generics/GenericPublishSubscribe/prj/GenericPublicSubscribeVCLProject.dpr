@@ -23,7 +23,8 @@ uses
   OutputDebugViewReporterUnit in '..\..\..\..\bo.DebugView\OutputDebugViewReporterUnit.pas',
   OutputDebugViewUnit in '..\..\..\..\bo.DebugView\OutputDebugViewUnit.pas',
   DebuggingUnit in '..\..\..\..\bo.Debugging\DebuggingUnit.pas',
-  RttiUnit in '..\..\..\..\bo.RTTI\RttiUnit.pas';
+  RttiUnit in '..\..\..\..\bo.RTTI\RttiUnit.pas',
+  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas';
 
 {$R *.res}
 

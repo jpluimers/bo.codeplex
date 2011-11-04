@@ -12,8 +12,9 @@ uses
   RecordTypeInfoUnit in '..\..\..\..\bo.TypeInfo\RecordTypeInfoUnit.pas',
   SetTypeInfoUnit in '..\..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas',
   EnumTypeInfoUnit in '..\..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas',
-  ReportersUnit in '..\src\ReportersUnit.pas',
-  ReportingLoggerUnit in '..\..\..\..\bo.Logging\ReportingLoggerUnit.pas';
+  ReportingLoggerUnit in '..\..\..\..\bo.Logging\ReportingLoggerUnit.pas',
+  ReportersUnit in '..\..\..\..\bo.Logging\ReportersUnit.pas',
+  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas';
 
 {$R *.res}
 

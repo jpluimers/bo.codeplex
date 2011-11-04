@@ -3,10 +3,17 @@ unit ORMCodeGeneratorUnit;
 interface
 
 uses
-  Classes, SysUtils, Generics.Collections,
-  ReporterUnit, CodeGeneratorUnit,
-  StringListWrapperUnit, LoggerUnit,
-  MSSystemColumnUnit, MSSystemTableUnit, ConcreteMethodReferencesUnit;
+  Classes,
+  SysUtils,
+  Generics.Collections,
+  ReporterUnit,
+  CodeGeneratorUnit,
+  StringListWrapperUnit,
+  LoggerUnit,
+  MSSystemColumnUnit,
+  MSSystemTableUnit,
+  ConcreteMethodReferencesUnit,
+  LoggerInterfaceUnit;
 
 type
   TSysColumnHelper = class(TComponent)
@@ -42,7 +49,7 @@ type
     FJoinReferenceRecords: TListOfJoinReferenceRecord;
     FAllQualifiedColumnRecords: TListOfQualifiedColumnRecord;
     FFirstTableQualifiedColumnRecords: TListOfQualifiedColumnRecord;
-    FLogger: TLogger;
+    FLogger: ILogger;
     FMSSystemTables: TMSSystemTables;
   strict protected
     procedure AddQualifiedColumnRecord(const ListOfQualifiedColumnRecord: TListOfQualifiedColumnRecord; const MSSystemTable: TMSSystemTable; const MSSystemColumn:
@@ -59,11 +66,10 @@ type
     property JoinReferenceRecords: TListOfJoinReferenceRecord read GetJoinReferenceRecords;
     property AllQualifiedColumnRecords: TListOfQualifiedColumnRecord read GetAllQualifiedColumnRecords;
     property FirstTableQualifiedColumnRecords: TListOfQualifiedColumnRecord read GetFirstTableQualifiedColumnRecords;
-    property Logger: TLogger read FLogger;
+    property Logger: ILogger read FLogger;
     property MSSystemTables: TMSSystemTables read FMSSystemTables;
   public
-    constructor Create(const Owner: TComponent; const MSSystemTables: TMSSystemTables; const FirstTableName: string; const Logger:
-        TLogger); reintroduce;
+    constructor Create(const Owner: TComponent; const MSSystemTables: TMSSystemTables; const FirstTableName: string; const Logger: ILogger); reintroduce;
     destructor Destroy; override;
     function GetChangedColumnName(const ColumnName: string): string;
     function GetFieldColumnName(const ColumnName: string): string;
@@ -103,8 +109,7 @@ type
     procedure RunForEachColumnNameInSysTableAndAppendCommasWhereNeeded(const MSSystemTable: TMSSystemTable; const ColumnsStringBuilder: TStringBuilder; const Proc:
         TStringProc; const SkipIdColums: Boolean = False); virtual;
   public
-    constructor Create(const Owner: TComponent; const SysTables: TMSSystemTables; const TableName: string; const UnitType:
-        TUnitType; const Logger: TLogger);
+    constructor Create(const Owner: TComponent; const SysTables: TMSSystemTables; const TableName: string; const UnitType: TUnitType; const Logger: ILogger);
     function FileBaseName: string; virtual;
     function FileName: string; virtual;
     function ToString: string; override;
@@ -118,8 +123,7 @@ implementation
 uses
   Variants, StrUtils, TypInfo, Windows, FieldNameHelperUnit, SqlConstsUnit, StringUtilsUnit, McGyverUnit;
 
-constructor TORMCodeGenerator.Create(const Owner: TComponent; const SysTables: TMSSystemTables; const TableName:
-    string; const UnitType: TUnitType; const Logger: TLogger);
+constructor TORMCodeGenerator.Create(const Owner: TComponent; const SysTables: TMSSystemTables; const TableName: string; const UnitType: TUnitType; const Logger: ILogger);
 begin
   inherited Create(Owner, SysTables, TableName, Logger);
   Self.FUnitType := UnitType;
@@ -1265,8 +1269,7 @@ begin
   Result := LoByte(ColType);
 end;
 
-constructor TEntityStructure.Create(const Owner: TComponent; const MSSystemTables: TMSSystemTables; const FirstTableName: string;
-    const Logger: TLogger);
+constructor TEntityStructure.Create(const Owner: TComponent; const MSSystemTables: TMSSystemTables; const FirstTableName: string; const Logger: ILogger);
 begin
   inherited Create(Owner);
   Self.FMSSystemTables := MSSystemTables;

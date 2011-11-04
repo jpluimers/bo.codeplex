@@ -22,7 +22,8 @@ uses
   ReportProxyInterfaceUnit in '..\..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas',
   LoggerInterfaceUnit in '..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas',
   FileVersionUnit in '..\..\..\..\bo.System\FileVersionUnit.pas',
-  XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas';
+  XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas',
+  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas';
 
 {$R *.res}
 

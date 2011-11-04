@@ -17,7 +17,8 @@ uses
   ReportersUnit in '..\..\..\bo.Logging\ReportersUnit.pas',
   DebuggingUnit in '..\..\..\bo.Debugging\DebuggingUnit.pas',
   LoggerInterfaceUnit in '..\..\..\bo.Logging\LoggerInterfaceUnit.pas',
-  ReportProxyInterfaceUnit in '..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas';
+  ReportProxyInterfaceUnit in '..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas',
+  DbWinUnit in '..\..\..\bo.DebugView\DbWinUnit.pas';
 
 {$R *.res}
 
