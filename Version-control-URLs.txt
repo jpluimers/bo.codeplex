@@ -27,6 +27,8 @@ https://github.com/VSoftTechnologies/Delphi-Mocks.git
 http://superobject.googlecode.com/svn/trunk/
 web: http://code.google.com/p/superobject/source/checkout
 
+../delphi-orm.googlecode.com
+http://delphi-orm.googlecode.com/svn/trunk/
 
 Note that we try to make our Trunk always compile.
 Drop us a line when it doesn't.
