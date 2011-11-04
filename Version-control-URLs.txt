@@ -30,6 +30,9 @@ web: http://code.google.com/p/superobject/source/checkout
 ../delphi-orm.googlecode.com
 http://delphi-orm.googlecode.com/svn/trunk/
 
+../delphi-coll.googlecode.com
+http://delphi-coll.googlecode.com/svn/trunk/
+
 Note that we try to make our Trunk always compile.
 Drop us a line when it doesn't.
 
