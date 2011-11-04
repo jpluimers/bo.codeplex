@@ -32,7 +32,9 @@ uses
 {$ifndef FPC}
   IOUtils,
 {$endif FPC}
-  superobject;
+  superobject,
+  DB,
+  DBClient;
 
 procedure TiOSFireMonkeyFishFactForm.LoadJSONButtonClick(Sender: TObject);
 var
@@ -133,9 +135,11 @@ procedure TiOSFireMonkeyFishFactForm.ShowFishFactEntries(const FishFactEntries:
     Result := Copy(FieldName, 2, Length(FieldName)-1);
   end;
 var
+  DataSet: TClientDataSet;
   FishFactEntry: TFishFactEntry;
   Index: Integer;
 begin
+
   StringGrid1.Columns[0].Width := 40;
   StringGrid1.Cells[0, 0] := StripFirst(SFSpeciesNo);
   StringGrid1.Cells[1, 0] := StripFirst(SFCommonName);
