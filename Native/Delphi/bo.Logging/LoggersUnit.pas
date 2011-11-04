@@ -16,11 +16,6 @@ type
     constructor Create;
   end;
 
-  TDbWinLogger = class(TReportingLogger)
-  public
-    constructor Create;
-  end;
-
   TStringsLogger = class(TReportingLogger)
   strict private
     FStringsOwnerToWatchObserver: TComponent;
@@ -55,14 +50,6 @@ var
   Reporter: IReporter;
 begin
   Reporter := TConsoleReporter.Create();
-  inherited Create(Reporter);
-end;
-
-constructor TDbWinLogger.Create;
-var
-  Reporter: IReporter;
-begin
-  Reporter := TDbWinReporter.Create();
   inherited Create(Reporter);
 end;
 

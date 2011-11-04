@@ -39,7 +39,7 @@ implementation
 
 uses
   LoggerUnit,
-  OutputDebugViewLoggerUnit,
+  DbWinLoggerUnit,
   LoggersUnit,
   MessagesUnit;
 
@@ -55,7 +55,7 @@ function TGenericPublishSubscribeMainForm.GetLogger: ILogger;
 begin
   if not Assigned(FLogger) then
     FLogger :=  TTeeLogger.Create([
-      TOutputDebugViewLogger.Create(),
+      TDbWinLogger.Create(),
       TStringsLogger.Create(LogMemo.Lines)
     ]);
   Result := FLogger;
