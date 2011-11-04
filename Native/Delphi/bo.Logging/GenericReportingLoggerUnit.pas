@@ -1,3 +1,5 @@
+{ Copyright (c) 2007-2011 Jeroen Wiert Pluimers for better office benelux and BeSharp.net }
+
 unit GenericReportingLoggerUnit;
 
 interface

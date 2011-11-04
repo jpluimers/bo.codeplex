@@ -114,6 +114,7 @@
 			<DCCReference Include="..\..\..\..\bo.System\McGyverUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.DebugView\DbWinUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

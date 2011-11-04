@@ -1,3 +1,6 @@
+{ Copyright (c) 2007-2011 Jeroen Wiert Pluimers for BeSharp.net and better office benelux.
+Full BSD License is available at http://besharp.codeplex.com/license and http://bo.codeplex.com/license }
+
 unit EnumTypeInfoUnit;
 
 interface
@@ -12,6 +15,9 @@ function GetEnumUnitName(const TypeInfo: PTypeInfo): string; overload;
 
 //1 get a CSV list of names for the enumeration values
 function GetEnumCsvNameList(const TypeInfo: PTypeInfo): string; overload;
+
+function EnumerationAsString(const Value: Integer; const PrefixToStrip: string; Info: PTypeInfo): string;
+function EnumerationName(const Value: Integer; const Info: PTypeInfo): string;
 
 implementation
 
@@ -71,5 +77,57 @@ begin
     end;
   end;
 end;
+
+function EnumerationAsString(const Value: Integer; const PrefixToStrip: string; Info: PTypeInfo): string;
+begin
+  Result := EnumerationName(Value, Info);
+  if (PrefixToStrip <> '') and (Pos(PrefixToStrip, Result) = 1) then  // there is a PrefixToStrip
+    Delete(Result, 1, Length(PrefixToStrip)); // remove the PrefixToStrip
+end; { EnumAsString }
+
+(*
+procedure CharArrayFromString(var CharArray; s: string; CharArraySize: TMaxCharsRange);
+
+procedure CharArrayFromString(var CharArray; s: string; CharArraySize: TMaxCharsRange);
+var
+  CharIndex: TMaxCharsRange;
+  MaxChar: PMaxChar;
+  StringLength: Integer;
+begin
+  StringLength := Length(s);
+  if (CharArraySize <> 0) and (StringLength > 0) then
+  begin
+    MaxChar := @CharArray;
+    for CharIndex := 0 to CharArraySize-1 do
+    begin
+      if CharIndex+1 > StringLength then
+        MaxChar^[CharIndex] := #0
+      else
+        MaxChar^[CharIndex] := s[CharIndex+1];
+    end;
+  end;
+end;
+*)
+
+{ Copied from nnRtti, since nnRtti sucks in Controls: }
+
+function EnumerationName(const Value: Integer; const Info: PTypeInfo): string;
+var
+  Data: PTypeData;
+begin
+  if Info^.Kind = tkEnumeration then
+  begin
+    Data := GetTypeData(Info);
+    if (Value < Data^.MinValue) or (Value > Data^.MaxValue) then
+      raise Exception.CreateFmt(
+        'Value %d outside enumeration range [%d..%d] for type %s',
+        [Value, Data^.MinValue, Data^.MaxValue, Info^.Name])
+    else
+      Result := GetEnumName(Info, Value)
+  end
+  else
+    raise Exception.CreateFmt('Info %s is not an enumerated type',
+      [Info^.Name]);
+end; { EnumerationName }
 
 end.

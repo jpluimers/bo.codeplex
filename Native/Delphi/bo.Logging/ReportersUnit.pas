@@ -1,3 +1,6 @@
+{ Copyright (c) 2007-2011 Jeroen Wiert Pluimers for BeSharp.net and better office benelux.
+Full BSD License is available at http://besharp.codeplex.com/license and http://bo.codeplex.com/license }
+
 unit ReportersUnit;
 
 interface
@@ -21,7 +24,16 @@ type
     procedure Report(const Line: string); override;
   end;
 
+type
+  TDbWinReporter = class(TReporter)
+  public
+    procedure Report(const Line: string); override;
+  end;
+
 implementation
+
+uses
+  DbWinUnit;
 
 procedure TConsoleReporter.Report(const Line: string);
 begin
@@ -36,7 +48,7 @@ end;
 
 destructor TStringsReporter.Destroy;
 begin
-  inherited Destroy;
+  inherited Destroy();
   FStrings := nil;
 end;
 
@@ -47,6 +59,15 @@ begin
   Strings := FStrings;
   if Assigned(Strings) then
     Strings.Append(Line);
+end;
+
+procedure TDbWinReporter.Report(const Line: string);
+begin
+{$ifdef UNICODE}
+  DbWin__OutputDebugStringU(PChar(Line));
+{$else}
+  DbWin__OutputDebugString(PChar(Line));
+{$endif UNICODE}
 end;
 
 end.

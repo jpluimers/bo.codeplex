@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, StdCtrls, CheckLst, ExtCtrls,
-  ReportersUnit, LoggersUnit, MSSystemTableUnit;
+  ReportersUnit, LoggersUnit, MSSystemTableUnit, LoggerInterfaceUnit;
 
 type
   TGenerateORMMainForm = class(TForm)
@@ -40,7 +40,7 @@ type
     procedure SQLServerUseIntegratedSecurityCheckBoxClick(Sender: TObject);
     procedure TablesCheckListBoxClick(Sender: TObject);
   strict private
-    FLogger: TStringsLogger;
+    FLogger: ILogger;
     FMSSystemTables: TMSSystemTables;
     FSQLIntegratedSecurity: Boolean;
     procedure ClearDetailControls;
@@ -148,7 +148,7 @@ end;
 procedure TGenerateORMMainForm.FormDestroy(Sender: TObject);
 begin
   FMSSystemTables.Free;
-  FLogger.Free;
+  FLogger := nil;
 end;
 
 procedure TGenerateORMMainForm.GenerateORM(MSSystemTable: TMSSystemTable);
