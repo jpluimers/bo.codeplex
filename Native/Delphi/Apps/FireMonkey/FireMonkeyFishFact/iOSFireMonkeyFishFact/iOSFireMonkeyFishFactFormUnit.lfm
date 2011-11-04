@@ -22,7 +22,7 @@ object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
     Position.Point = '(8,40)'
     Width = 305.000000000000000000
     Height = 65.000000000000000000
-    TabOrder = 2
+    TabOrder = 1
     ReadOnly = True
     WordWrap = False
   end
@@ -30,7 +30,7 @@ object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
     Position.Point = '(8,112)'
     Width = 305.000000000000000000
     Height = 105.000000000000000000
-    TabOrder = 3
+    TabOrder = 2
     ReadOnly = True
     WordWrap = False
   end
@@ -39,7 +39,7 @@ object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
     Width = 305.000000000000000000
     Height = 249.000000000000000000
     StyleLookup = 'gridstyle'
-    TabOrder = 4
+    TabOrder = 3
     RowHeight = 21.000000000000000000
     RowCount = 100
     object StringColumn1: TStringColumn
@@ -52,7 +52,7 @@ object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
     object StringColumn2: TStringColumn
       Position.Point = '(100,0)'
       Width = 195.000000000000000000
-      Height = 226.000000000000000000
+      Height = 218.000000000000000000
       HitTest = False
       TabOrder = 1
       ReadOnly = True
