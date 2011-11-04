@@ -29,7 +29,8 @@ var
 implementation
 
 uses
-  OutputDebugViewLoggerUnit, LoggersUnit;
+  DbWinLoggerUnit,
+  LoggersUnit;
 
 {$R *.dfm}
 
@@ -43,7 +44,7 @@ function TMainForm.GetLogger: ILogger;
 begin
   if not Assigned(FLogger) then
     FLogger :=  TTeeLogger.Create([
-      TOutputDebugViewLogger.Create(),
+      TDbWinLogger.Create(),
       TStringsLogger.Create(LogMemo.Lines),
       TStringsLogger.Create(LogRadioGroup.Items)
     ]);

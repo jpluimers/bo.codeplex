@@ -24,12 +24,6 @@ type
     procedure Report(const Line: string); override;
   end;
 
-type
-  TDbWinReporter = class(TReporter)
-  public
-    procedure Report(const Line: string); override;
-  end;
-
 implementation
 
 uses
@@ -59,15 +53,6 @@ begin
   Strings := FStrings;
   if Assigned(Strings) then
     Strings.Append(Line);
-end;
-
-procedure TDbWinReporter.Report(const Line: string);
-begin
-{$ifdef UNICODE}
-  DbWin__OutputDebugStringU(PChar(Line));
-{$else}
-  DbWin__OutputDebugString(PChar(Line));
-{$endif UNICODE}
 end;
 
 end.

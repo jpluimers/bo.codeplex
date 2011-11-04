@@ -1,4 +1,4 @@
-unit OutputDebugViewLoggerUnit;
+unit DbWinLoggerUnit;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   ReportingLoggerUnit;
 
 type
-  TOutputDebugViewLogger = class(TReportingLogger)
+  TDbWinLogger = class(TReportingLogger)
   public
     constructor Create;
   end;
@@ -15,13 +15,13 @@ type
 implementation
 
 uses
-  OutputDebugViewReporterUnit;
+  DbWinReporterUnit;
 
-constructor TOutputDebugViewLogger.Create;
+constructor TDbWinLogger.Create;
 var
   Reporter: IReporter;
 begin
-  Reporter := TOutputDebugViewReporter.Create();
+  Reporter := TDbWinReporter.Create();
   inherited Create(Reporter);
 end;
 

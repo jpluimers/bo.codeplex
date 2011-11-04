@@ -83,9 +83,6 @@
 			<DCCReference Include="..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.Logging\ReportProxyUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.DebugView\OutputDebugViewLoggerUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.DebugView\OutputDebugViewReporterUnit.pas"/>
-			<DCCReference Include="..\..\..\bo.DebugView\OutputDebugViewUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.Logging\LoggersUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.Logging\ReportingLoggerUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.Logging\ReportersUnit.pas"/>
@@ -93,6 +90,8 @@
 			<DCCReference Include="..\..\..\bo.Logging\LoggerInterfaceUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas"/>
 			<DCCReference Include="..\..\..\bo.DebugView\DbWinUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.DebugView\DbWinReporterUnit.pas"/>
+			<DCCReference Include="..\..\..\bo.DebugView\DbWinLoggerUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

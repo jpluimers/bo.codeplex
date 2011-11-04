@@ -19,12 +19,11 @@ uses
   ReportersUnit in '..\..\..\..\bo.Logging\ReportersUnit.pas',
   ReportProxyInterfaceUnit in '..\..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas',
   LoggerInterfaceUnit in '..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas',
-  OutputDebugViewLoggerUnit in '..\..\..\..\bo.DebugView\OutputDebugViewLoggerUnit.pas',
-  OutputDebugViewReporterUnit in '..\..\..\..\bo.DebugView\OutputDebugViewReporterUnit.pas',
-  OutputDebugViewUnit in '..\..\..\..\bo.DebugView\OutputDebugViewUnit.pas',
   DebuggingUnit in '..\..\..\..\bo.Debugging\DebuggingUnit.pas',
   RttiUnit in '..\..\..\..\bo.RTTI\RttiUnit.pas',
-  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas';
+  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas',
+  DbWinLoggerUnit in '..\..\..\..\bo.DebugView\DbWinLoggerUnit.pas',
+  DbWinReporterUnit in '..\..\..\..\bo.DebugView\DbWinReporterUnit.pas';
 
 {$R *.res}
 
