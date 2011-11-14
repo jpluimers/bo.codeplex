@@ -19,6 +19,9 @@ function GetEnumCsvNameList(const TypeInfo: PTypeInfo): string; overload;
 function EnumerationAsString(const Value: Integer; const PrefixToStrip: string; Info: PTypeInfo): string;
 function EnumerationName(const Value: Integer; const Info: PTypeInfo): string;
 
+//1 returns information about an enumeration, or the exception if it is not an enumeration
+function EnumerationInfo(Value: Integer; Info: PTypeInfo): string;
+
 implementation
 
 uses
@@ -83,7 +86,7 @@ begin
   Result := EnumerationName(Value, Info);
   if (PrefixToStrip <> '') and (Pos(PrefixToStrip, Result) = 1) then  // there is a PrefixToStrip
     Delete(Result, 1, Length(PrefixToStrip)); // remove the PrefixToStrip
-end; { EnumAsString }
+end; { EnumerationAsString }
 
 (*
 procedure CharArrayFromString(var CharArray; s: string; CharArraySize: TMaxCharsRange);
@@ -129,5 +132,15 @@ begin
     raise Exception.CreateFmt('Info %s is not an enumerated type',
       [Info^.Name]);
 end; { EnumerationName }
+
+function EnumerationInfo(Value: Integer; Info: PTypeInfo): string;
+begin
+  try
+    Result := EnumerationName(Value, Info);
+  except
+    on E: Exception do
+      Result := E.Message;
+  end;
+end; { EnumerationInfo }
 
 end.

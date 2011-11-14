@@ -2,6 +2,9 @@ unit PathUnit;
 
 interface
 
+uses
+  System.Classes;
+
 { from .NET 4.0 System.IO.Path;
 todo: extend with http://stackoverflow.com/questions/62771/how-check-if-given-string-is-legal-allowed-file-name-under-windows }
 
@@ -18,11 +21,15 @@ type
     class function IsInvalidPathChar(const Ch: Char): Boolean; static;
     class property InvalidFileNameChars: string read FInvalidFileNameChars;
     class property InvalidPathChars: string read FRealInvalidPathChars;
+    class procedure GetFilenames(const Dest: TStrings; const Path: string; const Mask: string = '*.*'); static;
     class function StripInvalidFileNameChars(const FileName: string): string; static;
     class function StripInvalidPathChars(const Path: string): string; static;
   end;
 
 implementation
+
+uses
+  SysUtils;
 
 class procedure TPath.Initialize;
 var
@@ -89,6 +96,22 @@ begin
    for Index := Length(Result) downto 1 do
      if IsInvalidPathChar(Result[Index]) then
        Delete(Result, Index, 1);
+end;
+
+class procedure TPath.GetFilenames(const Dest: TStrings; const Path: string; const Mask: string = '*.*');
+var
+  FindFirstResult: Integer;
+  SearchRec: TSearchRec;
+begin
+  FindFirstResult := FindFirst(Path + Mask, faAnyFile, SearchRec);
+  try
+    if FindFirstResult = 0 then
+    repeat
+      Dest.Add(SearchRec.Name);
+    until FindNext(SearchRec) <> 0;
+  finally
+    FindClose(SearchRec);
+  end;
 end;
 
 initialization

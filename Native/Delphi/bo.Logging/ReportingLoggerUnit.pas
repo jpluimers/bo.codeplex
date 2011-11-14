@@ -9,7 +9,7 @@ uses
   LoggerUnit, ReporterUnit;
 
 type
-  TReportingLogger = class(TLogger)
+  TReportingLogger = class(TLeveledLogger)
   strict private
     FReporter: IReporter;
   strict protected

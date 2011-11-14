@@ -15,7 +15,8 @@ uses
   ReporterUnit,
   ReportProxyUnit,
   ReportProxyInterfaceUnit,
-  LoggerInterfaceUnit;
+  LoggerInterfaceUnit,
+  StringListWrapperUnit;
 
 type
   TStringArray = array of string;
@@ -36,18 +37,36 @@ type
   TReportProxyLogger = class(TEnabledLogger, IReportProxyLogger)
   strict private
     FTraceLevel: Integer;
+    //TODO ##jpl: make these properties
+    DoTraceOnlyEnabled: Boolean; { trace all except disabled }
+    TraceLevels: IStringListWrapper; { list of String='-1/0' } //TODO ##jpl: replace with TQueue<Boolean>
+    DoTrace: IStringListWrapper; { sorted list of String=ClassName/Object=TClass }
+    DoNotTrace: IStringListWrapper; { sorted list of String=ClassName/Object=TClass }
   strict protected
+    procedure EnterTraceLevel; virtual;
     function FormatLine(const Line: string): string; virtual;
+    function IsADoNotTraceInstance(Instance: TObject): Boolean; virtual;
+    function IsADoTraceInstance(Instance: TObject): Boolean; virtual;
+    procedure LeaveTraceLevel; virtual;
     procedure Report(const FormatMask: string; const Arguments: array of const); overload; virtual;
     procedure Report(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings); overload; virtual;
-    property TraceLevel: Integer read FTraceLevel write FTraceLevel;
+    procedure SetTraceLevel(const Value: Integer); virtual;
+    property TraceLevel: Integer read FTraceLevel write SetTraceLevel;
   protected
+    function CanTraceInstance(Instance: TObject): Boolean;
     procedure Log(const Line: string); overload; virtual;
     procedure Log(const FormatMask: string; const Arguments: array of const); overload; virtual;
     procedure Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings); overload; virtual;
     procedure Enter(const MethodName: string); overload; virtual;
+    procedure Enter(const Instance: TObject; const MethodName: string); overload; virtual;
+    procedure Enter(const Instance: TObject; const Mask: string; const Args: array of const); overload; virtual;
+    procedure IndentAndReport(const Line: string); overload; virtual;
     procedure Leave(const MethodName: string); overload; virtual;
+    procedure Leave(const Instance: TObject; const MethodName: string); overload; virtual;
+    procedure Leave(const Instance: TObject; const Mask: string; const Args: array of const); overload; virtual;
     procedure Report(const Line: string); overload; override;
+  public
+    constructor Create;
   end;
 
   TBaseLogger = class(TReportProxyLogger)
@@ -112,6 +131,7 @@ type
     procedure SetVerbosityLevel(const Value: TVerbosityLevel); virtual;
   public
     constructor Create;
+    class function CreateIfNeeded(var FLogger: ILeveledLogger): ILeveledLogger;
     property All: ILeveledLogger read GetAll;
     property Debug: ILeveledLogger read GetDebug;
     property Error: ILeveledLogger read GetError;
@@ -146,12 +166,43 @@ type
     procedure Report(const Line: string); overload; override;
   end;
 
+procedure GlobalDisableTrace;
+procedure GlobalEnableTrace;
+
 implementation
 
 uses
   RecordTypeInfoUnit,
   SetTypeInfoUnit,
-  EnumTypeInfoUnit;
+  EnumTypeInfoUnit, StrUtils;
+
+var
+  GlobalLogEnabled: Boolean = true; { global trace state -
+    if FALSE, then NO trace is performed resulting in minimal CPU time spent }
+
+procedure GlobalDisableTrace;
+begin
+  GlobalLogEnabled := False;
+end;
+
+procedure GlobalEnableTrace;
+begin
+  GlobalLogEnabled := True;
+end;
+
+
+function SafeClassName(Instance: TObject): string;
+begin
+  if Instance = nil then
+    Result := '(NIL)'
+  else try
+    Result := Instance.ClassName;
+  except
+    on E: Exception do
+      Result := 'Exception: '+E.Message;
+  end;
+end;
+
 
 function SafeFormat(const Format: string; const Args: array of const): string; overload;
 begin
@@ -163,6 +214,13 @@ begin
   end;
 end;
 
+
+function ClassMethod(Instance: TObject; MethodName: string): string;
+begin
+  Result := Format('%s[%p].%s', [SafeClassName(Instance), Pointer(Instance), MethodName]);
+end;
+
+
 function SafeFormat(const Format: string; const Args: array of const; const FormatSettings: TFormatSettings): string; overload;
 begin
   try
@@ -173,12 +231,32 @@ begin
   end;
 end;
 
+function FindInstanceInClassList(Instance: TObject; ClassList: IStringListWrapper): Boolean;
+var
+  Index: Integer;
+  CurrentClassObject: TObject;
+  CurrentClass: TClass;
+begin
+  Result := False;
+  for Index := 0 to ClassList.Count - 1 do    { Iterate }
+  begin
+    CurrentClassObject := ClassList.Objects[Index];
+    CurrentClass := TClass(CurrentClassObject);
+    if (Instance is CurrentClass) then
+    begin
+      Result := True;
+      Break;
+    end;
+  end;
+end;
+
+
 type
   TIndirectToLeveledLogger = class(TTeeLogger)
   strict protected
     procedure Report(const ReportProxy: IReportProxy; const Line: string); overload; override;
   end;
-  
+
 procedure TLogger.Flush;
 begin
   // allow descendants to override.
@@ -186,11 +264,13 @@ end;
 
 procedure TLogger.Log;
 begin
+  if not GlobalLogEnabled then exit;
   Log('');
 end;
 
 procedure TLogger.Log(const E: Exception);
 begin
+  if not GlobalLogEnabled then exit;
   Log('Exception "%s", at %p: "%s"', [E.ClassName, ExceptAddr, E.Message]);
 end;
 
@@ -199,6 +279,7 @@ var
   Item: string;
   Index: Integer;
 begin
+  if not GlobalLogEnabled then exit;
   Index := 0;
   for Item in Items do
   begin
@@ -219,29 +300,134 @@ end;
 
 procedure TReportProxyLogger.Log(const Line: string);
 begin
-  Report(Line);
+  if not GlobalLogEnabled then exit;
+  IndentAndReport(Line);
 end;
 
 procedure TReportProxyLogger.Log(const FormatMask: string; const Arguments: array of const);
 begin
+  if not GlobalLogEnabled then exit;
   Report(FormatMask, Arguments);
 end;
 
 procedure TReportProxyLogger.Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings);
 begin
+  if not GlobalLogEnabled then exit;
   Report(FormatMask, Arguments, FormatSettings);
 end;
 
 procedure TReportProxyLogger.Enter(const MethodName: string);
 begin
+  if not GlobalLogEnabled then exit;
   Log('>' + MethodName);
-  TraceLevel := TraceLevel + 1;
+  EnterTraceLevel;
+end;
+
+procedure TReportProxyLogger.Enter(const Instance: TObject; const MethodName: string);
+var
+  NewTraceEnabled: Boolean;
+begin
+  if not GlobalLogEnabled then exit;
+  NewTraceEnabled := CanTraceInstance(Instance);
+  if NewTraceEnabled then
+    Enter(ClassMethod(Instance, MethodName))
+  else
+    EnterTraceLevel;
+  Enabled := NewTraceEnabled;
+end;
+
+procedure TReportProxyLogger.Enter(const Instance: TObject; const Mask: string; const Args: array of const);
+begin
+  if not GlobalLogEnabled then exit;
+  Enter(Instance, SafeFormat(Mask, Args));
+end;
+
+procedure TReportProxyLogger.Leave(const Instance: TObject; const MethodName: string);
+begin
+  if not GlobalLogEnabled then exit;
+  if CanTraceInstance(Instance) then
+    Leave(ClassMethod(Instance, MethodName))
+  else
+    LeaveTraceLevel;
+end;
+
+procedure TReportProxyLogger.Leave(const Instance: TObject; const Mask: string; const Args: array of const);
+begin
+  if not GlobalLogEnabled then exit;
+  Leave(Instance, SafeFormat(Mask, Args));
 end;
 
 procedure TReportProxyLogger.Leave(const MethodName: string);
 begin
-  TraceLevel := TraceLevel - 1;
+  if not GlobalLogEnabled then exit;
+  LeaveTraceLevel();
   Log('<' + MethodName);
+end;
+
+function TReportProxyLogger.IsADoTraceInstance(Instance: TObject): Boolean;
+begin
+  Result := FindInstanceInClassList(Instance, DoTrace);
+end;
+
+function TReportProxyLogger.IsADoNotTraceInstance(Instance: TObject): Boolean;
+begin
+  Result := FindInstanceInClassList(Instance, DoNotTrace);
+end;
+
+constructor TReportProxyLogger.Create;
+begin
+  inherited Create();
+  DoTraceOnlyEnabled := False;
+  TraceLevels := TStringListWrapper.Create();
+  DoTrace := TStringListWrapper.Create();
+  DoNotTrace := TStringListWrapper.Create();
+end;
+
+function TReportProxyLogger.CanTraceInstance(Instance: TObject): Boolean;
+begin
+  if DoTraceOnlyEnabled then
+    Result := IsADoTraceInstance(Instance)
+  else
+    Result := not IsADoNotTraceInstance(Instance);
+end;
+
+procedure TReportProxyLogger.EnterTraceLevel;
+var
+  TraceLevelEnabledString: string;
+begin
+  TraceLevel := TraceLevel + 1;
+  if Assigned(TraceLevels) then
+  begin
+    TraceLevelEnabledString := BoolToStr(Enabled);
+    TraceLevels.Add(TraceLevelEnabledString);
+  end;
+end;
+
+procedure TReportProxyLogger.IndentAndReport(const Line: string);
+var
+  IndentedLine: string;
+begin
+  if not GlobalLogEnabled then exit;
+  IndentedLine := DupeString('  ', TraceLevel) + Line;
+  Report(IndentedLine);
+end;
+
+procedure TReportProxyLogger.LeaveTraceLevel;
+var
+  TraceLevelEnabledString: string;
+  TraceLevelsCount: Integer;
+begin
+  if Assigned(TraceLevels) then
+  begin
+    TraceLevelsCount := TraceLevels.Count;
+    if TraceLevelsCount > 0 then
+    begin
+      TraceLevelEnabledString := TraceLevels[TraceLevelsCount-1];
+      Enabled := StrToBool(TraceLevelEnabledString);
+      TraceLevels.Delete(TraceLevelsCount-1);
+    end;
+  end;
+  TraceLevel := TraceLevel - 1;
 end;
 
 procedure TReportProxyLogger.Report(const FormatMask: string; const Arguments: array of const);
@@ -249,7 +435,7 @@ var
   Line: string;
 begin
   Line := SafeFormat(FormatMask, Arguments);
-  Report(Line);
+  IndentAndReport(Line);
 end;
 
 procedure TReportProxyLogger.Report(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings);
@@ -257,15 +443,24 @@ var
   Line: string;
 begin
   Line := SafeFormat(FormatMask, Arguments, FormatSettings);
-  Report(Line);
+  IndentAndReport(Line);
 end;
 
 procedure TReportProxyLogger.Report(const Line: string);
 var
   FormattedLine: string;
+  Indent: string;
 begin
+  if not GlobalLogEnabled then exit;
   FormattedLine := FormatLine(Line);
+  Indent := DupeString('  ', TraceLevel);
+  FormattedLine := Indent + FormattedLine;
   inherited Report(FormattedLine);
+end;
+
+procedure TReportProxyLogger.SetTraceLevel(const Value: Integer);
+begin
+  FTraceLevel := Value;
 end;
 
 constructor TTeeLogger.Create(const ReportProxyArray: array of IReportProxy);
@@ -298,6 +493,7 @@ procedure TTeeLogger.Report(const Line: string);
 var
   ReportProxy: IReportProxy;
 begin
+  if not GlobalLogEnabled then exit;
   inherited Report(Line);
   for ReportProxy in ReportProxies do
     Report(ReportProxy, Line);
@@ -321,41 +517,49 @@ end;
 
 procedure TIndexLogger.Log(const Description: string; const Index: Integer; const Item: Boolean);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, Index, BoolToStr(Item));
 end;
 
 procedure TIndexLogger.Log(const Description: string; const Index: Integer; const Item: Integer);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, Index, IntToStr(Item));
 end;
 
 procedure TIndexLogger.Log(const Description: string; const Index: Integer; const Item: Pointer);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, Index, PointerToString(Item));
 end;
 
 procedure TIndexLogger.Log(const Description: string; const Index: Integer; const Item: string);
 begin
+  if not GlobalLogEnabled then exit;
   Log('%s[%d]:%s', [Description, Index, Item]);
 end;
 
 procedure TIndexLogger.Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Boolean);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, Index, DescriptionSuffix, BoolToStr(Item));
 end;
 
 procedure TIndexLogger.Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Integer);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, Index, DescriptionSuffix, IntToStr(Item));
 end;
 
 procedure TIndexLogger.Log(const Description: string; const Index: Integer; const DescriptionSuffix: string; const Item: Pointer);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, Index, DescriptionSuffix, PointerToString(Item));
 end;
 
 procedure TIndexLogger.Log(const Description: string; const Index: Integer; const DescriptionSuffix, Item: string);
 begin
+  if not GlobalLogEnabled then exit;
   Log('%s[%d].%s:%s', [Description, Index, DescriptionSuffix, Item]);
 end;
 
@@ -366,21 +570,25 @@ end;
 
 procedure TDescriptionLogger.Log(const Description: string; const Item: Boolean);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, BoolToStr(Item));
 end;
 
 procedure TDescriptionLogger.Log(const Description: string; const Item: Integer);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, IntToStr(Item));
 end;
 
 procedure TDescriptionLogger.Log(const Description: string; const Item: Pointer);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, PointerToString(Item));
 end;
 
 procedure TDescriptionLogger.Log(const Description: string; const Item: string);
 begin
+  if not GlobalLogEnabled then exit;
   Log('%s:%s', [Description, Item]);
 end;
 
@@ -388,6 +596,7 @@ procedure TDescriptionLogger.Log(const Description: string; const TypeInfo: PTyp
 var
   Item: string;
 begin
+  if not GlobalLogEnabled then exit;
   Item := GetEnumNameAndOrdValue(TypeInfo, Value);
   Log(Description, Item);
 end;
@@ -407,6 +616,7 @@ var
   NewPrefix: string;
   RecordFieldTableField: TFieldInfo;
 begin
+  if not GlobalLogEnabled then exit;
   if not Assigned(TypeTypeInfo) then
     Exit;
   Log('%s: TypeInfo for type %s', [Description, TypeTypeInfo.Name]);
@@ -525,6 +735,7 @@ end;
 
 procedure TDescriptionLogger.Log(const Description: string; const Item: ShortStringBase);
 begin
+  if not GlobalLogEnabled then exit;
   Log(Description, string(Item));
 end;
 
@@ -540,6 +751,7 @@ end;
 
 procedure TEnabledLogger.Report(const Line: string);
 begin
+  if not GlobalLogEnabled then exit;
   if Enabled then
     inherited Report(Line);
 end;
@@ -570,6 +782,13 @@ begin
   FAll := TIndirectToLeveledLogger.Create([Self]);
   FAll.VerbosityLevel := vlAll;
   VerbosityLevel := vlWarn;
+end;
+
+class function TLeveledLogger.CreateIfNeeded(var FLogger: ILeveledLogger): ILeveledLogger;
+begin
+  if not Assigned(FLogger) then
+    FLogger := TLeveledLogger.Create();
+  Result := FLogger;
 end;
 
 function TLeveledLogger.FormatLine(const Line: string): string;
