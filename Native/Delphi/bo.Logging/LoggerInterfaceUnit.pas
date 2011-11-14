@@ -21,7 +21,11 @@ type
   IReportProxyLogger = interface(IEnabledLogger)
     ['{F85CB281-D557-4708-9A48-4F90AFC99D6A}']
     procedure Enter(const MethodName: string); overload;
+    procedure Enter(const Instance: TObject; const MethodName: string); overload;
+    procedure Enter(const Instance: TObject; const Mask: string; const Args: array of const); overload;
     procedure Leave(const MethodName: string); overload;
+    procedure Leave(const Instance: TObject; const MethodName: string); overload;
+    procedure Leave(const Instance: TObject; const Mask: string; const Args: array of const); overload;
     procedure Log(const Line: string); overload;
     procedure Log(const FormatMask: string; const Arguments: array of const); overload;
     procedure Log(const FormatMask: string; const Arguments: array of const; const FormatSettings: TFormatSettings); overload;

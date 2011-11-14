@@ -4,6 +4,8 @@ Full BSD License is available at http://besharp.codeplex.com/license and http://
 { better than OutputDebugString which:
   1. has a bug in Windows 95 that prevents OutputDebugString to be visible in DBWIN32/DbgView/DebugView
   2. if a process runs under the debugger, only outputs to the Debugger and not to DBWIN32/DbgView/DebugView
+
+  See http://www.unixwiz.net/techtips/outputdebugstring.html
 }
 
 unit DbWinUnit;
@@ -21,10 +23,12 @@ procedure DbWin__OutputDebugString(lpOutputString: PAnsiChar); stdcall;
 implementation
 
 uses
-  Windows, SysUtils;
+  Windows,
+  SysUtils,
+  DebuggingUnit;
 
 const
-  FourK = 4096;
+  FourK = 4096; //size for DBWIN_BUFFER buffer below
   AlmostFourK = FourK - SizeOf(DWord);
 
 type
@@ -60,25 +64,6 @@ begin
 {$endif UNICODE}
 end;
 
-function IsDebuggerAttached: boolean;
-var
-  TheRegister: integer;
-begin
-  asm
-    push eax	// Preserve the registers
-    push ecx
-    mov	eax, fs:[$18]	// Get the TIB's linear address
-    mov	eax, dword ptr [eax + $30]
-    mov	ecx, dword ptr [eax]	// Get the whole DWORD
-    mov	TheRegister, ecx	// Save it
-    pop ecx	// Restore the registers
-    pop eax
-  end;
-  // The 3rd byte is the byte we really need to check for the
-  // presence of a debugger.  // Check the 3rd byte
-  result := (TheRegister and $00010000 ) <> 0;
-end;
-
 {$ifdef UNICODE}
 procedure DbWin__OutputDebugStringU(lpOutputString: PWideChar); stdcall;
 var
@@ -96,7 +81,6 @@ var
   heventData: THandle;   { data passing synch object }
   hSharedFile: THandle;  { memory mapped file shared data }
   SharedMem: PSharedmem; { shared data }
-  VerInfo: TOSVERSIONINFO;
 begin
 { protocol: http://unixwiz.net/techtips/outputdebugstring.html }
 { Do a regular OutputDebugString so that the output is
@@ -106,44 +90,39 @@ begin
 {$else}
   Windows.OutputDebugString(lpOutputString);
 {$endif UNICODE}
-{ The regular OutputDebugString only works in the following circumstances:
-    - Windows 95: never
-    - Windows NT: only if run as part of Delphi (DebugHook=0)
-    - Win32s: never
-}
 { bail if OutputDebugString is supposed to work }
-  VerInfo.dwOSVersionInfoSize := sizeof(TOSVERSIONINFO);
-  GetVersionEx(VerInfo);
-  if (VerInfo.dwPlatformId = VER_PLATFORM_WIN32_NT) then
-    if (DebugHook=0) { running as part of Delphi?; note: this does not work with DLLs } then
-      if not IsDebuggerAttached then
-        Exit; // we exit when Windows.OutputDebugString would have done its' job.
-        
+  if (DoesOutputDebugStringRedirectToDebugView) then
+    Exit; // we exit when Windows.OutputDebugString would have done its' job.
+
 { make sure DBWIN is open and waiting }
   heventDBWIN := OpenEvent(EVENT_MODIFY_STATE, FALSE, 'DBWIN_BUFFER_READY');
   try
-    if heventDBWIN = 0 then begin
+    if heventDBWIN = 0 then
+    begin
       // MessageBox(0, 'DBWIN_BUFFER_READY nonexistent', nil, MB_OK);
       Exit;
     end;
   { get a handle to the data synch object }
     heventData := OpenEvent(EVENT_MODIFY_STATE, FALSE, 'DBWIN_DATA_READY');
     try
-      if heventData = 0 then begin
+      if heventData = 0 then
+      begin
         // MessageBox(0, 'DBWIN_DATA_READY nonexistent', nil, MB_OK);
         Exit;
       end;
     { get a handle to the memory mapped file }
-      hSharedFile := CreateFileMapping(THANDLE(-1), nil, PAGE_READWRITE, 0, 4096, 'DBWIN_BUFFER');
+      hSharedFile := CreateFileMapping(THANDLE(-1), nil, PAGE_READWRITE, 0, FourK, 'DBWIN_BUFFER');
       try
-        if hSharedFile = 0 then begin
+        if hSharedFile = 0 then
+        begin
           // MessageBox(0, 'DebugTrace: Unable to create file mapping object DBWIN_BUFFER', 'Error', MB_OK);
           Exit;
         end;
       { get a pointer to the memory mapped file
         (this points to the shared memory between our process and the DBWIN32 process) }
         SharedMem := MapViewOfFile(hSharedFile, FILE_MAP_WRITE, 0, 0, 512);
-        if SharedMem = nil then begin
+        if SharedMem = nil then
+        begin
           // MessageBox(0, 'DebugTrace: Unable to map shared memory', 'Error', MB_OK);
           Exit;
         end;

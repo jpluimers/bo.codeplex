@@ -6,7 +6,8 @@ unit ReportersUnit;
 interface
 
 uses
-  ReporterUnit, Classes;
+  ReporterUnit,
+  Classes;
 
 type
   TConsoleReporter = class(TReporter)

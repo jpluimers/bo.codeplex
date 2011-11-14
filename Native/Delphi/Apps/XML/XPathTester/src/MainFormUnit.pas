@@ -332,7 +332,8 @@ end;
 
 function TMainForm.GetLogger: ILogger;
 begin
-  if not Assigned(FLogger) then begin
+  if not Assigned(FLogger) then
+  begin
     FLogger := TTeeLogger.Create([TStringsLogger.Create(ResultsMemo.Lines)]);
   end;
   Result := FLogger;
