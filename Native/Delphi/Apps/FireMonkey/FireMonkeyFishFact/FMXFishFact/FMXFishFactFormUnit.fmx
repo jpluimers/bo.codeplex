@@ -1,0 +1,310 @@
+object FMXFishFactForm: TFMXFishFactForm
+  Left = 0
+  Top = 0
+  BiDiMode = bdLeftToRight
+  Caption = 'FMXFishFactForm'
+  ClientHeight = 510
+  ClientWidth = 493
+  Transparency = False
+  Visible = False
+  OnCreate = FormCreate
+  StyleLookup = 'backgroundstyle'
+  object Panel1: TPanel
+    Position.Point = '(256,64)'
+    Width = 233.000000000000000000
+    Height = 33.000000000000000000
+    TabOrder = 0
+    object GlowEffect1: TGlowEffect
+      Softness = 0.400000005960464500
+      GlowColor = claGold
+      Opacity = 0.899999976158142100
+    end
+    object Label1: TLabel
+      Align = alMostTop
+      Width = 233.000000000000000000
+      Height = 15.000000000000000000
+      TabOrder = 0
+    end
+    object Label2: TLabel
+      Align = alMostBottom
+      Position.Point = '(0,18)'
+      Width = 233.000000000000000000
+      Height = 15.000000000000000000
+      TabOrder = 1
+    end
+  end
+  object Memo1: TMemo
+    Position.Point = '(256,104)'
+    Width = 233.000000000000000000
+    Height = 161.000000000000000000
+    TabOrder = 1
+    WordWrap = False
+  end
+  object StringGrid1: TStringGrid
+    Position.Point = '(8,272)'
+    Width = 481.000000000000000000
+    Height = 225.000000000000000000
+    StyleLookup = 'gridstyle'
+    TabOrder = 2
+    RowHeight = 21.000000000000000000
+    RowCount = 0
+    object TStringColumn
+      Width = 100.000000000000000000
+      Height = 202.000000000000000000
+      HitTest = False
+      TabOrder = 0
+      Header = 'Category'
+    end
+    object TStringColumn
+      Position.Point = '(100,0)'
+      Width = 150.000000000000000000
+      Height = 202.000000000000000000
+      HitTest = False
+      TabOrder = 1
+      Header = 'Species Name'
+    end
+    object TStringColumn
+      Position.Point = '(250,0)'
+      Width = 150.000000000000000000
+      Height = 202.000000000000000000
+      HitTest = False
+      TabOrder = 2
+      Header = 'Common Name'
+    end
+    object TStringColumn
+      Position.Point = '(400,0)'
+      Width = 30.000000000000000000
+      Height = 202.000000000000000000
+      HitTest = False
+      TabOrder = 3
+      Header = 'cm'
+    end
+    object TStringColumn
+      Position.Point = '(430,0)'
+      Width = 30.000000000000000000
+      Height = 202.000000000000000000
+      HitTest = False
+      TabOrder = 4
+      Header = 'Inch'
+    end
+  end
+  object ImageControl1: TImageControl
+    Position.Point = '(8,64)'
+    Width = 241.000000000000000000
+    Height = 201.000000000000000000
+    TabOrder = 3
+    Bitmap.PNG = {
+      89504E470D0A1A0A0000000D49484452000000FA000000960806000000F7DA95
+      1C000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+      00097048597300000EC300000EC301C76FA864000002A549444154785EEDD081
+      00000000C3A0F9531FE4855061C0800103060C183060C0800103060C183060C0
+      800103060C183060C0800103060C183060C0800103060C183060C0800103060C
+      183060C0800103060C183060C0800103060C183060C0800103060C183060C080
+      0103060C183060C0800103060C183060C0800103060C183060C0800103060C18
+      3060C0800103060C183060C0800103060C183060C0800103060C183060C08001
+      03060C183060C0800103060C183060C0800103060C183060C0800103060C1830
+      60C0800103060C183060C0800103060C183060C0800103060C183060C0800103
+      060C183060C0800103060C183060C0800103060C183060C0800103060C183060
+      C0800103060C183060C0800103060C183060C0800103060C183060C080010306
+      0C183060C0800103060C183060C0800103060C183060C0800103060C183060C0
+      800103060C183060C0800103060C183060C0800103060C183060C0800103060C
+      183060C0800103060C183060C0800103060C183060C0800103060C183060C080
+      0103060C183060C0800103060C183060C0800103060C183060C0800103060C18
+      3060C0800103060C183060C0800103060C183060C0800103060C183060C08001
+      03060C183060C0800103060C183060C0800103060C183060C0800103060C1830
+      60C0800103060C183060C0800103060C183060C0800103060C183060C0800103
+      060C183060C0800103060C183060C0800103060C183060C0800103060C183060
+      C0800103060C183060C0800103060C183060C0800103060C183060C080010306
+      0C183060C0800103060C183060C0800103060C183060C0800103060C183060C0
+      800103060C183060C0800103060C183060C0800103060C183060C0800103060C
+      183060C0800103060C183060C0800103060C183060C0800103BF03034AA40001
+      83DEAD4E0000000049454E44AE426082}
+  end
+  object BindNavigator1: TBindNavigator
+    Position.Point = '(8,32)'
+    Width = 240.000000000000000000
+    Height = 25.000000000000000000
+    BindScope = BindScopeDB1
+    xRadius = 4.000000000000000000
+    yRadius = 4.000000000000000000
+  end
+  object IBDatabase1: TIBDatabase
+    DatabaseName = 
+      'C:\Users\Public\Documents\RAD Studio\9.0\Samples\Data\dbdemos.gd' +
+      'b'
+    Params.Strings = (
+      'user_name=sysdba'
+      'password=masterkey')
+    LoginPrompt = False
+    DefaultTransaction = IBTransaction1
+    ServerType = 'IBServer'
+    Left = 48
+    Top = 64
+  end
+  object IBTable1: TIBTable
+    Database = IBDatabase1
+    Transaction = IBTransaction1
+    FieldDefs = <
+      item
+        Name = 'SPECIES_NO'
+        DataType = ftFloat
+      end
+      item
+        Name = 'CATEGORY'
+        DataType = ftWideString
+        Size = 15
+      end
+      item
+        Name = 'COMMON_NAME'
+        DataType = ftWideString
+        Size = 30
+      end
+      item
+        Name = 'SPECIES_NAME'
+        DataType = ftWideString
+        Size = 40
+      end
+      item
+        Name = 'LENGTH__CM_'
+        DataType = ftFloat
+      end
+      item
+        Name = 'LENGTH_IN'
+        DataType = ftFloat
+      end
+      item
+        Name = 'NOTES'
+        DataType = ftWideMemo
+        Size = 8
+      end
+      item
+        Name = 'GRAPHIC'
+        DataType = ftBlob
+        Size = 8
+      end>
+    IndexDefs = <
+      item
+        Name = 'BIOLIFE0'
+        Fields = 'SPECIES_NO'
+        Options = [ixUnique]
+      end>
+    StoreDefs = True
+    TableName = 'BIOLIFE'
+    Left = 48
+    Top = 120
+    object IBTable1CATEGORY: TIBStringField
+      DisplayLabel = 'Category'
+      FieldName = 'CATEGORY'
+      Size = 15
+    end
+    object IBTable1SPECIES_NAME: TIBStringField
+      DisplayLabel = 'Species Name'
+      FieldName = 'SPECIES_NAME'
+      Size = 40
+    end
+    object IBTable1LENGTH__CM_: TFloatField
+      DisplayLabel = 'Length (cm)'
+      FieldName = 'LENGTH__CM_'
+    end
+    object IBTable1LENGTH_IN: TFloatField
+      DisplayLabel = 'Length_In'
+      FieldName = 'LENGTH_IN'
+      DisplayFormat = '0.00'
+    end
+    object IBTable1COMMON_NAME: TIBStringField
+      DisplayLabel = 'Common Name'
+      FieldName = 'COMMON_NAME'
+      Size = 30
+    end
+    object IBTable1NOTES: TMemoField
+      DisplayLabel = 'Notes'
+      FieldName = 'NOTES'
+      BlobType = ftMemo
+      Size = 8
+    end
+    object IBTable1GRAPHIC: TBlobField
+      DisplayLabel = 'Graphic'
+      FieldName = 'GRAPHIC'
+      Size = 8
+    end
+  end
+  object IBTransaction1: TIBTransaction
+    DefaultDatabase = IBDatabase1
+    Left = 112
+    Top = 64
+  end
+  object DataSource1: TDataSource
+    DataSet = IBTable1
+    Left = 115
+    Top = 121
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    UseAppManager = True
+    Left = 200
+    Top = 64
+    object DBLinkMemo1NOTES1: TBindDBMemoLink
+      Category = 'DB Links'
+      DataSource = BindScopeDB1
+      FieldName = 'NOTES'
+      MemoControl = Memo1
+    end
+    object DBLinkLabel1COMMON_NAME1: TBindDBTextLink
+      Category = 'DB Links'
+      DataSource = BindScopeDB1
+      FieldName = 'COMMON_NAME'
+      TextControl = Label1
+    end
+    object DBLinkLabel2COMMON_NAME1: TBindDBTextLink
+      Category = 'DB Links'
+      DataSource = BindScopeDB1
+      FieldName = 'COMMON_NAME'
+      TextControl = Label2
+    end
+    object DBLinkImageControl1GRAPHIC1: TBindDBImageLink
+      Category = 'DB Links'
+      DataSource = BindScopeDB1
+      FieldName = 'GRAPHIC'
+      ImageControl = ImageControl1
+    end
+    object DBLinkStringGrid11: TBindDBGridLink
+      Category = 'DB Links'
+      DataSource = BindScopeDB1
+      GridControl = StringGrid1
+      Columns = <
+        item
+          FieldName = 'CATEGORY'
+          Width = 100
+          Visible = True
+        end
+        item
+          FieldName = 'SPECIES_NAME'
+          Width = 150
+          Visible = True
+        end
+        item
+          FieldName = 'COMMON_NAME'
+          Width = 150
+          Visible = True
+        end
+        item
+          FieldName = 'LENGTH__CM_'
+          Header = 'cm'
+          Width = 30
+          Visible = True
+        end
+        item
+          FieldName = 'LENGTH_IN'
+          Header = 'Inch'
+          Width = 30
+          Visible = True
+        end>
+    end
+  end
+  object BindScopeDB1: TBindScopeDB
+    DataSource = DataSource1
+    Left = 200
+    Top = 120
+  end
+end
