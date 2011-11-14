@@ -33,6 +33,12 @@ http://delphi-orm.googlecode.com/svn/trunk/
 ../delphi-coll.googlecode.com
 http://delphi-coll.googlecode.com/svn/trunk/
 
+../jcl.sourceforge.net
+https://jcl.svn.sourceforge.net/svnroot/jcl/trunk/
+
+../jvcl.sourceforge.net
+https://jvcl.svn.sourceforge.net/svnroot/jvcl/trunk/
+
 Note that we try to make our Trunk always compile.
 Drop us a line when it doesn't.
 
