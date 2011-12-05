@@ -19,7 +19,10 @@ uses
   EnumTypeInfoUnit in '..\..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas',
   TicTacToe.SquareArraysUnit in '..\..\TicTacToeLogic\src\Arrays\TicTacToe.SquareArraysUnit.pas',
   TicTacToe.LineArraysUnit in '..\..\TicTacToeLogic\src\Arrays\TicTacToe.LineArraysUnit.pas',
-  TicTacToeLogic.BasePlayerUnit in '..\..\TicTacToeLogic\src\Players\TicTacToeLogic.BasePlayerUnit.pas';
+  TicTacToeLogic.BasePlayerUnit in '..\..\TicTacToeLogic\src\Players\TicTacToeLogic.BasePlayerUnit.pas',
+  TicTacToeLogic.RandomPlayerUnit in '..\..\TicTacToeLogic\src\Players\TicTacToeLogic.RandomPlayerUnit.pas',
+  TicTacToeLogic.SimplePlayerUnit in '..\..\TicTacToeLogic\src\Players\TicTacToeLogic.SimplePlayerUnit.pas',
+  TicTacToe.VCLUIControllerUnit in '..\src\TicTacToe.VCLUIControllerUnit.pas';
 
 {$R *.res}
 
