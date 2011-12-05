@@ -1,0 +1,60 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{79368D92-396A-4683-91F2-4469DCCBDE11}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="TicTacToeVcl\prj\TicTacToeVclProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="TicTacToeFireMonkey\prj\TicTacToeFireMonkeyProject.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="TicTacToeIOS\prj\TicTacToeIOSProject.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="TicTacToeVclProject">
+			<MSBuild Projects="TicTacToeVcl\prj\TicTacToeVclProject.dproj"/>
+		</Target>
+		<Target Name="TicTacToeVclProject:Clean">
+			<MSBuild Projects="TicTacToeVcl\prj\TicTacToeVclProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="TicTacToeVclProject:Make">
+			<MSBuild Projects="TicTacToeVcl\prj\TicTacToeVclProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="TicTacToeFireMonkeyProject">
+			<MSBuild Projects="TicTacToeFireMonkey\prj\TicTacToeFireMonkeyProject.dproj"/>
+		</Target>
+		<Target Name="TicTacToeFireMonkeyProject:Clean">
+			<MSBuild Projects="TicTacToeFireMonkey\prj\TicTacToeFireMonkeyProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="TicTacToeFireMonkeyProject:Make">
+			<MSBuild Projects="TicTacToeFireMonkey\prj\TicTacToeFireMonkeyProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="TicTacToeIOSProject">
+			<MSBuild Projects="TicTacToeIOS\prj\TicTacToeIOSProject.dproj"/>
+		</Target>
+		<Target Name="TicTacToeIOSProject:Clean">
+			<MSBuild Projects="TicTacToeIOS\prj\TicTacToeIOSProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="TicTacToeIOSProject:Make">
+			<MSBuild Projects="TicTacToeIOS\prj\TicTacToeIOSProject.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="TicTacToeVclProject;TicTacToeFireMonkeyProject;TicTacToeIOSProject"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="TicTacToeVclProject:Clean;TicTacToeFireMonkeyProject:Clean;TicTacToeIOSProject:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="TicTacToeVclProject:Make;TicTacToeFireMonkeyProject:Make;TicTacToeIOSProject:Make"/>
+		</Target>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+	</Project>

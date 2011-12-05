@@ -1,0 +1,125 @@
+object IOSForm: TIOSForm
+  Left = 0
+  Top = 0
+  Caption = 'TicTacToe.IOSForm'
+  ClientHeight = 480
+  ClientWidth = 320
+  Visible = False
+  OnCreate = FormCreate
+  OnDeactivate = FormDeactivate
+  StyleLookup = 'backgroundstyle'
+  object BoardButton1: TButton
+    Position.Point = '(8,8)'
+    Width = 44.000000000000000000
+    Height = 44.000000000000000000
+    OnClick = BoardButtonClick
+    TabOrder = 0
+    Text = '1'
+  end
+  object BoardButton2: TButton
+    Position.Point = '(64,8)'
+    Width = 44.000000000000000000
+    Height = 44.000000000000000000
+    OnClick = BoardButtonClick
+    TabOrder = 1
+    Text = '2'
+  end
+  object BoardButton3: TButton
+    Position.Point = '(120,8)'
+    Width = 44.000000000000000000
+    Height = 44.000000000000000000
+    OnClick = BoardButtonClick
+    TabOrder = 2
+    Text = '3'
+  end
+  object BoardButton4: TButton
+    Position.Point = '(8,64)'
+    Width = 44.000000000000000000
+    Height = 44.000000000000000000
+    OnClick = BoardButtonClick
+    TabOrder = 3
+    Text = '4'
+  end
+  object BoardButton5: TButton
+    Position.Point = '(64,64)'
+    Width = 44.000000000000000000
+    Height = 44.000000000000000000
+    OnClick = BoardButtonClick
+    TabOrder = 4
+    Text = '5'
+  end
+  object BoardButton6: TButton
+    Position.Point = '(120,64)'
+    Width = 44.000000000000000000
+    Height = 44.000000000000000000
+    OnClick = BoardButtonClick
+    TabOrder = 5
+    Text = '6'
+  end
+  object BoardButton7: TButton
+    Position.Point = '(8,120)'
+    Width = 44.000000000000000000
+    Height = 44.000000000000000000
+    OnClick = BoardButtonClick
+    TabOrder = 6
+    Text = '7'
+  end
+  object BoardButton8: TButton
+    Position.Point = '(64,120)'
+    Width = 44.000000000000000000
+    Height = 44.000000000000000000
+    OnClick = BoardButtonClick
+    TabOrder = 7
+    Text = '8'
+  end
+  object BoardButton9: TButton
+    Position.Point = '(120,120)'
+    Width = 44.000000000000000000
+    Height = 44.000000000000000000
+    OnClick = BoardButtonClick
+    TabOrder = 8
+    Text = '9'
+  end
+  object StartNewGameWithPlayerXButton: TButton
+    Position.Point = '(8,200)'
+    Width = 124.000000000000000000
+    Height = 22.000000000000000000
+    OnClick = StartNewGameWithPlayerXButtonClick
+    TabOrder = 9
+    Text = 'Start new game with X'
+  end
+  object StartNewGameWithPlayerOButton: TButton
+    Position.Point = '(8,232)'
+    Width = 124.000000000000000000
+    Height = 22.000000000000000000
+    OnClick = StartNewGameWithPlayerOButtonClick
+    TabOrder = 10
+    Text = 'Start new game with O'
+  end
+  object ComputerPlaysXCheckBox: TCheckBox
+    Position.Point = '(8,256)'
+    Width = 120.000000000000000000
+    Height = 19.000000000000000000
+    TabOrder = 11
+    Text = 'Computer plays X'
+  end
+  object ComputerPlaysOCheckBox: TCheckBox
+    Position.Point = '(8,280)'
+    Width = 120.000000000000000000
+    Height = 19.000000000000000000
+    TabOrder = 12
+    Text = 'Computer plays O'
+  end
+  object CurrentPlayerLabel: TLabel
+    Position.Point = '(8,176)'
+    Width = 120.000000000000000000
+    Height = 15.000000000000000000
+    TabOrder = 13
+    Text = 'Current player:'
+  end
+  object OneSecondTimer: TTimer
+    OnTimer = OneSecondTimerTimer
+    Left = 168
+    Top = 136
+  end
+end
