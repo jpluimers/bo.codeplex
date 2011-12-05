@@ -1,7 +1,7 @@
 object VclForm: TVclForm
   Left = 0
   Top = 0
-  Caption = 'VclForm'
+  Caption = 'TicTacToe.VclForm'
   ClientHeight = 299
   ClientWidth = 590
   Color = clBtnFace
@@ -12,6 +12,7 @@ object VclForm: TVclForm
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   object CurrentPlayerLabel: TLabel

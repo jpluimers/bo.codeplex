@@ -28,6 +28,7 @@ type
     BoardToViewButton: TButton;
     TestButtonSquareButton: TButton;
     OneSecondTimer: TTimer;
+    procedure FormDestroy(Sender: TObject);
     procedure BoardButtonClick(Sender: TObject);
     procedure BoardToViewButtonClick(Sender: TObject);
     procedure ClearBoardButtonClick(Sender: TObject);
@@ -52,6 +53,12 @@ uses
   TicTacToe.PlayerUnit;
 
 {$R *.dfm}
+
+procedure TVclForm.FormDestroy(Sender: TObject);
+begin
+  FVCLUIController.Free();
+  FVCLUIController := nil;
+end;
 
 procedure TVclForm.BoardButtonClick(Sender: TObject);
 begin
