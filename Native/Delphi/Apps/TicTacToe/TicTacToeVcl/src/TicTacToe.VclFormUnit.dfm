@@ -143,6 +143,7 @@ object VclForm: TVclForm
     Height = 25
     Caption = 'Clear Board'
     TabOrder = 13
+    OnClick = ClearBoardButtonClick
   end
   object ViewToBoardButton: TButton
     Left = 131
@@ -151,6 +152,7 @@ object VclForm: TVclForm
     Height = 25
     Caption = 'ViewToBoard'
     TabOrder = 14
+    OnClick = ViewToBoardButtonClick
   end
   object BoardToViewButton: TButton
     Left = 131
@@ -159,6 +161,7 @@ object VclForm: TVclForm
     Height = 25
     Caption = 'BoardToView'
     TabOrder = 15
+    OnClick = BoardToViewButtonClick
   end
   object TestButtonSquareButton: TButton
     Left = 131
@@ -167,6 +170,7 @@ object VclForm: TVclForm
     Height = 25
     Caption = 'TestButtonSquare'
     TabOrder = 16
+    OnClick = TestButtonSquareButtonClick
   end
   object OneSecondTimer: TTimer
     OnTimer = OneSecondTimerTimer

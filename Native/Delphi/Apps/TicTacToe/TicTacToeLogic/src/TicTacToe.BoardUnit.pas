@@ -89,7 +89,7 @@ type
      * For clarity though, we formulate the constant so it looks like
      * a two-dimensional grid.
      *)
-    content: TSquareContentArray;
+    property content: TSquareContentArray read Fcontent;
 
     (* Magic Square
      *
@@ -236,7 +236,7 @@ end;
 
 procedure TBoard.Setthis(square: TSquare; const Value: TSquareContent);
 begin
-  content[square] := value;
+  Fcontent[square] := value;
 end;
 
 end.
