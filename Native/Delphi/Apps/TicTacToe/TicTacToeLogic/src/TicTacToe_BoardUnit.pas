@@ -190,10 +190,35 @@ begin
   end;
 end;
 
+{$ifdef FPC} // iOS
+function TLineArrayCreate(const Lines: array of TLine): TLineArray;
+var
+  Index: Integer;
+  LinesLength: Integer;
+begin
+  LinesLength := Length(Lines);
+  SetLength(Result, LinesLength);
+  for Index := 0 to LinesLength-1 do
+    Result[Index] := Lines[Index];
+end;
+{$endif FPC}
+
 class function TBoard.GetsquareLines: TSquareLineArray;
 begin
   if Length(FsquareLines[TSquare.Zero]) = 0 then // not initialized
   begin
+{$ifdef FPC} // iOS
+    //                                               Line0       Line1        Line2        Line3           Square
+    FsquareLines[TSquare.Zero]  := TLineArrayCreate([            TLine.One  , TLine.Four , TLine.Seven]); // Zero
+    FsquareLines[TSquare.One]   := TLineArrayCreate([            TLine.One  , TLine.Five              ]); // One
+    FsquareLines[TSquare.Two]   := TLineArrayCreate([TLine.Zero, TLine.One  , TLine.Six               ]); // Two
+    FsquareLines[TSquare.Three] := TLineArrayCreate([            TLine.Two  , TLine.Four              ]); // Three
+    FsquareLines[TSquare.Four]  := TLineArrayCreate([TLine.Zero, TLine.Two  , TLine.Five , TLine.Seven]); // Four
+    FsquareLines[TSquare.Five]  := TLineArrayCreate([            TLine.Two  , TLine.Six               ]); // Five
+    FsquareLines[TSquare.Six]   := TLineArrayCreate([TLine.Zero, TLine.Three, TLine.Four              ]); // Six
+    FsquareLines[TSquare.Seven] := TLineArrayCreate([            TLine.Three, TLine.Five              ]); // Seven
+    FsquareLines[TSquare.Eight] := TLineArrayCreate([            TLine.Three, TLine.Six  , TLine.Seven]); // Eight
+{$else} // Mac or Windows
     //                                               Line0       Line1        Line2        Line3           Square
     FsquareLines[TSquare.Zero]  := TLineArray.Create(            TLine.One  , TLine.Four , TLine.Seven); // Zero
     FsquareLines[TSquare.One]   := TLineArray.Create(            TLine.One  , TLine.Five              ); // One
@@ -204,6 +229,7 @@ begin
     FsquareLines[TSquare.Six]   := TLineArray.Create(TLine.Zero, TLine.Three, TLine.Four              ); // Six
     FsquareLines[TSquare.Seven] := TLineArray.Create(            TLine.Three, TLine.Five              ); // Seven
     FsquareLines[TSquare.Eight] := TLineArray.Create(            TLine.Three, TLine.Six  , TLine.Seven); // Eight
+{$endif FPC}
   end;
   Result := FsquareLines;
 end;
