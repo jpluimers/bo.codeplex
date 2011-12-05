@@ -16,8 +16,8 @@ implementation
 
 uses
   TicTacToe_PlayerMapperUnit,
-  System.Variants,
-  System.SysUtils,
+  Variants,
+  SysUtils,
   EnumTypeInfoUnit;
 
 class function TWinnerMapper.ToText(const winner: TWinner): string;

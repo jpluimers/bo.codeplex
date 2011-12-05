@@ -10,7 +10,7 @@ uses
   TicTacToe_BoardUnit,
   TicTacToe_PlayerUnit,
   TicTacToe_WinnerUnit,
-  System.Classes;
+  Classes;
 
 type
   /// <summary>
@@ -146,9 +146,9 @@ uses
   EnumTypeInfoUnit,
   TicTacToe_SquareContentMapperUnit,
   TicTacToe_SimplePlayerUnit,
-  System.SysUtils,
+  SysUtils,
   TicTacToe_PlayerMapperUnit,
-  System.Variants,
+  Variants,
   TicTacToe_WinnerMapperUnit;
 
 constructor TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,

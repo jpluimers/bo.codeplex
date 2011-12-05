@@ -3,7 +3,7 @@ unit TicTacToe_GameExceptionUnit;
 interface
 
 uses
-  System.SysUtils;
+  SysUtils;
 
 type
   EGameException = class(Exception)
