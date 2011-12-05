@@ -29,17 +29,18 @@ type
     TestButtonSquareButton: TButton;
     OneSecondTimer: TTimer;
     procedure BoardButtonClick(Sender: TObject);
+    procedure BoardToViewButtonClick(Sender: TObject);
+    procedure ClearBoardButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure OneSecondTimerTimer(Sender: TObject);
     procedure StartNewGameWithPlayerOButtonClick(Sender: TObject);
     procedure StartNewGameWithPlayerXButtonClick(Sender: TObject);
-  private
+    procedure TestButtonSquareButtonClick(Sender: TObject);
+    procedure ViewToBoardButtonClick(Sender: TObject);
+  strict private
     FVCLUIController: TVCLUIController;
-    { Private declarations }
   strict protected
     property VCLUIController: TVCLUIController read FVCLUIController;
-  public
-    { Public declarations }
   end;
 
 var
@@ -55,6 +56,16 @@ uses
 procedure TVclForm.BoardButtonClick(Sender: TObject);
 begin
   VCLUIController.PlayGameButton(Sender as TButton);
+end;
+
+procedure TVclForm.BoardToViewButtonClick(Sender: TObject);
+begin
+  VCLUIController.BoardToView();
+end;
+
+procedure TVclForm.ClearBoardButtonClick(Sender: TObject);
+begin
+  VCLUIController.ClearBoard();
 end;
 
 procedure TVclForm.FormCreate(Sender: TObject);
@@ -82,6 +93,16 @@ end;
 procedure TVclForm.StartNewGameWithPlayerXButtonClick(Sender: TObject);
 begin
   VCLUIController.StartGame(TPlayer.Cross);
+end;
+
+procedure TVclForm.TestButtonSquareButtonClick(Sender: TObject);
+begin
+  VCLUIController.ButtonSquare(sender as TButton);
+end;
+
+procedure TVclForm.ViewToBoardButtonClick(Sender: TObject);
+begin
+  VCLUIController.ViewToBoard();
 end;
 
 end.

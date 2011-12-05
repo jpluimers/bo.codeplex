@@ -9,7 +9,8 @@ uses
   TicTacToe.SquareUnit,
   TicTacToe.BoardUnit,
   TicTacToe.PlayerUnit,
-  TicTacToe.WinnerUnit;
+  TicTacToe.WinnerUnit,
+  System.Classes;
 
 type
   /// <summary>
@@ -22,11 +23,15 @@ type
   /// <typeparam name="TStartGameWithPlayerButton"></typeparam>
   /// <typeparam name="TComputerPlayerOnOff"></typeparam>
   /// <typeparam name="TStatusTextLabel"></typeparam>
+  ///    <TBoardButton: class;
+  ///      TStartGameWithPlayerButton: class;
+  ///      TComputerPlayerOnOff: class;
+  ///      TStatusTextLabel: class> = class(TObject)
   TGenericAbstractUIController
-    <TBoardButton: class;
-      TStartGameWithPlayerButton: class;
-      TComputerPlayerOnOff: class;
-      TStatusTextLabel: class> = class(TObject)
+    <TBoardButton: TComponent;
+      TStartGameWithPlayerButton: TComponent;
+      TComputerPlayerOnOff: TComponent;
+      TStatusTextLabel: TComponent> = class(TObject)
     type
       TBoardButtonArray = array of TBoardButton;
       TBoardButtonArrayBySquare = array[TSquare] of TBoardButton;
@@ -60,11 +65,11 @@ type
           TComputerPlayerOnOff; const statusTextLabel: TStatusTextLabel);
 
     {$region abstract methods that clients should override}
-      function GetBoardButtonText(const boardButton: TBoardButton): string; virtual; abstract;
-      procedure SetBoardButtonText(const boardButton: TBoardButton; const text: string); virtual; abstract;
-      procedure SetStatusText(const text: string); virtual; abstract;
-      procedure ShowMessage(const message: string); virtual; abstract;
-      function ComputerOnOffIsOn(const computerOnOff: TComputerPlayerOnOff): Boolean; virtual; abstract;
+      function getboardbuttontext(const boardbutton: tboardbutton): string; virtual; abstract;
+      procedure setboardbuttontext(const boardbutton: tboardbutton; const text: string); virtual; abstract;
+      procedure setstatustext(const text: string); virtual; abstract;
+      procedure showmessage(const message: string); virtual; abstract;
+      function computeronoffison(const computeronoff: tcomputerplayeronoff): boolean; virtual; abstract;
     {$endregion}
 
     {$region properties}
@@ -200,7 +205,7 @@ begin
     then
       Exit(square);
   end;
-  raise EUIControlerException.CreateFmt('invalid boardButton %s', [boardButton.ToString]);
+  raise EUIControlerException.CreateFmt('invalid boardButton %s', [boardButton.Name {ToString}]);
 end;
 
 function TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
@@ -370,7 +375,7 @@ procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton,
     TStatusTextLabel>.ClearBoard;
 begin
   game.ClearBoard();
-  ViewToBoard();
+  BoardToView();
 end;
 
 procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
@@ -379,7 +384,7 @@ var
   text: string;
 begin
   BoardToView();
-  text := Format('{0} plays', [TPlayerMapper.ToText(game.CurrentPlayer)]);
+  text := Format('%s plays', [TPlayerMapper.ToText(game.CurrentPlayer)]);
   SetStatusText(text);
 end;
 
@@ -424,7 +429,11 @@ begin
     if (computerIsPlayingForAnyPlayer) then
     begin
       player := CreatePlayer();
-      player.PlayBestMove(game);
+      try
+        player.PlayBestMove(game);
+      finally
+        player.Free;
+      end;
       gameToView();
       showWinner(game.Winner());
     end;

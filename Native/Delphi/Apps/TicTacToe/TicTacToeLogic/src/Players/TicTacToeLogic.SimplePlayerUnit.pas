@@ -90,6 +90,7 @@ begin
 
   // strategy 3: try to move on a priority square
   // we base the priority on the number of lines that each square contains
+  emptySquares := game.EmptySquares();
   emptySquaresLength := Length(emptySquares);
 
   if (emptySquaresLength = 0) then // no empty squares left; should not occur, but test anyway
