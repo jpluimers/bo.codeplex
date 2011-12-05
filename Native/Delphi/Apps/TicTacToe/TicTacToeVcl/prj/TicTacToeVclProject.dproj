@@ -102,6 +102,9 @@
 			<DCCReference Include="..\..\TicTacToeLogic\src\Arrays\TicTacToe.SquareArraysUnit.pas"/>
 			<DCCReference Include="..\..\TicTacToeLogic\src\Arrays\TicTacToe.LineArraysUnit.pas"/>
 			<DCCReference Include="..\..\TicTacToeLogic\src\Players\TicTacToeLogic.BasePlayerUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Players\TicTacToeLogic.RandomPlayerUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Players\TicTacToeLogic.SimplePlayerUnit.pas"/>
+			<DCCReference Include="..\src\TicTacToe.VCLUIControllerUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

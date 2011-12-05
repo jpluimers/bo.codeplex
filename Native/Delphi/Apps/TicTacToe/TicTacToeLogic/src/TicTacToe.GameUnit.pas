@@ -30,9 +30,10 @@ type
     function CurrentPlayer: TPlayer; virtual;
     const WinningLineSum = 15;
     constructor Create;
+    procedure ClearBoard; virtual;
     function Winner: TWinner; virtual;
     function Finished: Boolean; virtual;
-    function PlayerToContent(const player: TPlayer): TSquareContent; virtual;
+    class function PlayerToContent(const player: TPlayer): TSquareContent; virtual;
   end;
 
 implementation
@@ -57,6 +58,11 @@ var
 begin
   for square := Low(TSquare) to High(TSquare) do
     board.this[square] := TSquareContent.None;
+end;
+
+procedure TGame.ClearBoard;
+begin
+  clear();
 end;
 
 function TGame.CurrentOpponent: TPlayer;
@@ -103,7 +109,7 @@ begin
   end;
 end;
 
-function TGame.PlayerToContent(const player: TPlayer): TSquareContent;
+class function TGame.PlayerToContent(const player: TPlayer): TSquareContent;
 begin
   if (player = TPlayer.Cross) then
     Result := TSquareContent.Cross

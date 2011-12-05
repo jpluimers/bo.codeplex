@@ -3,30 +3,40 @@ unit TicTacToe.GenericAbstractUIControllerUnit;
 interface
 
 uses
-  TicTacToe.GameUnit, TicTacToeLogic.BasePlayerUnit;
+  TicTacToe.GameUnit,
+  TicTacToeLogic.BasePlayerUnit,
+  TicTacToe.UIControlerExceptionUnit,
+  TicTacToe.SquareUnit,
+  TicTacToe.BoardUnit,
+  TicTacToe.PlayerUnit,
+  TicTacToe.WinnerUnit;
 
 type
   /// <summary>
   /// TBoardButton types the buttons 1..9
-  /// TStartButton types the start buttons for X or O
-  /// TComputerOnOff types the CheckBox/OnOff switches that determines when the computer plays X or O
-  /// TStatusText shows the game status (which player is about to play)
+  /// TStartGameWithPlayerButton types the start buttons for X or O
+  /// TComputerPlayerOnOff types the CheckBox/OnOff switches that determines when the computer plays X or O
+  /// TStatusTextLabel shows the game status (which player is about to play)
   /// </summary>
   /// <typeparam name="TBoardButton"></typeparam>
   /// <typeparam name="TStartGameWithPlayerButton"></typeparam>
   /// <typeparam name="TComputerPlayerOnOff"></typeparam>
-  /// <typeparam name="TStatusText"></typeparam>
+  /// <typeparam name="TStatusTextLabel"></typeparam>
   TGenericAbstractUIController
     <TBoardButton: class;
       TStartGameWithPlayerButton: class;
       TComputerPlayerOnOff: class;
       TStatusTextLabel: class> = class(TObject)
+    type
+      TBoardButtonArray = array of TBoardButton;
+      TBoardButtonArrayBySquare = array[TSquare] of TBoardButton;
     strict private
       Game: TGame;
-      function GetBoardButton3: TBoardButton; virtual;
+      function Getthis(square: TSquare): TBoardButton; virtual;
     strict protected
       function GetBoardButton1: TBoardButton; virtual;
-      function GetBoardButton2: TBoardButton;
+      function GetBoardButton2: TBoardButton; virtual;
+      function GetBoardButton3: TBoardButton; virtual;
       function GetBoardButton4: TBoardButton; virtual;
       function GetBoardButton5: TBoardButton; virtual;
       function GetBoardButton6: TBoardButton; virtual;
@@ -48,6 +58,7 @@ type
           startGameWithPlayerOButton: TStartGameWithPlayerButton; const startGameWithPlayerXButton:
           TStartGameWithPlayerButton; const computerPlayerOOnOff: TComputerPlayerOnOff; const computerPlayerXOnOff:
           TComputerPlayerOnOff; const statusTextLabel: TStatusTextLabel);
+
     {$region abstract methods that clients should override}
       function GetBoardButtonText(const boardButton: TBoardButton): string; virtual; abstract;
       procedure SetBoardButtonText(const boardButton: TBoardButton; const text: string); virtual; abstract;
@@ -74,127 +85,38 @@ type
     {$endregion}
 
       function CreatePlayer: TBasePlayer; virtual;
-
       procedure GameLoopTimerTick; virtual;
+      procedure PlayGameButton(const boardButton: TBoardButton); virtual;
+      function ButtonSquare(const boardButton: TBoardButton): TSquare; virtual;
 
-      procedure PlayGameButton(const boardButton: TBoardButton);
+    strict private
+      property this[square: TSquare]: TBoardButton read Getthis;
 
-      public Square ButtonSquare(TBoardButton button)
-      {
-          foreach (Square square in Squares.All)
-          {
-              if (button == this[square])
-                  return square;
-          } // semi-colon not needed
-          throw new UIControlerException(string.Format("invalid button {1}", button));
-      }
+    {$region step1board}
+    strict private
+      function gameBoardCopy: TBoard;  virtual;
+    public
+      procedure BoardToView(); virtual;
+      procedure ViewToBoard(); virtual;
+      procedure ClearBoard; virtual;
+    {$endregion step1board}
 
-      private TBoardButton this[Square square]
-      {
-          get
-          {
-              TBoardButton[] boardButtons =
-      {
-        BoardButton1, BoardButton2, BoardButton3,
-        BoardButton4, BoardButton5, BoardButton6,
-        BoardButton7, BoardButton8, BoardButton9
-      };
-              return boardButtons[(int)square];
-          }
-      }
+    {$region step2game}
+    strict private
+      procedure gameToView; virtual;
+      procedure internalPlayGameButton(const playButton: TBoardButton); virtual;
+    public
+      procedure StartGame(const newPlayer: TPlayer); virtual;
+    {$endregion step2game}
 
-      {$region step1board}
+    {$region step3computer}
+    strict private
+      function isComputerPlaying(const player: TPlayer; const computerPlayerOnOff: TComputerPlayerOnOff): Boolean; virtual;
 
-      private Board gameBoardCopy
-      {
-          get
-          {
-              return game.BoardCopy;
-          }
-      }
-      public void BoardToView()
-      {
-          Board theBoard = gameBoardCopy; // in the loop, don't get the board each time from the game
-          foreach (Square square in Squares.All)
-          {
-              string text = SquareContentMapper.ToText(theBoard[square]);
-              TBoardButton boardButton = this[square];
-              SetBoardButtonText(boardButton, text);
-          };
-      }
+      procedure computerPlay; virtual;
+    {$endregion}
 
-      public void ViewToBoard()
-      {
-          Board theBoard = gameBoardCopy; // in the loop, don't get the board each time from the game
-          foreach (Square square in Squares.All)
-          {
-              TBoardButton boardButton = this[square];
-              string text = GetBoardButtonText(boardButton);
-              theBoard[square] = SquareContentMapper.ToContent(text);
-          };
-      }
-
-      public void ClearBoard()
-      {
-          foreach (Square square in Squares.All)
-          {
-              gameBoardCopy[square] = SquareContent.None;
-          };
-          ViewToBoard();
-      }
-      {$endregion} step1board
-
-      {$region step2game}
-      private void gameToView()
-      {
-          BoardToView();
-          string text = string.Format("{0} plays", PlayerMapper.ToText(game.CurrentPlayer));
-          SetStatusText(text);
-      }
-
-      private void playGameButton(TBoardButton playButton)
-      {
-          Square square = ButtonSquare(playButton);
-          game.Play(square);
-          gameToView();
-          showWinner(game.Winner());
-      }
-
-      public void StartGame(Player newPlayer)
-      {
-          game.Start(newPlayer);
-          gameToView();
-      }
-      {$endregion} step2game
-
-      {$region step3computer}
-
-      private bool isComputerPlaying(Player player, TComputerPlayerOnOff computerPlayerOnOff)
-      {
-          bool result = game.CurrentPlayer == player;
-          result = result && ComputerOnOffIsOn(computerPlayerOnOff);
-          return result;
-      }
-
-      private void computerPlay()
-      {
-          if (!game.Finished())
-          {
-              bool computerIsPlayingForAnyPlayer =
-                  isComputerPlaying(Player.Cross, ComputerPlayerXOnOff) // computer plays X
-                  ||
-                  isComputerPlaying(Player.Nought, ComputerPlayerOOnOff); // computer plays O
-              if (computerIsPlayingForAnyPlayer )
-              {
-                  BasePlayer player = CreatePlayer();
-                  player.PlayBestMove(game);
-                  gameToView();
-                  showWinner(game.Winner());
-              };
-          }
-      }
-      {$endregion}
-
+    strict private
       FComputerPlayerXOnOff: TComputerPlayerOnOff;
       FComputerPlayerOOnOff: TComputerPlayerOnOff;
       FStartGameWithPlayerXButton: TStartGameWithPlayerButton;
@@ -209,18 +131,20 @@ type
       FBoardButton2: TBoardButton;
       FBoardButton1: TBoardButton;
       FStatusTextLabel: TStatusTextLabel;
-      private void showWinner(Winner winner)
-      {
-          string winnerText = WinnerMapper.WinnerText(winner);
-          if (!string.IsNullOrEmpty(winnerText))
-              ShowMessage(winnerText);
-      }
 
-  }
-}
+      procedure showWinner(const winner: TWinner); virtual;
   end;
 
 implementation
+
+uses
+  EnumTypeInfoUnit,
+  TicTacToe.SquareContentMapperUnit,
+  TicTacToeLogic.SimplePlayerUnit,
+  System.SysUtils,
+  TicTacToe.PlayerMapperUnit,
+  System.Variants,
+  TicTacToe.WinnerMapperUnit;
 
 constructor TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
     TStatusTextLabel>.Create(const boardButton1: TBoardButton; const boardButton2: TBoardButton; const boardButton3:
@@ -231,21 +155,52 @@ constructor TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButto
     TComputerPlayerOnOff; const statusTextLabel: TStatusTextLabel);
 begin
   inherited Create();
-  game := Game.Create();
-  Self.BoardButton1 := boardButton1;
-  Self.BoardButton2 := boardButton2;
-  Self.BoardButton3 := boardButton3;
-  Self.BoardButton4 := boardButton4;
-  Self.BoardButton5 := boardButton5;
-  Self.BoardButton6 := boardButton6;
-  Self.BoardButton7 := boardButton7;
-  Self.BoardButton8 := boardButton8;
-  Self.BoardButton9 := boardButton9;
-  Self.StartGameWithPlayerOButton := startGameWithPlayerOButton;
-  Self.StartGameWithPlayerXButton := startGameWithPlayerXButton;
-  Self.ComputerPlayerOOnOff := computerPlayerOOnOff;
-  Self.ComputerPlayerXOnOff := computerPlayerXOnOff;
-  Self.StatusTextLabel := statusTextLabel;
+  game := TGame.Create();
+  Self.FBoardButton1 := boardButton1;
+  Self.FBoardButton2 := boardButton2;
+  Self.FBoardButton3 := boardButton3;
+  Self.FBoardButton4 := boardButton4;
+  Self.FBoardButton5 := boardButton5;
+  Self.FBoardButton6 := boardButton6;
+  Self.FBoardButton7 := boardButton7;
+  Self.FBoardButton8 := boardButton8;
+  Self.FBoardButton9 := boardButton9;
+  Self.FStartGameWithPlayerOButton := startGameWithPlayerOButton;
+  Self.FStartGameWithPlayerXButton := startGameWithPlayerXButton;
+  Self.FComputerPlayerOOnOff := computerPlayerOOnOff;
+  Self.FComputerPlayerXOnOff := computerPlayerXOnOff;
+  Self.FStatusTextLabel := statusTextLabel;
+end;
+
+procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.BoardToView;
+var
+  boardButton: TBoardButton;
+  square: TSquare;
+  text: string;
+  theBoard: TBoard;
+begin
+  theBoard := gameBoardCopy; // in the loop, don't get the board each time from the game
+  for square := Low(TSquare) to High(TSquare) do
+  begin
+    text := TSquareContentMapper.ToText(theBoard.this[square]);
+    boardButton := this[square];
+    SetBoardButtonText(boardButton, text);
+  end;
+end;
+
+function TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.ButtonSquare(const boardButton: TBoardButton): TSquare;
+var
+  square: TSquare;
+begin
+  for square := Low(TSquare) to High(TSquare) do
+  begin
+    if (boardButton = this[square])
+    then
+      Exit(square);
+  end;
+  raise EUIControlerException.CreateFmt('invalid boardButton %s', [boardButton.ToString]);
 end;
 
 function TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
@@ -348,11 +303,142 @@ procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton,
     TStatusTextLabel>.PlayGameButton(const boardButton: TBoardButton);
 begin
   try
-    playGameButton(boardButton);
+    internalPlayGameButton(boardButton);
   except
     on E: Exception do
-      ShowMessage(ex.Message);
+      ShowMessage(E.Message);
   end;
+end;
+
+function TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.Getthis(square: TSquare): TBoardButton;
+var
+  boardButtons: TBoardButtonArray;
+  boardButtonsBySquare: TBoardButtonArrayBySquare;
+begin
+  // easier initialization
+  // risk:  assume square is a continuous enumeration
+  boardButtons := TBoardButtonArray.Create(
+    BoardButton1, BoardButton2, BoardButton3,
+    BoardButton4, BoardButton5, BoardButton6,
+    BoardButton7, BoardButton8, BoardButton9
+  );
+  // easier usage
+  // risk:  assume the enumerations in TSquare will not change
+  boardButtonsBySquare[TSquare.Zero] := BoardButton1;
+  boardButtonsBySquare[TSquare.One] := BoardButton2;
+  boardButtonsBySquare[TSquare.Two] := BoardButton3;
+  boardButtonsBySquare[TSquare.Three] := BoardButton4;
+  boardButtonsBySquare[TSquare.Four] := BoardButton5;
+  boardButtonsBySquare[TSquare.Five] := BoardButton6;
+  boardButtonsBySquare[TSquare.Six] := BoardButton7;
+  boardButtonsBySquare[TSquare.Seven] := BoardButton8;
+  boardButtonsBySquare[TSquare.Eight] := BoardButton9;
+
+  Result := boardButtons[Ord(square)-Ord(Low(square))]; // just in case Ord(Low(square)) is not zero
+  Result := boardButtonsBySquare[square];
+end;
+
+function TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.gameBoardCopy: TBoard;
+begin
+  Result := game.BoardCopy;
+end;
+
+procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.ViewToBoard;
+var
+  boardButton: TBoardButton;
+  square: TSquare;
+  text: string;
+  theBoard: TBoard;
+begin
+  theBoard := gameBoardCopy; // in the loop, don't get the board each time from the game
+  try
+    for square := Low(TSquare) to High(TSquare) do
+    begin
+      boardButton := this[square];
+      text := GetBoardButtonText(boardButton);
+      theBoard.this[square] := TSquareContentMapper.ToContent(text);
+    end;
+  finally
+    theBoard.Free();
+  end;
+end;
+
+procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.ClearBoard;
+begin
+  game.ClearBoard();
+  ViewToBoard();
+end;
+
+procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.gameToView;
+var
+  text: string;
+begin
+  BoardToView();
+  text := Format('{0} plays', [TPlayerMapper.ToText(game.CurrentPlayer)]);
+  SetStatusText(text);
+end;
+
+procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.internalPlayGameButton(const playButton: TBoardButton);
+var
+  square: TSquare;
+begin
+  square := ButtonSquare(playButton);
+  game.Play(square);
+  gameToView();
+  showWinner(game.Winner());
+end;
+
+procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.StartGame(const newPlayer: TPlayer);
+begin
+  game.Start(newPlayer);
+  gameToView();
+end;
+
+function TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.isComputerPlaying(const player: TPlayer; const computerPlayerOnOff: TComputerPlayerOnOff):
+    Boolean;
+begin
+  result := game.CurrentPlayer = player;
+  result := result and ComputerOnOffIsOn(computerPlayerOnOff);
+end;
+
+procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.computerPlay;
+var
+  computerIsPlayingForAnyPlayer: Boolean;
+  player: TBasePlayer;
+begin
+  if (not game.Finished()) then
+  begin
+    computerIsPlayingForAnyPlayer :=
+      isComputerPlaying(TPlayer.Cross, ComputerPlayerXOnOff) // computer plays X
+    or
+      isComputerPlaying(TPlayer.Nought, ComputerPlayerOOnOff); // computer plays O
+    if (computerIsPlayingForAnyPlayer) then
+    begin
+      player := CreatePlayer();
+      player.PlayBestMove(game);
+      gameToView();
+      showWinner(game.Winner());
+    end;
+  end;
+end;
+
+procedure TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
+    TStatusTextLabel>.showWinner(const winner: TWinner);
+var
+  winnerText: string;
+begin
+  winnerText := TWinnerMapper.WinnerText(winner);
+  if (winnerText <> NullAsStringValue) then
+    ShowMessage(winnerText);
 end;
 
 end.

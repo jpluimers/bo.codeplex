@@ -13,9 +13,9 @@ type
   TBoard = class(TObject)
   strict private
     Fcontent: TSquareContentArray;
-    FsquareLines: TSquareLineArray;
+    class var FsquareLines: TSquareLineArray;
   strict protected
-    function GetsquareLines: TSquareLineArray; virtual;
+    class function GetsquareLines: TSquareLineArray; static;
     function Getthis(square: TSquare): TSquareContent; virtual;
     procedure Setthis(square: TSquare; const Value: TSquareContent); virtual;
   public
@@ -30,7 +30,7 @@ type
     function LineSum(const line: TLine; const content: TSquareContent): Integer; virtual;
 
     // nodig voor de Player die iets slimmer is
-    function LinesForSquare(const square: TSquare): TLineArray; virtual;
+    class function LinesForSquare(const square: TSquare): TLineArray; virtual;
 
     function EmptySquares: TSquareArray; virtual;
 
@@ -142,7 +142,7 @@ type
      * 8			3	6	7
      *
      *)
-    property squareLines: TSquareLineArray read GetsquareLines;
+    class property squareLines: TSquareLineArray read GetsquareLines;
   end;
 
 implementation
@@ -190,7 +190,7 @@ begin
   end;
 end;
 
-function TBoard.GetsquareLines: TSquareLineArray;
+class function TBoard.GetsquareLines: TSquareLineArray;
 begin
   if Length(FsquareLines[TSquare.Zero]) = 0 then // not initialized
   begin
@@ -213,7 +213,7 @@ begin
   Result := content[square];
 end;
 
-function TBoard.LinesForSquare(const square: TSquare): TLineArray;
+class function TBoard.LinesForSquare(const square: TSquare): TLineArray;
 begin
   Result := squareLines[square]; // copy
 end;
