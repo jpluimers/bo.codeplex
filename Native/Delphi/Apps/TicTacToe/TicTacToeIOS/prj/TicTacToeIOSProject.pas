@@ -1,7 +1,7 @@
 program TicTacToeIOSProject;
 
 uses
-  FMX_Forms,
+  cwstring, cthreads, FMX_Forms,
   EnumTypeInfoUnit in 'EnumTypeInfoUnit.pas',
   TicTacToe_BasePlayerUnit in 'TicTacToe_BasePlayerUnit.pas',
   TicTacToe_BoardUnit in 'TicTacToe_BoardUnit.pas',
@@ -23,7 +23,7 @@ uses
   TicTacToe_WinnerMapperUnit in 'TicTacToe_WinnerMapperUnit.pas',
   TicTacToe_WinnerUnit in 'TicTacToe_WinnerUnit.pas';
 
-{$R *.res}
+{.$R *.res}
 
 begin
   Application.Initialize;
