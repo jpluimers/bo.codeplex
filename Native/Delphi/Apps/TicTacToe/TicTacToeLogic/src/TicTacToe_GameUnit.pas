@@ -1,14 +1,14 @@
-unit TicTacToe.GameUnit;
+unit TicTacToe_GameUnit;
 
 interface
 
 uses
-  TicTacToe.PlayerUnit,
-  TicTacToe.BoardUnit,
-  TicTacToe.SquareUnit,
-  TicTacToe.SquareContentUnit,
-  TicTacToe.SquareArraysUnit,
-  TicTacToe.WinnerUnit;
+  TicTacToe_PlayerUnit,
+  TicTacToe_BoardUnit,
+  TicTacToe_SquareUnit,
+  TicTacToe_SquareContentUnit,
+  TicTacToe_SquareArraysUnit,
+  TicTacToe_WinnerUnit;
 
 type
   TGame = class(TObject)
@@ -39,7 +39,8 @@ type
 implementation
 
 uses
-  TicTacToe.GameExceptionUnit, TicTacToe.LineUnit;
+  TicTacToe_GameExceptionUnit,
+  TicTacToe_LineUnit;
 
 constructor TGame.Create;
 begin

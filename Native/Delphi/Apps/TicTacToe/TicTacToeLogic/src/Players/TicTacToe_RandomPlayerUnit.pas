@@ -1,10 +1,10 @@
-unit TicTacToeLogic.RandomPlayerUnit;
+unit TicTacToe_RandomPlayerUnit;
 
 interface
 
 uses
-  TicTacToeLogic.BasePlayerUnit,
-  TicTacToe.GameUnit;
+  TicTacToe_BasePlayerUnit,
+  TicTacToe_GameUnit;
 
 type
   TRandomPlayer = class(TBasePlayer)
@@ -16,8 +16,8 @@ type
 implementation
 
 uses
-  TicTacToe.SquareArraysUnit,
-  TicTacToe.SquareUnit;
+  TicTacToe_SquareArraysUnit,
+  TicTacToe_SquareUnit;
 
 class constructor TRandomPlayer.Create;
 begin

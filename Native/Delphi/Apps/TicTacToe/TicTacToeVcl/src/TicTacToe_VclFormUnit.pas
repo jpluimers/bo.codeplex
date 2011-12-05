@@ -1,10 +1,10 @@
-unit TicTacToe.VclFormUnit;
+unit TicTacToe_VclFormUnit;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, TicTacToe.VCLUIControllerUnit,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, TicTacToe_VCLUIControllerUnit,
   Vcl.ExtCtrls;
 
 type
@@ -50,7 +50,7 @@ var
 implementation
 
 uses
-  TicTacToe.PlayerUnit;
+  TicTacToe_PlayerUnit;
 
 {$R *.dfm}
 

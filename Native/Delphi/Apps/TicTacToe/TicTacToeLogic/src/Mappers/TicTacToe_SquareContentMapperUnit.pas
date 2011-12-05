@@ -1,9 +1,9 @@
-unit TicTacToe.SquareContentMapperUnit;
+unit TicTacToe_SquareContentMapperUnit;
 
 interface
 
 uses
-  TicTacToe.SquareContentUnit;
+  TicTacToe_SquareContentUnit;
 
 type
   TSquareContentMapper = class(TObject)
@@ -16,7 +16,7 @@ type
 implementation
 
 uses
-  TicTacToe.PlayerMapperUnit;
+  TicTacToe_PlayerMapperUnit;
 
 class function TSquareContentMapper.ToContent(const text: string): TSquareContent;
 begin

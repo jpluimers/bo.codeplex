@@ -1,9 +1,9 @@
-unit TicTacToe.WinnerMapperUnit;
+unit TicTacToe_WinnerMapperUnit;
 
 interface
 
 uses
-  TicTacToe.WinnerUnit;
+  TicTacToe_WinnerUnit;
 
 type
   TWinnerMapper = class(TObject)
@@ -15,7 +15,10 @@ type
 implementation
 
 uses
-  TicTacToe.PlayerMapperUnit, System.Variants, System.SysUtils, EnumTypeInfoUnit;
+  TicTacToe_PlayerMapperUnit,
+  System.Variants,
+  System.SysUtils,
+  EnumTypeInfoUnit;
 
 class function TWinnerMapper.ToText(const winner: TWinner): string;
 begin

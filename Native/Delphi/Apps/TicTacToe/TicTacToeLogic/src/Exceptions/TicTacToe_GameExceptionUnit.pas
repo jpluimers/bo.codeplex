@@ -1,4 +1,4 @@
-unit TicTacToe.GameExceptionUnit;
+unit TicTacToe_GameExceptionUnit;
 
 interface
 
