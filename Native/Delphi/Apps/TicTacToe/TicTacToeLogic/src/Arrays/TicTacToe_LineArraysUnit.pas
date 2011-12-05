@@ -1,10 +1,10 @@
-unit TicTacToe.LineArraysUnit;
+unit TicTacToe_LineArraysUnit;
 
 interface
 
 uses
-  TicTacToe.LineUnit,
-  TicTacToe.SquareUnit;
+  TicTacToe_LineUnit,
+  TicTacToe_SquareUnit;
 
 type
   TLineArray = array of TLine;

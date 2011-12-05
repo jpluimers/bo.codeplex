@@ -1,13 +1,13 @@
-unit TicTacToe.BoardUnit;
+unit TicTacToe_BoardUnit;
 
 interface
 
 uses
-  TicTacToe.SquareUnit,
-  TicTacToe.SquareContentUnit,
-  TicTacToe.LineUnit,
-  TicTacToe.LineArraysUnit,
-  TicTacToe.SquareArraysUnit;
+  TicTacToe_SquareUnit,
+  TicTacToe_SquareContentUnit,
+  TicTacToe_LineUnit,
+  TicTacToe_LineArraysUnit,
+  TicTacToe_SquareArraysUnit;
 
 type
   TBoard = class(TObject)

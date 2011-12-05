@@ -1,9 +1,9 @@
-unit TicTacToe.FireMonkeyUIControllerUnit;
+unit TicTacToe_FireMonkeyUIControllerUnit;
 
 interface
 
 uses
-  TicTacToe.GenericAbstractUIControllerUnit,
+  TicTacToe_GenericAbstractUIControllerUnit,
   FMX.Controls;
 
 type

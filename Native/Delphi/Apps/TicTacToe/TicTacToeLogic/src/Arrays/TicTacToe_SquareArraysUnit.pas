@@ -1,10 +1,10 @@
-unit TicTacToe.SquareArraysUnit;
+unit TicTacToe_SquareArraysUnit;
 
 interface
 
 uses
-  TicTacToe.SquareUnit,
-  TicTacToe.LineUnit;
+  TicTacToe_SquareUnit,
+  TicTacToe_LineUnit;
 
 type
   TSquareArray = array of TSquare;

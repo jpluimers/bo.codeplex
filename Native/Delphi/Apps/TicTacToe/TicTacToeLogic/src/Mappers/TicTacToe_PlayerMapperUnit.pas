@@ -1,9 +1,9 @@
-unit TicTacToe.PlayerMapperUnit;
+unit TicTacToe_PlayerMapperUnit;
 
 interface
 
 uses
-  TicTacToe.PlayerUnit;
+  TicTacToe_PlayerUnit;
 
 type
   TPlayerMapper = class(TObject)
@@ -17,7 +17,7 @@ type
 implementation
 
 uses
-  TicTacToe.GameExceptionUnit;
+  TicTacToe_GameExceptionUnit;
 
 class function TPlayerMapper.ToPlayer(const text: string): TPlayer;
 begin

@@ -1,15 +1,15 @@
-unit TicTacToe.GenericAbstractUIControllerUnit;
+unit TicTacToe_GenericAbstractUIControllerUnit;
 
 interface
 
 uses
-  TicTacToe.GameUnit,
-  TicTacToeLogic.BasePlayerUnit,
-  TicTacToe.UIControlerExceptionUnit,
-  TicTacToe.SquareUnit,
-  TicTacToe.BoardUnit,
-  TicTacToe.PlayerUnit,
-  TicTacToe.WinnerUnit,
+  TicTacToe_GameUnit,
+  TicTacToe_BasePlayerUnit,
+  TicTacToe_UIControlerExceptionUnit,
+  TicTacToe_SquareUnit,
+  TicTacToe_BoardUnit,
+  TicTacToe_PlayerUnit,
+  TicTacToe_WinnerUnit,
   System.Classes;
 
 type
@@ -144,12 +144,12 @@ implementation
 
 uses
   EnumTypeInfoUnit,
-  TicTacToe.SquareContentMapperUnit,
-  TicTacToeLogic.SimplePlayerUnit,
+  TicTacToe_SquareContentMapperUnit,
+  TicTacToe_SimplePlayerUnit,
   System.SysUtils,
-  TicTacToe.PlayerMapperUnit,
+  TicTacToe_PlayerMapperUnit,
   System.Variants,
-  TicTacToe.WinnerMapperUnit;
+  TicTacToe_WinnerMapperUnit;
 
 constructor TGenericAbstractUIController<TBoardButton, TStartGameWithPlayerButton, TComputerPlayerOnOff,
     TStatusTextLabel>.Create(const boardButton1: TBoardButton; const boardButton2: TBoardButton; const boardButton3:

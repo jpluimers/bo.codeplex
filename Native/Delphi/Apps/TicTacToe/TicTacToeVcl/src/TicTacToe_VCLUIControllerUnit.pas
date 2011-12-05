@@ -1,9 +1,9 @@
-unit TicTacToe.VCLUIControllerUnit;
+unit TicTacToe_VCLUIControllerUnit;
 
 interface
 
 uses
-  TicTacToe.GenericAbstractUIControllerUnit,
+  TicTacToe_GenericAbstractUIControllerUnit,
   Vcl.StdCtrls;
 
 type

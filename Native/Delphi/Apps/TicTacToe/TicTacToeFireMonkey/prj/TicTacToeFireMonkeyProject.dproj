@@ -82,29 +82,28 @@
 			<DelphiCompile Include="$(MainSource)">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="..\src\TicTacToe.FireMonkeyFormUnit.pas">
+			<DCCReference Include="..\src\TicTacToe_FireMonkeyFormUnit.pas">
 				<Form>FireMonkeyForm</Form>
-				<FormType>fmx</FormType>
 			</DCCReference>
-			<DCCReference Include="..\src\TicTacToe.FireMonkeyUIControllerUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\TicTacToe.GenericAbstractUIControllerUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\TicTacToe.GameUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe.PlayerUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\TicTacToe.BoardUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe.SquareUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe.SquareContentUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe.LineUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Arrays\TicTacToe.LineArraysUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Arrays\TicTacToe.SquareArraysUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe.WinnerUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Exceptions\TicTacToe.GameExceptionUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Players\TicTacToeLogic.BasePlayerUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Exceptions\TicTacToe.UIControlerExceptionUnit.pas"/>
+			<DCCReference Include="..\src\TicTacToe_FireMonkeyUIControllerUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\TicTacToe_GenericAbstractUIControllerUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\TicTacToe_GameUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe_PlayerUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\TicTacToe_BoardUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe_SquareUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe_SquareContentUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe_LineUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Arrays\TicTacToe_LineArraysUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Arrays\TicTacToe_SquareArraysUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Enumerations\TicTacToe_WinnerUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Exceptions\TicTacToe_GameExceptionUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Players\TicTacToe_BasePlayerUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Exceptions\TicTacToe_UIControlerExceptionUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Mappers\TicTacToe.SquareContentMapperUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Mappers\TicTacToe.PlayerMapperUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Players\TicTacToeLogic.SimplePlayerUnit.pas"/>
-			<DCCReference Include="..\..\TicTacToeLogic\src\Mappers\TicTacToe.WinnerMapperUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Mappers\TicTacToe_SquareContentMapperUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Mappers\TicTacToe_PlayerMapperUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Players\TicTacToe_SimplePlayerUnit.pas"/>
+			<DCCReference Include="..\..\TicTacToeLogic\src\Mappers\TicTacToe_WinnerMapperUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

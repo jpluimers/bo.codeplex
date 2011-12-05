@@ -1,11 +1,11 @@
-unit TicTacToeLogic.SimplePlayerUnit;
+unit TicTacToe_SimplePlayerUnit;
 
 interface
 
 uses
-  TicTacToeLogic.BasePlayerUnit, TicTacToe.GameUnit,
-  TicTacToe.SquareContentUnit;
-
+  TicTacToe_BasePlayerUnit,
+  TicTacToe_GameUnit,
+  TicTacToe_SquareContentUnit;
 
 type
   TSimplePlayer = class(TBasePlayer)
@@ -18,11 +18,11 @@ type
 implementation
 
 uses
-  TicTacToe.SquareArraysUnit,
-  TicTacToe.BoardUnit,
-  TicTacToe.LineArraysUnit,
-  TicTacToe.SquareUnit,
-  TicTacToe.LineUnit;
+  TicTacToe_SquareArraysUnit,
+  TicTacToe_BoardUnit,
+  TicTacToe_LineArraysUnit,
+  TicTacToe_SquareUnit,
+  TicTacToe_LineUnit;
 
 function TSimplePlayer.TryPlayThreeInARowFor(const content: TSquareContent; const game: TGame): Boolean;
 var

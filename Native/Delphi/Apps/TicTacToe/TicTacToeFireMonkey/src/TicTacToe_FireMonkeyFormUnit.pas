@@ -1,10 +1,10 @@
-unit TicTacToe.FireMonkeyFormUnit;
+unit TicTacToe_FireMonkeyFormUnit;
 
 interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Dialogs, TicTacToe.FireMonkeyUIControllerUnit;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Dialogs, TicTacToe_FireMonkeyUIControllerUnit;
 
 type
   TFireMonkeyForm = class(TForm)
@@ -41,7 +41,7 @@ var
 implementation
 
 uses
-  TicTacToe.PlayerUnit;
+  TicTacToe_PlayerUnit;
 
 {$R *.fmx}
 

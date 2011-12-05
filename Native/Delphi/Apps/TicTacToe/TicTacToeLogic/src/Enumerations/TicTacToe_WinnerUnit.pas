@@ -1,4 +1,4 @@
-unit TicTacToe.WinnerUnit;
+unit TicTacToe_WinnerUnit;
 
 interface
 

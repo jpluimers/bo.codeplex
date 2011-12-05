@@ -1,9 +1,9 @@
-unit TicTacToeLogic.BasePlayerUnit;
+unit TicTacToe_BasePlayerUnit;
 
 interface
 
 uses
-  TicTacToe.GameUnit;
+  TicTacToe_GameUnit;
 
 type
   TBasePlayer = class abstract(TObject)

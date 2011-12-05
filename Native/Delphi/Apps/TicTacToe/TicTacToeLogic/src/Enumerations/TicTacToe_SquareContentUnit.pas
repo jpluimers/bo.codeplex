@@ -1,9 +1,9 @@
-unit TicTacToe.SquareContentUnit;
+unit TicTacToe_SquareContentUnit;
 
 interface
 
 uses
-  TicTacToe.SquareUnit;
+  TicTacToe_SquareUnit;
 
 type
   TSquareContent = (None, Nought, Cross);

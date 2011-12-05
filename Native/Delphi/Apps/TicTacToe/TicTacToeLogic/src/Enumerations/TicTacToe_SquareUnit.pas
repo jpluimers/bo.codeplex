@@ -1,4 +1,4 @@
-unit TicTacToe.SquareUnit;
+unit TicTacToe_SquareUnit;
 
 interface
 
