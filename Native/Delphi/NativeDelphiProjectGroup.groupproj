@@ -105,6 +105,9 @@
 			<Projects Include="Apps\TicTacToe\TicTacToeVcl\prj\TicTacToeVclProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="Apps\TicTacToe\TicTacToeFireMonkey\prj\TicTacToeFireMonkeyProject.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -419,14 +422,23 @@
 		<Target Name="TicTacToeVclProject:Make">
 			<MSBuild Projects="Apps\TicTacToe\TicTacToeVcl\prj\TicTacToeVclProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="TicTacToeFireMonkeyProject">
+			<MSBuild Projects="Apps\TicTacToe\TicTacToeFireMonkey\prj\TicTacToeFireMonkeyProject.dproj"/>
+		</Target>
+		<Target Name="TicTacToeFireMonkeyProject:Clean">
+			<MSBuild Projects="Apps\TicTacToe\TicTacToeFireMonkey\prj\TicTacToeFireMonkeyProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="TicTacToeFireMonkeyProject:Make">
+			<MSBuild Projects="Apps\TicTacToe\TicTacToeFireMonkey\prj\TicTacToeFireMonkeyProject.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="boComponentLibraryRunTimePackage;boComponentLibraryDesignTimePackage;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;CodeGeneratorProject;GenerateORMProject;UseORMProject_XE2;DumpXml;ValidateXmlWithXsd;XokumXmlDataBindingProject;XokumXmlMapperProject;Iso8859_12Utf8;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject;VoertuigDemo;FastMMUsageTrackerProject_XE2;GenericPublicSubscribeVCLProject;InterfaceConstParmetersAndPrematureFreeingProject_XE2;DownloadFromUrlProject;VariantRecordsWithCharactersAndStrings;Iso8601Project;Base64TestsProject;CaptureFunctionParametersWithAnonymousMethodProject;LanguageFeaturesProject;XokumToExcelXml;DebuggerVisualizersVCLDemo;HiddenExecute;TicTacToeVclProject"/>
+			<CallTarget Targets="boComponentLibraryRunTimePackage;boComponentLibraryDesignTimePackage;LoggerReporterDemoProject;NLFMJSON2ASX;PhoneRegExProject;DivModGuiTestProject;CodeGeneratorProject;GenerateORMProject;UseORMProject_XE2;DumpXml;ValidateXmlWithXsd;XokumXmlDataBindingProject;XokumXmlMapperProject;Iso8859_12Utf8;XPathTester;CdsXsdTest;XMLEOSErrorTest;Number2StringProjectTests;MD5DUnitGUIProject;FreeAndNilPointerUnitTestProject;VoertuigDemo;FastMMUsageTrackerProject_XE2;GenericPublicSubscribeVCLProject;InterfaceConstParmetersAndPrematureFreeingProject_XE2;DownloadFromUrlProject;VariantRecordsWithCharactersAndStrings;Iso8601Project;Base64TestsProject;CaptureFunctionParametersWithAnonymousMethodProject;LanguageFeaturesProject;XokumToExcelXml;DebuggerVisualizersVCLDemo;HiddenExecute;TicTacToeVclProject;TicTacToeFireMonkeyProject"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="boComponentLibraryRunTimePackage:Clean;boComponentLibraryDesignTimePackage:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;CodeGeneratorProject:Clean;GenerateORMProject:Clean;UseORMProject_XE2:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XokumXmlDataBindingProject:Clean;XokumXmlMapperProject:Clean;Iso8859_12Utf8:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean;VoertuigDemo:Clean;FastMMUsageTrackerProject_XE2:Clean;GenericPublicSubscribeVCLProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean;DownloadFromUrlProject:Clean;VariantRecordsWithCharactersAndStrings:Clean;Iso8601Project:Clean;Base64TestsProject:Clean;CaptureFunctionParametersWithAnonymousMethodProject:Clean;LanguageFeaturesProject:Clean;XokumToExcelXml:Clean;DebuggerVisualizersVCLDemo:Clean;HiddenExecute:Clean;TicTacToeVclProject:Clean"/>
+			<CallTarget Targets="boComponentLibraryRunTimePackage:Clean;boComponentLibraryDesignTimePackage:Clean;LoggerReporterDemoProject:Clean;NLFMJSON2ASX:Clean;PhoneRegExProject:Clean;DivModGuiTestProject:Clean;CodeGeneratorProject:Clean;GenerateORMProject:Clean;UseORMProject_XE2:Clean;DumpXml:Clean;ValidateXmlWithXsd:Clean;XokumXmlDataBindingProject:Clean;XokumXmlMapperProject:Clean;Iso8859_12Utf8:Clean;XPathTester:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;FreeAndNilPointerUnitTestProject:Clean;VoertuigDemo:Clean;FastMMUsageTrackerProject_XE2:Clean;GenericPublicSubscribeVCLProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean;DownloadFromUrlProject:Clean;VariantRecordsWithCharactersAndStrings:Clean;Iso8601Project:Clean;Base64TestsProject:Clean;CaptureFunctionParametersWithAnonymousMethodProject:Clean;LanguageFeaturesProject:Clean;XokumToExcelXml:Clean;DebuggerVisualizersVCLDemo:Clean;HiddenExecute:Clean;TicTacToeVclProject:Clean;TicTacToeFireMonkeyProject:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="boComponentLibraryRunTimePackage:Make;boComponentLibraryDesignTimePackage:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;CodeGeneratorProject:Make;GenerateORMProject:Make;UseORMProject_XE2:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XokumXmlDataBindingProject:Make;XokumXmlMapperProject:Make;Iso8859_12Utf8:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make;VoertuigDemo:Make;FastMMUsageTrackerProject_XE2:Make;GenericPublicSubscribeVCLProject:Make;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make;DownloadFromUrlProject:Make;VariantRecordsWithCharactersAndStrings:Make;Iso8601Project:Make;Base64TestsProject:Make;CaptureFunctionParametersWithAnonymousMethodProject:Make;LanguageFeaturesProject:Make;XokumToExcelXml:Make;DebuggerVisualizersVCLDemo:Make;HiddenExecute:Make;TicTacToeVclProject:Make"/>
+			<CallTarget Targets="boComponentLibraryRunTimePackage:Make;boComponentLibraryDesignTimePackage:Make;LoggerReporterDemoProject:Make;NLFMJSON2ASX:Make;PhoneRegExProject:Make;DivModGuiTestProject:Make;CodeGeneratorProject:Make;GenerateORMProject:Make;UseORMProject_XE2:Make;DumpXml:Make;ValidateXmlWithXsd:Make;XokumXmlDataBindingProject:Make;XokumXmlMapperProject:Make;Iso8859_12Utf8:Make;XPathTester:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;FreeAndNilPointerUnitTestProject:Make;VoertuigDemo:Make;FastMMUsageTrackerProject_XE2:Make;GenericPublicSubscribeVCLProject:Make;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make;DownloadFromUrlProject:Make;VariantRecordsWithCharactersAndStrings:Make;Iso8601Project:Make;Base64TestsProject:Make;CaptureFunctionParametersWithAnonymousMethodProject:Make;LanguageFeaturesProject:Make;XokumToExcelXml:Make;DebuggerVisualizersVCLDemo:Make;HiddenExecute:Make;TicTacToeVclProject:Make;TicTacToeFireMonkeyProject:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>
