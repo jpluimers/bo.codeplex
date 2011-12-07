@@ -1,0 +1,132 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 400
+  ClientWidth = 904
+  Visible = False
+  OnCreate = Form3DCreate
+  Color = claSnow
+  object Layer3D1: TLayer3D
+    Position.Point = '(118.999984741211,128,6.46442786091939E-5)'
+    Width = 200.000000000000000000
+    Height = 200.000000000000000000
+    Depth = 0.009999999776482582
+    Opacity = 1.000000000000000000
+    Projection = pjScreen
+    StyleLookup = 'backgroundstyle'
+    Quanternion = '(0,0,0,1)'
+    object NoneButton: TButton
+      Position.Point = '(8,8)'
+      Width = 100.000000000000000000
+      Height = 22.000000000000000000
+      OnClick = NoneButtonClick
+      TabOrder = 0
+      Text = 'NoneButton'
+    end
+    object CrossButton: TButton
+      Position.Point = '(8,40)'
+      Width = 100.000000000000000000
+      Height = 22.000000000000000000
+      OnClick = CrossButtonClick
+      TabOrder = 1
+      Text = 'CrossButton'
+    end
+    object NoughtButton: TButton
+      Position.Point = '(8,72)'
+      Width = 100.000000000000000000
+      Height = 22.000000000000000000
+      OnClick = NoughtButtonClick
+      TabOrder = 2
+      Text = 'NoughtButton'
+    end
+    object Memo1: TMemo
+      Position.Point = '(8,104)'
+      Width = 185.000000000000000000
+      Height = 89.000000000000000000
+      TabOrder = 3
+      KeyboardType = vktDefault
+    end
+  end
+  object Layer3D2: TLayer3D
+    Position.Point = '(356,147,0)'
+    Width = 240.000000000000000000
+    Height = 240.000000000000000000
+    Depth = 0.009999999776482582
+    Opacity = 1.000000000000000000
+    Projection = pjScreen
+    StyleLookup = 'backgroundstyle'
+    Quanternion = '(0,0,0,1)'
+    object Image3D1: TImage3D
+      Position.Point = '(4,4,0)'
+      Width = 200.000000000000000000
+      Height = 200.000000000000000000
+      Depth = 0.009999999776482582
+      Opacity = 1.000000000000000000
+      Projection = pjScreen
+      Quanternion = '(0,0,0,1)'
+      object FloatAnimation1: TFloatAnimation
+        AnimationType = atInOut
+        Duration = 2.000000000000000000
+        OnFinish = FloatAnimation1Finish
+        PropertyName = 'RotationAngle.Y'
+      end
+    end
+    object Image3D2: TImage3D
+      Position.Point = '(4,4,0)'
+      RotationAngle.Point = '(0,180,0)'
+      Width = 200.000000000000000000
+      Height = 200.000000000000000000
+      Depth = 0.009999999776482582
+      Opacity = 1.000000000000000000
+      Projection = pjScreen
+      Quanternion = '(0,1,0,-4.37113882867379E-8)'
+      object FloatAnimation2: TFloatAnimation
+        AnimationType = atInOut
+        Duration = 2.000000000000000000
+        OnFinish = FloatAnimation2Finish
+        PropertyName = 'RotationAngle.Y'
+      end
+    end
+  end
+  object BufferLayer3D1: TBufferLayer3D
+    Position.Point = '(656,147,0)'
+    Width = 240.000000000000000000
+    Height = 240.000000000000000000
+    Depth = 0.009999999776482582
+    Opacity = 1.000000000000000000
+    ZWrite = False
+    Projection = pjScreen
+    Resolution = 50
+    Quanternion = '(0,0,0,1)'
+    object Image3D3: TImage3D
+      Position.Point = '(4,4,0)'
+      Width = 200.000000000000000000
+      Height = 200.000000000000000000
+      Depth = 0.009999999776482582
+      Opacity = 1.000000000000000000
+      Projection = pjScreen
+      Quanternion = '(0,0,0,1)'
+      object FloatAnimation3: TFloatAnimation
+        AnimationType = atInOut
+        Duration = 2.000000000000000000
+        PropertyName = 'RotationAngle.Y'
+      end
+    end
+    object Image3D4: TImage3D
+      Position.Point = '(4,4,0)'
+      RotationAngle.Point = '(0,180,0)'
+      Width = 200.000000000000000000
+      Height = 200.000000000000000000
+      Depth = 0.009999999776482582
+      Opacity = 1.000000000000000000
+      Projection = pjScreen
+      Quanternion = '(0,1,0,-4.37113882867379E-8)'
+      object FloatAnimation4: TFloatAnimation
+        AnimationType = atInOut
+        Duration = 2.000000000000000000
+        PropertyName = 'RotationAngle.Y'
+      end
+    end
+  end
+end
