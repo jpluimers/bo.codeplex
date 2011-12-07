@@ -12,6 +12,9 @@
 			<Projects Include="TicTacToeIOS\prj\TicTacToeIOSProject.dproj">
 				<Dependencies/>
 			</Projects>
+			<Projects Include="ImageFlipper3D\prj\ImageFlipper3DProject.dproj">
+				<Dependencies/>
+			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
 			<Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +50,23 @@
 		<Target Name="TicTacToeIOSProject:Make">
 			<MSBuild Projects="TicTacToeIOS\prj\TicTacToeIOSProject.dproj" Targets="Make"/>
 		</Target>
+		<Target Name="ImageFlipper3DProject">
+			<MSBuild Projects="ImageFlipper3D\prj\ImageFlipper3DProject.dproj"/>
+		</Target>
+		<Target Name="ImageFlipper3DProject:Clean">
+			<MSBuild Projects="ImageFlipper3D\prj\ImageFlipper3DProject.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="ImageFlipper3DProject:Make">
+			<MSBuild Projects="ImageFlipper3D\prj\ImageFlipper3DProject.dproj" Targets="Make"/>
+		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="TicTacToeVclProject;TicTacToeFireMonkeyProject;TicTacToeIOSProject"/>
+			<CallTarget Targets="TicTacToeVclProject;TicTacToeFireMonkeyProject;TicTacToeIOSProject;ImageFlipper3DProject"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="TicTacToeVclProject:Clean;TicTacToeFireMonkeyProject:Clean;TicTacToeIOSProject:Clean"/>
+			<CallTarget Targets="TicTacToeVclProject:Clean;TicTacToeFireMonkeyProject:Clean;TicTacToeIOSProject:Clean;ImageFlipper3DProject:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="TicTacToeVclProject:Make;TicTacToeFireMonkeyProject:Make;TicTacToeIOSProject:Make"/>
+			<CallTarget Targets="TicTacToeVclProject:Make;TicTacToeFireMonkeyProject:Make;TicTacToeIOSProject:Make;ImageFlipper3DProject:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
 	</Project>
