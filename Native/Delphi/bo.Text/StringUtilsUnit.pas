@@ -60,7 +60,6 @@ uses
   StrUtils,
   Character,
   Variants,
-  ComObj,
   System.Types;
 
 function CommaSeparated(const Values: array of string): string;
@@ -190,7 +189,7 @@ end;
 
 function CreateNewGuidString: string;
 begin
-  Result := CreateClassID;
+//  Result := CreateClassID;
 end;
 
 function StripLowercasePrefix(const Value: string): string;
