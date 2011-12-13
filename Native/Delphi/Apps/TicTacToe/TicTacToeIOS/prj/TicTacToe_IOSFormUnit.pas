@@ -23,6 +23,8 @@ type
     ComputerPlaysOCheckBox: TCheckBox;
     CurrentPlayerLabel: TLabel;
     OneSecondTimer: TTimer;
+    Label1: TLabel;
+    StyleBook1: TStyleBook;
     procedure BoardButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDeactivate(Sender: TObject);

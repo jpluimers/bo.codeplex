@@ -2,8 +2,8 @@ object VclForm: TVclForm
   Left = 0
   Top = 0
   Caption = 'TicTacToe.VclForm'
-  ClientHeight = 299
-  ClientWidth = 590
+  ClientHeight = 261
+  ClientWidth = 269
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
