@@ -1,0 +1,175 @@
+object OrderTakeOutWithStyleForm: TOrderTakeOutWithStyleForm
+  Left = 0
+  Top = 0
+  Caption = 'OrderMenuMainForm'
+  ClientHeight = 358
+  ClientWidth = 873
+  Visible = False
+  OnCreate = FormCreate
+  Fill.Kind = bkSolid
+  StyleBook = StyleBook1
+  StyleLookup = 'backgroundstyle'
+  object OrderListBox: TListBox
+    Position.Point = '(389,11)'
+    Width = 375.000000000000000000
+    Height = 300.000000000000000000
+    StyleLookup = 'ListBox1Style1'
+    TabOrder = 0
+  end
+  object AddButton: TButton
+    Position.Point = '(54,68)'
+    Width = 100.000000000000000000
+    Height = 100.000000000000000000
+    OnClick = AddButtonClick
+    StyleLookup = 'AddButtonStyle1'
+    TabOrder = 1
+    Text = 'Add to Order'
+  end
+  object StyleBook1: TStyleBook
+    Resource.Strings = (
+      'object _1: TLayout'
+      '  Align = alClient'
+      '  Position.Point = '#39'(0,33)'#39
+      '  Width = 942.000000000000000000'
+      '  Height = 811.000000000000000000'
+      '  object TLayout'
+      '    StyleName = '#39'AddButtonStyle1'#39
+      '    Position.Point = '#39'(426,394)'#39
+      '    Width = 91.000000000000000000'
+      '    Height = 24.000000000000000000'
+      '    object TRectangle'
+      '      StyleName = '#39'background'#39
+      '      Align = alContents'
+      '      Width = 91.000000000000000000'
+      '      Height = 24.000000000000000000'
+      '      HitTest = False'
+      '      Fill.Color = xFFEFEFEF'
+      '      Stroke.Kind = bkNone'
+      '      object TRectangle'
+      '        Align = alContents'
+      '        Width = 91.000000000000000000'
+      '        Height = 24.000000000000000000'
+      '        HitTest = False'
+      '        Fill.Kind = bkGradient'
+      '        Fill.Gradient.Points = <'
+      '          item'
+      '            Color = x24F4F4F4'
+      '          end'
+      '          item'
+      '            Color = x24EAEAEA'
+      '            Offset = 0.499000012874603300'
+      '          end'
+      '          item'
+      '            Color = x4E868686'
+      '            Offset = 0.500000000000000000'
+      '          end>'
+      '        Stroke.Color = xC84F4F4F'
+      '        YRadius = 55.000000000000000000'
+      '      end'
+      '      object TColorAnimation'
+      '        Duration = 0.200000002980232200'
+      '        Trigger = '#39'IsMouseOver=true'#39
+      '        StartValue = xFFEFEFEF'
+      '        StopValue = xFFA5D9FF'
+      '        PropertyName = '#39'Fill.Color'#39
+      '      end'
+      '      object TColorAnimation'
+      '        Duration = 0.200000002980232200'
+      '        Trigger = '#39'IsMouseOver=false'#39
+      '        StartValue = xFFA5D9FF'
+      '        StopValue = xFFEFEFEF'
+      '        PropertyName = '#39'Fill.Color'#39
+      '      end'
+      '      object TInnerGlowEffect'
+      '        Trigger = '#39'IsPressed=true'#39
+      '        Enabled = False'
+      '        Softness = 0.400000005960464500'
+      '        GlowColor = xFF4F4848'
+      '        Opacity = 0.899999976158142100'
+      '      end'
+      '      object TRectangle'
+      '        Align = alClient'
+      '        Position.Point = '#39'(1,1)'#39
+      '        Locked = True'
+      '        Width = 89.000000000000000000'
+      '        Height = 22.000000000000000000'
+      '        Padding.Rect = '#39'(1,1,1,1)'#39
+      '        HitTest = False'
+      '        Fill.Kind = bkNone'
+      '        Stroke.Color = x96FCFCFC'
+      '        YRadius = 55.000000000000000000'
+      '      end'
+      '    end'
+      '    object TText'
+      '      StyleName = '#39'text'#39
+      '      Align = alClient'
+      '      Position.Point = '#39'(5,3)'#39
+      '      Locked = True'
+      '      Width = 81.000000000000000000'
+      '      Height = 18.000000000000000000'
+      '      Padding.Rect = '#39'(5,3,5,3)'#39
+      '      HitTest = False'
+      '      Text = '#39'button'#39
+      '    end'
+      '    object TGlowEffect'
+      '      Trigger = '#39'IsFocused=true'#39
+      '      Enabled = False'
+      '      Softness = 0.200000002980232200'
+      '      GlowColor = x82005ACC'
+      '      Opacity = 0.899999976158142100'
+      '    end'
+      '  end'
+      '  object TLayout'
+      '    StyleName = '#39'imagelabel'#39
+      '    Position.Point = '#39'(173,314)'#39
+      '    Width = 366.000000000000000000'
+      '    Height = 66.000000000000000000'
+      '    DesignVisible = False'
+      '    object TText'
+      '      StyleName = '#39'Text'#39
+      '      Align = alRight'
+      '      Position.Point = '#39'(130,0)'#39
+      '      Width = 236.000000000000000000'
+      '      Height = 66.000000000000000000'
+      '      Font.Size = 22.000000000000000000'
+      '      HorzTextAlign = taLeading'
+      '      Text = '#39'Test'#39
+      '    end'
+      '    object TImage'
+      '      StyleName = '#39'Image'#39
+      '      Align = alScale'
+      '      Width = 120.000000000000000000'
+      '      Height = 60.000000000000000000'
+      '    end'
+      '  end'
+      'end')
+    Left = 318
+    Top = 86
+  end
+  object MenuItemsComboBox: TComboBox
+    Position.Point = '(32,10)'
+    Width = 300.000000000000000000
+    Height = 22.000000000000000000
+    TabOrder = 2
+    ItemIndex = -1
+  end
+  object Image1: TImage
+    Position.Point = '(32,184)'
+    Width = 120.000000000000000000
+    Height = 60.000000000000000000
+    object aniRotateImage: TFloatAnimation
+      AutoReverse = True
+      Duration = 1.500000000000000000
+      StartFromCurrent = True
+      StopValue = 720.000000000000000000
+      PropertyName = 'RotationAngle'
+    end
+    object aniMoveImage: TFloatAnimation
+      Duration = 2.000000000000000000
+      OnFinish = aniMoveImageFinish
+      StartFromCurrent = True
+      StopValue = 400.000000000000000000
+      PropertyName = 'Position.X'
+    end
+  end
+end
