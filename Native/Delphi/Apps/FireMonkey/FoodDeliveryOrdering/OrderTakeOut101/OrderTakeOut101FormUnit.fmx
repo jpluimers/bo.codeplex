@@ -1,0 +1,38 @@
+object OrderTakeOut101Form: TOrderTakeOut101Form
+  Left = 0
+  Top = 0
+  Caption = 'Order Take Out 101'
+  ClientHeight = 400
+  ClientWidth = 600
+  Visible = False
+  StyleLookup = 'backgroundstyle'
+  object FoodEdit: TEdit
+    Position.Point = '(40,28)'
+    Width = 267.000000000000000000
+    Height = 22.000000000000000000
+    TabOrder = 0
+    KeyboardType = vktDefault
+    Password = False
+    object Label1: TLabel
+      Position.Point = '(0,-20)'
+      Width = 120.000000000000000000
+      Height = 15.000000000000000000
+      TabOrder = 1
+      Text = 'Menu Item'
+    end
+  end
+  object AddButton: TButton
+    Position.Point = '(44,92)'
+    Width = 143.000000000000000000
+    Height = 22.000000000000000000
+    OnClick = AddButtonClick
+    TabOrder = 1
+    Text = 'Add to Order'
+  end
+  object OrderListBox: TListBox
+    Position.Point = '(326,26)'
+    Width = 257.000000000000000000
+    Height = 361.000000000000000000
+    TabOrder = 2
+  end
+end
