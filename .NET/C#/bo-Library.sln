@@ -94,9 +94,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bo.Windows12522Utf8", "Samp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bo.Utf162Utf8", "Samples\ReEncode\bo.Utf162Utf8\bo.Utf162Utf8.csproj", "{06F8F4AE-9B72-4BE0-924B-3AC3927FFEFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeDupe", "Apps\Console\Dedupe\DeDupe.csproj", "{AFFDA111-05FB-4603-B3E3-034EEC77D53E}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 32
+		SccNumberOfProjects = 33
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
@@ -224,6 +226,10 @@ Global
 		SccProjectTopLevelParentUniqueName31 = bo-Library.sln
 		SccProjectName31 = Samples/ReEncode/bo.Utf162Utf8
 		SccLocalPath31 = Samples\\ReEncode\\bo.Utf162Utf8
+		SccProjectUniqueName32 = Apps\\Console\\Dedupe\\Dedupe.csproj
+		SccProjectTopLevelParentUniqueName32 = bo-Library.sln
+		SccProjectName32 = Apps/Console/Dedupe
+		SccLocalPath32 = Apps\\Console\\Dedupe
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = bo-Library.vsmdi
@@ -547,6 +553,16 @@ Global
 		{06F8F4AE-9B72-4BE0-924B-3AC3927FFEFF}.Release|Mixed Platforms.Build.0 = Release|x86
 		{06F8F4AE-9B72-4BE0-924B-3AC3927FFEFF}.Release|x86.ActiveCfg = Release|x86
 		{06F8F4AE-9B72-4BE0-924B-3AC3927FFEFF}.Release|x86.Build.0 = Release|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Debug|x86.ActiveCfg = Debug|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Debug|x86.Build.0 = Debug|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Release|Any CPU.ActiveCfg = Release|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Release|x86.ActiveCfg = Release|x86
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -583,6 +599,7 @@ Global
 		{C14940ED-B8AC-4977-A242-6DE05A1DD1C8} = {EB6EA665-842D-4F24-B355-6FDA01DB70A6}
 		{2F8171B3-8A44-4EB0-B52B-969F23CC3F00} = {55BDF28F-2579-4182-BAB2-E5D09B153649}
 		{E4155A52-0FFC-4553-9757-D3C1B5A8D6A8} = {06375ABB-30F3-4181-B228-356BC66BEBA3}
+		{AFFDA111-05FB-4603-B3E3-034EEC77D53E} = {06375ABB-30F3-4181-B228-356BC66BEBA3}
 		{EAB11A76-7187-4F1C-AD77-6489C5C896A6} = {D77B36A0-AC54-4F94-8287-D67CF59D77A0}
 		{09383730-A23C-4189-B042-E84D7CC3BD86} = {D77B36A0-AC54-4F94-8287-D67CF59D77A0}
 		{58B57AD0-A9EC-4E6A-BAAD-158A5BCBBDC8} = {D77B36A0-AC54-4F94-8287-D67CF59D77A0}
