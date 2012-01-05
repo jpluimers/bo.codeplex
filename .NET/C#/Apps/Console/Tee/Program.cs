@@ -34,18 +34,18 @@ namespace Tee
             Console.Error.WriteLine("http://www.camdensoftware.com");
             Console.Error.WriteLine("http://chipstips.com/?tag=cpptee");
             Console.Error.WriteLine("");
-            Console.Error.WriteLine("tee [-a | --append] [-i | --ignore] [--help | /?] [-f] [file1] [...]");
+            Console.Error.WriteLine("tee [-a | --append] [-i | --ignore] [-? | --help | /?] [-f | --flush] [-l | --literal] [file1] [...]");
             Console.Error.WriteLine("   Example:");
-            Console.Error.WriteLine(" tee --append file0.txt -f --help file2.txt");
+            Console.Error.WriteLine(" tee --append file0.txt -l --help file2.txt");
             Console.Error.WriteLine("   will append to file0.txt, --help, and file2.txt");
             Console.Error.WriteLine("");
-            Console.Error.WriteLine("-a | --append    Appends files instead of overwriting");
-            Console.Error.WriteLine("                 (setting is per tee instance)");
-            Console.Error.WriteLine("-f | --flush 	Flushes files every CRLF or every 4096 bytes");
-            Console.Error.WriteLine("                 (setting is per tee instance)");
-            Console.Error.WriteLine("-i | --ignore    Ignore cancel Ctrl+C keypress: see UnixUtils tee");
-            Console.Error.WriteLine("/? | --help      Displays this message and immediately quits");
-            Console.Error.WriteLine("-f               Stop recognizing flags, force all following filenames literally");
+            Console.Error.WriteLine("-a | --append                Appends files instead of overwriting");
+            Console.Error.WriteLine("                               (setting is per tee instance)");
+            Console.Error.WriteLine("-f | --flush 	              Flushes files every CRLF or every 4096 bytes");
+            Console.Error.WriteLine("                               (setting is per tee instance)");
+            Console.Error.WriteLine("-i | --ignore                Ignore cancel Ctrl+C keypress: see UnixUtils tee");
+            Console.Error.WriteLine("-? | --h  | /? | --help      Displays this message and immediately quits");
+            Console.Error.WriteLine("-l | --literal               Stop recognizing flags, force all following filenames literally");
             Console.Error.WriteLine("");
             Console.Error.WriteLine("Duplicate filenames are quietly ignored.");
             Console.Error.WriteLine("Press Ctrl+Z (End of File character) then Enter to abort.");
@@ -82,7 +82,7 @@ namespace Tee
                     {
                         addFilename(arg);
                     }
-                    else if (arg.Equals("/?") || arg.Equals("-h") || arg.Equals("--help"))
+                    else if (arg.Equals("/?") || arg.Equals("-?") || arg.Equals("-h") || arg.Equals("--help"))
                     {
                         help();
                         return 1; //Quit immediately
@@ -99,7 +99,7 @@ namespace Tee
                     {
                         ignoreCtrlC = true;
                     }
-                    else if (arg.Equals("-f"))
+                    else if (arg.Equals("-l") || arg.Equals("--literal"))
                     {
                         stopInterpretingFlags = true;
                     }
