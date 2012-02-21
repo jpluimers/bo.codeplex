@@ -51,8 +51,7 @@ namespace SecureStringConsoleApplication
             }
         }
 
-        // http://stackoverflow.com/questions/4502676/c-compare-two-securestrings-for-equality/4502736#4502736
-        public static Boolean SafeSecureStringEqual(this SecureString secureString1, SecureString secureString2)
+        private static void requireArguments(SecureString secureString1, SecureString secureString2)
         {
             if (secureString1 == null)
             {
@@ -62,68 +61,70 @@ namespace SecureStringConsoleApplication
             {
                 throw new ArgumentNullException("s2secureString2");
             }
+        }
+
+        // http://stackoverflow.com/questions/4502676/c-compare-two-securestrings-for-equality/4502736#4502736
+        // note this compiles without unsafe, but in fact it is very dangerous as it will decrypt the SecureStrings into memory as str1 and str2 leaving a huge security gap
+        public static Boolean SafeSecureStringEqual(this SecureString secureString1, SecureString secureString2)
+        {
+            requireArguments(secureString1, secureString2);
 
             if (secureString1.Length != secureString2.Length)
             {
                 return false;
             }
 
-            IntPtr ss_bstr1_ptr = IntPtr.Zero;
-            IntPtr ss_bstr2_ptr = IntPtr.Zero;
+            IntPtr binaryStringPointer1 = IntPtr.Zero;
+            IntPtr binaryStringPointer2 = IntPtr.Zero;
 
-            try
+            RuntimeHelpers.PrepareConstrainedRegions();
+
+            try // begin CER (ConstrainedExecutionRegion)
             {
-                ss_bstr1_ptr = Marshal.SecureStringToBSTR(secureString1);
-                ss_bstr2_ptr = Marshal.SecureStringToBSTR(secureString2);
+                binaryStringPointer1 = Marshal.SecureStringToBSTR(secureString1);
+                binaryStringPointer2 = Marshal.SecureStringToBSTR(secureString2);
 
-                String str1 = Marshal.PtrToStringBSTR(ss_bstr1_ptr);
-                String str2 = Marshal.PtrToStringBSTR(ss_bstr2_ptr);
+                String str1 = Marshal.PtrToStringBSTR(binaryStringPointer1);
+                String str2 = Marshal.PtrToStringBSTR(binaryStringPointer2);
 
                 return str1.Equals(str2);
             }
             finally
             {
-                if (ss_bstr1_ptr != IntPtr.Zero)
+                if (binaryStringPointer1 != IntPtr.Zero)
                 {
-                    Marshal.ZeroFreeBSTR(ss_bstr1_ptr);
+                    Marshal.ZeroFreeBSTR(binaryStringPointer1);
                 }
 
-                if (ss_bstr2_ptr != IntPtr.Zero)
+                if (binaryStringPointer2 != IntPtr.Zero)
                 {
-                    Marshal.ZeroFreeBSTR(ss_bstr2_ptr);
+                    Marshal.ZeroFreeBSTR(binaryStringPointer2);
                 }
-            }
+            } // end CER (ConstrainedExecutionRegion)
         }
 
-        public static Boolean UnsafeSecureStringEqual(this SecureString s1, SecureString s2)
+        public static Boolean UnsafeSecureStringEqual(this SecureString secureString1, SecureString secureString2)
         {
-            if (s1 == null)
-            {
-                throw new ArgumentNullException("s1");
-            }
-            if (s2 == null)
-            {
-                throw new ArgumentNullException("s2");
-            }
+            requireArguments(secureString1, secureString2);
 
-            if (s1.Length != s2.Length)
+            if (secureString1.Length != secureString2.Length)
             {
                 return false;
             }
 
-            IntPtr bstr1 = IntPtr.Zero;
-            IntPtr bstr2 = IntPtr.Zero;
+            IntPtr binaryStringPointer1 = IntPtr.Zero;
+            IntPtr binaryStringPointer2 = IntPtr.Zero;
 
             RuntimeHelpers.PrepareConstrainedRegions();
 
-            try
+            try // begin CER (ConstrainedExecutionRegion)
             {
-                bstr1 = Marshal.SecureStringToBSTR(s1);
-                bstr2 = Marshal.SecureStringToBSTR(s2);
+                binaryStringPointer1 = Marshal.SecureStringToBSTR(secureString1);
+                binaryStringPointer2 = Marshal.SecureStringToBSTR(secureString2);
 
                 unsafe
                 {
-                    for (Char* ptr1 = (Char*)bstr1.ToPointer(), ptr2 = (Char*)bstr2.ToPointer();
+                    for (Char* ptr1 = (Char*)binaryStringPointer1.ToPointer(), ptr2 = (Char*)binaryStringPointer2.ToPointer();
                         *ptr1 != 0 && *ptr2 != 0;
                          ++ptr1, ++ptr2)
                     {
@@ -138,16 +139,16 @@ namespace SecureStringConsoleApplication
             }
             finally
             {
-                if (bstr1 != IntPtr.Zero)
+                if (binaryStringPointer1 != IntPtr.Zero)
                 {
-                    Marshal.ZeroFreeBSTR(bstr1);
+                    Marshal.ZeroFreeBSTR(binaryStringPointer1);
                 }
 
-                if (bstr2 != IntPtr.Zero)
+                if (binaryStringPointer2 != IntPtr.Zero)
                 {
-                    Marshal.ZeroFreeBSTR(bstr2);
+                    Marshal.ZeroFreeBSTR(binaryStringPointer2);
                 }
-            }
+            } // end CER (ConstrainedExecutionRegion)
         }
 
     }
