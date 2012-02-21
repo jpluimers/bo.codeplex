@@ -23,7 +23,7 @@ namespace SecureStringConsoleApplication
             bool safeSecureStringEquals = SecureStringExtensions.SafeSecureStringEqual(passwordToSecureString, secureString);
             Console.WriteLine("safeSecureStringEquals: {0}", safeSecureStringEquals);
 
-            bool unsafeSecureStringEquals = SecureStringExtensions.UnsafeSecureStringEqual(password.ToSecureString(), secureString);
+            bool unsafeSecureStringEquals = SecureStringExtensions.UnsafeSecureStringEqual(passwordToSecureString, secureString);
             Console.WriteLine("unsafeSecureStringEquals: {0}", unsafeSecureStringEquals);
 
             string convertToUnsecureString = secureString.ConvertToUnsecureString();
