@@ -24,11 +24,9 @@ type
     LoadXmlExample2Button: TButton;
     ResultsGroupBox: TGroupBox;
     ResultsMemo: TMemo;
-    RunButton: TButton;
+    RunXPathButton: TButton;
     ShowMsxml6Version: TButton;
     ShowNameSpacesButton: TButton;
-    ShowTextInResultCheckBox: TCheckBox;
-    ShowXmlInResultCheckBox: TCheckBox;
     Splitter1: TSplitter;
     XmlGroupBox: TGroupBox;
     XmlMemo: TMemo;
@@ -38,12 +36,17 @@ type
     XmlViewTabSheet: TTabSheet;
     XmlWebBrowser: TWebBrowser;
     XPathLabeledEdit: TLabeledEdit;
+    LoadXmlExample3Button: TButton;
+    Panel1: TPanel;
+    ShowTextInResultCheckBox: TCheckBox;
+    ShowXmlInResultCheckBox: TCheckBox;
+    procedure LoadXmlExample3ButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure HistoryListBoxClick(Sender: TObject);
     procedure LoadXmlButtonClick(Sender: TObject);
     procedure LoadXmlExample1ButtonClick(Sender: TObject);
     procedure LoadXmlExample2ButtonClick(Sender: TObject);
-    procedure RunButtonClick(Sender: TObject);
+    procedure RunXPathButtonClick(Sender: TObject);
     procedure ShowMsxml6VersionClick(Sender: TObject);
     procedure ShowNameSpacesButtonClick(Sender: TObject);
     procedure XmlPageControlChange(Sender: TObject);
@@ -153,7 +156,7 @@ begin
   ]);
 end;
 
-procedure TMainForm.RunButtonClick(Sender: TObject);
+procedure TMainForm.RunXPathButtonClick(Sender: TObject);
 begin
   RunXPath();
 end;
@@ -302,6 +305,24 @@ begin
   if HistoryListBox.Items.IndexOf(XPathQuery) = -1 then
     HistoryListBox.Items.Add(XPathQuery);
   HistoryMemo.Lines.Add(XPathQuery);
+end;
+
+procedure TMainForm.LoadXmlExample3ButtonClick(Sender: TObject);
+begin
+  LoadXmlExample([ // unique account numbers
+    '/Accounts/Account[not(@Number=preceding-sibling::Account/@Number)]/@Number'
+  ],
+  [
+    '<?xml version="1.0"?>',
+    '<Accounts>',
+    '  <Account Number="1"   DebitAmount="1000" Amount="2827561.95" />',
+    '  <Account Number="225" DebitAmount="2000"  Amount="12312.00" />',
+    '  <Account Number="236" DebitAmount="London"    Amount="457656.00" />',
+    '  <Account Number="225" DebitAmount="London"    Amount="23462.40" />',
+    '  <Account Number="236" DebitAmount="Bangalore" Amount="2345345.00" />',
+    '</Accounts>'
+  ]);
+
 end;
 
 procedure TMainForm.ClearMemoAndShowXmlNamespaces;

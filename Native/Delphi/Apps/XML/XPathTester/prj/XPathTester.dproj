@@ -99,6 +99,7 @@
 			<DCCReference Include="..\..\..\..\bo.System\FileVersionUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas"/>
 			<DCCReference Include="..\..\..\..\bo.DebugView\DbWinUnit.pas"/>
+			<DCCReference Include="..\..\..\..\bo.Debugging\DebuggingUnit.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

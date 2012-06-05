@@ -23,7 +23,8 @@ uses
   LoggerInterfaceUnit in '..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas',
   FileVersionUnit in '..\..\..\..\bo.System\FileVersionUnit.pas',
   XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas',
-  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas';
+  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas',
+  DebuggingUnit in '..\..\..\..\bo.Debugging\DebuggingUnit.pas';
 
 {$R *.res}
 
