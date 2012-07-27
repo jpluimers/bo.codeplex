@@ -24,7 +24,9 @@ uses
   FileVersionUnit in '..\..\..\..\bo.System\FileVersionUnit.pas',
   XMLDOMParseErrorToStringUnit in '..\..\..\..\bo.XML\XMLDOMParseErrorToStringUnit.pas',
   DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas',
-  DebuggingUnit in '..\..\..\..\bo.Debugging\DebuggingUnit.pas';
+  DebuggingUnit in '..\..\..\..\bo.Debugging\DebuggingUnit.pas',
+  MSXML2_TLB in '..\..\..\..\bo.XML\MSXML2_TLB.pas',
+  DictionaryUnit in '..\..\..\..\bo.Containers\DictionaryUnit.pas';
 
 {$R *.res}
 

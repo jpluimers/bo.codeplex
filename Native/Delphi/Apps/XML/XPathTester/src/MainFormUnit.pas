@@ -81,8 +81,18 @@ var
 implementation
 
 uses
-  adomxmldom,
-  msxml,
+{$if CompilerVersion <= 18.5} // D2007 and less http://stackoverflow.com/a/1572163/29290
+  oxmldom, // OmniXML
+{$else}
+  adomxmldom, // http://stackoverflow.com/a/1766687/29290
+{$ifend}
+{ up until Delphi 2009, msxml contains the import of C:\WINDOWS\SYSTEM\MSXML.DLL,
+  as of Delphi 2010 it imports C:\WINDOWS\SYSTEM\MSXML6.DLL }
+{$if CompilerVersion >= 21.0}
+  msxml, // Delphi 2010 and up: IXMLDOMSchemaCollection2 et al
+{$else}
+  MSXML2_TLB, // Delphi < 2010: IXMLDOMSchemaCollection2 et al
+{$ifend}
   XmlHelperUnit,
   XMLDoc,
   XMLIntf,

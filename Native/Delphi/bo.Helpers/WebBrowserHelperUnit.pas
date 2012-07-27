@@ -5,7 +5,11 @@ unit WebBrowserHelperUnit;
 interface
 
 uses
-  SHDocVw, Classes, MSHTML, ActiveX, ComponentHelperUnit;
+  SHDocVw,
+  Classes,
+  MSHTML,
+  ActiveX,
+  ComponentHelperUnit;
 
 const
   SLocalAboutUrlPrefix = 'about:';
@@ -58,7 +62,12 @@ type
 implementation
 
 uses
-  StrUtils, SysUtils, Forms, StringUtilsUnit, MakeResourceUrlUnit, msxml;
+  StrUtils,
+  SysUtils,
+  Forms,
+  StringUtilsUnit,
+  MakeResourceUrlUnit,
+  msxml;
 
 const
   SResMsxmlDllDefaultssXsl = 'res://msxml.dll/defaultss.xsl';
@@ -177,15 +186,23 @@ end;
 procedure TWebBrowserHelper.LoadFromXmlStreamAndFreeStream
   (FileStream: TFileStream);
 var
+{$if declared(TStreamReader)}
   StreamReader: TStreamReader;
+{$ifend}
+  XmlString: string;
 begin
   try
+{$if declared(TStreamReader)}
     StreamReader := TStreamReader.Create(FileStream);
     try
-      LoadFromXmlString(StreamReader.ReadToEnd);
+      XmlString := StreamReader.ReadToEnd;
     finally
       StreamReader.Free;
     end;
+{$else}
+    XmlString := StringUtilsUnit.LoadFromStream(FileStream);
+{$ifend}
+    LoadFromXmlString(XmlString);
   finally
     FileStream.Free;
   end;
