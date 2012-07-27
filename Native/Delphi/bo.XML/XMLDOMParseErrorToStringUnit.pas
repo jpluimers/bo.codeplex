@@ -3,7 +3,13 @@ unit XMLDOMParseErrorToStringUnit;
 interface
 
 uses
-  msxml,
+{ up until Delphi 2009, msxml contains the import of C:\WINDOWS\SYSTEM\MSXML.DLL,
+  as of Delphi 2010 it imports C:\WINDOWS\SYSTEM\MSXML6.DLL }
+{$if CompilerVersion >= 21.0}
+  msxml, // Delphi 2010 and up: IXMLDOMParseError2 et al
+{$else}
+  MSXML2_TLB, // Delphi < 2010: IXMLDOMParseError2 et al
+{$ifend}
   Classes,
   ComObj;
 
@@ -25,8 +31,8 @@ type
   public
     constructor Create(const XMLDOMParseError: IXMLDOMParseError);
     destructor Destroy; override;
-    function ToString: string; overload; override;
-    class function ToString(const XMLDOMParseError: IXMLDOMParseError): string; reintroduce; overload; static;
+    function ToString: string; overload; {$if CompilerVersion >= 20.0} override; {$ifend} // Delphi 2009 had TObject.ToString as virtual mtehod.
+    class function ToString(const XMLDOMParseError: IXMLDOMParseError): string; {$if CompilerVersion >= 20.0} reintroduce; {$ifend} overload; static;
     property XMLDOMParseError: IXMLDOMParseError read FXMLDOMParseError;
   end;
 

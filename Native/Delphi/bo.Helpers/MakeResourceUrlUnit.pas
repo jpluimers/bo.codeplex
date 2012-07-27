@@ -14,7 +14,8 @@ function MakeResourceURL(const Module: HMODULE; const ResName: PChar; const ResT
 implementation
 
 uses
-  Windows, SysUtils;
+  Windows,
+  SysUtils;
 
 function FormatResNameOrType(ResID: PChar): string;
 begin
@@ -27,6 +28,15 @@ begin
     // PChar is implicitly converted to string
     Result := ResID;
 end;
+
+{$if not Declared(CharInSet)}
+type
+  TCharSet = set of Char;
+function CharInSet(const Ch: Char; const Chars: TCharSet): Boolean;
+begin
+  Result := Ch in Chars;
+end;
+{$ifend}
 
 function URLEncode(const S: string): string;
 var

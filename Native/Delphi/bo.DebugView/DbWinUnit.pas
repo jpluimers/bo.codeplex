@@ -43,6 +43,13 @@ type
 {$endif UNICODE}
   end;
 
+{$if not Declared(UTF8ToString)} // http://stackoverflow.com/a/7518999/29290
+function UTF8ToString(const s: UTF8String): WideString;
+begin
+  Result := UTF8Decode(s);
+end;
+{$ifend}
+
 procedure DbWin__OutputDebugStringA(lpOutputString: PAnsiChar); stdcall;
 var
   Utf8String: string;

@@ -29,8 +29,6 @@ object MainForm: TMainForm
     Height = 159
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = 48
-    ExplicitTop = 33
     DesignSize = (
       792
       159)
@@ -137,6 +135,7 @@ object MainForm: TMainForm
       Top = 129
       Width = 135
       Height = 21
+      ItemHeight = 0
       TabOrder = 3
       Text = 'DomVendorComboBox'
     end
@@ -167,8 +166,6 @@ object MainForm: TMainForm
       ScrollBars = ssBoth
       TabOrder = 0
       WordWrap = False
-      ExplicitTop = 39
-      ExplicitHeight = 373
     end
     object Panel1: TPanel
       Left = 2
@@ -215,6 +212,10 @@ object MainForm: TMainForm
       OnChange = XmlPageControlChange
       object XmlMemoTabSheet: TTabSheet
         Caption = '&Edit'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object XmlMemo: TMemo
           Left = 0
           Top = 0
@@ -245,6 +246,10 @@ object MainForm: TMainForm
       object XmlViewTabSheet: TTabSheet
         Caption = '&View'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object XmlWebBrowser: TWebBrowser
           Left = 0
           Top = 0
@@ -267,6 +272,10 @@ object MainForm: TMainForm
       object HistoryTabSheet: TTabSheet
         Caption = 'H&istory'
         ImageIndex = 2
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object HistoryMemo: TMemo
           Left = 0
           Top = 0

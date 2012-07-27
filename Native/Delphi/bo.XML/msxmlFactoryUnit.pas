@@ -3,11 +3,25 @@ unit msxmlFactoryUnit;
 interface
 
 uses
-  msxml,
+{ up until Delphi 2009, msxml contains the import of C:\WINDOWS\SYSTEM\MSXML.DLL,
+  as of Delphi 2010 it imports C:\WINDOWS\SYSTEM\MSXML6.DLL }
+{$if CompilerVersion >= 21.0}
+  msxml, // Delphi 2010 and up: IXMLDOMSchemaCollection2 et al
+{$else}
+  MSXML2_TLB, // Delphi < 2010: IXMLDOMSchemaCollection2 et al
+  SysUtils,
+{$ifend}
   Classes,
   FileVersionUnit;
 
 type
+{$if CompilerVersion >= 21.0}
+{$else}
+  CoFreeThreadedDOMDocument = ComsFreeThreadedDOMDocument;
+  CoFreeThreadedDOMDocument26 = ComsFreeThreadedDOMDocument26;
+  CoFreeThreadedDOMDocument30 = ComsFreeThreadedDOMDocument30;
+  ENotSupportedException = class(Exception);
+{$ifend}                   
   TAddXsdToSchemaCollectionMethod = procedure (SchemaCollection: IXMLDOMSchemaCollection2; XsdFileName: string) of object;
   TInnerCreateXMLDOMDocument2Method = function (): IXMLDOMDocument2 of object;
   TmsxmlFactory = class(TObject)
@@ -21,10 +35,10 @@ type
     class procedure AddXsdToSchemaCollection(SchemaCollection: IXMLDOMSchemaCollection2; XsdFileName: string); virtual;
     class procedure AssertExistingFile(const XmlFileName: string); virtual;
     class function Getmsxml6FileVersion: TFileVersion; static;
-    class function GetmsxmlBestFileVersion: TFileVersion; static;
+    class function GetmsxmlBestFileVersion: TFileVersion; static; 
+    class function GetmsxmlBestFileVersionInner: TFileVersion;
     class function InnerCreateXMLDOMDocument2: IXMLDOMDocument2; virtual;
-    class function InnerCreateXMLDOMDocument2AndGetMsxmlVersion(const msxmlDllFileName: string; const InnerCreateXMLDOMDocument2Method:
-        TInnerCreateXMLDOMDocument2Method): TFileVersion; virtual;
+    class function InnerCreateXMLDOMDocument2AndGetMsxmlVersion(const msxmlDllFileName: string; const InnerCreateXMLDOMDocument2Method: TInnerCreateXMLDOMDocument2Method): TFileVersion;
     class function InnerCreateXMLDOMDocument2_26: IXMLDOMDocument2; virtual;
     class function InnerCreateXMLDOMDocument2_30: IXMLDOMDocument2; virtual;
     class function InnerCreateXMLDOMDocument2_40: IXMLDOMDocument2; virtual;
@@ -32,20 +46,18 @@ type
   public
     class procedure AssertCompatibleMsxml6Version; virtual;
     class function CreateValidatedXMLDOMSchemaCollection2(const XsdFileName: string): IXMLDOMSchemaCollection2; overload; static;
-    class function CreateValidatedXMLDOMSchemaCollection2(const XsdFileNames: array of string): IXMLDOMSchemaCollection2; overload; static;
-    class function CreateValidatedXMLDOMSchemaCollection2(const XsdFileNames: TStrings): IXMLDOMSchemaCollection2; overload; static;
+    class function CreateValidatedXMLDOMSchemaCollection2(const XsdFileNames: array of string): IXMLDOMSchemaCollection2; overload; 
+    class function CreateValidatedXMLDOMSchemaCollection2(const XsdFileNames: TStrings): IXMLDOMSchemaCollection2; overload; 
     class function CreateXMLDOMDocument3: IXMLDOMDocument3; static;
     class function CreateXMLDOMDocument3FromFile(const XmlFileName: string): IXMLDOMDocument3; static;
     class function CreateXMLDOMDocument3WithValidateOnParse: IXMLDOMDocument3; static;
     class function CreateXMLDOMDocument3WithValidateOnParseFromFile(const XmlFileName: string): IXMLDOMDocument3; static;
-    class function CreateXMLDOMSchemaCollection1(const XsdFileNames: array of string; const AddXsdToSchemaCollectionMethod: TAddXsdToSchemaCollectionMethod):
-        IXMLDOMSchemaCollection2; overload; static;
-    class function CreateXMLDOMSchemaCollection1(const XsdFileNames: TStrings; const AddXsdToSchemaCollectionMethod: TAddXsdToSchemaCollectionMethod):
-        IXMLDOMSchemaCollection2; overload; static;
+    class function CreateXMLDOMSchemaCollection1(const XsdFileNames: array of string; const AddXsdToSchemaCollectionMethod: TAddXsdToSchemaCollectionMethod): IXMLDOMSchemaCollection2; overload; static;
+    class function CreateXMLDOMSchemaCollection1(const XsdFileNames: TStrings; const AddXsdToSchemaCollectionMethod: TAddXsdToSchemaCollectionMethod): IXMLDOMSchemaCollection2; overload; static;
     class function CreateXMLDOMSchemaCollection2: IXMLDOMSchemaCollection2; overload; static;
     class function CreateXMLDOMSchemaCollection2(const XsdFileName: string): IXMLDOMSchemaCollection2; overload; static;
-    class function CreateXMLDOMSchemaCollection2(const XsdFileNames: array of string): IXMLDOMSchemaCollection2; overload; static;
-    class function CreateXMLDOMSchemaCollection2(const XsdFileNames: TStrings): IXMLDOMSchemaCollection2; overload; static;
+    class function CreateXMLDOMSchemaCollection2(const XsdFileNames: array of string): IXMLDOMSchemaCollection2; overload; 
+    class function CreateXMLDOMSchemaCollection2(const XsdFileNames: TStrings): IXMLDOMSchemaCollection2; overload; 
     class property msxml6FileVersion: TFileVersion read Getmsxml6FileVersion;
     class property msxmlBestFileVersion: TFileVersion read GetmsxmlBestFileVersion;
   end;
@@ -53,7 +65,11 @@ type
 implementation
 
 uses
+  Windows, // For AnsiSameText inline expansion
+{$if CompilerVersion >= 21.0}
   SysUtils,
+{$else}
+{$ifend}
   XMLDOMParseErrorToStringUnit,
   Variants,
   SysConst,
@@ -128,6 +144,13 @@ end;
 
 class function TmsxmlFactory.GetmsxmlBestFileVersion: TFileVersion;
 begin
+  Result := GetmsxmlBestFileVersionInner;
+end;
+
+class function TmsxmlFactory.GetmsxmlBestFileVersionInner: TFileVersion;
+var
+  localMsxmlBestFileVersion: TFileVersion;
+begin
   // MSXML versions http://support.microsoft.com/kb/269238
   // http://msdn.microsoft.com/en-us/data/bb291077
   // avoid MSXML 2, MSXML 4, and MSXML 5.
@@ -139,24 +162,18 @@ begin
     except
       on E: EOleSysError do
       try
-        FmsxmlBestFileVersion := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(
-          SMsxml4Dll, InnerCreateXMLDOMDocument2_40);
+        localMsxmlBestFileVersion := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(SMsxml4Dll, InnerCreateXMLDOMDocument2_40);
       except
         on E: EOleSysError do
         try
-          FmsxmlBestFileVersion  := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(
-            SMsxml3Dll, InnerCreateXMLDOMDocument2_30);
+          FmsxmlBestFileVersion  := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(SMsxml3Dll, InnerCreateXMLDOMDocument2_30);
         except
           on E: EOleSysError do
           try
-            FmsxmlBestFileVersion  := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(
-              SMsxml2Dll, InnerCreateXMLDOMDocument2_26);
+            FmsxmlBestFileVersion  := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(SMsxml2Dll, InnerCreateXMLDOMDocument2_26);
           except
             on E: EOleSysError do
-            begin
-              FmsxmlBestFileVersion  := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(
-                SMsxmlDll, InnerCreateXMLDOMDocument2);
-            end;
+              FmsxmlBestFileVersion  := InnerCreateXMLDOMDocument2AndGetMsxmlVersion(SMsxmlDll, InnerCreateXMLDOMDocument2);
           end; // try
         end; // try
       end; // try

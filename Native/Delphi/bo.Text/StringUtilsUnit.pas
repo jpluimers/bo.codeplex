@@ -29,23 +29,31 @@ function StripLowercasePrefix(const Value: string): string;
 
 function SpacesPrefix(const Level: Integer): string;
 
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
 //1 borrowed from TStrings.SaveToFile
 procedure SaveToFile(const Value, FileName: string; const Encoding: TEncoding); overload;
+{$ifend}
 
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
 //1 borrowed from TStrings.SaveToStream
 procedure SaveToStream(const Value: string; const Stream: TStream; Encoding: TEncoding); overload;
+{$ifend}
 
 //1 borrowed from TStrings.LoadFromFile(
 function LoadFromFile(const FileName: string): string; overload;
 
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
 //1 borrowed from TStrings.LoadFromFile(
 function LoadFromFile(const FileName: string; const Encoding: TEncoding): string; overload;
+{$ifend}
 
 //1 borrowed from TStrings.LoadFromStream
 function LoadFromStream(const Stream: TStream): string; overload;
 
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
 //1 borrowed from TStrings.LoadFromStream
 function LoadFromStream(const Stream: TStream; Encoding: TEncoding): string; overload;
+{$ifend}
 
 //1 based on TSOAPAttachment.ObjectToSOAP
 function CreateGuidString: string;
@@ -58,9 +66,11 @@ implementation
 
 uses
   StrUtils,
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
   Character,
-  Variants,
-  System.Types;
+  System.type,
+{$ifend}
+  Variants;
 
 function CommaSeparated(const Values: array of string): string;
 var
@@ -78,7 +88,11 @@ function IsUpperCase(const Ch: Char): Boolean;
 var
   UpperCh: string;
 begin
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
   UpperCh := TCharacter.ToUpper(Ch);
+{$else}
+  UpperCh := UpCase(Ch);
+{$ifend}
   Result := UpperCh = Ch;
 end;
 
@@ -212,6 +226,7 @@ begin
   Result := DupeString('  ', Level);
 end;
 
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
 function LoadFromFile(const FileName: string; const Encoding: TEncoding): string;
 var
   Stream: TStream;
@@ -223,7 +238,9 @@ begin
     Stream.Free;
   end;
 end;
+{$ifend}
 
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
 function LoadFromStream(const Stream: TStream; Encoding: TEncoding): string;
 var
   Size: Integer;
@@ -236,7 +253,9 @@ begin
   Size := TEncoding.GetBufferEncoding(Buffer, Encoding);
   Result := Encoding.GetString(Buffer, Size, Length(Buffer) - Size);
 end;
+{$ifend}
 
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
 procedure SaveToFile(const Value, FileName: string; const Encoding: TEncoding);
 var
   StringStream: TStringStream;
@@ -254,7 +273,9 @@ begin
     StringStream.Free;
   end;
 end;
+{$ifend}
 
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
 procedure SaveToStream(const Value: string; const Stream: TStream; Encoding: TEncoding);
 var
   Buffer: TBytes;
@@ -268,6 +289,7 @@ begin
     Stream.WriteBuffer(Preamble[0], Length(Preamble));
   Stream.WriteBuffer(Buffer[0], Length(Buffer));
 end;
+{$ifend}
 
 function LoadFromFile(const FileName: string): string;
 var
@@ -282,8 +304,17 @@ begin
 end;
 
 function LoadFromStream(const Stream: TStream): string;
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
 begin
   Result := LoadFromStream(Stream, nil);
+{$else}
+var
+  Size: Integer;
+begin
+  Size := Stream.Size - Stream.Position;
+  SetString(Result, nil, Size);
+  Stream.Read(Pointer(Result)^, Size);
+{$ifend}
 end;
 
 function CreateGuidString: string;
@@ -294,6 +325,69 @@ begin
   Result := GuidToString(GUID);
   Result := Copy(Result, 2, Length(Result) -2 );
 end;
+
+{$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
+{$else}
+type
+  TStringDynArray       = array of string;
+
+function FindDelimiter(const Delimiters, S: string; StartIdx: Integer = 1): Integer;
+var
+  Stop: Boolean;
+  Len: Integer;
+begin
+  Result := 0;
+
+  Len := Length(S);
+  Stop := False;
+  while (not Stop) and (StartIdx <= Len) do
+    if IsDelimiter(Delimiters, S, StartIdx) then
+    begin
+      Result := StartIdx;
+      Stop := True;
+    end
+    else
+      Inc(StartIdx);
+end;
+
+function SplitString(const S, Delimiters: string): TStringDynArray;
+var
+  StartIdx: Integer;
+  FoundIdx: Integer;
+  SplitPoints: Integer;
+  CurrentSplit: Integer;
+  i: Integer;
+begin
+  Result := nil;
+
+  if S <> '' then
+  begin
+    { Determine the length of the resulting array }
+    SplitPoints := 0;
+    for i := 1 to Length(S) do
+      if IsDelimiter(Delimiters, S, i) then
+        Inc(SplitPoints);
+
+    SetLength(Result, SplitPoints + 1);
+
+    { Split the string and fill the resulting array }
+    StartIdx := 1;
+    CurrentSplit := 0;
+    repeat
+      FoundIdx := FindDelimiter(Delimiters, S, StartIdx);     
+      if FoundIdx <> 0 then
+      begin
+        Result[CurrentSplit] := Copy(S, StartIdx, FoundIdx - StartIdx);
+        Inc(CurrentSplit);
+        StartIdx := FoundIdx + 1;
+      end;
+    until CurrentSplit = SplitPoints;
+
+    // copy the remaining part in case the string does not end in a delimiter
+    Result[SplitPoints] := Copy(S, StartIdx, Length(S) - StartIdx + 1);
+  end;
+end;
+{$ifend}
 
 procedure AddSplitted(const Strings: TStrings; const Delimiters, Line: string);
 var
