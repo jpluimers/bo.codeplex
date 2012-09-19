@@ -32,12 +32,14 @@ type
     DBLinkMemo1NOTES1: TBindDBMemoLink;
     Label1: TLabel;
     Label2: TLabel;
-    DBLinkLabel1COMMON_NAME1: TBindDBTextLink;
+    DBLinkLabel1CATEGORY1: TBindDBTextLink;
     DBLinkLabel2COMMON_NAME1: TBindDBTextLink;
     ImageControl1: TImageControl;
     DBLinkImageControl1GRAPHIC1: TBindDBImageLink;
     DBLinkStringGrid11: TBindDBGridLink;
     BindNavigator1: TBindNavigator;
+    Memo2: TMemo;
+    DBLinkMemo2NOTES1: TBindDBMemoLink;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
