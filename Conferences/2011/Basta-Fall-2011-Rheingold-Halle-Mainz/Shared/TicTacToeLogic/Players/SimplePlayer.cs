@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TicTacToeLogic
 {
@@ -18,9 +15,9 @@ namespace TicTacToeLogic
 
             foreach (Square square in emptySquares)
             {
-                Board tryBoard = game.Board; // gets a copy of the game board
+                Board tryBoard = game.BoardCopy; // gets a copy of the game board
                 tryBoard[square] = content;
-                Line[] linesForSquare = tryBoard.LinesForSquare(square); // get a copy
+                Line[] linesForSquare = Board.LinesForSquare(square); // get a copy
                 foreach (Line line in linesForSquare)
                 {
                     if (tryBoard.LineSum(line, content) == Game.WinningLineSum)
@@ -45,14 +42,14 @@ namespace TicTacToeLogic
             // optimization: 
             // only needed when you have played 2 times (and the opponent 1 or 2 times)
             // so only if there are 6 or less empty Squares, you need to check for this.
-            if (TryPlayThreeInARowFor(game.PlayerToContent(game.CurrentPlayer), game))
+            if (TryPlayThreeInARowFor(Game.PlayerToContent(game.CurrentPlayer), game))
             {
                 return true;
             }
 
             // strategy 2: play a blocking move
             // find a line that is winning for the opponent
-            if (TryPlayThreeInARowFor(game.PlayerToContent(game.CurrentOpponent), game))
+            if (TryPlayThreeInARowFor(Game.PlayerToContent(game.CurrentOpponent), game))
             {
                 return true;
             }
@@ -64,16 +61,15 @@ namespace TicTacToeLogic
             if (length == 0) // no empty squares left; should not occur, but test anyway
                 return false;
 
-            Board tryBoard = game.Board;
             Square prioritySquare = emptySquares[0];
-            int linesForPrioritySquare = tryBoard.LinesForSquare(prioritySquare).Length;
+            int linesForPrioritySquareLength = Board.LinesForSquare(prioritySquare).Length;
             foreach (Square square in emptySquares)
             {
-                int linesForSquare = tryBoard.LinesForSquare(square).Length;
-                if (linesForSquare > linesForPrioritySquare)
+                int linesForSquareLength = Board.LinesForSquare(square).Length;
+                if (linesForSquareLength > linesForPrioritySquareLength)
                 {
                     prioritySquare = square;
-                    linesForPrioritySquare = linesForSquare;
+                    linesForPrioritySquareLength = linesForSquareLength;
                 }
             }
             game.Play(prioritySquare);

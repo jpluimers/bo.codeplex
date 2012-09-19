@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TicTacToeLogic
 {
@@ -31,9 +28,9 @@ namespace TicTacToeLogic
             switch (winner)
             {
                 case Winner.Nought:
-                    return SquareContentMapper.Nought;
+                    return PlayerMapper.Nought;
                 case Winner.Cross:
-                    return SquareContentMapper.Cross;
+                    return PlayerMapper.Cross;
                 default:
                     return string.Empty;
             }

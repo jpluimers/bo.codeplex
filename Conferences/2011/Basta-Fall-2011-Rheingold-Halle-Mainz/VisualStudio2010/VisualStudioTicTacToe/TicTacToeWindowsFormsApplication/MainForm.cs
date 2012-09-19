@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 using TicTacToeLogic;
@@ -46,17 +42,17 @@ namespace TicTacToeWindowsFormsApplication
         Game game = new Game();
 
         #region step1board
-        private Board board
+        private Board gameBoardCopy
         {
             get
             {
-                return game.Board;
+                return game.BoardCopy;
             }
         }
 
         private void boardToView()
         {
-            Board theBoard = board; // in the loop, don't get the board each time from the game
+            Board theBoard = gameBoardCopy; // in the loop, don't get the board each time from the game
             foreach (Square square in Squares.All)
             {
                 string text = SquareContentMapper.ToText(theBoard[square]);
@@ -75,7 +71,7 @@ namespace TicTacToeWindowsFormsApplication
         {
             foreach (Square square in Squares.All)
             {
-                board[square] = SquareContentMapper.ToContent(this[square].Text);
+                gameBoardCopy[square] = SquareContentMapper.ToContent(this[square].Text);
             };
         }
 
@@ -83,27 +79,10 @@ namespace TicTacToeWindowsFormsApplication
         {
             foreach (Square square in Squares.All)
             {
-                board[square] = SquareContent.None;
+                gameBoardCopy[square] = SquareContent.None;
             };
             viewToBoard();
         }
-
-        private void playBoardButton(Button playButton)
-        {
-            Square square = buttonSquare(playButton);
-            if (board[square] == SquareContent.None)
-            {
-                board[square] = (currentPlayer == Player.Cross) ? SquareContent.Cross : SquareContent.Nought;
-                currentPlayer = (currentPlayer == Player.Cross) ? Player.Nought : Player.Cross;
-                boardToView();
-                //showWinner(board.Winner()); // board does not know about winner
-            } // semi-colon not allowed before else
-            else
-                MessageBox.Show("you can only play on empty squares!");
-            return;
-        } // semi-colon not allowed
-
-        Player currentPlayer = Player.Cross;
         #endregion step1board
 
         #region step2game

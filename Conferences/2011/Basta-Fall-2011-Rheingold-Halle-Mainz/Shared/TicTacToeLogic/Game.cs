@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TicTacToeLogic
 {
@@ -22,7 +19,7 @@ namespace TicTacToeLogic
         }
 
         // needed for smarter Player algorithms that want to expiriment with boards
-        public Board Board
+        public Board BoardCopy
         {
             get
             {
@@ -30,6 +27,11 @@ namespace TicTacToeLogic
             }
         }
 
+        public void ClearBoard()
+        {
+            clear();
+        }
+        
         // readonly indexer - write is done through the interface methods
         public SquareContent this[Square square]
         {
@@ -120,15 +122,14 @@ namespace TicTacToeLogic
             return Winner() != TicTacToeLogic.Winner.None;
         }
 
-        public SquareContent PlayerToContent(Player player)
+        public static SquareContent PlayerToContent(Player player)
         {
             return (player == Player.Cross) ? SquareContent.Cross : SquareContent.Nought;
         }
 
-
         // private
         private Player currentPlayer;
-        private Board board = new Board();
+        private readonly Board board = new Board();
         private void clear()
         {
             foreach (Square square in Squares.All)
