@@ -1,11 +1,9 @@
 object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
   Left = 0
   Top = 0
-  BiDiMode = bdLeftToRight
   Caption = 'Form2'
   ClientHeight = 480
   ClientWidth = 320
-  Transparency = False
   Visible = False
   StyleLookup = 'backgroundstyle'
   object LoadJSONButton: TButton
@@ -14,8 +12,6 @@ object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
     Height = 22.000000000000000000
     OnClick = LoadJSONButtonClick
     TabOrder = 0
-    StaysPressed = False
-    IsPressed = False
     Text = 'LoadJSONButton'
   end
   object JsonFileNameMemo: TMemo
@@ -24,7 +20,7 @@ object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
     Height = 65.000000000000000000
     TabOrder = 1
     ReadOnly = True
-    WordWrap = False
+    KeyboardType = vktDefault
   end
   object JsonTextMemo: TMemo
     Position.Point = '(8,112)'
@@ -32,7 +28,7 @@ object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
     Height = 105.000000000000000000
     TabOrder = 2
     ReadOnly = True
-    WordWrap = False
+    KeyboardType = vktDefault
   end
   object StringGrid1: TStringGrid
     Position.Point = '(8,224)'
@@ -46,14 +42,12 @@ object iOSFireMonkeyFishFactForm: TiOSFireMonkeyFishFactForm
       Align = alLeft
       Width = 100.000000000000000000
       Height = 2100.000000000000000000
-      HitTest = False
       TabOrder = 0
     end
     object StringColumn2: TStringColumn
       Position.Point = '(100,0)'
       Width = 195.000000000000000000
       Height = 218.000000000000000000
-      HitTest = False
       TabOrder = 1
       ReadOnly = True
     end

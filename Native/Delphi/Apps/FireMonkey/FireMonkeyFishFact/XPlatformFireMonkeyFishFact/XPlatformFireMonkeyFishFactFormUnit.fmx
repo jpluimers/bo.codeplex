@@ -1,11 +1,9 @@
 object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
   Left = 0
   Top = 0
-  BiDiMode = bdLeftToRight
   Caption = 'XPlatformFireMonkeyFishFactForm'
   ClientHeight = 683
   ClientWidth = 498
-  Transparency = False
   Visible = False
   OnCreate = FormCreate
   StyleBook = StyleBook1
@@ -73,6 +71,7 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
     Height = 257.000000000000000000
     TabOrder = 2
     WordWrap = True
+    KeyboardType = vktDefault
     object InvertEffect1: TInvertEffect
     end
   end
@@ -123,7 +122,6 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
     object TStringColumn
       Width = 64.000000000000000000
       Height = 226.000000000000000000
-      HitTest = False
       TabOrder = 0
       Header = 'Category'
     end
@@ -131,7 +129,6 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
       Position.Point = '(64,0)'
       Width = 64.000000000000000000
       Height = 226.000000000000000000
-      HitTest = False
       TabOrder = 1
       Header = 'Species Name'
     end
@@ -139,7 +136,6 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
       Position.Point = '(128,0)'
       Width = 64.000000000000000000
       Height = 226.000000000000000000
-      HitTest = False
       TabOrder = 2
       Header = 'Length (cm)'
     end
@@ -147,7 +143,6 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
       Position.Point = '(192,0)'
       Width = 64.000000000000000000
       Height = 226.000000000000000000
-      HitTest = False
       TabOrder = 3
       Header = 'Length_In'
     end
@@ -155,7 +150,6 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
       Position.Point = '(256,0)'
       Width = 64.000000000000000000
       Height = 226.000000000000000000
-      HitTest = False
       TabOrder = 4
       Header = 'Common Name'
     end
@@ -163,7 +157,6 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
       Position.Point = '(320,0)'
       Width = 64.000000000000000000
       Height = 226.000000000000000000
-      HitTest = False
       TabOrder = 5
       Header = '#'
     end
@@ -173,7 +166,7 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
     Width = 100.000000000000000000
     Height = 22.000000000000000000
     TabOrder = 9
-    ReadOnly = False
+    KeyboardType = vktDefault
     Password = False
   end
   object Edit2: TEdit
@@ -181,7 +174,7 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
     Width = 100.000000000000000000
     Height = 22.000000000000000000
     TabOrder = 10
-    ReadOnly = False
+    KeyboardType = vktDefault
     Password = False
   end
   object Edit3: TEdit
@@ -189,7 +182,7 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
     Width = 100.000000000000000000
     Height = 22.000000000000000000
     TabOrder = 11
-    ReadOnly = False
+    KeyboardType = vktDefault
     Password = False
   end
   object Edit4: TEdit
@@ -197,7 +190,7 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
     Width = 100.000000000000000000
     Height = 22.000000000000000000
     TabOrder = 12
-    ReadOnly = False
+    KeyboardType = vktDefault
     Password = False
   end
   object StyleBook1: TStyleBook
@@ -288,8 +281,6 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
       Height = 22.000000000000000000
       OnClick = SaveJSONButtonClick
       TabOrder = 0
-      StaysPressed = False
-      IsPressed = False
       Text = 'SaveJSONButton'
     end
   end
@@ -542,7 +533,7 @@ object XPlatformFireMonkeyFishFactForm: TXPlatformFireMonkeyFishFactForm
   end
   object BindScopeDB1: TBindScopeDB
     DataSource = DataSource1
-    Left = 445
-    Top = 19
+    Left = 109
+    Top = 179
   end
 end

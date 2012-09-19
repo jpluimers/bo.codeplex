@@ -1,11 +1,9 @@
 object FMXFishFactForm: TFMXFishFactForm
   Left = 0
   Top = 0
-  BiDiMode = bdLeftToRight
   Caption = 'FMXFishFactForm'
   ClientHeight = 510
   ClientWidth = 493
-  Transparency = False
   Visible = False
   OnCreate = FormCreate
   StyleLookup = 'backgroundstyle'
@@ -38,7 +36,7 @@ object FMXFishFactForm: TFMXFishFactForm
     Width = 233.000000000000000000
     Height = 161.000000000000000000
     TabOrder = 1
-    WordWrap = False
+    KeyboardType = vktDefault
   end
   object StringGrid1: TStringGrid
     Position.Point = '(8,272)'
@@ -51,7 +49,6 @@ object FMXFishFactForm: TFMXFishFactForm
     object TStringColumn
       Width = 100.000000000000000000
       Height = 202.000000000000000000
-      HitTest = False
       TabOrder = 0
       Header = 'Category'
     end
@@ -59,7 +56,6 @@ object FMXFishFactForm: TFMXFishFactForm
       Position.Point = '(100,0)'
       Width = 150.000000000000000000
       Height = 202.000000000000000000
-      HitTest = False
       TabOrder = 1
       Header = 'Species Name'
     end
@@ -67,7 +63,6 @@ object FMXFishFactForm: TFMXFishFactForm
       Position.Point = '(250,0)'
       Width = 150.000000000000000000
       Height = 202.000000000000000000
-      HitTest = False
       TabOrder = 2
       Header = 'Common Name'
     end
@@ -75,7 +70,6 @@ object FMXFishFactForm: TFMXFishFactForm
       Position.Point = '(400,0)'
       Width = 30.000000000000000000
       Height = 202.000000000000000000
-      HitTest = False
       TabOrder = 3
       Header = 'cm'
     end
@@ -83,7 +77,6 @@ object FMXFishFactForm: TFMXFishFactForm
       Position.Point = '(430,0)'
       Width = 30.000000000000000000
       Height = 202.000000000000000000
-      HitTest = False
       TabOrder = 4
       Header = 'Inch'
     end
@@ -127,6 +120,13 @@ object FMXFishFactForm: TFMXFishFactForm
     BindScope = BindScopeDB1
     xRadius = 4.000000000000000000
     yRadius = 4.000000000000000000
+  end
+  object Memo2: TMemo
+    Position.Point = '(256,8)'
+    Width = 100.000000000000000000
+    Height = 50.000000000000000000
+    TabOrder = 26
+    KeyboardType = vktDefault
   end
   object IBDatabase1: TIBDatabase
     DatabaseName = 
@@ -250,10 +250,10 @@ object FMXFishFactForm: TFMXFishFactForm
       FieldName = 'NOTES'
       MemoControl = Memo1
     end
-    object DBLinkLabel1COMMON_NAME1: TBindDBTextLink
+    object DBLinkLabel1CATEGORY1: TBindDBTextLink
       Category = 'DB Links'
       DataSource = BindScopeDB1
-      FieldName = 'COMMON_NAME'
+      FieldName = 'CATEGORY'
       TextControl = Label1
     end
     object DBLinkLabel2COMMON_NAME1: TBindDBTextLink
@@ -300,6 +300,12 @@ object FMXFishFactForm: TFMXFishFactForm
           Width = 30
           Visible = True
         end>
+    end
+    object DBLinkMemo2NOTES1: TBindDBMemoLink
+      Category = 'DB Links'
+      DataSource = BindScopeDB1
+      FieldName = 'NOTES'
+      MemoControl = Memo2
     end
   end
   object BindScopeDB1: TBindScopeDB

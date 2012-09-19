@@ -32,6 +32,7 @@ uses
 {$ifndef FPC}
   IOUtils,
 {$endif FPC}
+  System.Math,
   superobject,
   DB,
   DBClient;
@@ -139,7 +140,6 @@ var
   FishFactEntry: TFishFactEntry;
   Index: Integer;
 begin
-
   StringGrid1.Columns[0].Width := 40;
   StringGrid1.Cells[0, 0] := StripFirst(SFSpeciesNo);
   StringGrid1.Cells[1, 0] := StripFirst(SFCommonName);
