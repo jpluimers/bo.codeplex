@@ -65,11 +65,11 @@ type
           TComputerPlayerOnOff; const statusTextLabel: TStatusTextLabel);
 
     {$region abstract methods that clients should override}
-      function getboardbuttontext(const boardbutton: tboardbutton): string; virtual; abstract;
-      procedure setboardbuttontext(const boardbutton: tboardbutton; const text: string); virtual; abstract;
-      procedure setstatustext(const text: string); virtual; abstract;
-      procedure showmessage(const message: string); virtual; abstract;
-      function computeronoffison(const computeronoff: tcomputerplayeronoff): boolean; virtual; abstract;
+      function GetBoardButtonText(const boardbutton: tboardbutton): string; virtual; abstract;
+      procedure SetBoardButtonText(const boardbutton: tboardbutton; const text: string); virtual; abstract;
+      procedure SetStatusText(const text: string); virtual; abstract;
+      procedure ShowMessage(const message: string); virtual; abstract;
+      function ComputerOnOffIsOn(const computeronoff: tcomputerplayeronoff): boolean; virtual; abstract;
     {$endregion}
 
     {$region properties}
