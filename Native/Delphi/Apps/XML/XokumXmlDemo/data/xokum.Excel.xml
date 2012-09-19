@@ -1,0 +1,1057 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">
+  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+    <LastAuthor>XokumToExcelXml</LastAuthor>
+    <Created>2011-10-18T20:16:05.222Z</Created>
+    <LastSaved xmlns=""/>
+    <Version>11.9999</Version>
+  </DocumentProperties>
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Vertical="Bottom"/>
+    </Style>
+    <Style ss:ID="Date">
+      <NumberFormat ss:Format="yyyy/mm/dd"/>
+    </Style>
+    <Style ss:ID="DateTime">
+      <NumberFormat ss:Format="yyyy/mm/dd\ h:mm:ss"/>
+    </Style>
+    <Style ss:ID="EnglishWeekday">
+      <NumberFormat ss:Format="[$-409]ddd"/>
+    </Style>
+    <Style ss:ID="F800">
+      <NumberFormat ss:Format="[$-F800]"/>
+    </Style>
+    <Style ss:ID="F400">
+      <NumberFormat ss:Format="[$-F400]"/>
+    </Style>
+    <Style ss:ID="DefaultBold">
+      <Font ss:Bold="1"/>
+      <Alignment ss:Vertical="Bottom"/>
+    </Style>
+    <Style ss:ID="DateBold">
+      <Font ss:Bold="1"/>
+      <NumberFormat ss:Format="yyyy/mm/dd"/>
+    </Style>
+    <Style ss:ID="DateTimeBold">
+      <Font ss:Bold="1"/>
+      <NumberFormat ss:Format="yyyy/mm/dd\ h:mm:ss"/>
+    </Style>
+    <Style ss:ID="EnglishWeekdayBold">
+      <Font ss:Bold="1"/>
+      <NumberFormat ss:Format="[$-409]ddd"/>
+    </Style>
+    <Style ss:ID="F800Bold">
+      <Font ss:Bold="1"/>
+      <NumberFormat ss:Format="[$-F800]"/>
+    </Style>
+    <Style ss:ID="F400Bold">
+      <Font ss:Bold="1"/>
+      <NumberFormat ss:Format="[$-F400]"/>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="xokum">
+    <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel"/>
+    <Table x:FullColumns="1" x:FullRows="1">
+      <Column ss:StyleID="Default" ss:Width="183"/>
+      <Column ss:Width="57"/>
+      <Column ss:Index="4" ss:Width="45"/>
+      <Column ss:Width="87"/>
+      <Column ss:Width="36.75"/>
+      <Column ss:Width="60.75"/>
+      <Column ss:AutoFitWidth="0"/>
+      <Column ss:Width="58.5"/>
+      <Column ss:Width="55.5"/>
+      <Column ss:Width="18.75"/>
+      <Column ss:Width="37.5"/>
+      <Column ss:AutoFitWidth="0"/>
+      <Row>
+        <Cell ss:StyleID="DefaultBold">
+          <Data ss:Type="String">Achternaam</Data>
+        </Cell>
+        <Cell ss:StyleID="DefaultBold">
+          <Data ss:Type="String">Voorletters</Data>
+        </Cell>
+        <Cell ss:StyleID="DefaultBold">
+          <Data ss:Type="String">Straat</Data>
+        </Cell>
+        <Cell ss:StyleID="DefaultBold">
+          <Data ss:Type="String">Nummer</Data>
+        </Cell>
+        <Cell ss:StyleID="DefaultBold">
+          <Data ss:Type="String">Abonneenummer</Data>
+        </Cell>
+        <Cell ss:StyleID="DefaultBold">
+          <Data ss:Type="String">Plaats</Data>
+        </Cell>
+        <Cell ss:StyleID="DefaultBold">
+          <Data ss:Type="String">Netnummer</Data>
+        </Cell>
+        <Cell ss:StyleID="DefaultBold">
+          <Data ss:Type="String">Telefoonnummer</Data>
+        </Cell>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">administratiekantoor bolte &amp; vd klink</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">21</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">139</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">bombeke</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">e</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">4</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">112</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">comender</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">l j</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">10</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">117</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">damen</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">mr d m</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">dorpstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">5</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">122</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">damen</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">w</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">13</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">123</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">damen</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">d j</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">19</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">119</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">dameskapsalon elegance</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">16</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">133</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">dameskapsalon violette</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">1</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">132</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">domenie-van dijke</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">h</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">dorpstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">1</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">118</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">elmetin</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">17</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">135</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">emmerik</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">a h h</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">19</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">125</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">etman</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">b h m g</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">dorpstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">6</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">106</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">etman</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">j h</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">14</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">107</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">gemeente en gem instellingen</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">4</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">115</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">gemeente en gem instellingen</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">idem</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">138</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">hamakers</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">f  j</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">104</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">hamen</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">e e</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">11</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">120</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">hamerslag</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">h</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">19</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">128</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">hamerslag</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">h</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">9</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">129</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">hemerik</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">h m</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">dorpstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">16</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">126</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">hemerik</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">r</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">3</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">124</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">hymans</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">a k a</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">4</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">105</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">ilmer</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">b</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">8</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">131</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">immerzeel</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">a</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">dorpstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">4</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">130</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">kooiman</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">o</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">141</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">lam-offenberg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">j j</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">101</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">limburg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">c j a</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">7</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">113</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">loman</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">w</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">dorpstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">11</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">110</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">numan</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">p</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">15</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">109</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">oomen</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">jac g</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">5</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">121</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">oomes</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">j</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">dorpstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">9</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">134</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">ptt post bv</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">dorpstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">72</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">140</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">ramaer-van putten</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">m c</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">10</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">103</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">rima handelsondern</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">dorpstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">8</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">102</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">romeijn</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">p d g</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">kerkstr</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">13</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">137</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">romeyn</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">j a n</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">18</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">136</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">rumemper</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">m</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">8</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">116</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">tamaris</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">m</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">11</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">127</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">toma</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">g</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">stationspln</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">7</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">111</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">2889</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+      <Row>
+        <Cell>
+          <Data ss:Type="String">vroom &amp; dreesman xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String"/>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">hoofdwg</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">16</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String" x:Ticked="1">108</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">xokum</Data>
+        </Cell>
+        <Cell>
+          <Data ss:Type="String">2889 A</Data>
+        </Cell>
+        <Cell ss:Formula="=&quot;0&quot;&amp;RC[-1]&amp;&quot;-&quot;&amp;RC[-3]"/>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>
