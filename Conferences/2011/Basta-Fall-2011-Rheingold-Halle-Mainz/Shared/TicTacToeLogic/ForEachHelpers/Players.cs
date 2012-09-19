@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TicTacToeLogic
 {
     public static class Players
     {
 #if WINDOWS_PHONE
-        public static IEnumerable<Player> All
+        public static System.Collections.Generic.IEnumerable<Player> All
         {
             get
             {

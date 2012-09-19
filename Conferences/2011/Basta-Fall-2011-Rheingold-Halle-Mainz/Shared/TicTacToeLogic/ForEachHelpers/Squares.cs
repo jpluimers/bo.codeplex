@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TicTacToeLogic
 {
@@ -18,7 +15,7 @@ namespace TicTacToeLogic
         }
 
 #if WINDOWS_PHONE
-        public static IEnumerable<Square> All
+        public static System.Collections.Generic.IEnumerable<Square> All
         {
             get
             {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 using TicTacToeLogic;
@@ -10,14 +9,13 @@ namespace TicTacToeWindowsFormsApplication
 {
     public partial class MainForm
     {
-        private void ComputerPlaysTimer_Tick(object sender, System.EventArgs e)
+        private void ComputerPlaysTimer_Tick(object sender, EventArgs e)
         {
             computerPlay();
         }
 
-        private void boardButton_Click(object sender, System.EventArgs e)
+        private void boardButton_Click(object sender, EventArgs e)
         {
-            //playBoardButton(sender as Button);
             try
             {
                 playGameButton(sender as Button);
@@ -28,32 +26,32 @@ namespace TicTacToeWindowsFormsApplication
             }
         }
 
-        private void buttonStartO_Click(object sender, System.EventArgs e)
+        private void buttonStartO_Click(object sender, EventArgs e)
         {
             startGame(Player.Nought);
         }
 
-        private void buttonStartX_Click(object sender, System.EventArgs e)
+        private void buttonStartX_Click(object sender, EventArgs e)
         {
             startGame(Player.Cross);
         }
 
-        private void buttonBoardToStorage_Click(object sender, System.EventArgs e)
+        private void buttonBoardToStorage_Click(object sender, EventArgs e)
         {
             viewToBoard();
         }
 
-        private void buttonStorageToBoard_Click(object sender, System.EventArgs e)
+        private void buttonStorageToBoard_Click(object sender, EventArgs e)
         {
             boardToView();
         }
 
-        private void buttonClearBoard_Click(object sender, System.EventArgs e)
+        private void buttonClearBoard_Click(object sender, EventArgs e)
         {
             clearBoard();
         }
 
-        private void buttonTestButtonSquare_Click(object sender, System.EventArgs e)
+        private void buttonTestButtonSquare_Click(object sender, EventArgs e)
         {
             buttonSquare(sender as Button);
         }

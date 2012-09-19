@@ -62,7 +62,7 @@ namespace TicTacToeLogic
         }
 
         // nodig voor de Player die iets slimmer is
-        public Line[] LinesForSquare(Square square)
+        public static Line[] LinesForSquare(Square square)
         {
             Line[] result;
             Line[] currentSquareLines = squareLines[(int)square];
@@ -87,8 +87,7 @@ namespace TicTacToeLogic
                     length = length + 1;
                 }
             }
-            Square[] result;
-            result = new Square[length];
+            Square[] result = new Square[length];
 
             int index = 0;
             foreach (Square square in Squares.All)
