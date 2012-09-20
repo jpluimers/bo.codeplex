@@ -1,7 +1,7 @@
 unit CompilerAVUnit;
 
 {
-Reproduction for:
+Reproduction for QC 108189 http://qc.embarcadero.com/wc/qcmain.aspx?d=108189
 [DCC Error] CompilerAVUnit.pas(26): F2084 Internal Error: AV21BCE0AC-R00000000-0
 }
 
