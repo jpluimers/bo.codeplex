@@ -1,4 +1,4 @@
-{ Copyright (c) 2007-2011 Jeroen Wiert Pluimers for BeSharp.net and better office benelux.
+{ Copyright (c) 2007-2012 Jeroen Wiert Pluimers for BeSharp.net and better office benelux.
 Full BSD License is available at http://besharp.codeplex.com/license and http://bo.codeplex.com/license }
 
 unit SetTypeInfoUnit;
@@ -27,7 +27,8 @@ unit SetTypeInfoUnit;
 interface
 
 uses
-  SysUtils, TypInfo;
+  SysUtils,
+  TypInfo;
 
 
 function GetOrdValue(Info: PTypeInfo; const SetParam): Integer;

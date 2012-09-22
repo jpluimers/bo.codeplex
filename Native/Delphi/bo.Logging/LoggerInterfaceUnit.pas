@@ -1,4 +1,4 @@
-{ Copyright (c) 2007-2011 Jeroen Wiert Pluimers for BeSharp.net and better office benelux.
+{ Copyright (c) 2007-2012 Jeroen Wiert Pluimers for BeSharp.net and better office benelux.
 Full BSD License is available at http://besharp.codeplex.com/license and http://bo.codeplex.com/license }
 
 unit LoggerInterfaceUnit;
@@ -11,6 +11,10 @@ uses
   ReportProxyInterfaceUnit;
 
 type
+{$if CompilerVersion >= 24.0}
+  ShortStringBase = TypInfo.TSymbolName; // TODO ##jpl: inverse this
+{$endif CompilerVersion >= 24.0}
+
   IEnabledLogger = interface(IReportProxy)
     ['{FD2A7766-B978-4FDF-964D-CE1663B23ACE}']
     function GetEnabled: Boolean;

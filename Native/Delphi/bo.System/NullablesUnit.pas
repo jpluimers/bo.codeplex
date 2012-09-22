@@ -1,9 +1,12 @@
+{ Copyright (c) 2007-2012 Jeroen Wiert Pluimers for BeSharp.net and better office benelux.
+Full BSD License is available at http://besharp.codeplex.com/license and http://bo.codeplex.com/license }
+
 unit NullablesUnit;
 
 interface
 
 uses
-  Controls, // TDate, TTime
+  Controls, // TODO ##jpl: required for TDate, TTime, but VCL/FMX specific; find out how to make this platform neutral
   SysUtils,
   BaseTypesUnit;
 
@@ -286,8 +289,10 @@ type
 implementation
 
 uses
-  Variants, Math,
-  DateUtils, StrUtils,
+  Variants,
+  Math,
+  DateUtils,
+  StrUtils,
   FormatSettingsHelperUnit,
   MathUnit;
 

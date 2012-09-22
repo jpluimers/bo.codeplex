@@ -1,4 +1,9 @@
-{$define d12up} //##jpl: make dynamic
+{ Copyright (c) 2007-2012 Jeroen Wiert Pluimers for BeSharp.net and better office benelux.
+Full BSD License is available at http://besharp.codeplex.com/license and http://bo.codeplex.com/license }
+
+{$if CompilerVersion >= 20.0}
+  {$define d12up} // Delphi 2009 and up
+{$ifend CompilerVersion >= 20.0}
 
 unit StringListWrapperUnit;
 
