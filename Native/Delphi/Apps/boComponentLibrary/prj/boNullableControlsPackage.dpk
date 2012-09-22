@@ -1,0 +1,48 @@
+package boNullableControlsPackage;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl;
+
+contains
+  NullablesUnit in '..\..\..\bo.System\NullablesUnit.pas',
+  BaseTypesUnit in '..\..\..\bo.System\BaseTypesUnit.pas',
+  FormatSettingsHelperUnit in '..\..\..\bo.Helpers\FormatSettingsHelperUnit.pas',
+  MathUnit in '..\..\..\bo.System\MathUnit.pas',
+  SetTypeInfoUnit in '..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas',
+  NullableControlsRegistrationUnit in '..\src\NullableControlsRegistrationUnit.pas',
+  NullableCurrencyStaticTextUnit in '..\..\..\bo.Controls\bo.Controls.Nullable\NullableCurrencyStaticTextUnit.pas',
+  NumericStaticTextUnit in '..\..\..\bo.Controls\bo.Controls.Nullable\NumericStaticTextUnit.pas',
+  ControlUtilsUnit in '..\..\..\bo.Controls\bo.Controls.Nullable\ControlUtilsUnit.pas',
+  NullableWrappersUnit in '..\..\..\bo.Controls\bo.Controls.Nullable\NullableWrappersUnit.pas',
+  NullableDoubleStaticTextUnit in '..\..\..\bo.Controls\bo.Controls.Nullable\NullableDoubleStaticTextUnit.pas',
+  NullableIntegerStaticTextUnit in '..\..\..\bo.Controls\bo.Controls.Nullable\NullableIntegerStaticTextUnit.pas';
+
+end.
