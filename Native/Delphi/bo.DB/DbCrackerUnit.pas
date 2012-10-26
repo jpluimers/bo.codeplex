@@ -3,12 +3,22 @@ unit DbCrackerUnit;
 interface
 
 uses
+{$if CompilerVersion >= 24.0}
+  System.Generics.Collections,
+{$endif CompilerVersion >= 24.0}
   Classes,
   DB,
   DBGrids,
   DBCtrls,
   StdCtrls,
   Controls;
+
+type
+{$if CompilerVersion >= 24.0}
+  TDataLinks = TList<TDataLink>;
+{$else}
+  TDataLinks = TList;
+{$endif CompilerVersion >= 24.0}
 
 function ControlHasReadOnlyProperty(Control: TControl): Boolean;
 procedure SetControlReadOnlyProperty(Control: TControl; ReadOnly: Boolean);
@@ -19,11 +29,10 @@ procedure SetControlDataSourceProperty(Control: TControl; DataSource: TDataSourc
 
 function GetColumnIsStored(Column: TColumn): Boolean;
 function GetColumnsFromCustomDbGrid(CustomDbGrid: TCustomDbGrid): TDBGridColumns;
-function GetCustomDbGridFromGridDataLink(
-  GridDataLink: TGridDataLink): TCustomDbGrid;
+function GetCustomDbGridFromGridDataLink(GridDataLink: TGridDataLink): TCustomDbGrid;
 function GetCustomDbGridDataLink(CustomDbGrid: TCustomDbGrid): TGridDataLink;
 function GetCustomDbGridReadOnly(CustomDbGrid: TCustomDbGrid): Boolean;
-function GetDataLinksFromDataSource(DataSource: TDataSource): TList;
+function GetDataLinksFromDataSource(DataSource: TDataSource): TDataLinks;
 function GetDataLinkVisualControl(DataLink: TDataLink): Boolean;
 function GetDataSourcesFromDataSet(DataSet: TDataSet): TList;
 function GetDataLinkDBLookupControl(const DataLink: TDataLink): TDBLookupControl;
@@ -180,10 +189,10 @@ resourcestring
   sDataSourceRequired = 'A DataSource is required for this operation';
   sDataSourceWithoutDataLinks = 'This DataSource has undefined DataLinks';
 
-function GetDataLinksFromDataSource(DataSource: TDataSource): TList;
+function GetDataLinksFromDataSource(DataSource: TDataSource): TDataLinks;
 begin
   Assert(Assigned(DataSource), sDataSourceRequired);
-  Result := TDataSourceCracker(DataSource).DataLinks as TList; // extra type check for TList
+  Result := TDataSourceCracker(DataSource).DataLinks as TDataLinks; // extra type check for TList
   Assert(Assigned(Result), sDataSourceWithoutDataLinks);
 end;
 

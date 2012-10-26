@@ -37,7 +37,8 @@ uses
   McGyverUnit in '..\..\..\..\bo.System\McGyverUnit.pas',
   ReportProxyInterfaceUnit in '..\..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas',
   LoggerInterfaceUnit in '..\..\..\..\bo.Logging\LoggerInterfaceUnit.pas',
-  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas';
+  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas',
+  DebuggingUnit in '..\..\..\..\bo.Debugging\DebuggingUnit.pas';
 
 {$R *.res}
 

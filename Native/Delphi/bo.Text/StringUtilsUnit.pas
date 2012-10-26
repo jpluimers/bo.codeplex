@@ -68,7 +68,7 @@ uses
   StrUtils,
 {$if CompilerVersion >= 20} // D2009 and up http://stackoverflow.com/a/1572163/29290
   Character,
-  System.type,
+  Types,
 {$ifend}
   Variants;
 

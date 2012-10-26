@@ -705,7 +705,7 @@ end;
 
 procedure TCustomDataAwareControlController.UpdateDataSourceControls(ADataSource: TDataSource);
 var
-  DataLinks: TList;
+  DataLinks: TDataLinks;
   DataLinkIndex: Integer;
   DataLink: TDataLink;
 begin

@@ -14,7 +14,9 @@ uses
   EnumTypeInfoUnit in '..\..\..\..\bo.TypeInfo\EnumTypeInfoUnit.pas',
   ReportingLoggerUnit in '..\..\..\..\bo.Logging\ReportingLoggerUnit.pas',
   ReportersUnit in '..\..\..\..\bo.Logging\ReportersUnit.pas',
-  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas';
+  DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas',
+  StringListWrapperUnit in '..\..\..\..\bo.Text\StringListWrapperUnit.pas',
+  DebuggingUnit in '..\..\..\..\bo.Debugging\DebuggingUnit.pas';
 
 {$R *.res}
 

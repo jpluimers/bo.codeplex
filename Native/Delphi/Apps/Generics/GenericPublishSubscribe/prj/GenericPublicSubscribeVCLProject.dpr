@@ -23,7 +23,8 @@ uses
   RttiUnit in '..\..\..\..\bo.RTTI\RttiUnit.pas',
   DbWinUnit in '..\..\..\..\bo.DebugView\DbWinUnit.pas',
   DbWinLoggerUnit in '..\..\..\..\bo.DebugView\DbWinLoggerUnit.pas',
-  DbWinReporterUnit in '..\..\..\..\bo.DebugView\DbWinReporterUnit.pas';
+  DbWinReporterUnit in '..\..\..\..\bo.DebugView\DbWinReporterUnit.pas',
+  StringListWrapperUnit in '..\..\..\..\bo.Text\StringListWrapperUnit.pas';
 
 {$R *.res}
 

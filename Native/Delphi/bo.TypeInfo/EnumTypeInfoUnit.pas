@@ -32,25 +32,55 @@ begin
   Result := Format('%s (%d)', [GetEnumName(TypeInfo, Value), Value]);
 end;
 
+// P points a length field of ShortString.
+function SkipShortString(const ShortString: PShortString): PShortString;
+var
+  ByteString: PByte;
+begin
+  ByteString := PByte(ShortString);
+  ByteString := ByteString + ByteString^ + 1;
+  Result := PShortString(ByteString);
+end;
+
+function SkipNameList(const NameList: PShortString; const NameListCount: Integer): PShortString;
+var
+  NameListEntriesToSkip: Integer;
+begin
+  Result := NameList;
+  NameListEntriesToSkip := NameListCount;
+  while NameListEntriesToSkip >= 0 do // note that with > in stead of >= we would end at the last value of the NameList
+  begin
+    Result := SkipShortString(Result);
+    Dec(NameListEntriesToSkip);
+  end;
+end;
+
+function GetEnumIsNotSubRange(const TypeInfo: PTypeInfo): Boolean;
+var
+  TypeTypeData: PTypeData;
+begin
+  TypeTypeData := TypInfo.GetTypeData(TypeInfo);
+  if TypeInfo.Kind = tkEnumeration then
+    Result := TypeTypeData^.BaseType^ = TypeInfo // are we our own BaseType?
+  else
+    Result := False;
+end;
+
 function GetEnumUnitName(const TypeInfo: PTypeInfo): string; overload;
 var
   TypeTypeData: PTypeData;
-  ValueIndex: Integer;
-  P: ^ShortString;
+  NameListCount: Integer;
+  NameList: PShortString;
 begin
   TypeTypeData := TypInfo.GetTypeData(TypeInfo);
   if TypeInfo.Kind = tkEnumeration then
   begin
-    ValueIndex := TypeTypeData.MaxValue - TypeTypeData.MinValue;
-    P := @TypeTypeData.NameList;
-    while ValueIndex >= 0 do
-    begin
-      // length plus one extra length byte per entry
-      Inc(Integer(P), Length(P^) + 1);
-      Dec(ValueIndex);
-    end;
-    // we counted all the values, so now we are at EnumUnitName:
-    Result := string(P^);
+    NameListCount := TypeTypeData.MaxValue - TypeTypeData.MinValue;
+    NameList := @TypeTypeData.NameList; // names of all the Enum entries
+    // No name list if we are a subrange of another enumeration.
+    if GetEnumIsNotSubRange(TypeInfo) then
+      NameList := SkipNameList(NameList, NameListCount);
+    Result := string(NameList^); // the EnumUnitName value
   end
   else
     Result := '';
@@ -60,22 +90,22 @@ function GetEnumCsvNameList(const TypeInfo: PTypeInfo): string; overload;
 var
   TypeTypeData: PTypeData;
   ValueIndex: Integer;
-  P: ^ShortString;
+  NameList: PShortString;
 begin
   Result := '';
   TypeTypeData := TypInfo.GetTypeData(TypeInfo);
   if TypeInfo.Kind = tkEnumeration then
   begin
+    // loop is similar to SkipNameList function.
     ValueIndex := TypeTypeData.MaxValue - TypeTypeData.MinValue;
-    P := @TypeTypeData.NameList;
-    while ValueIndex >= 0 do
+    NameList := @TypeTypeData.NameList;
+    while ValueIndex >= 0 do // note that with > in stead of >= we would end at the last value of the NameList
     begin
       if Result = '' then
-        Result := string(P^)
+        Result := string(NameList^)
       else
-        Result := Result + ',' + string(P^);
-      // length plus one extra length byte per entry
-      Inc(Integer(P), Length(P^) + 1);
+        Result := Result + ',' + string(NameList^);
+      NameList := SkipShortString(NameList);
       Dec(ValueIndex);
     end;
   end;

@@ -24,16 +24,18 @@ begin
     Writeln('use parameters: [XmlFile]...')
   else
     for Index := 1 to ParamCount do
-    XmlDumper := TXmlDumper.Create();
-    try
-      Filename := ParamStr(Index);
-      if TFile.Exists(Filename) then
-        XmlDumper.Dump(Filename) // otherwise you get an "OS Error" exception from the DOM
-      else
-        Writeln('non existing file: ', Filename);
-      Writeln(XmlDumper.DumpResult);
-    finally
-      XmlDumper.Free;
+    begin
+      XmlDumper := TXmlDumper.Create();
+      try
+        Filename := ParamStr(Index);
+        if TFile.Exists(Filename) then
+          XmlDumper.Dump(Filename) // otherwise you get an "OS Error" exception from the DOM
+        else
+          Writeln('non existing file: ', Filename);
+        Writeln(XmlDumper.DumpResult);
+      finally
+        XmlDumper.Free;
+      end;
     end;
 end;
 
