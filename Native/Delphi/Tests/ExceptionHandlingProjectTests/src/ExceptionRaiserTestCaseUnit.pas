@@ -131,6 +131,11 @@ begin
 //    EExceptionRaiseerException,
 //    GetUnraisedExceptionMessage()
 //  );
+///
+/// CheckException does not support anonymous methods:
+///  [dcc32 Error] ExceptionRaiserTestCaseUnit.pas(129): E2009 Incompatible types: 'method pointer and regular procedure'
+/// Work around that with a traditional execution path:
+///
   InternalStartExpectingException();
   FExceptionRaiseer.DoNotRaiseException_WithParameters([1]);
   InternalStopExpectingException();

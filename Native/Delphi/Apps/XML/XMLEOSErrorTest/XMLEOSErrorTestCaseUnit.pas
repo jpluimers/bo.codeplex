@@ -3,12 +3,17 @@ unit XMLEOSErrorTestCaseUnit;
 interface
 
 uses
-  Classes, SysUtils, TestFrameWork, msxml;
+  Classes,
+  SysUtils,
+  TestFrameWork,
+  msxml;
 
 type
   TXMLEOSErrorTestCase = class(TTestCase)
   strict private
     FXmlDocument: IXMLDOMDocument3;
+  private
+    procedure LoadXmlDocument(relativePathToXmlFile: string);
   strict protected
     function GetXmlDocument: IXMLDOMDocument3; virtual;
     property XmlDocument: IXMLDOMDocument3 read GetXmlDocument;
@@ -25,7 +30,11 @@ type
 implementation
 
 uses
-  IOUtils, Types, XMLConst, ComObj, XMLDOMParseErrorToStringUnit,
+  IOUtils,
+  Types,
+  XMLConst,
+  ComObj,
+  XMLDOMParseErrorToStringUnit,
   msxmlFactoryUnit;
 
 function TXMLEOSErrorTestCase.GetXmlDocument: IXMLDOMDocument3;
@@ -47,22 +56,23 @@ begin
 end;
 
 procedure TXMLEOSErrorTestCase.TestAbnormal;
-var
-  XmlFileName: string;
 begin
-  XmlFileName :=  TPath.Combine(TPath.GetDirectoryName(ParamStr(0)), '..\..\1-Abnormal.xml');
-  if not XmlDocument.load(XmlFileName) then
-    raise EXMLDOMParseError.Create(XmlDocument.parseError);
+//  StartExpectingException(EXMLDOMParseError); // to make the test GREEN: we expect an error to happen
+  LoadXmlDocument('..\..\1-Abnormal.xml'); // has Windows-1252 character, but XML defaults to UTF-8
 end;
 
 procedure TXMLEOSErrorTestCase.TestNormal;
+begin
+  LoadXmlDocument('..\..\1-Normal.xml'); // specify the encoding will solve the problem
+end;
+
+procedure TXMLEOSErrorTestCase.LoadXmlDocument(relativePathToXmlFile: string);
 var
   XmlFileName: string;
 begin
-  XmlFileName :=  TPath.Combine(TPath.GetDirectoryName(ParamStr(0)), '..\..\1-Normal.xml');
+  XmlFileName := TPath.Combine(TPath.GetDirectoryName(ParamStr(0)), relativePathToXmlFile);
   if not XmlDocument.load(XmlFileName) then
     raise EXMLDOMParseError.Create(XmlDocument.parseError);
-//    RaiseLastOSError();
 end;
 
 initialization

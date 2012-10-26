@@ -3,7 +3,7 @@ object MSConnectionDataModule: TMSConnectionDataModule
   Height = 150
   Width = 215
   object MainADOConnection: TADOConnection
-    ConnectionString =
+    ConnectionString = 
       'Provider=MSDASQL.1;Persist Security Info=False;User ID=johan;Dat' +
       'a Source=mw-sql;Initial Catalog=MW;'
     LoginPrompt = False

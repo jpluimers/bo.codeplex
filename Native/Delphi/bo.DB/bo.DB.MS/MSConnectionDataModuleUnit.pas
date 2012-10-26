@@ -50,7 +50,11 @@ var
 implementation
 
 uses
-  ComObj, AdoConEd;
+{$if CompilerVersion >= 23}
+  UITypes, // XE2 and up: to prevent [dcc64 Hint] H2443 Inline function 'MessageDlg' has not been expanded because unit 'System.UITypes' is not specified in USES list
+{$ifend CompilerVersion >= 23}
+  ComObj,
+  AdoConEd;
 
 var
   MSConnectionDataModule: TMSConnectionDataModule;

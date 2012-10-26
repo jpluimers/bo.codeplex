@@ -29,6 +29,10 @@ type
 implementation
 
 uses
+  Classes, // to ehe TComponentEnumerator.GetCurrent inline function can get expanded
+{$if CompilerVersion >= 23}
+  UITypes, // XE2 and up: H2443 Inline function 'IsPositiveResult' has not been expanded because unit 'System.UITypes' is not specified in USES list
+{$ifend CompilerVersion >= 23}
   Controls,
   DB,
   DBConsts,

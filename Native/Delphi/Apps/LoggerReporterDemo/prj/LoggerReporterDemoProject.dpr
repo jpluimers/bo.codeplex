@@ -17,7 +17,8 @@ uses
   ReportProxyInterfaceUnit in '..\..\..\bo.Logging\ReportProxyInterfaceUnit.pas',
   DbWinUnit in '..\..\..\bo.DebugView\DbWinUnit.pas',
   DbWinReporterUnit in '..\..\..\bo.DebugView\DbWinReporterUnit.pas',
-  DbWinLoggerUnit in '..\..\..\bo.DebugView\DbWinLoggerUnit.pas';
+  DbWinLoggerUnit in '..\..\..\bo.DebugView\DbWinLoggerUnit.pas',
+  StringListWrapperUnit in '..\..\..\bo.Text\StringListWrapperUnit.pas';
 
 {$R *.res}
 

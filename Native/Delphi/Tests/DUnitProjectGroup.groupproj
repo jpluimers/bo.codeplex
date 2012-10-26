@@ -1,132 +1,156 @@
-﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-		<PropertyGroup>
-			<ProjectGuid>{4EC300C3-3C75-4D4D-A129-3B715E08451A}</ProjectGuid>
-		</PropertyGroup>
-		<ItemGroup>
-			<Projects Include="FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="FreeAndNilPointer\prj\FreeAndNilPointerGuiUnitTestProject.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="FreeAndNilPointer\prj\FreeAndNilPointerConsoleUnitTestProject.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="DivMod\prj\DivModGuiTestProject.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="Number2String\prj\Number2StringProjectTests.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="..\Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj">
-				<Dependencies/>
-			</Projects>
-			<Projects Include="..\..\..\..\Delphi-Mocks\Sample1.dproj">
-				<Dependencies/>
-			</Projects>
-		</ItemGroup>
-		<ProjectExtensions>
-			<Borland.Personality>Default.Personality.12</Borland.Personality>
-			<Borland.ProjectType/>
-			<BorlandProject>
-				<Default.Personality/>
-			</BorlandProject>
-		</ProjectExtensions>
-		<Target Name="FreeAndNilPointerUnitTestProject">
-			<MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj"/>
-		</Target>
-		<Target Name="FreeAndNilPointerUnitTestProject:Clean">
-			<MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="FreeAndNilPointerUnitTestProject:Make">
-			<MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="FreeAndNilPointerGuiUnitTestProject">
-			<MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerGuiUnitTestProject.dproj"/>
-		</Target>
-		<Target Name="FreeAndNilPointerGuiUnitTestProject:Clean">
-			<MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerGuiUnitTestProject.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="FreeAndNilPointerGuiUnitTestProject:Make">
-			<MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerGuiUnitTestProject.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="FreeAndNilPointerConsoleUnitTestProject">
-			<MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerConsoleUnitTestProject.dproj"/>
-		</Target>
-		<Target Name="FreeAndNilPointerConsoleUnitTestProject:Clean">
-			<MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerConsoleUnitTestProject.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="FreeAndNilPointerConsoleUnitTestProject:Make">
-			<MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerConsoleUnitTestProject.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="DivModGuiTestProject">
-			<MSBuild Projects="DivMod\prj\DivModGuiTestProject.dproj"/>
-		</Target>
-		<Target Name="DivModGuiTestProject:Clean">
-			<MSBuild Projects="DivMod\prj\DivModGuiTestProject.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="DivModGuiTestProject:Make">
-			<MSBuild Projects="DivMod\prj\DivModGuiTestProject.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="Number2StringProjectTests">
-			<MSBuild Projects="Number2String\prj\Number2StringProjectTests.dproj"/>
-		</Target>
-		<Target Name="Number2StringProjectTests:Clean">
-			<MSBuild Projects="Number2String\prj\Number2StringProjectTests.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="Number2StringProjectTests:Make">
-			<MSBuild Projects="Number2String\prj\Number2StringProjectTests.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="MD5DUnitGUIProject">
-			<MSBuild Projects="MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj"/>
-		</Target>
-		<Target Name="MD5DUnitGUIProject:Clean">
-			<MSBuild Projects="MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="MD5DUnitGUIProject:Make">
-			<MSBuild Projects="MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject_XE2">
-			<MSBuild Projects="..\Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj"/>
-		</Target>
-		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean">
-			<MSBuild Projects="..\Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make">
-			<MSBuild Projects="..\Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="ExceptionHandlingProjectTests">
-			<MSBuild Projects="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj"/>
-		</Target>
-		<Target Name="ExceptionHandlingProjectTests:Clean">
-			<MSBuild Projects="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="ExceptionHandlingProjectTests:Make">
-			<MSBuild Projects="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="Sample1">
-			<MSBuild Projects="..\..\..\..\Delphi-Mocks\Sample1.dproj"/>
-		</Target>
-		<Target Name="Sample1:Clean">
-			<MSBuild Projects="..\..\..\..\Delphi-Mocks\Sample1.dproj" Targets="Clean"/>
-		</Target>
-		<Target Name="Sample1:Make">
-			<MSBuild Projects="..\..\..\..\Delphi-Mocks\Sample1.dproj" Targets="Make"/>
-		</Target>
-		<Target Name="Build">
-			<CallTarget Targets="FreeAndNilPointerUnitTestProject;FreeAndNilPointerGuiUnitTestProject;FreeAndNilPointerConsoleUnitTestProject;DivModGuiTestProject;Number2StringProjectTests;MD5DUnitGUIProject;InterfaceConstParmetersAndPrematureFreeingProject_XE2;ExceptionHandlingProjectTests;Sample1"/>
-		</Target>
-		<Target Name="Clean">
-			<CallTarget Targets="FreeAndNilPointerUnitTestProject:Clean;FreeAndNilPointerGuiUnitTestProject:Clean;FreeAndNilPointerConsoleUnitTestProject:Clean;DivModGuiTestProject:Clean;Number2StringProjectTests:Clean;MD5DUnitGUIProject:Clean;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean;ExceptionHandlingProjectTests:Clean;Sample1:Clean"/>
-		</Target>
-		<Target Name="Make">
-			<CallTarget Targets="FreeAndNilPointerUnitTestProject:Make;FreeAndNilPointerGuiUnitTestProject:Make;FreeAndNilPointerConsoleUnitTestProject:Make;DivModGuiTestProject:Make;Number2StringProjectTests:Make;MD5DUnitGUIProject:Make;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make;ExceptionHandlingProjectTests:Make;Sample1:Make"/>
-		</Target>
-		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
-	</Project>
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{4EC300C3-3C75-4D4D-A129-3B715E08451A}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="FreeAndNilPointer\prj\FreeAndNilPointerGuiUnitTestProject.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="FreeAndNilPointer\prj\FreeAndNilPointerConsoleUnitTestProject.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="DivMod\prj\DivModGuiTestProject.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Number2String\prj\Number2StringProjectTests.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\Apps\XML\CdsXsdTest\CdsXsdTest.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\Apps\XML\XMLEOSErrorTest\XMLEOSErrorTest.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\Apps\Internet\Base64Tests\prj\Base64TestsProject.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="FreeAndNilPointerUnitTestProject">
+        <MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj"/>
+    </Target>
+    <Target Name="FreeAndNilPointerUnitTestProject:Clean">
+        <MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FreeAndNilPointerUnitTestProject:Make">
+        <MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerUnitTestProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FreeAndNilPointerGuiUnitTestProject">
+        <MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerGuiUnitTestProject.dproj"/>
+    </Target>
+    <Target Name="FreeAndNilPointerGuiUnitTestProject:Clean">
+        <MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerGuiUnitTestProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FreeAndNilPointerGuiUnitTestProject:Make">
+        <MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerGuiUnitTestProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="FreeAndNilPointerConsoleUnitTestProject">
+        <MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerConsoleUnitTestProject.dproj"/>
+    </Target>
+    <Target Name="FreeAndNilPointerConsoleUnitTestProject:Clean">
+        <MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerConsoleUnitTestProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FreeAndNilPointerConsoleUnitTestProject:Make">
+        <MSBuild Projects="FreeAndNilPointer\prj\FreeAndNilPointerConsoleUnitTestProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DivModGuiTestProject">
+        <MSBuild Projects="DivMod\prj\DivModGuiTestProject.dproj"/>
+    </Target>
+    <Target Name="DivModGuiTestProject:Clean">
+        <MSBuild Projects="DivMod\prj\DivModGuiTestProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DivModGuiTestProject:Make">
+        <MSBuild Projects="DivMod\prj\DivModGuiTestProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ExceptionHandlingProjectTests">
+        <MSBuild Projects="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj"/>
+    </Target>
+    <Target Name="ExceptionHandlingProjectTests:Clean">
+        <MSBuild Projects="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ExceptionHandlingProjectTests:Make">
+        <MSBuild Projects="ExceptionHandlingProjectTests\prj\ExceptionHandlingProjectTests.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Number2StringProjectTests">
+        <MSBuild Projects="Number2String\prj\Number2StringProjectTests.dproj"/>
+    </Target>
+    <Target Name="Number2StringProjectTests:Clean">
+        <MSBuild Projects="Number2String\prj\Number2StringProjectTests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Number2StringProjectTests:Make">
+        <MSBuild Projects="Number2String\prj\Number2StringProjectTests.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="InterfaceConstParmetersAndPrematureFreeingProject_XE2">
+        <MSBuild Projects="..\Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj"/>
+    </Target>
+    <Target Name="InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean">
+        <MSBuild Projects="..\Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make">
+        <MSBuild Projects="..\Apps\InterfaceConstParmetersAndPrematureFreeing\prj\InterfaceConstParmetersAndPrematureFreeingProject_XE2.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CdsXsdTest">
+        <MSBuild Projects="..\Apps\XML\CdsXsdTest\CdsXsdTest.dproj"/>
+    </Target>
+    <Target Name="CdsXsdTest:Clean">
+        <MSBuild Projects="..\Apps\XML\CdsXsdTest\CdsXsdTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CdsXsdTest:Make">
+        <MSBuild Projects="..\Apps\XML\CdsXsdTest\CdsXsdTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="XMLEOSErrorTest">
+        <MSBuild Projects="..\Apps\XML\XMLEOSErrorTest\XMLEOSErrorTest.dproj"/>
+    </Target>
+    <Target Name="XMLEOSErrorTest:Clean">
+        <MSBuild Projects="..\Apps\XML\XMLEOSErrorTest\XMLEOSErrorTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="XMLEOSErrorTest:Make">
+        <MSBuild Projects="..\Apps\XML\XMLEOSErrorTest\XMLEOSErrorTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Base64TestsProject">
+        <MSBuild Projects="..\Apps\Internet\Base64Tests\prj\Base64TestsProject.dproj"/>
+    </Target>
+    <Target Name="Base64TestsProject:Clean">
+        <MSBuild Projects="..\Apps\Internet\Base64Tests\prj\Base64TestsProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Base64TestsProject:Make">
+        <MSBuild Projects="..\Apps\Internet\Base64Tests\prj\Base64TestsProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MD5DUnitGUIProject">
+        <MSBuild Projects="MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj"/>
+    </Target>
+    <Target Name="MD5DUnitGUIProject:Clean">
+        <MSBuild Projects="MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MD5DUnitGUIProject:Make">
+        <MSBuild Projects="MD5WithhDUnit\prj\MD5DUnitGUIProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="FreeAndNilPointerUnitTestProject;FreeAndNilPointerGuiUnitTestProject;FreeAndNilPointerConsoleUnitTestProject;DivModGuiTestProject;ExceptionHandlingProjectTests;Number2StringProjectTests;InterfaceConstParmetersAndPrematureFreeingProject_XE2;CdsXsdTest;XMLEOSErrorTest;Base64TestsProject;MD5DUnitGUIProject"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="FreeAndNilPointerUnitTestProject:Clean;FreeAndNilPointerGuiUnitTestProject:Clean;FreeAndNilPointerConsoleUnitTestProject:Clean;DivModGuiTestProject:Clean;ExceptionHandlingProjectTests:Clean;Number2StringProjectTests:Clean;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Clean;CdsXsdTest:Clean;XMLEOSErrorTest:Clean;Base64TestsProject:Clean;MD5DUnitGUIProject:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="FreeAndNilPointerUnitTestProject:Make;FreeAndNilPointerGuiUnitTestProject:Make;FreeAndNilPointerConsoleUnitTestProject:Make;DivModGuiTestProject:Make;ExceptionHandlingProjectTests:Make;Number2StringProjectTests:Make;InterfaceConstParmetersAndPrematureFreeingProject_XE2:Make;CdsXsdTest:Make;XMLEOSErrorTest:Make;Base64TestsProject:Make;MD5DUnitGUIProject:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
