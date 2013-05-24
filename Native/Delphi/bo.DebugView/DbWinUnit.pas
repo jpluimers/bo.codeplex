@@ -18,7 +18,9 @@ procedure DbWin__OutputDebugStringW(lpOutputString: PWideChar); stdcall;
 {$ifdef UNICODE}
 procedure DbWin__OutputDebugStringU(lpOutputString: PWideChar); stdcall;
 {$endif UNICODE}
-procedure DbWin__OutputDebugString(lpOutputString: PAnsiChar); stdcall;
+procedure DbWin__OutputDebugString(lpOutputString: PAnsiChar); overload; stdcall;
+
+procedure DbWin__OutputDebugString(const OutputString: string); overload; stdcall;
 
 implementation
 
@@ -81,7 +83,7 @@ begin
 end;
 {$endif UNICODE}
 
-procedure DbWin__OutputDebugString(lpOutputString: PAnsiChar); stdcall;
+procedure DbWin__OutputDebugString(lpOutputString: PAnsiChar); overload; stdcall;
 {$ifdef win32}
 var
   heventDBWIN: THandle;  { DBWIN32 synchronization object }
@@ -158,5 +160,14 @@ begin
   WinProcs.OutputDebugString(lpOutputString);
 end;
 {$endif}
+
+procedure DbWin__OutputDebugString(const OutputString: string); overload; stdcall;
+begin
+{$ifdef UNICODE}
+    DbWin__OutputDebugStringW(PWideChar(OutputString));
+{$else}
+    DbWin__OutputDebugStringA(PAnsiChar(TraceString));
+{$endif UNICODE}
+end;
 
 end.
