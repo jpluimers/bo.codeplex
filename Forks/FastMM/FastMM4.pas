@@ -806,23 +806,6 @@ Change log:
     defined. This option may improve performance with many CPU cores and/or
     threads of different priorities. Note that the SwitchToThread API call is
     only available on Windows 2000 and later. (Thanks to Zach Saw.)
-<<<<<<< .mine
-  Version 4.9? (?? ??? 2011)
-  - Added the FullDebugModeCallBacks define which adds support for memory
-    manager event callbacks. This allows the application to be notified of
-    memory allocations, frees and reallocations as they occur. (Thanks to
-    Jeroen Pluimers.)
-  - Added security options ClearMemoryBeforeReturningToOS and
-    AlwaysClearFreedMemory to force the clearing of memory blocks after being
-    freed. This could possibly provide some protection against information
-    theft, but at a significant performance penalty. (Thanks to Andrey
-    Sozonov.)
-  - Shifted the code in the initialization section to a procedure
-    RunInitializationCode. This allows the startup code to be called before
-    InitUnits, which is required by some software protection tools.
-  - Added support for Delphi XE2 (Windows 32-bit and Windows 64-bit platforms
-    only).
-=======
   Version 4.98 (23 September 2011)
   - Added the FullDebugModeCallBacks define which adds support for memory
     manager event callbacks. This allows the application to be notified of
@@ -838,7 +821,6 @@ Change log:
     InitUnits, which is required by some software protection tools.
   - Added support for Delphi XE2 (Windows 32-bit and Windows 64-bit platforms
     only).
->>>>>>> .r81167
 
 *)
 
@@ -914,18 +896,6 @@ interface
   {$endif}
 {$endif}
 
-<<<<<<< .mine
-{$ifdef 64Bit}
-  {Under 64 bit memory blocks must always be 16-byte aligned}
-  {$define Align16Bytes}
-  {64-bit asm code is not implemented yet.}
-  {$undef ASMVersion}
-  {$undef UseCustomFixedSizeMoveRoutines}
-  {$undef UseCustomVariableSizeMoveRoutines}
-  {$undef EnableMMX}
-{$endif}
-
-=======
 {$ifdef 64Bit}
   {Under 64 bit memory blocks must always be 16-byte aligned}
   {$define Align16Bytes}
@@ -937,7 +907,6 @@ interface
   {$undef RawStackTraces}
 {$endif}
 
->>>>>>> .r81167
 {IDE debug mode always enables FullDebugMode and dynamic loading of the FullDebugMode DLL.}
 {$ifdef FullDebugModeInIDE}
   {$define InstallOnlyIfRunningInIDE}
@@ -989,42 +958,6 @@ interface
   {$undef AlwaysAllocateTopDown}
 {$endif}
 
-<<<<<<< .mine
-{Set defines for security options}
-{$ifdef FullDebugMode}
-  {In FullDebugMode small and medium blocks are always cleared when calling
-   FreeMem. Large blocks are always returned to the OS immediately.}
-  {$ifdef ClearMemoryBeforeReturningToOS}
-    {$define ClearLargeBlocksBeforeReturningToOS}
-  {$endif}
-  {$ifdef AlwaysClearFreedMemory}
-    {$define ClearLargeBlocksBeforeReturningToOS}
-  {$endif}
-{$else}
-  {If memory blocks are cleared in FreeMem then they do not need to be cleared
-   before returning the memory to the OS.}
-  {$ifdef AlwaysClearFreedMemory}
-    {$define ClearSmallAndMediumBlocksInFreeMem}
-    {$define ClearLargeBlocksBeforeReturningToOS}
-  {$else}
-    {$ifdef ClearMemoryBeforeReturningToOS}
-      {$define ClearMediumBlockPoolsBeforeReturningToOS}
-      {$define ClearLargeBlocksBeforeReturningToOS}
-    {$endif}
-  {$endif}
-{$endif}
-
-{Only the Pascal version supports extended heap corruption checking.}
-{$ifdef CheckHeapForCorruption}
-  {$undef ASMVersion}
-{$endif}
-
-{$ifdef UseRuntimePackages}
-  {$define AssumeMultiThreaded}
-{$endif}
-
-{$ifdef BCB6OrDelphi6AndUp}
-=======
 {Set defines for security options}
 {$ifdef FullDebugMode}
   {In FullDebugMode small and medium blocks are always cleared when calling
@@ -1066,7 +999,6 @@ interface
 {$endif}
 
 {$ifdef BCB6OrDelphi6AndUp}
->>>>>>> .r81167
   {$WARN SYMBOL_PLATFORM OFF}
   {$WARN SYMBOL_DEPRECATED OFF}
 {$endif}
@@ -1509,18 +1441,6 @@ uses
 {$endif}
   FastMM4Messages;
 
-<<<<<<< .mine
-{Fixed size move procedures. The 64-bit versions assume 16-byte alignment.}
-procedure Move4(const ASource; var ADest; ACount: NativeInt); forward;
-procedure Move12(const ASource; var ADest; ACount: NativeInt); forward;
-procedure Move20(const ASource; var ADest; ACount: NativeInt); forward;
-procedure Move28(const ASource; var ADest; ACount: NativeInt); forward;
-procedure Move36(const ASource; var ADest; ACount: NativeInt); forward;
-procedure Move44(const ASource; var ADest; ACount: NativeInt); forward;
-procedure Move52(const ASource; var ADest; ACount: NativeInt); forward;
-procedure Move60(const ASource; var ADest; ACount: NativeInt); forward;
-procedure Move68(const ASource; var ADest; ACount: NativeInt); forward;
-=======
 {Fixed size move procedures. The 64-bit versions assume 16-byte alignment.}
 procedure Move4(const ASource; var ADest; ACount: NativeInt); forward;
 procedure Move12(const ASource; var ADest; ACount: NativeInt); forward;
@@ -1538,7 +1458,6 @@ procedure Move24(const ASource; var ADest; ACount: NativeInt); forward;
 procedure Move40(const ASource; var ADest; ACount: NativeInt); forward;
 procedure Move56(const ASource; var ADest; ACount: NativeInt); forward;
 {$endif}
->>>>>>> .r81167
 
 {$ifdef DetectMMOperationsAfterUninstall}
 {Invalid handlers to catch MM operations after uninstall}
@@ -2058,13 +1977,8 @@ var
   VMIndex: Integer;
   {The fake VMT used to catch virtual method calls on freed objects.}
   FreedObjectVMT: packed record
-<<<<<<< .mine
-    VMTData: array[vmtSelfPtr .. vmtParent + SizeOf(Pointer) - 1] of byte;
-    VMTMethods: array[vmtParent + SizeOf(Pointer) .. vmtParent + MaxFakeVMTEntries * SizeOf(Pointer) + SizeOf(Pointer) - 1] of Byte;
-=======
     VMTData: array[vmtSelfPtr .. vmtParent + SizeOf(Pointer) - 1] of byte;
     VMTMethods: array[SizeOf(Pointer) + vmtParent .. vmtParent + MaxFakeVMTEntries * SizeOf(Pointer) + SizeOf(Pointer) - 1] of Byte;
->>>>>>> .r81167
   end;
   {$ifdef CatchUseOfFreedInterfaces}
   VMTBadInterface: array[0..MaxFakeVMTEntries - 1] of Pointer;
@@ -2128,16 +2042,6 @@ var
 
 {A copy of StrLen in order to avoid the SysUtils unit, which would have
  introduced overhead like exception handling code.}
-<<<<<<< .mine
-function StrLen(const AStr: PAnsiChar): NativeUInt;
-{$ifndef AsmVersion}
-begin
-  Result := 0;
-  while AStr[Result] <> #0 do
-    Inc(Result);
-end;
-{$else}
-=======
 function StrLen(const AStr: PAnsiChar): NativeUInt;
 {$ifndef Use32BitAsm}
 begin
@@ -2146,7 +2050,6 @@ begin
     Inc(Result);
 end;
 {$else}
->>>>>>> .r81167
 asm
   {Check the first byte}
   cmp byte ptr [eax], 0
@@ -2259,13 +2162,8 @@ asm
 {$endif}
 end;
 
-<<<<<<< .mine
-{$ifndef AsmVersion}
-{Gets the first set bit in the 32-bit number, returning the bit index}
-=======
 {$ifndef ASMVersion}
 {Gets the first set bit in the 32-bit number, returning the bit index}
->>>>>>> .r81167
 function FindFirstSetBit(ACardinal: Cardinal): Cardinal;
 asm
 {$ifdef 64Bit}
@@ -2356,16 +2254,9 @@ asm
 {$endif}
 end;
 
-<<<<<<< .mine
-procedure Move12(const ASource; var ADest; ACount: NativeInt);
-=======
 {$ifdef 64Bit}
 procedure Move8(const ASource; var ADest; ACount: NativeInt);
->>>>>>> .r81167
 asm
-<<<<<<< .mine
-{$ifdef 32Bit}
-=======
   mov rax, [rcx]
   mov [rdx], rax
 end;
@@ -2374,7 +2265,6 @@ end;
 procedure Move12(const ASource; var ADest; ACount: NativeInt);
 asm
 {$ifdef 32Bit}
->>>>>>> .r81167
   mov ecx, [eax]
   mov [edx], ecx
   mov ecx, [eax + 4]
@@ -2412,16 +2302,9 @@ asm
 {$endif}
 end;
 
-<<<<<<< .mine
-procedure Move28(const ASource; var ADest; ACount: NativeInt);
-=======
 {$ifdef 64Bit}
 procedure Move24(const ASource; var ADest; ACount: NativeInt);
->>>>>>> .r81167
 asm
-<<<<<<< .mine
-{$ifdef 32Bit}
-=======
   movdqa xmm0, [rcx]
   mov r8, [rcx + 16]
   movdqa [rdx], xmm0
@@ -2432,7 +2315,6 @@ end;
 procedure Move28(const ASource; var ADest; ACount: NativeInt);
 asm
 {$ifdef 32Bit}
->>>>>>> .r81167
   mov ecx, [eax]
   mov [edx], ecx
   mov ecx, [eax + 4]
@@ -2482,16 +2364,9 @@ asm
 {$endif}
 end;
 
-<<<<<<< .mine
-procedure Move44(const ASource; var ADest; ACount: NativeInt);
-=======
 {$ifdef 64Bit}
 procedure Move40(const ASource; var ADest; ACount: NativeInt);
->>>>>>> .r81167
 asm
-<<<<<<< .mine
-{$ifdef 32Bit}
-=======
   movdqa xmm0, [rcx]
   movdqa xmm1, [rcx + 16]
   mov r8, [rcx + 32]
@@ -2504,7 +2379,6 @@ end;
 procedure Move44(const ASource; var ADest; ACount: NativeInt);
 asm
 {$ifdef 32Bit}
->>>>>>> .r81167
   fild qword ptr [eax]
   fild qword ptr [eax + 8]
   fild qword ptr [eax + 16]
@@ -2560,16 +2434,9 @@ asm
 {$endif}
 end;
 
-<<<<<<< .mine
-procedure Move60(const ASource; var ADest; ACount: NativeInt);
-=======
 {$ifdef 64Bit}
 procedure Move56(const ASource; var ADest; ACount: NativeInt);
->>>>>>> .r81167
 asm
-<<<<<<< .mine
-{$ifdef 32Bit}
-=======
   movdqa xmm0, [rcx]
   movdqa xmm1, [rcx + 16]
   movdqa xmm2, [rcx + 32]
@@ -2584,7 +2451,6 @@ end;
 procedure Move60(const ASource; var ADest; ACount: NativeInt);
 asm
 {$ifdef 32Bit}
->>>>>>> .r81167
   fild qword ptr [eax]
   fild qword ptr [eax + 8]
   fild qword ptr [eax + 16]
@@ -2652,18 +2518,11 @@ asm
 {$endif}
 end;
 
-<<<<<<< .mine
-{Variable size move procedure: Assumes ACount is 4 less than a multiple of 16.
- Important note: Always moves at least 12 bytes (the minimum small block size
- with 16 byte alignment), irrespective of ACount.}
-procedure MoveX16L4(const ASource; var ADest; ACount: NativeInt);
-=======
 {Variable size move procedure: Rounds ACount up to the next multiple of 16 less
  SizeOf(Pointer). Important note: Always moves at least 16 - SizeOf(Pointer)
  bytes (the minimum small block size with 16 byte alignment), irrespective of
  ACount.}
 procedure MoveX16LP(const ASource; var ADest; ACount: NativeInt);
->>>>>>> .r81167
 asm
 {$ifdef 32Bit}
   {Make the counter negative based: The last 12 bytes are moved separately}
@@ -2743,29 +2602,6 @@ asm
   mov eax, [eax + ecx + 8]
   mov [edx + ecx + 8], eax
 {$endif}
-<<<<<<< .mine
-{$else}
-  {Make the counter negative based: The last 12 bytes are moved separately}
-  sub r8, 12
-  add rcx, r8
-  add rdx, r8
-  neg r8
-  jns @MoveLast12
-@MoveLoop:
-  {Move a 16 byte block}
-  movdqa xmm0, [rcx + r8]
-  movdqa [rdx + r8], xmm0
-  {Are there another 16 bytes to move?}
-  add r8, 16
-  js @MoveLoop
-@MoveLast12:
-  {Do the last 12 bytes}
-  mov r9, [rcx + r8]
-  mov ecx, [rcx + r8 + 8]
-  mov [rdx + r8], r9
-  mov [rdx + r8 + 8], ecx
-{$endif}
-=======
 {$else}
 .noframe
   {Make the counter negative based: The last 8 bytes are moved separately}
@@ -2786,21 +2622,13 @@ asm
   mov r9, [rcx + r8]
   mov [rdx + r8], r9
 {$endif}
->>>>>>> .r81167
 end;
 
-<<<<<<< .mine
-{Variable size move procedure: Assumes ACount is 4 less than a multiple of 8.
- Important note: Always moves at least 4 bytes (the smallest block size with
- 8 byte alignment), irrespective of ACount.}
-procedure MoveX8L4(const ASource; var ADest; ACount: NativeInt);
-=======
 {Variable size move procedure: Rounds ACount up to the next multiple of 8 less
  SizeOf(Pointer). Important note: Always moves at least 8 - SizeOf(Pointer)
  bytes (the minimum small block size with 8 byte alignment), irrespective of
  ACount.}
 procedure MoveX8LP(const ASource; var ADest; ACount: NativeInt);
->>>>>>> .r81167
 asm
 {$ifdef 32Bit}
   {Make the counter negative based: The last 4 bytes are moved separately}
@@ -2858,34 +2686,6 @@ asm
   {Four or less bytes to move}
   mov eax, [eax]
   mov [edx], eax
-<<<<<<< .mine
-{$else}
-.noframe
-  {Make the counter negative based: The last 4 bytes are moved separately}
-  sub r8, 4
-  {4 bytes or less? -> Use the Move4 routine.}
-  jle @FourBytesOrLess
-  add rcx, r8
-  add rdx, r8
-  neg r8
-@MoveLoop:
-  {Move an 8 byte block}
-  mov r9, [rcx + r8]
-  mov [rdx + r8], r9
-  {Are there another 8 bytes to move?}
-  add r8, 8
-  js @MoveLoop
-  {Do the last 4 bytes}
-  mov eax, [rcx + r8]
-  mov [rdx + r8], eax
-  jmp @Done
-@FourBytesOrLess:
-  {Four or less bytes to move}
-  mov eax, [rcx]
-  mov [rdx], eax
-@Done:
-{$endif}
-=======
 {$else}
 .noframe
   {Make the counter negative based}
@@ -2900,7 +2700,6 @@ asm
   add r8, 8
   js @MoveLoop
 {$endif}
->>>>>>> .r81167
 end;
 
 {----------------Windows Emulation Functions for Kylix Support-----------------}
@@ -3045,34 +2844,6 @@ begin
 end;
 {$endif}
 
-<<<<<<< .mine
-{Converts an unsigned integer to string at the buffer location, returning the
- new buffer position. Note: The 32-bit asm version only supports numbers up to
- 2^31 - 1.}
-function NativeUIntToStrBuf(ANum: NativeUInt; APBuffer: PAnsiChar): PAnsiChar;
-{$ifndef AsmVersion}
-const
-  MaxDigits = 20;
-var
-  LDigitBuffer: array[0..MaxDigits - 1] of AnsiChar;
-  LCount: Cardinal;
-  LDigit: NativeUInt;
-begin
-  {Generate the digits in the local buffer}
-  LCount := 0;
-  repeat
-    LDigit := ANum;
-    ANum := ANum div 10;
-    LDigit := LDigit - ANum * 10;
-    Inc(LCount);
-    LDigitBuffer[MaxDigits - LCount] := AnsiChar(Ord('0') + LDigit);
-  until ANum = 0;
-  {Copy the digits to the output buffer and advance it}
-  System.Move(LDigitBuffer[MaxDigits - LCount], APBuffer^, LCount);
-  Result := APBuffer + LCount;
-end;
-{$else}
-=======
 {Converts an unsigned integer to string at the buffer location, returning the
  new buffer position. Note: The 32-bit asm version only supports numbers up to
  2^31 - 1.}
@@ -3099,7 +2870,6 @@ begin
   Result := APBuffer + LCount;
 end;
 {$else}
->>>>>>> .r81167
 asm
   {On entry: eax = ANum, edx = ABuffer}
   push edi
@@ -3210,33 +2980,6 @@ asm
 end;
 {$endif}
 
-<<<<<<< .mine
-{Converts an unsigned integer to a hexadecimal string at the buffer location,
- returning the new buffer position.}
-function NativeUIntToHexBuf(ANum: NativeUInt; APBuffer: PAnsiChar): PAnsiChar;
-{$ifndef AsmVersion}
-const
-  MaxDigits = 16;
-var
-  LDigitBuffer: array[0..MaxDigits - 1] of AnsiChar;
-  LCount: Cardinal;
-  LDigit: NativeUInt;
-begin
-  {Generate the digits in the local buffer}
-  LCount := 0;
-  repeat
-    LDigit := ANum;
-    ANum := ANum div 16;
-    LDigit := LDigit - ANum * 16;
-    Inc(LCount);
-    LDigitBuffer[MaxDigits - LCount] := HexTable[LDigit];
-  until ANum = 0;
-  {Copy the digits to the output buffer and advance it}
-  System.Move(LDigitBuffer[MaxDigits - LCount], APBuffer^, LCount);
-  Result := APBuffer + LCount;
-end;
-{$else}
-=======
 {Converts an unsigned integer to a hexadecimal string at the buffer location,
  returning the new buffer position.}
 function NativeUIntToHexBuf(ANum: NativeUInt; APBuffer: PAnsiChar): PAnsiChar;
@@ -3262,7 +3005,6 @@ begin
   Result := APBuffer + LCount;
 end;
 {$else}
->>>>>>> .r81167
 asm
   {On entry:
     eax = ANum
@@ -3755,11 +3497,7 @@ end;
 
 {Inserts a medium block into the appropriate medium block bin.}
 procedure InsertMediumBlockIntoBin(APMediumFreeBlock: PMediumFreeBlock; AMediumBlockSize: Cardinal);
-<<<<<<< .mine
-{$ifndef AsmVersion}
-=======
 {$ifndef ASMVersion}
->>>>>>> .r81167
 var
   LBinNumber, LBinGroupNumber: Cardinal;
   LPBin, LPFirstFreeBlock: PMediumFreeBlock;
@@ -3791,10 +3529,7 @@ begin
   end;
 end;
 {$else}
-<<<<<<< .mine
-=======
 {$ifdef 32Bit}
->>>>>>> .r81167
 asm
   {On entry: eax = APMediumFreeBlock, edx = AMediumBlockSize}
   {Get the bin number for this block size. Get the bin that holds blocks of at
@@ -4782,10 +4517,7 @@ begin
   end;
 end;
 {$else}
-<<<<<<< .mine
-=======
 {$ifdef 32Bit}
->>>>>>> .r81167
 asm
   {On entry:
     eax = ASize}
@@ -5901,10 +5633,7 @@ begin
   end;
 end;
 {$else}
-<<<<<<< .mine
-=======
 {$ifdef 32Bit}
->>>>>>> .r81167
 asm
   {Get the block header in edx}
   mov edx, [eax - 4]
@@ -6080,16 +5809,6 @@ asm
   {Not a small block in use: is it a medium or large block?}
   test dl, IsFreeBlockFlag + IsLargeBlockFlag
   jnz @NotASmallOrMediumBlock
-{$ifdef ClearSmallAndMediumBlocksInFreeMem}
-  push eax
-  push edx
-  and edx, DropMediumAndLargeFlagsMask
-  sub edx, BlockHeaderSize
-  xor ecx, ecx
-  call System.@FillChar
-  pop edx
-  pop eax
-{$endif}
 @FreeMediumBlock:
 {$ifdef ClearSmallAndMediumBlocksInFreeMem}
   push eax
@@ -6910,10 +6629,7 @@ begin
   end;
 end;
 {$else}
-<<<<<<< .mine
-=======
 {$ifdef 32Bit}
->>>>>>> .r81167
 asm
   {On entry: eax = APointer; edx = ANewSize}
   {Get the block header: Is it actually a small block?}
@@ -7834,10 +7550,7 @@ begin
     FillChar(Result^, ASize, 0);
 end;
 {$else}
-<<<<<<< .mine
-=======
 {$ifdef 32Bit}
->>>>>>> .r81167
 asm
   push ebx
   {Get the size rounded down to the previous multiple of 4 into ebx}
