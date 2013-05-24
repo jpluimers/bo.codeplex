@@ -56,7 +56,7 @@
         <DCC_F>false</DCC_F>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_UsePackage>rtl;vcl;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>rtl;vcl;boComponentLibraryRunTimePackage;$(DCC_UsePackage)</DCC_UsePackage>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>NullableComponentsPackage_Icon.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -84,11 +84,11 @@
         </DelphiCompile>
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="vcl.dcp"/>
+        <DCCReference Include="boComponentLibraryRunTimePackage.dcp"/>
         <DCCReference Include="..\..\..\bo.System\NullablesUnit.pas"/>
         <DCCReference Include="..\..\..\bo.System\BaseTypesUnit.pas"/>
         <DCCReference Include="..\..\..\bo.Helpers\FormatSettingsHelperUnit.pas"/>
         <DCCReference Include="..\..\..\bo.System\MathUnit.pas"/>
-        <DCCReference Include="..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas"/>
         <DCCReference Include="..\src\NullableControlsRegistrationUnit.pas"/>
         <DCCReference Include="..\..\..\bo.Controls\bo.Controls.Nullable\NullableCurrencyStaticTextUnit.pas"/>
         <DCCReference Include="..\..\..\bo.Controls\bo.Controls.Nullable\NumericStaticTextUnit.pas"/>

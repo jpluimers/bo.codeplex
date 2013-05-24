@@ -29,14 +29,14 @@ package boNullableControlsPackage;
 
 requires
   rtl,
-  vcl;
+  vcl,
+  boComponentLibraryRunTimePackage;
 
 contains
   NullablesUnit in '..\..\..\bo.System\NullablesUnit.pas',
   BaseTypesUnit in '..\..\..\bo.System\BaseTypesUnit.pas',
   FormatSettingsHelperUnit in '..\..\..\bo.Helpers\FormatSettingsHelperUnit.pas',
   MathUnit in '..\..\..\bo.System\MathUnit.pas',
-  SetTypeInfoUnit in '..\..\..\bo.TypeInfo\SetTypeInfoUnit.pas',
   NullableControlsRegistrationUnit in '..\src\NullableControlsRegistrationUnit.pas',
   NullableCurrencyStaticTextUnit in '..\..\..\bo.Controls\bo.Controls.Nullable\NullableCurrencyStaticTextUnit.pas',
   NumericStaticTextUnit in '..\..\..\bo.Controls\bo.Controls.Nullable\NumericStaticTextUnit.pas',
