@@ -16,10 +16,10 @@ type
     CustomNullableCurrencyStaticText1: TCustomNullableCurrencyStaticText;
     CustomNullableDoubleStaticText1: TCustomNullableDoubleStaticText;
     NullableIntegerStaticText1: TNullableIntegerStaticText;
-    Button1: TButton;
-    Button2: TButton;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    SetNullButton: TButton;
+    SetRandomButton: TButton;
+    procedure SetNullButtonClick(Sender: TObject);
+    procedure SetRandomButtonClick(Sender: TObject);
   end;
 
 var
@@ -32,14 +32,14 @@ uses
 
 {$R *.dfm}
 
-procedure TTestMainForm.Button1Click(Sender: TObject);
+procedure TTestMainForm.SetNullButtonClick(Sender: TObject);
 begin
 //  NullableIntegerStaticText1.Value.Clear(); // TODO fix this ##jpl: gaat nog niet goed
   NullableIntegerStaticText1.Value :=
     TNullableInteger.Null;
 end;
 
-procedure TTestMainForm.Button2Click(Sender: TObject);
+procedure TTestMainForm.SetRandomButtonClick(Sender: TObject);
 begin
   NullableIntegerStaticText1.Value :=
     Random(1000);

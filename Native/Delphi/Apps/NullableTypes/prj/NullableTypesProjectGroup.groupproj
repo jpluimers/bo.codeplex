@@ -3,6 +3,9 @@
         <ProjectGuid>{9F9E1079-F89D-408B-9027-E47C88EEE391}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
+        <Projects Include="..\..\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="..\..\boComponentLibrary\prj\boNullableControlsPackage.dproj">
             <Dependencies/>
         </Projects>
@@ -32,6 +35,15 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
+    <Target Name="boComponentLibraryRunTimePackage">
+        <MSBuild Projects="..\..\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj"/>
+    </Target>
+    <Target Name="boComponentLibraryRunTimePackage:Clean">
+        <MSBuild Projects="..\..\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="boComponentLibraryRunTimePackage:Make">
+        <MSBuild Projects="..\..\boComponentLibrary\prj\boComponentLibraryRunTimePackage.dproj" Targets="Make"/>
+    </Target>
     <Target Name="boNullableControlsPackage">
         <MSBuild Projects="..\..\boComponentLibrary\prj\boNullableControlsPackage.dproj"/>
     </Target>
@@ -96,13 +108,13 @@
         <MSBuild Projects="TypeInfoConsoleProject.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="boNullableControlsPackage;ValueAndReferenceTypesConsoleProject;OperatorOverloadingConsoleProject;FormatSettingsHelperConsoleProject;NullableTypesConsoleProject;VCLTestProject;TypeInfoConsoleProject"/>
+        <CallTarget Targets="boComponentLibraryRunTimePackage;boNullableControlsPackage;ValueAndReferenceTypesConsoleProject;OperatorOverloadingConsoleProject;FormatSettingsHelperConsoleProject;NullableTypesConsoleProject;VCLTestProject;TypeInfoConsoleProject"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="boNullableControlsPackage:Clean;ValueAndReferenceTypesConsoleProject:Clean;OperatorOverloadingConsoleProject:Clean;FormatSettingsHelperConsoleProject:Clean;NullableTypesConsoleProject:Clean;VCLTestProject:Clean;TypeInfoConsoleProject:Clean"/>
+        <CallTarget Targets="boComponentLibraryRunTimePackage:Clean;boNullableControlsPackage:Clean;ValueAndReferenceTypesConsoleProject:Clean;OperatorOverloadingConsoleProject:Clean;FormatSettingsHelperConsoleProject:Clean;NullableTypesConsoleProject:Clean;VCLTestProject:Clean;TypeInfoConsoleProject:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="boNullableControlsPackage:Make;ValueAndReferenceTypesConsoleProject:Make;OperatorOverloadingConsoleProject:Make;FormatSettingsHelperConsoleProject:Make;NullableTypesConsoleProject:Make;VCLTestProject:Make;TypeInfoConsoleProject:Make"/>
+        <CallTarget Targets="boComponentLibraryRunTimePackage:Make;boNullableControlsPackage:Make;ValueAndReferenceTypesConsoleProject:Make;OperatorOverloadingConsoleProject:Make;FormatSettingsHelperConsoleProject:Make;NullableTypesConsoleProject:Make;VCLTestProject:Make;TypeInfoConsoleProject:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

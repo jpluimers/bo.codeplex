@@ -31,25 +31,25 @@ object TestMainForm: TTestMainForm
     Width = 73
     Height = 44
     ValueEditor.IsNull = False
-    ValueEditor.Value = 200
+    ValueEditor.Value = 1234
     TabOrder = 2
   end
-  object Button1: TButton
-    Left = 92
+  object SetNullButton: TButton
+    Left = 8
     Top = 128
-    Width = 75
+    Width = 159
     Height = 25
-    Caption = 'Button1'
+    Caption = 'SetNullButton'
     TabOrder = 3
-    OnClick = Button1Click
+    OnClick = SetNullButtonClick
   end
-  object Button2: TButton
+  object SetRandomButton: TButton
     Left = 180
     Top = 128
-    Width = 75
+    Width = 173
     Height = 25
-    Caption = 'Button2'
+    Caption = 'SetRandomButton'
     TabOrder = 4
-    OnClick = Button2Click
+    OnClick = SetRandomButtonClick
   end
 end
